@@ -1,0 +1,412 @@
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+/*     display: block; */
+}
+
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+/* Extra small devices (phones, 300px and down) */
+@media only screen and (max-width: 330px) {
+  .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;}
+	
+		
+	#link-cadastro-header, #link-voltar{
+		font-size: 15px;
+	}
+	
+	#link-login-header, #link-sair{
+		font-size: 15px;
+		left: 1%;
+	}
+	
+	.link-pe{
+  		left: 17%;
+  	}
+  	
+  	#copy-right{
+		color: white;
+		font-size: 15px;
+		left: 5%;
+	}
+	
+	#pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-listar-turmas, #pg-login-user,
+	#link-esqueceu-senha, #criar-acesso, #pg-tela-aluno, #text-area-coment-avaliacao-prof, #pg-tela-pai, 
+	#pg-ver-boletim{
+		font-size: 14px;
+	}
+	
+	#pg-tela-pai, #pg-criar-semestre{
+		font-size: 12px;
+	}
+	
+	#links-login{
+		left: 20%;
+	}
+	
+	#pg-comment-aluno, #pg-comentario-teacher, #comment-teacher{
+		left: 4%;
+		top: 5px;
+	}
+	#text-area-coment-avaliacao-prof{
+		width: 90px;
+	}
+}
+
+@media (min-width: 331px) {
+  .col-sp-1 {width: 8.33%;}
+  .col-sp-2 {width: 16.66%;}
+  .col-sp-3 {width: 25%;}
+  .col-sp-4 {width: 33.33%;}
+  .col-sp-5 {width: 41.66%;}
+  .col-sp-6 {width: 50%;}
+  .col-sp-7 {width: 58.33%;}
+  .col-sp-8 {width: 66.66%;}
+  .col-sp-9 {width: 75%;}
+  .col-sp-10 {width: 83.33%;}
+  .col-sp-11 {width: 91.66%;}
+  .col-sp-12 {width: 100%;}
+	
+	#link-cadastro-header, #link-voltar{
+		font-size: 15px;
+		top: 30px;
+	}
+	
+	#link-login-header, #link-sair{
+		font-size: 15px;
+		left: 1%;
+	}
+	
+	.link-pe{
+  		left: 25%;
+  	}
+  	
+ 	#copy-right{
+		color: white;
+		font-size: 16px;
+		left: 13%;
+	}
+	
+	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno, #pg-ver-boletim{
+		left: 3%;
+	}
+	
+	#pg-login-user{
+		left: 20%;
+	}
+	
+	#links-login{
+		left: 25%;
+	}
+	
+	#pg-tela-admin, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher{
+		left: 15%;
+	}
+	
+	#pg-tela-aluno, #pg-criar-semestre{
+		left: 5%;
+	}
+	
+	#text-area-coment-avaliacao-prof{
+		width: 150px;
+	}
+}
+
+@media (min-width: 400px) {
+	.col-m-1 {width: 8.33%;}
+	.col-m-2 {width: 16.66%;}
+	.col-m-3 {width: 25%;}
+	.col-m-4 {width: 33.33%;}
+	.col-m-5 {width: 41.66%;}
+	.col-m-6 {width: 50%;}
+	.col-m-7 {width: 58.33%;}
+	.col-m-8 {width: 66.66%;}
+	.col-m-9 {width: 75%;}
+	.col-m-10 {width: 83.33%;}
+	.col-m-11 {width: 91.66%;}
+	.col-m-12 {width: 100%;}
+	
+	#link-cadastro-header, #link-voltar{
+		font-size: 15px;
+		top: 0px;
+	}
+	
+	.link-pe{
+  		left: 35%;
+  	}
+  	
+  	#copy-right, #pg-login-user{
+		color: white;
+		left: 30%;
+	}
+	
+	#pg-casdastrar-turma, #pg-cadastro-user, #pg-ver-boletim, #pg-criar-semestre{
+		left: 10%;
+	}
+	
+	#links-login{
+		left: 35%;
+	}
+	
+	#pg-tela-aluno{
+		left: 20%;
+	}
+	
+	#pg-comment-aluno{
+		left: 30%;
+	}
+	
+}
+
+@media  (min-width: 500px) {
+  /* For tablets: */
+  .col-pt-1 {width: 8.33%;}
+  .col-pt-2 {width: 16.66%;}
+  .col-pt-3 {width: 25%;}
+  .col-pt-4 {width: 33.33%;}
+  .col-pt-5 {width: 41.66%;}
+  .col-pt-6 {width: 50%;}
+  .col-pt-7 {width: 58.33%;}
+  .col-pt-8 {width: 66.66%;}
+  .col-pt-9 {width: 75%;}
+  .col-pt-10 {width: 83.33%;}
+  .col-pt-11 {width: 91.66%;}
+  .col-pt-12 {width: 100%;}
+  
+  #copy-right{
+  	left: 30%;
+  }
+  
+  	#pg-casdastrar-turma, #pg-cadastro-user, #pg-ver-boletim, #pg-criar-semestre	{
+		left: 20%;
+	}
+	
+	#pg-editar-turma-prof, #pg-listar-turmas, #pg-tela-avaliar-aluno{
+		left: 10%;
+	}
+	#pg-tela-admin{
+		left: 10%;
+	}
+	
+	.botao-cancelar-avaliacao{
+		left: 10%;
+		top: 10px;
+	}
+	
+	#pg-tela-pai{
+		left: 10%;
+	}
+}
+
+@media (min-width: 600px) {
+  /* For tablets: */
+  .col-t-1 {width: 8.33%;}
+  .col-t-2 {width: 16.66%;}
+  .col-t-3 {width: 25%;}
+  .col-t-4 {width: 33.33%;}
+  .col-t-5 {width: 41.66%;}
+  .col-t-6 {width: 50%;}
+  .col-t-7 {width: 58.33%;}
+  .col-t-8 {width: 66.66%;}
+  .col-t-9 {width: 75%;}
+  .col-t-10 {width: 83.33%;}
+  .col-t-11 {width: 91.66%;}
+  .col-t-12 {width: 100%;}
+  	
+ 	#link-cadastro-header, #link-voltar{
+		left: 30%;
+		top: 0px;
+	}
+	
+	#link-login-header, #link-sair{
+		left: 30%;
+	} 
+   
+  	#copy-right{
+  		position: relative;
+  		left: 30%;
+  	}
+  	
+  	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno, #pg-ver-boletim, #pg-criar-semestre{
+		left: 30%;
+	}
+	
+	#pg-editar-turma-admin{
+		left: 2%;
+	}
+	
+	#pg-listar-turmas, #pg-tela-avaliar-aluno, #pg-tela-pai{
+		left: 20%;
+	}
+	
+	#pg-login-user,#links-login{
+		font-size: 20px;
+		left: 40%;
+	}
+	
+	#pg-comment-aluno, #comment-teacher{
+		left: 35%;
+	}
+	.botao-cancelar-avaliacao{
+		left: 20%;
+		top: 10px;
+	}
+	
+
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+  
+   #link-cadastro-header, #copy-right, #link-login-header, #link-voltar, #link-sair{
+		font-size: 20px;
+	}
+	
+	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno{
+		font-size: 20px;
+		left: 40%;
+	}
+	
+	#pg-comment-aluno{
+		font-size: 20px;	
+		left: 43%;
+	}
+	#pg-editar-turma-admin{
+		font-size: 20px;
+		left: 10%;
+	}
+	
+	#pg-editar-turma-prof {
+		font-size: 20px;
+		left: 20%;
+	}
+	
+	#pg-tela-admin, #pg-ver-boletim, #pg-criar-semestre{
+		left: 35%;
+	}
+	
+	#pg-tela-avaliar-aluno{
+		font-size: 20px;
+		left: 25%;
+	}
+	
+	.botao-cancelar-avaliacao{
+		left: 30%;
+		top: 10px;
+	}
+	
+	#pg-tela-pai{
+		left: 30%;
+	}
+}
+
+@media (min-width: 900px) {
+	#pg-editar-turma-admin{
+		font-size: 20px;
+		left: 20%;
+	}
+	
+	#pg-editar-turma-prof, #pg-listar-turmas, #pg-tela-pai {
+		font-size: 20px;
+		left: 30%;	
+	}	
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .col-x-1 {width: 8.33%;}
+  .col-x-2 {width: 16.66%;}
+  .col-x-3 {width: 25%;}
+  .col-x-4 {width: 33.33%;}
+  .col-x-5 {width: 41.66%;}
+  .col-x-6 {width: 50%;}
+  .col-x-7 {width: 58.33%;}
+  .col-x-8 {width: 66.66%;}
+  .col-x-9 {width: 75%;}
+  .col-x-10 {width: 83.33%;}
+  .col-x-11 {width: 91.66%;}
+  .col-x-12 {width: 100%;}
+  
+  #pg-editar-turma-admin{
+		font-size: 20px;
+		left: 20%;
+	}
+}
+
+#pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-editar-turma-prof, #pg-listar-turmas,
+#pg-login-user, #pg-tela-admin, #pg-tela-aluno, #pg-tela-avaliar-aluno, #pg-tela-pai, #cabecalho, #rodape,
+#pg-ver-boletim, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher, #pg-comment-aluno,
+.botao-cancelar-avaliacao, #pg-criar-semestre, #pg-login-user,#links-login, #link-cadastro-header, #link-voltar,
+#link-login-header, #link-sair, .link-pe, #copy-rigth, #link-cadastro-header, #link-voltar, #link-login-header, #link-sair, 
+#criar-acesso, #logo-img{
+	position: relative;
+}
+#cabecalho{
+  background-color: #3CB371;
+  margin-bottom: 2%;
+  height: auto;
+}
+
+#logo-img{
+	left: 5%;
+}
+
+#rodape{  
+  background-color: black;
+  height: auto;
+  margin-top: 8%;
+}
+
+#criar-acesso{
+	top: 10px;
+}
+
+#pg-comment-aluno, #comment-teacher{
+	top: 10px;
+}
+
+.btn-boletim{
+	margin-top: 10px;
+}
+
+
+

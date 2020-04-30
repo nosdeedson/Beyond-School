@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.btn-danger:hover{
+	color: yellow;
+	background-color: red;
+	transform: scaleY(1.5);	
+}
+
+.entrada-texto{
+	width: 180px;
+}
+
+.links-gerais{
+	text-decoration: none;
+	
+}
+
+.links-gerais:hover{
+	color: yellow;
+	background-color: silver;
+}

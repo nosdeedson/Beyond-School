@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+<!-- 	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.min.css"/> -->
+	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.grid.css"/>
+	
+	
+	<h:outputStylesheet library="css" name="reset.css"/> 
+	<h:outputStylesheet library="css" name="estilo.css"/> 
+	<h:outputStylesheet library="css" name="estilos-genericos.css"/> 	
+	
+	<title>Beyond School</title>
+</h:head>
+
+<h:body>
+
+<header id="cabecalho">
+	
+<div class="row">
+<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12 "> 
+
+		<p:link outcome="index" id="link-home"> <h:graphicImage library="images" name="logomedio.png" id="logo-img" /> </p:link>
+		<p:linkButton outcome="cadastro" value="Cadastrar" id="link-cadastro-header" />
+		<p:linkButton outcome="login" value="Entrar" id="link-login-header" />
+ 
+</div>
+</div>
+
+</header>
+
+<div class="row">
+<div class="col-s-10 col-sp-10 col-m-10 col-pt-10 col-t-10 col-10 col-x-10">  
+<ui:insert name="corpo" />
+</div>
+</div>
+		
+
+
+	<footer id="rodape">
+ 
+	<div class="row">
+		<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12 ">  
+		<a class="link-pe" href="https://www.facebook.com/" target="_blank">
+			<h:graphicImage library="images" name="facebook.png" class="img-social" /></a> 
+		<a class="link-pe" href="https://www.instagram.com/?hl=pt-br" target="_blank">
+			<h:graphicImage library="images" name="instagram.png" /></a>  
+		<a class="link-pe" href="https://twitter.com/" target="_blank">
+			<h:graphicImage library="images" name="twitter.png" /></a> 
+		</div>
+			<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12">  
+		<span id="copy-right"> &#169; Copyright Beyond School 2020</span>	
+	</div>
+	</div>
+
+	</footer>
+
+</h:body>
+</html>

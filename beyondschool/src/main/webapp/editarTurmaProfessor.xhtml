@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<ui:composition template="template2.xhtml"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">>
+
+<ui:define name="corpo2">
+
+<p:panelGrid columns="1" id="pg-editar-turma-prof">
+
+		<f:facet name="header">
+				<p:row>
+					<p:column>
+						<h3>Editar turma</h3>
+					</p:column>
+				</p:row>
+		</f:facet>
+		<p:row> 
+			<p:commandButton value="Editar data Unidade" id="btn-editar-data"/>
+			<p:linkButton value="Avaliar Turma" id="btn-avaliar-turma" />
+		</p:row>
+		
+		<p:panelGrid columns="3" id="pg-unidades-livro-prof">
+			<p:outputLabel value="Nome turma" />
+			<p:outputLabel value="12:00 as 13:00" />
+			<p:outputLabel value="livro" />
+			<p:outputLabel value="Unidade 1" />
+			<p:outputLabel value="data inicio" />
+			<p:outputLabel value="data fim" />
+			<p:outputLabel value="Unidade 2" />
+			<p:outputLabel value="data inicio" />
+			<p:outputLabel value="data fim" />
+		</p:panelGrid>
+
+		<p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/>
+		
+		<p:panelGrid columns="2" id="pg-alunos">
+			<p:outputLabel value="Edson Jose de Souza" />
+			<p:commandButton value="Editar avaliação" />
+
+			<p:outputLabel value="Edson Jose de Souza" />
+			<p:commandButton value="Editar avaliação" />
+
+		</p:panelGrid>
+		
+</p:panelGrid> 
+
+</ui:define>
+
+
+</ui:composition>
