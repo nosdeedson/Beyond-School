@@ -3,11 +3,16 @@ package br.com.edson.Model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table (name = "pessoa")
 public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Date dataNascimento;
-	private int id;
+	private int idPessoa;
 	private String nomeCompleto;
 	private String tipoAcesso;
 	
@@ -15,10 +20,10 @@ public abstract class Pessoa implements Serializable {
 		super();
 	}
 
-	public Pessoa(Date dataNascimento, int id, String nomeCompleto, String tipoAcesso) {
+	public Pessoa(Date dataNascimento, int idPessoa, String nomeCompleto, String tipoAcesso) {
 		super();
 		this.dataNascimento = dataNascimento;
-		this.id = id;
+		this.idPessoa = idPessoa;
 		this.nomeCompleto = nomeCompleto;
 		this.tipoAcesso = tipoAcesso;
 	}
@@ -32,11 +37,11 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public int getId() {
-		return id;
+		return idPessoa;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNomeCompleto() {
@@ -59,7 +64,7 @@ public abstract class Pessoa implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + idPessoa;
 		return result;
 	}
 
@@ -72,7 +77,7 @@ public abstract class Pessoa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		if (id != other.id)
+		if (idPessoa != other.idPessoa)
 			return false;
 		return true;
 	}

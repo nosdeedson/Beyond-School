@@ -7,20 +7,21 @@ import java.util.List;
 public class Aula implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private List<Date> diaSemana;
 	private Date horaInicio;
 	private Date horaFim;
-	private int id;
-	private List<Date> diaSemana;
+	private int idAula;
+	
 	
 	public Aula() {
 		super();
 	}
 
-	public Aula(Date horaInicio, Date horaFim, int id, List<Date> diaSemana) {
+	public Aula(Date horaInicio, Date horaFim, int idAula, List<Date> diaSemana) {
 		super();
 		this.horaInicio = horaInicio;
 		this.horaFim = horaFim;
-		this.id= id;
+		this.idAula= idAula;
 		this.diaSemana = diaSemana;
 	}
 
@@ -41,11 +42,11 @@ public class Aula implements Serializable {
 	}
 
 	public int getId() {
-		return id;
+		return idAula;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int idAula) {
+		this.idAula = idAula;
 	}
 
 	public List<Date> getDiaSemana() {

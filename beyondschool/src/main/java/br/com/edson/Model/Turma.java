@@ -6,7 +6,7 @@ public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Aula aula;
-	private String codigo;
+	private String codigoTurma;
 	private String nomeLivro;
 	private String nomeTurma;
 	private Semestre semestre;
@@ -15,10 +15,10 @@ public class Turma implements Serializable {
 		super();
 	}
 
-	public Turma(Aula aula, String codigo, String nomeLivro, String nomeTurma, Semestre semestre) {
+	public Turma(Aula aula, String codigoTurma, String nomeLivro, String nomeTurma, Semestre semestre) {
 		super();
 		this.aula = aula;
-		this.codigo = codigo;
+		this.codigoTurma = codigoTurma;
 		this.nomeLivro = nomeLivro;
 		this.nomeTurma = nomeTurma;
 		this.semestre = semestre;
@@ -33,11 +33,11 @@ public class Turma implements Serializable {
 	}
 
 	public String getCodigo() {
-		return codigo;
+		return codigoTurma;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodigo(String codigoTurma) {
+		this.codigoTurma = codigoTurma;
 	}
 
 	public String getNomeLivro() {
@@ -68,7 +68,7 @@ public class Turma implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((codigoTurma == null) ? 0 : codigoTurma.hashCode());
 		return result;
 	}
 
@@ -81,10 +81,10 @@ public class Turma implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Turma other = (Turma) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (codigoTurma == null) {
+			if (other.codigoTurma != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!codigoTurma.equals(other.codigoTurma))
 			return false;
 		return true;
 	}

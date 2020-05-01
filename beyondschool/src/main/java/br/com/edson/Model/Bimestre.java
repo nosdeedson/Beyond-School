@@ -6,29 +6,30 @@ import java.util.Date;
 public class Bimestre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int id;
+	
 	private Date dataInicio;
 	private Date dataFim;
+	private int idBimestre;
 	private Semestre semestre;
 	
 	public Bimestre() {
 		super();
 	}
 
-	public Bimestre(int id, Date dataInicio, Date dataFim, Semestre semestre) {
+	public Bimestre(int idBimestre, Date dataInicio, Date dataFim, Semestre semestre) {
 		super();
-		this.id = id;
+		this.idBimestre = idBimestre;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.semestre = semestre;
 	}
 
 	public int getId() {
-		return id;
+		return idBimestre;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int idBimestre) {
+		this.idBimestre = idBimestre;
 	}
 
 	public Date getDataInicio() {
@@ -59,7 +60,7 @@ public class Bimestre implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + idBimestre;
 		return result;
 	}
 
@@ -72,7 +73,7 @@ public class Bimestre implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Bimestre other = (Bimestre) obj;
-		if (id != other.id)
+		if (idBimestre != other.idBimestre)
 			return false;
 		return true;
 	}

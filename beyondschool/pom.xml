@@ -20,8 +20,9 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 	<dependencies>
-	<!-- JavaServer faces -->
+		<!-- JavaServer faces -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
@@ -34,9 +35,41 @@
 			<artifactId>primefaces</artifactId>
 			<version>7.0</version>
 		</dependency>
+		<!-- Núcleo do Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.2.18.Final</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Implementação de EntityManager da JPA -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.2.18.Final</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Driver JDBC do MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.48</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.4.3.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
+
 	<repositories>
+	<!-- PrimeFaces -->
 		<repository>
 			<id>prime-repo</id>
 			<name>PrimeFaces Maven Repository</name>

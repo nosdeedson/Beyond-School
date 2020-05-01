@@ -5,21 +5,31 @@ import java.io.Serializable;
 public class Semestre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private int idSemestre;
 	private Bimestre primeiroBimestre;
 	private Bimestre segundoBimestre;
-	private int id;
+	
 	
 	public Semestre() {
 		super();
 	}
 
-	public Semestre(Bimestre primeiroBimestre, Bimestre segundoBimestre, int id) {
+	public Semestre(Bimestre primeiroBimestre, Bimestre segundoBimestre, int idSemestre) {
 		super();
 		this.primeiroBimestre = primeiroBimestre;
 		this.segundoBimestre = segundoBimestre;
-		this.id = id;
+		this.idSemestre = idSemestre;
 	}
 
+
+	public int getId() {
+		return idSemestre;
+	}
+
+	public void setId(int idSemestre) {
+		this.idSemestre = idSemestre;
+	}
+	
 	public Bimestre getPrimeiroBimestre() {
 		return primeiroBimestre;
 	}
@@ -36,19 +46,11 @@ public class Semestre implements Serializable {
 		this.segundoBimestre = segundoBimestre;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + idSemestre;
 		return result;
 	}
 
@@ -61,7 +63,7 @@ public class Semestre implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Semestre other = (Semestre) obj;
-		if (id != other.id)
+		if (idSemestre != other.idSemestre)
 			return false;
 		return true;
 	}

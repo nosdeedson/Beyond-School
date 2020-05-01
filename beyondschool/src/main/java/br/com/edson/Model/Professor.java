@@ -3,26 +3,51 @@ package br.com.edson.Model;
 import java.io.Serializable;
 
 public class Professor extends Pessoa implements Serializable {
-	
-	private int registro;
+
+	private static final long serialVersionUID = 1L;
+	private int registroProfessor;
+	private Usuario usuario;
 
 	public Professor() {
 		super();
 	}
 
-	public Professor(int registro) {
+	public Professor(int registroProfessor) {
 		super();
-		this.registro = registro;
+		this.registroProfessor = registroProfessor;
 	}
 
 	public int getRegistro() {
-		return registro;
+		return registroProfessor;
 	}
 
-	public void setRegistro(int registro) {
-		this.registro = registro;
+	public void setRegistro(int registroProfessor) {
+		this.registroProfessor = registroProfessor;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + registroProfessor;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Professor other = (Professor) obj;
+		if (registroProfessor != other.registroProfessor)
+			return false;
+		return true;
 	}
 	
 	
+
 
 }
