@@ -2,8 +2,20 @@ package br.com.edson.Model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.swing.JPasswordField;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.primefaces.component.password.Password;
 
+//@Entity
+//@Table(name = "usuario")
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -11,14 +23,14 @@ public class Usuario implements Serializable{
 	private String codigoTurma;
 	private int idUsuario;
 	private String nomeUsuario;
-	private Password senha;
+	private JPasswordField senha;
 	private String tipoAcesso;
 	
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(int idUsuario, String codigoTurma, String nomeUsuario, Password senha, String tipoAcesso) {
+	public Usuario(int idUsuario, String codigoTurma, String nomeUsuario, JPasswordField senha, String tipoAcesso) {
 		super();
 		this.idUsuario = idUsuario;
 		this.codigoTurma = codigoTurma;
@@ -26,15 +38,9 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 		this.tipoAcesso = tipoAcesso;
 	}
-
-	public int getId() {
-		return idUsuario;
-	}
-
-	public void setId(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
+	
+//	@NotEmpty
+//	@Column(name = "codigo_turma", length = 8, nullable = false)
 	public String getCodigoTurma() {
 		return codigoTurma;
 	}
@@ -43,6 +49,19 @@ public class Usuario implements Serializable{
 		this.codigoTurma = codigoTurma;
 	}
 
+//	@Id
+//	@GeneratedValue
+//	@Column(name = "id_usuario")
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	
+//	@NotEmpty
+//	@Column(name = "nome_usuario", length = 25, nullable = false)
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}
@@ -50,15 +69,20 @@ public class Usuario implements Serializable{
 	public void setNomeUsuario(String nomeUsuario) {
 		this.nomeUsuario = nomeUsuario;
 	}
-
-	public Password getSenha() {
+	
+//	@NotEmpty
+//	@Size (min = 8, max = 20)
+//	@Column (name = "senha", length = 20, nullable = false)
+	public JPasswordField getSenha() {
 		return senha;
 	}
 
-	public void setSenha(Password senha) {
+	public void setSenha(JPasswordField senha) {
 		this.senha = senha;
 	}
 
+//	@NotEmpty
+//	@Column(name = "tipo_acesso", length = 15, nullable = false)
 	public String getTipoAcesso() {
 		return tipoAcesso;
 	}
@@ -88,6 +112,7 @@ public class Usuario implements Serializable{
 			return false;
 		return true;
 	}
+	
 	
 	
 	

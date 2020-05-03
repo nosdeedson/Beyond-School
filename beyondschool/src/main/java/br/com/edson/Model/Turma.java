@@ -2,44 +2,45 @@ package br.com.edson.Model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+//@Entity
+//@Table(name = "turma")
 public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Aula aula;
+	
 	private String codigoTurma;
 	private String nomeLivro;
 	private String nomeTurma;
-	private Semestre semestre;
 	
 	public Turma() {
 		super();
 	}
 
-	public Turma(Aula aula, String codigoTurma, String nomeLivro, String nomeTurma, Semestre semestre) {
-		super();
-		this.aula = aula;
-		this.codigoTurma = codigoTurma;
-		this.nomeLivro = nomeLivro;
-		this.nomeTurma = nomeTurma;
-		this.semestre = semestre;
-	}
-
-	public Aula getAula() {
-		return aula;
-	}
-
-	public void setAula(Aula aula) {
-		this.aula = aula;
-	}
-
-	public String getCodigo() {
+//	@Id
+//	@GeneratedValue
+//	@Column(name = "codigo_turma")
+	public String getCodigoTurma() {
 		return codigoTurma;
 	}
 
-	public void setCodigo(String codigoTurma) {
+	public void setCodigoTurma(String codigoTurma) {
 		this.codigoTurma = codigoTurma;
 	}
 
+//	@NotEmpty
+//	@Column(name = "nome_livro", length = 20, nullable = false)
 	public String getNomeLivro() {
 		return nomeLivro;
 	}
@@ -47,7 +48,9 @@ public class Turma implements Serializable {
 	public void setNomeLivro(String nomeLivro) {
 		this.nomeLivro = nomeLivro;
 	}
-
+	
+//	@NotEmpty
+//	@Column(name = "nome_turma", length = 20, nullable = false)
 	public String getNomeTurma() {
 		return nomeTurma;
 	}
@@ -55,14 +58,7 @@ public class Turma implements Serializable {
 	public void setNomeTurma(String nomeTurma) {
 		this.nomeTurma = nomeTurma;
 	}
-
-	public Semestre getSemestre() {
-		return semestre;
-	}
-
-	public void setSemestre(Semestre semestre) {
-		this.semestre = semestre;
-	}
+	
 
 	@Override
 	public int hashCode() {
