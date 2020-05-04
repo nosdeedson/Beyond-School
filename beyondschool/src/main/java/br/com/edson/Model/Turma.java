@@ -1,6 +1,7 @@
 package br.com.edson.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,29 +9,53 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-//@Entity
-//@Table(name = "turma")
+@Entity
+@Table(name = "turma")
 public class Turma implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Aula aula;
+	private List<Aluno> alunos;
 	private String codigoTurma;
 	private String nomeLivro;
 	private String nomeTurma;
+	private Professor professor;
+	private Semestre semestre;
 	
 	public Turma() {
 		super();
 	}
+	
+	@OneToOne
+	@JoinColumn(name = "id_aula")
+	public Aula getAula() {
+		return aula;
+	}
+	
+	public void setAula(Aula aula) {
+		this.aula = aula;
+	}
+	
+	@NotNull
+	@OneToMany(mappedBy = "matricula")
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
 
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "codigo_turma")
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
+	@Id
+	@Column(name = "codigo_turma")
 	public String getCodigoTurma() {
 		return codigoTurma;
 	}
@@ -39,8 +64,8 @@ public class Turma implements Serializable {
 		this.codigoTurma = codigoTurma;
 	}
 
-//	@NotEmpty
-//	@Column(name = "nome_livro", length = 20, nullable = false)
+	@NotEmpty
+	@Column(name = "nome_livro", length = 20, nullable = false)
 	public String getNomeLivro() {
 		return nomeLivro;
 	}
@@ -49,8 +74,8 @@ public class Turma implements Serializable {
 		this.nomeLivro = nomeLivro;
 	}
 	
-//	@NotEmpty
-//	@Column(name = "nome_turma", length = 20, nullable = false)
+	@NotEmpty
+	@Column(name = "nome_turma", length = 20, nullable = false)
 	public String getNomeTurma() {
 		return nomeTurma;
 	}
@@ -58,7 +83,26 @@ public class Turma implements Serializable {
 	public void setNomeTurma(String nomeTurma) {
 		this.nomeTurma = nomeTurma;
 	}
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "prof_registro")
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
 	
+	@OneToOne
+	@JoinColumn(name = "id_semestre")
+	public Semestre getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
+	}
 
 	@Override
 	public int hashCode() {

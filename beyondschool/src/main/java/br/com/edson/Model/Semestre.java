@@ -2,6 +2,17 @@ package br.com.edson.Model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "semestre")
 public class Semestre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +32,9 @@ public class Semestre implements Serializable {
 		this.idSemestre = idSemestre;
 	}
 
-
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	public int getId() {
 		return idSemestre;
 	}
@@ -30,14 +43,20 @@ public class Semestre implements Serializable {
 		this.idSemestre = idSemestre;
 	}
 	
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "id_primeiro_bimestre")
 	public Bimestre getPrimeiroBimestre() {
 		return primeiroBimestre;
 	}
-
+	
 	public void setPrimeiroBimestre(Bimestre primeiroBimestre) {
 		this.primeiroBimestre = primeiroBimestre;
 	}
 
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "id_segundo_bimestre")
 	public Bimestre getSegundoBimestre() {
 		return segundoBimestre;
 	}

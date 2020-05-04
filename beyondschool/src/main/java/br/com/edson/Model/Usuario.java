@@ -14,8 +14,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.primefaces.component.password.Password;
 
-//@Entity
-//@Table(name = "usuario")
+@Entity
+@Table(name = "usuario")
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -39,8 +39,8 @@ public class Usuario implements Serializable{
 		this.tipoAcesso = tipoAcesso;
 	}
 	
-//	@NotEmpty
-//	@Column(name = "codigo_turma", length = 8, nullable = false)
+	@NotEmpty
+	@Column(name = "codigo_turma", length = 8, nullable = false)
 	public String getCodigoTurma() {
 		return codigoTurma;
 	}
@@ -49,9 +49,9 @@ public class Usuario implements Serializable{
 		this.codigoTurma = codigoTurma;
 	}
 
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "id_usuario")
+	@Id
+	@GeneratedValue
+	@Column(name = "id_usuario")
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -60,8 +60,8 @@ public class Usuario implements Serializable{
 		this.idUsuario = idUsuario;
 	}
 	
-//	@NotEmpty
-//	@Column(name = "nome_usuario", length = 25, nullable = false)
+	@NotEmpty
+	@Column(name = "nome_usuario", length = 25, nullable = false)
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}
@@ -70,9 +70,9 @@ public class Usuario implements Serializable{
 		this.nomeUsuario = nomeUsuario;
 	}
 	
-//	@NotEmpty
-//	@Size (min = 8, max = 20)
-//	@Column (name = "senha", length = 20, nullable = false)
+	@NotEmpty
+	@Size (min = 8, max = 20)
+	@Column (name = "senha", length = 20, nullable = false)
 	public JPasswordField getSenha() {
 		return senha;
 	}
@@ -81,8 +81,8 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 	}
 
-//	@NotEmpty
-//	@Column(name = "tipo_acesso", length = 15, nullable = false)
+	@NotEmpty
+	@Column(name = "tipo_acesso", length = 15, nullable = false)
 	public String getTipoAcesso() {
 		return tipoAcesso;
 	}

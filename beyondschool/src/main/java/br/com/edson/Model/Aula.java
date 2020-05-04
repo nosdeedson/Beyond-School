@@ -4,10 +4,22 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "aula")
 public class Aula implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private List<Date> diaSemana;
+	private Date primeiroDia;
+	private  Date segundoDia;
 	private Date horaInicio;
 	private Date horaFim;
 	private int idAula;
@@ -16,15 +28,19 @@ public class Aula implements Serializable {
 	public Aula() {
 		super();
 	}
-
-	public Aula(Date horaInicio, Date horaFim, int idAula, List<Date> diaSemana) {
+	
+	public Aula(Date primeiroDia, Date segundoDia, Date horaInicio, Date horaFim, int idAula) {
 		super();
+		this.primeiroDia = primeiroDia;
+		this.segundoDia = segundoDia;
 		this.horaInicio = horaInicio;
 		this.horaFim = horaFim;
-		this.idAula= idAula;
-		this.diaSemana = diaSemana;
+		this.idAula = idAula;
 	}
 
+	@NotNull
+	@Temporal(TemporalType.TIME)
+	@Column(name = "hora_inicio", nullable = false)
 	public Date getHoraInicio() {
 		return horaInicio;
 	}
@@ -32,7 +48,9 @@ public class Aula implements Serializable {
 	public void setHoraInicio(Date horaInicio) {
 		this.horaInicio = horaInicio;
 	}
-
+	@NotNull
+	@Temporal(TemporalType.TIME)
+	@Column(name = "hora_fim", nullable = false)
 	public Date getHoraFim() {
 		return horaFim;
 	}
@@ -41,21 +59,62 @@ public class Aula implements Serializable {
 		this.horaFim = horaFim;
 	}
 
-	public int getId() {
+	@Id
+	@GeneratedValue
+	public int getIdAula() {
 		return idAula;
 	}
 
-	public void setId(int idAula) {
+	public void setIdAula(int idAula) {
 		this.idAula = idAula;
 	}
-
-	public List<Date> getDiaSemana() {
-		return diaSemana;
+	
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@Column(name = "primeiro_dia")
+	public Date getPrimeiroDia() {
+		return primeiroDia;
 	}
 
-	public void setDiaSemana(List<Date> diaSemana) {
-		this.diaSemana = diaSemana;
+	public void setPrimeiroDia(Date primeiroDia) {
+		this.primeiroDia = primeiroDia;
 	}
+	
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@Column(name = "segundo_dia")
+	public Date getSegundoDia() {
+		return segundoDia;
+	}
+
+	public void setSegundoDia(Date segundoDia) {
+		this.segundoDia = segundoDia;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idAula;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aula other = (Aula) obj;
+		if (idAula != other.idAula)
+			return false;
+		return true;
+	}
+	
+
 	
 	
 	

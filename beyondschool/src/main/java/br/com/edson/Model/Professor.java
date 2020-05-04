@@ -15,15 +15,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-//@Entity
-//@Table(name = "professor")
-//@PrimaryKeyJoinColumn(name = "id_pessoa")
+@Entity
+@Table(name = "professor", uniqueConstraints = @UniqueConstraint( columnNames = { "registro"}))
+@PrimaryKeyJoinColumn(name = "id_pessoa")
 public class Professor extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private List<Avaliacao> avaliacoes;
 	private int registro;
 	private List<Turma> turmas;
 	private Usuario usuario;
@@ -33,18 +35,26 @@ public class Professor extends Pessoa implements Serializable {
 		super();
 	}
 	
-//	@Id
-//	@GeneratedValue
 	public int getRegistro() {
 		return registro;
 	}
+	@OneToMany
+	@JoinColumn(name = "id_avaliacao")
+	public List<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
 
+	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
+	}
+
+	@NotNull
 	public void setRegistro(int registro) {
 		this.registro = registro;
 	}
-
-//	@OneToMany
-//	@JoinColumn(name = "id_turma")
+	
+	@OneToMany
+	@JoinColumn(name = "id_turma ")
 	public List<Turma> getTurmas() {
 		return turmas;
 	}
@@ -53,12 +63,11 @@ public class Professor extends Pessoa implements Serializable {
 		this.turmas = turmas;
 	}
 
-//	@OneToOne
-//	@JoinColumn(name = "id_usuario")
+	@OneToOne
+	@JoinColumn(name = "id_professor_usuario")
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;

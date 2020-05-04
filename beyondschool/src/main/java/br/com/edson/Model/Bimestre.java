@@ -3,6 +3,19 @@ package br.com.edson.Model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "bimestre")
 public class Bimestre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,22 +29,17 @@ public class Bimestre implements Serializable {
 		super();
 	}
 
-	public Bimestre(int idBimestre, Date dataInicio, Date dataFim, Semestre semestre) {
+	public Bimestre(Date dataInicio, Date dataFim, int idBimestre, Semestre semestre) {
 		super();
-		this.idBimestre = idBimestre;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
+		this.idBimestre = idBimestre;
 		this.semestre = semestre;
 	}
-
-	public int getId() {
-		return idBimestre;
-	}
-
-	public void setId(int idBimestre) {
-		this.idBimestre = idBimestre;
-	}
-
+	
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_inicio")
 	public Date getDataInicio() {
 		return dataInicio;
 	}
@@ -39,7 +47,10 @@ public class Bimestre implements Serializable {
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
-
+	
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_fim")
 	public Date getDataFim() {
 		return dataFim;
 	}
@@ -48,6 +59,19 @@ public class Bimestre implements Serializable {
 		this.dataFim = dataFim;
 	}
 
+	@Id
+	@GeneratedValue
+	@Column(name = "id_bimestre")
+	public int getIdBimestre() {
+		return idBimestre;
+	}
+
+	public void setIdBimestre(int idBimestre) {
+		this.idBimestre = idBimestre;
+	}
+	
+	@OneToOne
+	@JoinColumn(name = "id_semestre")
 	public Semestre getSemestre() {
 		return semestre;
 	}
@@ -56,27 +80,6 @@ public class Bimestre implements Serializable {
 		this.semestre = semestre;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + idBimestre;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Bimestre other = (Bimestre) obj;
-		if (idBimestre != other.idBimestre)
-			return false;
-		return true;
-	}
 
 
 
