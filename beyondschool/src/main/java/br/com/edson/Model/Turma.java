@@ -35,7 +35,7 @@ public class Turma implements Serializable {
 	}
 	
 	@OneToOne
-	@JoinColumn(name = "id_aula")
+	@JoinColumn(name = "id_aula", nullable = false)
 	public Aula getAula() {
 		return aula;
 	}
@@ -45,7 +45,7 @@ public class Turma implements Serializable {
 	}
 	
 	@NotNull
-	@OneToMany(mappedBy = "matricula")
+	@OneToMany (mappedBy = "matricula" )
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}
@@ -55,7 +55,8 @@ public class Turma implements Serializable {
 	}
 
 	@Id
-	@Column(name = "codigo_turma")
+	@GeneratedValue
+	@Column(name = "codigo_turma", nullable = false)
 	public String getCodigoTurma() {
 		return codigoTurma;
 	}
@@ -83,9 +84,10 @@ public class Turma implements Serializable {
 	public void setNomeTurma(String nomeTurma) {
 		this.nomeTurma = nomeTurma;
 	}
+	
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "prof_registro")
+	@JoinColumn(name = "prof_registro", nullable = false)
 	public Professor getProfessor() {
 		return professor;
 	}
@@ -95,7 +97,7 @@ public class Turma implements Serializable {
 	}
 	
 	@OneToOne
-	@JoinColumn(name = "id_semestre")
+	@JoinColumn(name = "id_semestre", nullable = false)
 	public Semestre getSemestre() {
 		return semestre;
 	}

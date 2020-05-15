@@ -28,17 +28,7 @@ public class Admin extends Pessoa implements Serializable {
 	}
 	
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "id_admin_usuario")
-	public Usuario getUsuarioAdmin() {
-		return usuarioAdmin;
-	}
-
-	public void setUsuarioAdmin(Usuario usuarioAdmin) {
-		this.usuarioAdmin = usuarioAdmin;
-	}
-	@NotNull
-	@Column(name = "codigo_admin")
+	@Column(name = "codigo_admin", nullable = false)
 	public int getCodigoAdmin() {
 		return codigoAdmin;
 	}
@@ -46,7 +36,17 @@ public class Admin extends Pessoa implements Serializable {
 	public void setCodigoAdmin(int codigoAdmin) {
 		this.codigoAdmin = codigoAdmin;
 	}
+	
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "id_admin_usuario", nullable = false)
+	public Usuario getUsuarioAdmin() {
+		return usuarioAdmin;
+	}
 
+	public void setUsuarioAdmin(Usuario usuarioAdmin) {
+		this.usuarioAdmin = usuarioAdmin;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

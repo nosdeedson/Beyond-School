@@ -27,13 +27,14 @@ public class Aluno extends Pessoa implements Serializable {
 	
 	private List<Avaliacao> avaliacoes;
 	private int matricula;
-	
+	private List<Responsavel> responsaveis;
 	private Turma turma;
 	private Usuario usuarioAluno;
 
 	public Aluno() {
 		super();
 	}
+	
 	@OneToMany
 	@JoinColumn(name = "id_avaliacao")
 	public List<Avaliacao> getAvaliacoes() {
@@ -52,10 +53,20 @@ public class Aluno extends Pessoa implements Serializable {
 	public void setMatricula(int matricula) {
 		this.matricula = matricula;
 	}
-
+	
+	@NotNull
+	@OneToMany
+	@JoinColumn(name = "id_codigo_responsavel", nullable = false)
+	public List<Responsavel> getResponsaveis() {
+		return responsaveis;
+	}
+	public void setResponsaveis(List<Responsavel> responsaveis) {
+		this.responsaveis = responsaveis;
+	}
+	
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "id_turma")
+	@JoinColumn(name = "codigo_turma")
 	public Turma getTurma() {
 		return turma;
 	}
@@ -66,7 +77,7 @@ public class Aluno extends Pessoa implements Serializable {
 	
 	@NotNull
 	@OneToOne
-	@JoinColumn (name = "id_aluno_usuario")
+	@JoinColumn (name = "id_aluno_usuario", nullable = false)
 	public Usuario getUsuarioAluno() {
 		return usuarioAluno;
 	}

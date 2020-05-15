@@ -18,32 +18,43 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-//@Entity
-//@Table(name = "responsavel", uniqueConstraints = @UniqueConstraint( columnNames = { "codigo_responsavel"}))
-//@PrimaryKeyJoinColumn(name = "id_pessoa")
+@Entity
+@Table(name = "responsavel", uniqueConstraints = @UniqueConstraint( columnNames = { "codigo_responsavel"}))
+@PrimaryKeyJoinColumn(name = "id_pessoa")
 public class Responsavel extends Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private int codigoResponsavel;
-
+	private List<Aluno> tutelados;
 	private Usuario usuarioResponsavel;
 	
 	public Responsavel() {
 		super();
 	}
-//	@NotNull
-//	@Column(name = "codigo_responsavel", nullable = false)
+	
+	@NotNull
+	@Column(name = "codigo_responsavel")
 	public int getCodigoResponsavel() {
 		return codigoResponsavel;
 	}
 
-	public void setCodigoResp(int codigoResponsavel) {
+	public void setCodigoResponsavel(int codigoResponsavel) {
 		this.codigoResponsavel = codigoResponsavel;
 	}
+	
+	@NotNull
+	@ManyToMany(mappedBy = "matricula")
+	public List<Aluno> getTutelados() {
+		return tutelados;
+	}
 
-//	@OneToOne
-//	@JoinColumn (name = "id_responsavel_usuario")
+	public void setTutelados(List<Aluno> tutelados) {
+		this.tutelados = tutelados;
+	}
+
+	@OneToOne
+	@JoinColumn (name = "id_responsavel_usuario")
 	public Usuario getUsuarioResponsavel() {
 		return usuarioResponsavel;
 	}
@@ -51,6 +62,7 @@ public class Responsavel extends Pessoa implements Serializable {
 	public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
 		this.usuarioResponsavel = usuarioResponsavel;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

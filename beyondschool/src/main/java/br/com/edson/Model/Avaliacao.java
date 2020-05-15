@@ -1,6 +1,7 @@
 package br.com.edson.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,7 +30,7 @@ public class Avaliacao implements Serializable {
 	private ConceitoEnum gramatica;
 	private int idAvaliacao;
 	private ConceitoEnum leitura;
-	private String observacao;
+	private List<Observacao> observacoes;
 	private Professor professor;
 	private ConceitoEnum vocabulario;
 	
@@ -37,7 +39,7 @@ public class Avaliacao implements Serializable {
 	}
 
 	public Avaliacao(ConceitoEnum escrita, ConceitoEnum escutar, ConceitoEnum falar, ConceitoEnum gramatica,
-			int idAvaliacao, ConceitoEnum leitura, String observacao, ConceitoEnum vocabulario) {
+			int idAvaliacao, ConceitoEnum leitura, ConceitoEnum vocabulario) {
 		super();
 		this.escrita = escrita;
 		this.escutar = escutar;
@@ -45,13 +47,12 @@ public class Avaliacao implements Serializable {
 		this.gramatica = gramatica;
 		this.idAvaliacao = idAvaliacao;
 		this.leitura = leitura;
-		this.observacao = observacao;
 		this.vocabulario = vocabulario;
 	}
 	
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "matricula_aluno")
+	@JoinColumn(name = "matricula_aluno", nullable = false)
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -127,18 +128,19 @@ public class Avaliacao implements Serializable {
 		this.leitura = leitura;
 	}
 	
-	@NotEmpty
-	@Column(name = "observacao", length = 400, nullable = false)
-	public String getObservacao() {
-		return observacao;
+	@NotNull
+	@OneToMany
+	@JoinColumn(name = "id_observacao", nullable = false)
+	public List<Observacao> getObservacoes() {
+		return observacoes;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setObservacoes(List<Observacao> observacoes) {
+		this.observacoes = observacoes;
 	}
-	
+
 	@OneToOne
-	@JoinColumn(name = "registro_professor")
+	@JoinColumn(name = "registro_professor", nullable = false)
 	public Professor getProfessor() {
 		return professor;
 	}
