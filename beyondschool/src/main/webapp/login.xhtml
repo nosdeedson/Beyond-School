@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="template.xhtml"
-xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="WEB-INF/template2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="corpo" >
+	<ui:define name="corpo">
 
 
-<p:panelGrid columns="1" id="pg-login-user">
-	<f:facet name="header">
-		<p:row>
-			<p:outputLabel>Login</p:outputLabel>
-		</p:row>
-	</f:facet>
-	<h:form >
-		<p:inputText styleClass="entrada-texto" placeholder="Nome de Usuário" />
-		<br />
-		<br />
-		<p:password styleClass="entrada-texto"  placeholder="Senha" />
-		<br />
-		<br />
-		<p:commandButton value="Entrar" />
-	</h:form>
-		
-</p:panelGrid>
-<BR />
+		<p:panelGrid columns="1" id="pg-login-user">
+			<f:facet name="header">
+				<p:row>
+					<p:outputLabel>Login</p:outputLabel>
+				</p:row>
+			</f:facet>
+			<h:form>
+				<p:inputText styleClass="entrada-texto"
+					placeholder="Nome de Usuário" />
+				<br />
+				<br />
+				<p:password styleClass="entrada-texto" placeholder="Senha" />
+				<br />
+				<br />
+				<p:commandButton value="Entrar" />
+			</h:form>
 
-<h:panelGroup id="links-login">
-		<p:link id="link-esqueceu-senha" styleClass="links-gerais" value="Esqueceu sua senha?" />
+		</p:panelGrid>
 		<BR />
-		<p:link id="criar-acesso" styleClass="links-gerais"  outcome="cadastro" value="Criar o seu acesso?" />
-</h:panelGroup>
 
-</ui:define>
+		<h:panelGroup id="links-login">
+			<p:link id="link-esqueceu-senha" styleClass="links-gerais"
+				value="Esqueceu sua senha?" />
+			<BR />
+			<p:link id="criar-acesso" styleClass="links-gerais"
+				outcome="cadastro" value="Criar o seu acesso?" />
+		</h:panelGroup>
+
+	</ui:define>
 
 
 </ui:composition>

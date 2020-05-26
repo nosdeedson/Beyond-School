@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="template2.xhtml"
-xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/WEB-INF/template2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="corpo2">
- 
-<div class="row">
-<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12"> 
- 		
-<p:panelGrid columns="1" id="pg-casdastrar-turma">
-	<f:facet name="header">
-		<p:row>
-			<p:column>
-				<p:outputLabel value="Cadastrar turma"></p:outputLabel>
-			</p:column>
-		</p:row>
-	</f:facet>
-	<h:form>
-		<p:inputText placeholder="Nome Turma"/>
-		<BR />
-		<p:inputText placeholder="Nome do livro" />
-		<BR />
-		<p:inputText placeholder="Nome do Professor" />
-		<BR />
-		<p:inputText placeholder="Horário de Início" />
-		<BR />
-		<p:selectOneMenu id="console" styleClass="menu" >
-			<f:selectItem itemLabel="Primeiro dia Semana" itemValue="primeiroDiaSemana" />
-			<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
-			<f:selectItem itemLabel="Terça" itemValue="Terça" />
-			<f:selectItem itemLabel="Quarta" itemValue="Quarta" />
-			<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
-			<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
-		</p:selectOneMenu>
-		<BR />
-		<p:selectOneMenu id="console1" styleClass="menu">
-			<f:selectItem itemLabel="Segundo dia Semana" itemValue="SegundoDiaSemana" />
-			<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
-			<f:selectItem itemLabel="Terça" itemValue="Terça" />
-			<f:selectItem itemLabel="Quarta" itemValue="Quarta" />
-			<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
-			<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
-		</p:selectOneMenu>
-		<BR />
-			
-		<p:commandButton value="Salvar" id="btn-salvar" />
-		<BR />
-		<BR />
-		<p:commandButton value="Cancelar" styleClass="btn btn-danger "/>
-	</h:form>
-</p:panelGrid>
- 
-</div>
-</div>
+	<ui:define name="corpo2">
+		
+			<div class="row">
+				<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12">
 
+					<p:panelGrid columns="1" id="pg-casdastrar-turma">
+						<f:facet name="header">
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Cadastrar turma"></p:outputLabel>
+								</p:column>
+							</p:row>
+						</f:facet>
+						<h:form>
+							<p:inputText placeholder="Nome Turma" />
+							<BR />
+							<p:inputText placeholder="Nome do livro" />
+							<BR />
+							<p:inputText placeholder="Nome do Professor" />
+							<BR />
+							<p:inputText placeholder="Horário de Início" />
+							<BR />
+							<p:selectOneMenu id="console" styleClass="menu">
+								<f:selectItem itemLabel="Selecione primeiro dia"
+									itemValue="primeiroDiaSemana" />
+								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
+								<f:selectItem itemLabel="Terça" itemValue="Terça" />
+								<f:selectItem itemLabel="Quarta" itemValue="Quarta" />
+								<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
+								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
+							</p:selectOneMenu>
+							<BR />
+							<p:selectOneMenu id="console1" styleClass="menu">
+								<f:selectItem itemLabel="Selecione segundo dia"
+									itemValue="SegundoDiaSemana" />
+								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
+								<f:selectItem itemLabel="Terça" itemValue="Terça" />
+								<f:selectItem itemLabel="Quarta" itemValue="Quarta" />
+								<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
+								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
+							</p:selectOneMenu>
+							<BR />
 
-</ui:define>
+							<p:commandButton value="Salvar" id="btn-salvar" />
+							<BR />
+							<BR />
+							<p:commandButton value="Cancelar" styleClass="btn btn-danger " />
+						</h:form>
+					</p:panelGrid>
+
+				</div>
+			</div>
+
+	</ui:define>
 
 
 </ui:composition>

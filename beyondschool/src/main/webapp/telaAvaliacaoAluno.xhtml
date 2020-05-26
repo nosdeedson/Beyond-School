@@ -1,95 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="template2.xhtml"
-xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/WEB-INF/template2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="corpo2">
+	<ui:define name="corpo2">
+<h:form>
+		<p:panelGrid columns="2" id="pg-tela-avaliar-aluno">
 
-<p:panelGrid columns="2" id="pg-tela-avaliar-aluno">
+			<f:facet name="header">
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Turma x " />
+					</p:column>
+				</p:row>
+			</f:facet>
 
-	<f:facet name="header">
-		<p:row >
-			<p:column> <p:outputLabel value="Turma x " /></p:column>
-		</p:row>
-	</f:facet>
+			<p:outputLabel value="12:00 as 13:00" />
 
-	<p:outputLabel value="12:00 as 13:00"/>
+			<p:outputLabel value="Avaliar: Edson Jose de Souza" />
+			
+				<p:outputLabel value="Vocabulary" />
+				<p:selectOneMenu styleClass="seletor-conceito" id="console">
+					<f:selectItem itemLabel="Bad" itemValue="bad" />
+					<f:selectItem itemLabel="Regular" itemValue="regular" />
+					<f:selectItem itemLabel="Good" itemValue="good" />
+					<f:selectItem itemLabel="Very good" itemValue="veryGood" />
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+				</p:selectOneMenu>
 
-	<p:outputLabel value="Avaliar: Edson Jose de Souza"/>
+				<p:outputLabel value="Reading" />
+				<p:selectOneMenu styleClass="seletor-conceito" id="console1">
+					<f:selectItem itemLabel="Bad" itemValue="bad" />
+					<f:selectItem itemLabel="Regular" itemValue="regular" />
+					<f:selectItem itemLabel="Good" itemValue="good" />
+					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+				</p:selectOneMenu>
 
-		<p:outputLabel value="Vocabulary"/>
-        <p:selectOneMenu styleClass="seletor-conceito" id="console" >
-            <f:selectItem itemLabel="Bad" itemValue="bad" />
-            <f:selectItem itemLabel="Regular" itemValue="regular" />
-            <f:selectItem itemLabel="Good" itemValue="good" />
-			<f:selectItem itemLabel="Very good" itemValue="veryGood" />
-			<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-        </p:selectOneMenu>
-		
-		<p:outputLabel value="Reading"/>	
-        <p:selectOneMenu styleClass="seletor-conceito" id="console1" >
-            <f:selectItem itemLabel="Bad" itemValue="bad" />
-            <f:selectItem itemLabel="Regular" itemValue="regular" />
-            <f:selectItem itemLabel="Good" itemValue="good" />
-			<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-			<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-        </p:selectOneMenu>
+				<p:outputLabel value="Writing" />
+				<p:selectOneMenu styleClass="seletor-conceito" id="console2">
+					<f:selectItem itemLabel="Bad" itemValue="bad" />
+					<f:selectItem itemLabel="Regular" itemValue="regular" />
+					<f:selectItem itemLabel="Good" itemValue="good" />
+					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+				</p:selectOneMenu>
 
-		<p:outputLabel value="Writing"/>			
-        <p:selectOneMenu styleClass="seletor-conceito" id="console2" >
-            <f:selectItem itemLabel="Bad" itemValue="bad" />
-            <f:selectItem itemLabel="Regular" itemValue="regular" />
-            <f:selectItem itemLabel="Good" itemValue="good" />
-			<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-			<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-        </p:selectOneMenu>
+				<p:outputLabel value="Listening" />
+				<p:selectOneMenu styleClass="seletor-conceito" id="console3">
+					<f:selectItem itemLabel="Bad" itemValue="bad" />
+					<f:selectItem itemLabel="Regular" itemValue="regular" />
+					<f:selectItem itemLabel="Good" itemValue="good" />
+					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+				</p:selectOneMenu>
 
-		<p:outputLabel value="Listening"/>
-        <p:selectOneMenu styleClass="seletor-conceito" id="console3" >
-            <f:selectItem itemLabel="Bad" itemValue="bad" />
-            <f:selectItem itemLabel="Regular" itemValue="regular" />
-            <f:selectItem itemLabel="Good" itemValue="good" />
-			<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-			<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-        </p:selectOneMenu>
-		
-		<p:outputLabel value="Speakinng"/>	
-        <p:selectOneMenu styleClass="seletor-conceito" id="console4"  >
-            <f:selectItem itemLabel="Bad" itemValue="bad" />
-            <f:selectItem itemLabel="Regular" itemValue="regular" />
-            <f:selectItem itemLabel="Good" itemValue="good" />
-			<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-			<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-        </p:selectOneMenu>
+				<p:outputLabel value="Speakinng" />
+				<p:selectOneMenu styleClass="seletor-conceito" id="console4">
+					<f:selectItem itemLabel="Bad" itemValue="bad" />
+					<f:selectItem itemLabel="Regular" itemValue="regular" />
+					<f:selectItem itemLabel="Good" itemValue="good" />
+					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+				</p:selectOneMenu>
 
-		<p:outputLabel value="Grammar"/>			
-        <p:selectOneMenu styleClass="seletor-conceito" id="console5" >
-            <f:selectItem itemLabel="Bad" itemValue="bad" />
-            <f:selectItem itemLabel="Regular" itemValue="regular" />
-            <f:selectItem itemLabel="Good" itemValue="good" />
-			<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-			<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-        </p:selectOneMenu>
+				<p:outputLabel value="Grammar" />
+				<p:selectOneMenu styleClass="seletor-conceito" id="console5">
+					<f:selectItem itemLabel="Bad" itemValue="bad" />
+					<f:selectItem itemLabel="Regular" itemValue="regular" />
+					<f:selectItem itemLabel="Good" itemValue="good" />
+					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+				</p:selectOneMenu>
 
-		<p:outputLabel value="HomeWork"/>			
-        <p:selectOneMenu styleClass="seletor-conceito" id="console6" >
-            <f:selectItem itemLabel="Bad" itemValue="bad" />
-            <f:selectItem itemLabel="Regular" itemValue="regular" />
-            <f:selectItem itemLabel="Good" itemValue="good" />
-			<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-			<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-        </p:selectOneMenu>
-        <p:inputTextarea id="text-area-coment-avaliacao-prof" placeholder="Deixe seu comentário sobre o aluno" />
-        <p:commandButton id="btn-next-aluno" value="Next student" />
-</p:panelGrid>
+				<p:outputLabel value="HomeWork" />
+				<p:selectOneMenu styleClass="seletor-conceito" id="console6">
+					<f:selectItem itemLabel="Bad" itemValue="bad" />
+					<f:selectItem itemLabel="Regular" itemValue="regular" />
+					<f:selectItem itemLabel="Good" itemValue="good" />
+					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
+					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
+				</p:selectOneMenu>
+				<p:inputTextarea id="text-area-coment-avaliacao-prof"
+					placeholder="Deixe seu comentário sobre o aluno" />
+				<p:commandButton id="btn-next-aluno" value="Next student" />
+			
+		</p:panelGrid>
+</h:form>
+		<p:commandButton styleClass="btn-danger botao-cancelar-avaliacao"
+			value="Cancelar" />
 
-	<p:commandButton styleClass="btn-danger botao-cancelar-avaliacao" value="Cancelar"/>
-
-</ui:define>
+	</ui:define>
 
 
 </ui:composition>
