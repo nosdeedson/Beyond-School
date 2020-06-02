@@ -27,7 +27,7 @@
 							<BR />
 							<p:inputText placeholder="Nome do Professor" />
 							<BR />
-							<p:inputText placeholder="Horário de Início" />
+							<p:inputMask id="time" value="#{maskView.time}" mask="99:99" placeholder="Horario de início"/>
 							<BR />
 							<p:selectOneMenu id="console" styleClass="menu">
 								<f:selectItem itemLabel="Selecione primeiro dia"
