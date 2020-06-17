@@ -11,8 +11,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -40,6 +42,7 @@ public abstract class Pessoa implements Serializable {
 		this.idPessoa = idPessoa;
 	}
 
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento", nullable = true)
 	public Date getDataNascimento() {
@@ -59,6 +62,8 @@ public abstract class Pessoa implements Serializable {
 		this.deletado = deletado;
 	}
 
+	@NotEmpty
+	@Size(max = 50)
 	@Column(name = "nome_completo", length = 50, nullable = false)
 	public String getNomeCompleto() {
 		return nomeCompleto;
@@ -67,11 +72,6 @@ public abstract class Pessoa implements Serializable {
 	public void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 	
 	
 	

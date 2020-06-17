@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table( name = "bimestre")
 public class Bimestre implements Serializable {
@@ -47,6 +49,7 @@ public class Bimestre implements Serializable {
 		this.atual = atual;
 	}
 	
+	@NotEmpty
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_inicio", nullable = false)
 	public Date getDataInicio() {
@@ -57,6 +60,7 @@ public class Bimestre implements Serializable {
 		this.dataInicio = dataInicio;
 	}
 
+	@NotEmpty
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_fim", nullable = false)
 	public Date getDataFim() {

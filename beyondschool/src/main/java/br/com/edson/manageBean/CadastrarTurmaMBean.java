@@ -77,20 +77,21 @@ public class CadastrarTurmaMBean implements Serializable {
 			
 			turmasBD.salvarTurma(turma);
 			
-			context.addMessage(null, new FacesMessage("Turma criada com sucesso!!\n Codigo da turma: " + codigo));
-			turma = new Turma();
-			professor = new Funcionario();
-			setDia1("");
-			setDia2("");
-			setHora("");
-			setHora2("");
 			et.commit();
+			context.addMessage(null, new FacesMessage("Turma criada com sucesso!!\n Codigo da turma: " + codigo));
 		} catch (Exception e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			e.printStackTrace();
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
+		}finally {
+			turma = new Turma();
+			professor = new Funcionario();
+			setDia1("");
+			setDia2("");
+			setHora("");
+			setHora2("");
 		}
 	}
 	

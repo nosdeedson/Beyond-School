@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "aluno_responsavel")
@@ -33,6 +34,7 @@ public class AlunoResponsavel implements Serializable {
 		this.id_aluno_responsavel = id_aluno_responsavel;
 	}
 
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "id_aluno")
 	public Aluno getAluno() {
@@ -43,6 +45,7 @@ public class AlunoResponsavel implements Serializable {
 		this.aluno = aluno;
 	}
 
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "id_responsavel")
 	public Responsavel getResponsavel() {

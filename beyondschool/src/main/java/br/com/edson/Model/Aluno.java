@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "aluno", uniqueConstraints = {@UniqueConstraint (columnNames = "matricula")})
@@ -37,6 +38,7 @@ public class Aluno extends Pessoa implements Serializable {
 		this.avaliacoes = avaliacoes;
 	}
 	
+	@NotNull
 	@OneToOne(optional = false)
 	@JoinColumn(name = "id_turma")
 	public Turma getTurma() {

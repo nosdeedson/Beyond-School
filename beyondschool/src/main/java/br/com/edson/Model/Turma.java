@@ -11,6 +11,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "turma")
@@ -28,7 +32,7 @@ public class Turma implements Serializable {
 	private Funcionario professor;
 	
 	public Turma() { }
-
+	
 	@Id
 	@Column(name = "codigo_turma", nullable = false, length = 8)
 	public String getCodigoTurma() {
@@ -39,6 +43,8 @@ public class Turma implements Serializable {
 		this.codigoTurma = codigoTurma;
 	}
 
+	@NotEmpty
+	@Size(max = 15)
 	@Column(name = "nome_livro", length = 15, nullable = false)
 	public String getNomeLivro() {
 		return nomeLivro;
@@ -48,6 +54,7 @@ public class Turma implements Serializable {
 		this.nomeLivro = nomeLivro;
 	}
 	
+	@Size(max = 10)
 	@Column(name = "nome_turma", length = 10, nullable = false)
 	public String getNomeTurma() {
 		return nomeTurma;
@@ -77,6 +84,7 @@ public class Turma implements Serializable {
 		this.horario2 = horario2;
 	}
 
+	@NotEmpty
 	@Column(name = "primeiro_dia_semana", nullable = false)
 	public String getPrimeiroDiaSemana() {
 		return primeiroDiaSemana;
@@ -85,7 +93,8 @@ public class Turma implements Serializable {
 	public void setPrimeiroDiaSemana(String primeiroDiaSemana) {
 		this.primeiroDiaSemana = primeiroDiaSemana;
 	}
-
+ 
+	@NotEmpty
 	@Column(name = "segundo_dia_semana", nullable = false)
 	public String getSegundoDiaSemana() {
 		return segundoDiaSemana;
@@ -95,6 +104,7 @@ public class Turma implements Serializable {
 		this.segundoDiaSemana = segundoDiaSemana;
 	}
 
+	@NotNull
 	@OneToOne (optional = false)
 	@JoinColumn(name = "id_professor")
 	public Funcionario getProfessor() {

@@ -20,10 +20,13 @@ public class FuncionariosBD implements Serializable {
 
 	/**
 	 * método usado para persistir professor que é cradastrado na hora que se cadastra turma
+	 * primeiro verifica se o funcionario já existe no banco
+	 * se sim retorna
 	 * @param funcionario
 	 * @return
 	 */
 	public Long salvarFuncionario( Funcionario funcionario) {
+		
 		this.em.merge(funcionario);
 		
 		String sql = "select max(idPessoa) from Funcionario";

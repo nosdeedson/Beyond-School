@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/template2.xhtml"
+<ui:composition template="/WEB-INF/template/layout2.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -8,11 +8,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="corpo2">
-		
+<div class="row" id="corpo">
+<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">  
 
-<h:form id="pg-casdastrar-turma">
+<h:form  id="pg-casdastrar-turma">
 					<p:messages/>
-					<p:panelGrid columns="1">
+					<p:panelGrid columns="1"  >
 						<f:facet name="header">
 							<p:row>
 								<p:column>
@@ -21,7 +22,7 @@
 							</p:row>
 						</f:facet>
 						
-							<p:inputText placeholder="Nome Turma" value="#{cadastrarTurmaMBean.turma.nomeTurma}" />
+						<p:inputText placeholder="Nome Turma" value="#{cadastrarTurmaMBean.turma.nomeTurma}" />
 							
 							<p:inputText placeholder="Nome do livro" value="#{cadastrarTurmaMBean.turma.nomeLivro}"/>
 							
@@ -52,9 +53,14 @@
 							<p:commandButton value="Salvar" id="btn-salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma"/> 
 							
 							<p:button value="Cancelar" styleClass="btn btn-danger " outcome="/telaAdmin" />
+					
+							
 						
 					</p:panelGrid>
-</h:form>
+	</h:form>
+
+</div>
+</div>
 
 	</ui:define>
 

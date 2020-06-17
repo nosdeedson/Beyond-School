@@ -16,8 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "avaliacao")
@@ -37,10 +39,6 @@ public class Avaliacao implements Serializable {
 	private ConceitoEnum leitura;
 	private ConceitoEnum vocabulario;
 	
-	@Type(type = "string-array")
-	@Column(name = "coments", columnDefinition = "text")
-	private String[] coments = new String[3];
-	
 	
 	public Avaliacao() { }
 	
@@ -54,6 +52,7 @@ public class Avaliacao implements Serializable {
 		this.idAvaliacao = idAvaliacao;
 	}
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn( name = "id_aluno")
 	public Aluno getAluno() {
@@ -63,6 +62,7 @@ public class Avaliacao implements Serializable {
 		this.aluno = aluno;
 	}
 	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "id_bimestre")
 	public Bimestre getBimestre() {
@@ -81,6 +81,7 @@ public class Avaliacao implements Serializable {
 		this.comentarios = comentarios;
 	}
 	
+	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "escrevendo", nullable = false)
 	public ConceitoEnum getEscrevendo() {
@@ -90,6 +91,7 @@ public class Avaliacao implements Serializable {
 		this.escrevendo = escrevendo;
 	}
 	
+	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "escutando", nullable = false)
 	public ConceitoEnum getEscutando() {
@@ -99,6 +101,7 @@ public class Avaliacao implements Serializable {
 		this.escutando = escutando;
 	}
 	
+	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "falando", nullable = false)
 	public ConceitoEnum getFalando() {
@@ -108,6 +111,7 @@ public class Avaliacao implements Serializable {
 		this.falando = falando;
 	}
 	
+	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gramatica", nullable = false)
 	public ConceitoEnum getGramatica() {
@@ -117,6 +121,7 @@ public class Avaliacao implements Serializable {
 		this.gramatica = gramatica;
 	}
 	
+	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "homework", nullable = false)
 	public ConceitoEnum getHomeWork() {
@@ -126,6 +131,7 @@ public class Avaliacao implements Serializable {
 		this.homeWork = homeWork;
 	}
 	
+	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "leitura", nullable = false)
 	public ConceitoEnum getLeitura() {
@@ -135,6 +141,7 @@ public class Avaliacao implements Serializable {
 		this.leitura = leitura;
 	}
 	
+	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "vocabulario", nullable = false)
 	public ConceitoEnum getVocabulario() {
