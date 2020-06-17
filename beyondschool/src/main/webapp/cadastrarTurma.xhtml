@@ -9,10 +9,10 @@
 
 	<ui:define name="corpo2">
 		
-			<div class="row">
-				<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12">
 
-					<p:panelGrid columns="1" id="pg-casdastrar-turma">
+<h:form id="pg-casdastrar-turma">
+					<p:messages/>
+					<p:panelGrid columns="1">
 						<f:facet name="header">
 							<p:row>
 								<p:column>
@@ -20,45 +20,41 @@
 								</p:column>
 							</p:row>
 						</f:facet>
-						<h:form>
-							<p:inputText placeholder="Nome Turma" />
-							<BR />
-							<p:inputText placeholder="Nome do livro" />
-							<BR />
-							<p:inputText placeholder="Nome do Professor" />
-							<BR />
-							<p:inputMask id="time" value="#{maskView.time}" mask="99:99" placeholder="Horario de início"/>
-							<BR />
-							<p:selectOneMenu id="console" styleClass="menu">
-								<f:selectItem itemLabel="Selecione primeiro dia"
-									itemValue="primeiroDiaSemana" />
+						
+							<p:inputText placeholder="Nome Turma" value="#{cadastrarTurmaMBean.turma.nomeTurma}" />
+							
+							<p:inputText placeholder="Nome do livro" value="#{cadastrarTurmaMBean.turma.nomeLivro}"/>
+							
+							<p:inputText placeholder="Nome do Professor" value="#{cadastrarTurmaMBean.professor.nomeCompleto}"/>
+							
+							<p:selectOneMenu id="console" styleClass="menu" value="#{cadastrarTurmaMBean.dia1}">
+								<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"  />
 								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
 								<f:selectItem itemLabel="Terça" itemValue="Terça" />
 								<f:selectItem itemLabel="Quarta" itemValue="Quarta" />
 								<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
 								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
 							</p:selectOneMenu>
-							<BR />
-							<p:selectOneMenu id="console1" styleClass="menu">
-								<f:selectItem itemLabel="Selecione segundo dia"
-									itemValue="SegundoDiaSemana" />
+							
+							<p:inputMask id="horario1" value="#{cadastrarTurmaMBean.hora}" mask="99:99" placeholder="Horario de início" />
+							
+							<p:selectOneMenu id="console1" styleClass="menu"  value="#{cadastrarTurmaMBean.dia2}">
+								<f:selectItem itemLabel="Selecione " itemValue=""  noSelectionOption="true" />
 								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
 								<f:selectItem itemLabel="Terça" itemValue="Terça" />
 								<f:selectItem itemLabel="Quarta" itemValue="Quarta" />
 								<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
 								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
 							</p:selectOneMenu>
-							<BR />
+							
+							<p:inputMask id="horario2" value="#{cadastrarTurmaMBean.hora2}" mask="99:99" placeholder="Horario de início" />
 
-							<p:commandButton value="Salvar" id="btn-salvar" />
-							<BR />
-							<BR />
-							<p:commandButton value="Cancelar" styleClass="btn btn-danger " />
-						</h:form>
+							<p:commandButton value="Salvar" id="btn-salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma"/> 
+							
+							<p:button value="Cancelar" styleClass="btn btn-danger " outcome="/telaAdmin" />
+						
 					</p:panelGrid>
-
-				</div>
-			</div>
+</h:form>
 
 	</ui:define>
 

@@ -8,9 +8,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="corpo2">
-	<h:form>
+	
 
-		<p:panelGrid columns="1" id="pg-ver-boletim">
+		<p:panelGrid columns="1" id="pg-ver-boletim" style="margin: left: 200px;">
 
 			<f:facet name="header">
 				<p:row>
@@ -45,15 +45,14 @@
 			</p:panelGrid>
 			<p:commandButton value="Editar avaliação do aluno"
 				styleClass="btn-boletim" />
-
-			<p:commandButton value="Ver comentário do responsável"
-				styleClass="btn-boletim" />
-
-			<p:commandButton value="Ver comentário do aluno"
-				styleClass="btn-boletim" />
-
+			<p:inputTextarea id="text-area-coment-avaliacao-prof"
+					placeholder="Comentário Responsável" disabled="true" />
+					
+			<p:inputTextarea id="text-area-coment-avaliacao-prof"
+					placeholder="Comentário Aluno" disabled="true" />
+			
 		</p:panelGrid>
-	</h:form>
+	
 	</ui:define>
 
 

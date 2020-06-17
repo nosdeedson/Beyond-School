@@ -15,19 +15,56 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "bimestre")
+@Table( name = "bimestre")
 public class Bimestre implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Long idBimestre;
+	private boolean atual;
 	private Date dataInicio;
 	private Date dataFim;
-	private int idBimestre;
 	
-	public Bimestre() {
+	public Bimestre() {	}
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id_bimestre")
+	public Long getIdBimestre() {
+		return idBimestre;
 	}
 
+	public void setIdBimestre(Long idBimestre) {
+		this.idBimestre = idBimestre;
+	}
 	
+	@Column(name = "atual", columnDefinition = "boolean", nullable = false) 
+	public boolean isAtual() {
+		return atual;
+	}
 
+	public void setAtual(boolean atual) {
+		this.atual = atual;
+	}
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_inicio", nullable = false)
+	public Date getDataInicio() {
+		return dataInicio;
+	}
 
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_fim", nullable = false)
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+	
 }

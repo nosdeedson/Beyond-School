@@ -8,22 +8,23 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="corpo2">
-<h:form>
-		<p:panelGrid columns="2" id="pg-tela-avaliar-aluno">
 
-			<f:facet name="header">
+	<h:form id="pg-tela-avaliar-aluno">
+	<p:panelGrid columns="2" id="pg-tela-avaliar-aluno">
+	
+	<f:facet name="header">
 				<p:row>
 					<p:column>
 						<p:outputLabel value="Turma x " />
 					</p:column>
 				</p:row>
-			</f:facet>
+	</f:facet>
+	
+	<p:outputLabel value="12:00 as 13:00" />
 
-			<p:outputLabel value="12:00 as 13:00" />
-
-			<p:outputLabel value="Avaliar: Edson Jose de Souza" />
-			
-				<p:outputLabel value="Vocabulary" />
+	<p:outputLabel value="Avaliar: Edson Jose de Souza" />
+	
+	<p:outputLabel value="Vocabulary" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console">
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
@@ -31,8 +32,7 @@
 					<f:selectItem itemLabel="Very good" itemValue="veryGood" />
 					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
 				</p:selectOneMenu>
-
-				<p:outputLabel value="Reading" />
+	<p:outputLabel value="Reading" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console1">
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
@@ -87,13 +87,19 @@
 				</p:selectOneMenu>
 				<p:inputTextarea id="text-area-coment-avaliacao-prof"
 					placeholder="Deixe seu comentário sobre o aluno" />
-				<p:commandButton id="btn-next-aluno" value="Next student" />
-			
-		</p:panelGrid>
-</h:form>
-		<p:commandButton styleClass="btn-danger botao-cancelar-avaliacao"
-			value="Cancelar" />
-
+				<p:column>
+					<p:commandButton id="btn-next-aluno" value="Next student" />
+					<p:commandButton styleClass="btn-danger "
+						value="Cancelar" />
+				</p:column>
+				
+	
+	
+	</p:panelGrid>
+	
+	
+	</h:form>
+		
 	</ui:define>
 
 

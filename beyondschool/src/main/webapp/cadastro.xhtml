@@ -18,27 +18,28 @@
 				</p:row>
 			</f:facet>
 			<h:form id="cadastro">
-				<p:inputText placeholder="Nome completo" />
+				<p:inputText placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" />
 				<br />
-				<p:calendar placeholder="Nascimento" />
+				<p:calendar placeholder="Nascimento" value="#{cadastroMBean.nascimento}" />
 				<br />
-				<p:inputText placeholder="Código turma" />
+				<p:inputText placeholder="Código turma" value="#{cadastroMBean.codigoTurma}"/>
 				<br />
-				<p:password placeholder="Senha" />
+				<p:password id="senha" placeholder="Senha" value="#{cadastroMBean.senha}" />
 				<br />
-				<p:password placeholder="Corfirmar senha" />
+				<p:password id="confirme" placeholder="Corfirmar senha" value="#{cadastroMBean.confirmeSenha}"
+				onfocus="teste" />
 				<br />
-				<p:selectOneMenu id="console" style="width:180px">
-					<!-- 		o tipo de acesso será usado apenas para determinar o tipo de objeto ( Admin, Aluno, Professor ou Resposavel) -->
+				
+				<p:selectOneMenu id="console" style="width:180px" value="#{cadastroMBean.tipoAcesso}">
+					
 					<f:selectItem itemLabel="Selecione" itemValue="Selecione"/>
-					<f:selectItem itemLabel="Tipo de Acesso" itemValue="tipoAcesso" />
 					<f:selectItem itemLabel="Admin" itemValue="Admin" />
 					<f:selectItem itemLabel="Aluno" itemValue="Aluno" />
 					<f:selectItem itemLabel="Professor" itemValue="Professor" />
 					<f:selectItem itemLabel="Responsável" itemValue="Responsável" />
 				</p:selectOneMenu>
 				<br />
-				<p:commandButton value="Cadastrar" id="btn-cadastrar" />
+				<p:commandButton value="Cadastrar" id="btn-cadastrar" update="cadastro" action="#{cadastroMBean.salvar}" />
 			</h:form>
 		</p:panelGrid>
 

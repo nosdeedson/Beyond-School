@@ -1,70 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <ui:composition template="WEB-INF/template2.xhtml"
-xmlns="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="corpo2">
- 
-<div class="row">
-<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12"> 
- 		
-<p:panelGrid columns="1">
-	<f:facet name="header">
-		<p:row>
-			<p:column>
-				<p:outputLabel value="Mudar alunos de turma"></p:outputLabel>
-			</p:column>
-		</p:row>
-	</f:facet>
-	<h:form id="carForm">
-    <p:fieldset id="availableCarsField" legend="Alunos">
-        <p:dataTable id="alunos" var="" value="">
-            <p:column style="width:20px">
-                <h:outputText id="dragIcon" styleClass="ui-icon pi pi-plus" />
-                <p:draggable for="dragIcon" revert="true" helper="clone"/>
-            </p:column>
- 
-            <p:column headerText="nome aluno">
-                <h:outputText value="edson" />
-            </p:column>
- 
-            <p:column headerText="Turma atual">
-                <h:outputText value="turma 1" />
-            </p:column>
-        </p:dataTable>
-    </p:fieldset>
- 
-    <p:fieldset id="selecioneAlunos" legend="Alunos selecionados" style="margin-top:20px">
-        <p:outputPanel id="dropArea">
-             <h:outputText value="!!!Arraste aqui!!!" rendered="#{empty dndCarsView.droppedCars}" style="font-size:24px;" />
-<!--              https://www.primefaces.org/showcase/ui/dnd/dataTable.xhtml referencia -->
-            <p:dataTable id="selectedCarsTable" var="" value="#" rendered="">
-                <p:column headerText="Nome">
-                    <h:outputText value="edson" />
-                </p:column>
- 
-                 
-                <p:column style="width:32px">
-                    <p:commandButton update="" oncomplete="" icon="pi pi-search">
-                        <f:setPropertyActionListener value="" target="" />
-                    </p:commandButton>
-                </p:column>
-            </p:dataTable>
-        </p:outputPanel>
-    </p:fieldset>
- 
-</h:form>
+	<ui:define name="corpo2">
 
-</p:panelGrid>
-</div>
-</div>
+		<div class="row">
+			<div
+				class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12">
+
+				<p:panelGrid columns="1">
+					<f:facet name="header">
+						<p:row>
+							<p:column>
+								<p:outputLabel value="Transferir alunos"></p:outputLabel>
+							</p:column>
+						</p:row>
+					</f:facet>
+					<h:form id="carForm">
+						<p:fieldset id="availableCarsField" legend="Alunos">
+							<p:dataTable id="alunos" var="" value="">
+								<p:column style="width:50px">
+									<h:outputText id="teste" value="+" styleClass="ui-icon pi pi-plus" />
+									<p:draggable for="teste" revert="" helper=""/>
+								</p:column>
+
+								<p:column headerText="nome aluno">
+									<h:outputText value="Edson Jose de Souza" />
+								</p:column>
+
+								<p:column headerText="Turma atual">
+									<h:outputText value="turma 1" />
+								</p:column>
+								<p:column headerText="Turma destino">
+									<p:selectOneMenu id="console" styleClass="menu">
+										<f:selectItem itemLabel="Selecione"
+											itemValue="turma" />
+										<f:selectItem itemLabel="Turma 1" itemValue="Turma 1" />
+										<f:selectItem itemLabel="Turma 2" itemValue="Turma 2" />
+									</p:selectOneMenu>
+								</p:column>
+							</p:dataTable>
+						</p:fieldset>
+
+						<p:fieldset id="selecioneAlunos" legend="Alunos transferidos"
+							style="margin-top:20px">
+							<p:outputPanel id="dropArea">
+								<h:outputText value="!!!Arraste aqui!!!"
+									rendered="#{empty dndCarsView.droppedCars}"
+									style="font-size:24px;" />
+								<!--              https://www.primefaces.org/showcase/ui/dnd/dataTable.xhtml referencia -->
+								<p:dataTable id="selectedCarsTable" var="" value="#" rendered="">
+									<p:column headerText="Nome">
+										<h:outputText value="edson" />
+									</p:column>
 
 
-</ui:define>
+									<p:column style="width:32px">
+										<p:commandButton update="" oncomplete="" icon="pi pi-search">
+											<f:setPropertyActionListener value="" target="" />
+										</p:commandButton>
+									</p:column>
+								</p:dataTable>
+							</p:outputPanel>
+						</p:fieldset>
+
+					</h:form>
+
+				</p:panelGrid>
+			</div>
+		</div>
+
+
+	</ui:define>
 
 
 </ui:composition>

@@ -14,5 +14,4 @@ public enum ConceitoEnum {
 		return descrição;
 	}
 	
-	
 }
