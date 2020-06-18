@@ -8,6 +8,4 @@ public class NegocioException extends Exception {
 		super(msg);
 	}
 	
-	
-
 }

@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
+import br.com.edson.Model.Usuario;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.ValidaDadosCadastro;
 
@@ -27,7 +28,8 @@ public class CadastroMBean implements Serializable {
 
 	private String codigoTurma;
 	
-	private String senha;
+	@Inject
+	private Usuario user;
 	
 	private String confirmeSenha;
 	
@@ -40,17 +42,20 @@ public class CadastroMBean implements Serializable {
 	private EntityManager em;
 	
 	
-	public void salvar() {
+	public void salvar(){
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		try {
-			
-			if ( !senha.equals(confirmeSenha)) {
-				throw new NegocioException("As senhas não conferem");
-			}
+			JOptionPane.showMessageDialog(null, "bean");
 			
 			validaDados.validarCodigo(getCodigoTurma());
+			
+			List<String> senhas = new ArrayList<String>();
+			senhas.add(user.getSenha());
+			senhas.add(confirmeSenha);
+			
+			validaDados.verificaSenha(senhas);
 			
 //			JOptionPane.showMessageDialog(null, nomeCompleto);
 //			JOptionPane.showMessageDialog(null, nascimento);
@@ -104,12 +109,12 @@ public class CadastroMBean implements Serializable {
 		this.codigoTurma = codigoTurma;
 	}
 
-	public String getSenha() {
-		return senha;
+	public Usuario getUser() {
+		return user;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setUser(Usuario user) {
+		this.user = user;
 	}
 
 	public String getConfirmeSenha() {

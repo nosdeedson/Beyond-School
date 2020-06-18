@@ -22,13 +22,13 @@
 							</p:row>
 						</f:facet>
 						
-						<p:inputText placeholder="Nome Turma" value="#{cadastrarTurmaMBean.turma.nomeTurma}" />
+						<p:inputText placeholder="Nome Turma" value="#{cadastrarTurmaMBean.turma.nomeTurma}" required="true" />
 							
-							<p:inputText placeholder="Nome do livro" value="#{cadastrarTurmaMBean.turma.nomeLivro}"/>
+							<p:inputText placeholder="Nome do livro" value="#{cadastrarTurmaMBean.turma.nomeLivro}" required="true"  />
 							
-							<p:inputText placeholder="Nome do Professor" value="#{cadastrarTurmaMBean.professor.nomeCompleto}"/>
+							<p:inputText placeholder="Nome do Professor" value="#{cadastrarTurmaMBean.professor.nomeCompleto}" required="true" />
 							
-							<p:selectOneMenu id="console" styleClass="menu" value="#{cadastrarTurmaMBean.dia1}">
+							<p:selectOneMenu id="console" styleClass="menu" value="#{cadastrarTurmaMBean.dia1}" required="true" >
 								<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"  />
 								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
 								<f:selectItem itemLabel="Terça" itemValue="Terça" />
@@ -37,9 +37,9 @@
 								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
 							</p:selectOneMenu>
 							
-							<p:inputMask id="horario1" value="#{cadastrarTurmaMBean.hora}" mask="99:99" placeholder="Horario de início" />
+							<p:inputMask id="horario1" value="#{cadastrarTurmaMBean.hora}" mask="99:99" placeholder="Horario de início" required="true"  />
 							
-							<p:selectOneMenu id="console1" styleClass="menu"  value="#{cadastrarTurmaMBean.dia2}">
+							<p:selectOneMenu id="console1" styleClass="menu"  value="#{cadastrarTurmaMBean.dia2}" required="true"  >
 								<f:selectItem itemLabel="Selecione " itemValue=""  noSelectionOption="true" />
 								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
 								<f:selectItem itemLabel="Terça" itemValue="Terça" />
@@ -48,7 +48,7 @@
 								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
 							</p:selectOneMenu>
 							
-							<p:inputMask id="horario2" value="#{cadastrarTurmaMBean.hora2}" mask="99:99" placeholder="Horario de início" />
+							<p:inputMask id="horario2" value="#{cadastrarTurmaMBean.hora2}" mask="99:99" placeholder="Horario de início" required="true"  />
 
 							<p:commandButton value="Salvar" id="btn-salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma"/> 
 							

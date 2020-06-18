@@ -54,8 +54,9 @@ public class Turma implements Serializable {
 		this.nomeLivro = nomeLivro;
 	}
 	
-	@Size(max = 10)
-	@Column(name = "nome_turma", length = 10, nullable = false)
+	@NotEmpty
+	@Size(max = 20)
+	@Column(name = "nome_turma", length = 20, nullable = false)
 	public String getNomeTurma() {
 		return nomeTurma;
 	}
@@ -64,6 +65,7 @@ public class Turma implements Serializable {
 		this.nomeTurma = nomeTurma;
 	}
 
+	@NotNull
 	@Temporal(TemporalType.TIME)
 	@Column(name = "horario",nullable = false)
 	public java.util.Date getHorario() {
@@ -74,6 +76,7 @@ public class Turma implements Serializable {
 		this.horario = horario;
 	}
 
+	@NotNull
 	@Temporal(TemporalType.TIME)
 	@Column(name = "horario2",nullable = false)
 	public Date getHorario2() {

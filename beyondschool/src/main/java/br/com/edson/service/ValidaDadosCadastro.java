@@ -20,12 +20,23 @@ public class ValidaDadosCadastro implements Serializable {
 	
 	public void validarCodigo( String codigo) throws NegocioException {
 		List<String> codigos = new ArrayList<String>();
-		
 		codigos = turmasBD.buscaCodigos();
-		
+		boolean flag = false;
 		for (String codigoTurma : codigos) {
-			if(codigoTurma.equals(codigo))
-				throw new NegocioException("Código inválido");
+			if(codigoTurma.equals(codigo)) {
+				flag = true;
+			}
+		}
+		if(!flag) {
+			throw new NegocioException("Código inválido!! Digite novamente.");
+		}		
+	}
+	
+	public void verificaSenha( List<String> senhas)throws NegocioException{
+		String senha = senhas.get(0);
+		String confirmeSenha = senhas.get(1);
+		if(!senha.equals(confirmeSenha)) {
+			throw new NegocioException("Senhas não conferem!! Digite novamente.");
 		}
 	}
 
