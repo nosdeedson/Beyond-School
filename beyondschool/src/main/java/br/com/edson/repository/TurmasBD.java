@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
+import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.Turma;
 
 public class TurmasBD implements Serializable {
@@ -35,6 +36,12 @@ public class TurmasBD implements Serializable {
 		
 		TypedQuery<String> codigos = this.em.createQuery("select t.codigoTurma from Turma t ", String.class);
 		return codigos.getResultList();
+	}
+	
+	public Long buscaIdProfessor( String codigo) {
+		Turma t = em.createQuery(" from Turma t where t.codigoTurma = :codigoTurma", Turma.class)
+				.setParameter("codigoTurma", codigo).getSingleResult();
+		return t.getProfessor().getIdPessoa();
 	}
 
 }

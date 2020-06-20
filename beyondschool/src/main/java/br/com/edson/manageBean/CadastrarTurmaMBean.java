@@ -3,6 +3,8 @@ package br.com.edson.manageBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.SimpleFormatter;
 
 import javax.faces.application.FacesMessage;
@@ -19,6 +21,7 @@ import br.com.edson.Util.Jpa.Transactional;
 import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.service.GeradorCodigo;
+import br.com.edson.service.VerificaExisteProfessor;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -54,17 +57,33 @@ public class CadastrarTurmaMBean implements Serializable {
 	
 	private String codigo;
 	
+	@Inject
+	VerificaExisteProfessor verificaProf;
+	
+	private boolean flag = true;
+	
 	//métodos
 	
 	public void salvar() throws ParseException {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();
+		
+		
+		Funcionario existe = verificaProf.existeProfessor(professor.getNomeCompleto());
+		if(existe != null) {
+			professor = existe;
+			flag = false;
+		}
+		
 		try {
 			
 			et.begin();
-			Long idPessoa = funcionariosBD.salvarFuncionario(professor);
-			professor.setIdPessoa(idPessoa);
+			
+			if(flag) {
+				Long idPessoa = funcionariosBD.salvarFuncionario(professor);
+				professor.setIdPessoa(idPessoa);
+			}
 			
 			codigo = gerardorCodigo.gerarCodigoTurma();
 			

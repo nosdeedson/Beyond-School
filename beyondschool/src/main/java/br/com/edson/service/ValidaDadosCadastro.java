@@ -32,12 +32,28 @@ public class ValidaDadosCadastro implements Serializable {
 		}		
 	}
 	
-	public void verificaSenha( List<String> senhas)throws NegocioException{
-		String senha = senhas.get(0);
-		String confirmeSenha = senhas.get(1);
+	public void verificaSenha(String senha, String confirmeSenha)throws NegocioException{
+		
 		if(!senha.equals(confirmeSenha)) {
 			throw new NegocioException("Senhas não conferem!! Digite novamente.");
 		}
+	}
+	
+	public String criaNomeUsuario(String nome) {
+		
+		int primeiroEspaco = nome.indexOf(" ");
+		
+		int ultimoEspaco = nome.lastIndexOf(" ");
+		
+		int tm = nome.length();
+		
+		String nomeUser = nome.substring(0, primeiroEspaco);
+		
+		nomeUser += ".";
+		
+		nomeUser += nome.substring(ultimoEspaco+1, tm);
+		
+		return nomeUser;
 	}
 
 }

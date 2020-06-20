@@ -1,6 +1,9 @@
 package br.com.edson.manageBean;
 
+import java.awt.HeadlessException;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +12,17 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
 
+import br.com.edson.Model.Aluno;
+import br.com.edson.Model.Funcionario;
+import br.com.edson.Model.PapelEnum;
+import br.com.edson.Model.Responsavel;
 import br.com.edson.Model.Usuario;
+import br.com.edson.repository.FuncionariosBD;
+import br.com.edson.repository.UsuariosBD;
+import br.com.edson.service.CadastraProfessor;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.ValidaDadosCadastro;
 
@@ -31,6 +42,9 @@ public class CadastroMBean implements Serializable {
 	@Inject
 	private Usuario user;
 	
+	@Inject
+	private UsuariosBD userBD;
+	
 	private String confirmeSenha;
 	
 	private String tipoAcesso;
@@ -41,22 +55,79 @@ public class CadastroMBean implements Serializable {
 	@Inject
 	private EntityManager em;
 	
+	@Inject
+	private CadastraProfessor cadProf;
+	
+	
+	/* usado para cadastrar o admin apenas*/
+	@Inject
+	private FuncionariosBD adminBD;
+	
+	@Inject
+	private Aluno aluno1;
+	
+	@Inject
+	private Aluno aluno2;
+	
+	
 	
 	public void salvar(){
 		
 		FacesContext context = FacesContext.getCurrentInstance();
-		
+		EntityTransaction et = em.getTransaction();	
 		try {
-			JOptionPane.showMessageDialog(null, "bean");
 			
-			validaDados.validarCodigo(getCodigoTurma());
+			if( !tipoAcesso.equals("Admin"))
+				validaDados.validarCodigo(getCodigoTurma());
 			
-			List<String> senhas = new ArrayList<String>();
-			senhas.add(user.getSenha());
-			senhas.add(confirmeSenha);
 			
-			validaDados.verificaSenha(senhas);
+			validaDados.verificaSenha(user.getSenha(), confirmeSenha);
 			
+			
+			String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
+			user.setNomeUsuario(nomeUsuario);
+			
+			
+			switch (tipoAcesso) {
+			case "Admin":
+				JOptionPane.showMessageDialog(null, "admin");
+				if(!codigoTurma.equals("semcodigo"))
+					throw new NegocioException("Código Inválido");
+				et.begin();
+				
+				Funcionario admin = new Funcionario();
+				admin.setDataNascimento( new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
+				admin.setNomeCompleto(nomeCompleto);
+				admin.setTipoAcesso(PapelEnum.ADMIN);
+				
+				Long idAdmin = adminBD.salvarFuncionario(admin);
+				admin.setIdPessoa(idAdmin);
+				user.setPessoa(admin);
+				userBD.salvarUser(user);
+			et.commit();
+				break;
+			case "Aluno":
+				JOptionPane.showMessageDialog(null, "aluno");
+				break;
+			case "Professor":
+				JOptionPane.showMessageDialog(null, "professor");
+				et.begin();
+					Funcionario f = new Funcionario();
+					f = cadProf.salvarProfessor(codigoTurma, nomeCompleto, nascimento);
+					user.setPessoa(f);
+					userBD.salvarUser(user);
+				et.commit();
+				break;
+			case "Responsável":
+				JOptionPane.showMessageDialog(null, "resp");
+				et.begin();
+				// aqui 
+				Responsavel resp = new Responsavel();
+				resp.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
+				resp.setNomeCompleto(nomeCompleto);
+				
+				break;
+			}
 //			JOptionPane.showMessageDialog(null, nomeCompleto);
 //			JOptionPane.showMessageDialog(null, nascimento);
 //			JOptionPane.showMessageDialog(null, senha);
@@ -64,9 +135,10 @@ public class CadastroMBean implements Serializable {
 //			JOptionPane.showMessageDialog(null, tipoAcesso);
 			
 			
-			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!"));
+			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
 			
-		} catch ( NegocioException e) {
+		} catch ( NegocioException | ParseException | NullPointerException e) {
+			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
@@ -82,9 +154,27 @@ public class CadastroMBean implements Serializable {
 		
 	}
 	
-	
-	
+
 	// getters and setters
+	
+	public Aluno getAluno1() {
+		return aluno1;
+	}
+
+	public void setAluno1(Aluno aluno1) {
+		this.aluno1 = aluno1;
+	}
+
+
+	public Aluno getAluno2() {
+		return aluno2;
+	}
+
+
+	public void setAluno2(Aluno aluno2) {
+		this.aluno2 = aluno2;
+	}
+
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}
@@ -131,8 +221,7 @@ public class CadastroMBean implements Serializable {
 
 	public void setTipoAcesso(String tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
-	}
-	
+	}	
 	
 	
 }

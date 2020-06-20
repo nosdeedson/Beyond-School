@@ -10,8 +10,11 @@
 	<ui:define name="corpo">
 	
 <h:form id="formulario_cadastro" >
+		<div  style="width: 40%;" >
 		<p:messages/>
-		<p:panelGrid columns="1" >
+		</div>
+		
+		<p:panelGrid columns="1" id="t">
 			<f:facet name="header">
 				<p:row>
 					<p:column>
@@ -21,10 +24,10 @@
 			</f:facet>
 			
 				<p:inputText placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" />
+								
+				<p:inputMask mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" />
 				
-				<p:calendar placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" />
-				
-				<p:inputText placeholder="Código turma" value="#{cadastroMBean.codigoTurma}" required="true"/>
+				<p:inputText placeholder="Código" value="#{cadastroMBean.codigoTurma}" required="true"/>
 				
 				<p:password id="senha" placeholder="Senha" value="#{cadastroMBean.user.senha}" required="true" />
 				
@@ -32,19 +35,35 @@
 				required="true" />
 				
 				
-				<p:selectOneMenu id="console" style="width:180px" value="#{cadastroMBean.tipoAcesso}" required="true">
+				<p:selectOneMenu id="console" style="width:180px" value="#{cadastroMBean.tipoAcesso}" required="true"  >
 					
+
 					<f:selectItem itemLabel="Selecione" itemValue="Selecione"/>
 					<f:selectItem itemLabel="Admin" itemValue="Admin" />
-					<f:selectItem itemLabel="Aluno" itemValue="Aluno" />
+					<f:selectItem id="a" itemLabel="Aluno" itemValue="Aluno" />
 					<f:selectItem itemLabel="Professor" itemValue="Professor" />
 					<f:selectItem itemLabel="Responsável" itemValue="Responsável" />
+<!-- 					<p:confirm></p:confirm> -->
 				</p:selectOneMenu>
-			
+				
+				<p:inputText placeholder="Aluno" required="true" value="#{cadastroMBean.aluno1.nomeCompleto}"/>
+				<p:inputText placeholder="Aluno" required="true" value="#{cadastroMBean.aluno2.nomeCompleto}">
+					
+				</p:inputText>
+				
+
 				<p:commandButton value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" />
 			
 		</p:panelGrid>
 	</h:form>
+<script type="text/javascript">
+  function mostra(){
+	  alert(document.getElementById('formulario_cadastro:console').value);
+	  if( document.getElementById('formulario_cadastro:console:a').value == "Aluno" )
+	  document.getElementById('lname').setAttribute("type", "");
+	
+  }
+</script>
 
 	</ui:define>
 

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -108,8 +109,7 @@ public class Turma implements Serializable {
 	}
 
 	@NotNull
-	@OneToOne (optional = false)
-	@JoinColumn(name = "id_professor")
+	@OneToOne
 	public Funcionario getProfessor() {
 		return professor;
 	}

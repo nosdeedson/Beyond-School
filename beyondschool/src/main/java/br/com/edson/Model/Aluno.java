@@ -39,7 +39,7 @@ public class Aluno extends Pessoa implements Serializable {
 	}
 	
 	@NotNull
-	@OneToOne(optional = false)
+	@OneToOne
 	@JoinColumn(name = "id_turma")
 	public Turma getTurma() {
 		return turma;

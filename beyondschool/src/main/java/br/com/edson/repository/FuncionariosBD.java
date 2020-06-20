@@ -1,9 +1,11 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import br.com.edson.Model.Funcionario;
 
@@ -18,8 +20,18 @@ public class FuncionariosBD implements Serializable {
 		this.em = em;
 	}
 
+	
+	public List<Funcionario> buscaFuncionarios() {
+		
+		TypedQuery<Funcionario> funcionarios = em.createQuery("from Funcionario", Funcionario.class);
+		
+		return funcionarios.getResultList();
+	}
+	
+	
+	
 	/**
-	 * método usado para persistir professor que é cradastrado na hora que se cadastra turma
+	 * método usado para persistir professor ou admin que é cradastrado na hora que se cadastra turma
 	 * primeiro verifica se o funcionario já existe no banco
 	 * se sim retorna
 	 * @param funcionario
@@ -43,4 +55,6 @@ public class FuncionariosBD implements Serializable {
 	public void salvarFuncionarioCadastro( Funcionario funcionario) {
 		this.em.merge(funcionario);
 	}
+	
+	
 }
