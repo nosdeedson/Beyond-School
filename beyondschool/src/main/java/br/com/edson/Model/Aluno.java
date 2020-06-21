@@ -38,9 +38,8 @@ public class Aluno extends Pessoa implements Serializable {
 		this.avaliacoes = avaliacoes;
 	}
 	
-	@NotNull
 	@OneToOne
-	@JoinColumn(name = "id_turma")
+	@JoinColumn(name= "id_turma")
 	public Turma getTurma() {
 		return turma;
 	}

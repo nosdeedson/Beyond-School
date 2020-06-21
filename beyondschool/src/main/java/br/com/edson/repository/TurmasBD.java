@@ -22,16 +22,6 @@ public class TurmasBD implements Serializable {
 		this.em = em;
 	}
 	
-	
-	/**
-	 * salvar turma código gerado pelo sistema, não é autoincremente.
-	 * o código é um varchar de oito caracteres
-	 * @param turma
-	 */
-	public void salvarTurma(Turma turma) {
-		this.em.merge(turma);
-	}
-	
 	public List<String> buscaCodigos(){
 		
 		TypedQuery<String> codigos = this.em.createQuery("select t.codigoTurma from Turma t ", String.class);
@@ -43,5 +33,24 @@ public class TurmasBD implements Serializable {
 				.setParameter("codigoTurma", codigo).getSingleResult();
 		return t.getProfessor().getIdPessoa();
 	}
+	
+	public Turma buscaTurma( String codigo) {
+		String sql = "from Turma t where t.codigoTurma = :codigoTurma";
+		Turma turma = this.em.createQuery(sql, Turma.class).setParameter("codigoTurma", codigo).getSingleResult();
+		
+		return turma;
+	}
+	
+	/**
+	 * salvar turma código gerado pelo sistema, não é autoincremente.
+	 * o código é um varchar de oito caracteres
+	 * @param turma
+	 */
+	public void salvarTurma(Turma turma) {
+		this.em.merge(turma);
+	}
+	
+	
+
 
 }

@@ -46,13 +46,23 @@
 <!-- 					<p:confirm></p:confirm> -->
 				</p:selectOneMenu>
 				
-				<p:inputText placeholder="Aluno" required="true" value="#{cadastroMBean.aluno1.nomeCompleto}"/>
-				<p:inputText placeholder="Aluno" required="true" value="#{cadastroMBean.aluno2.nomeCompleto}">
-					
-				</p:inputText>
+				<p:commandButton value="Informar Alunos" action="#{cadastroMBean.showAlunos}" update="@form"/>
+				<p:commandButton value="Informar Responsáveis" action="#{cadastroMBean.showResponsaveis}" update="@form"/>
 				
-
-				<p:commandButton value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" />
+				
+				<p:panelGrid id="inputAlunos" rendered="#{cadastroMBean.mostraInputParaAlunos}">
+					<p:inputText placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos}" value="#{cadastroMBean.aluno1.nomeCompleto}"/>
+					<br/>
+					<p:inputText placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos}" value="#{cadastroMBean.aluno2.nomeCompleto}"/>
+				</p:panelGrid>
+				
+				<p:panelGrid id="inputResp" rendered="#{cadastroMBean.mostraInputResponsaveis}">
+					<p:inputText placeholder="Responsável" required="true" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.responsavel1.nomeCompleto}" />
+					<br/>
+					<p:inputText placeholder="Responsável" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.responsavel2.nomeCompleto}"/>
+				</p:panelGrid>
+				
+				<p:commandButton value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" rendered="true" />
 			
 		</p:panelGrid>
 	</h:form>

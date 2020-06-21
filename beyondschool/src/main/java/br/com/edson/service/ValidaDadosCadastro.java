@@ -18,6 +18,11 @@ public class ValidaDadosCadastro implements Serializable {
 	@Inject
 	public ValidaDadosCadastro() {}
 	
+	/**
+	 * verifica se o codigo informado pelo usuário existe
+	 * @param codigo
+	 * @throws NegocioException
+	 */
 	public void validarCodigo( String codigo) throws NegocioException {
 		List<String> codigos = new ArrayList<String>();
 		codigos = turmasBD.buscaCodigos();
@@ -32,6 +37,12 @@ public class ValidaDadosCadastro implements Serializable {
 		}		
 	}
 	
+	/**
+	 * verifica se as senhas digitadas são iguais
+	 * @param senha
+	 * @param confirmeSenha
+	 * @throws NegocioException
+	 */
 	public void verificaSenha(String senha, String confirmeSenha)throws NegocioException{
 		
 		if(!senha.equals(confirmeSenha)) {
@@ -39,6 +50,11 @@ public class ValidaDadosCadastro implements Serializable {
 		}
 	}
 	
+	/**
+	 * cria o nome de usuário com o primeiro e o sobrenome unidos por ponto
+	 * @param nome
+	 * @return
+	 */
 	public String criaNomeUsuario(String nome) {
 		
 		int primeiroEspaco = nome.indexOf(" ");

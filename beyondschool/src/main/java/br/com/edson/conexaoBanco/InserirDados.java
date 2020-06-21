@@ -52,6 +52,7 @@ public class InserirDados {
 		aluno.setMatricula("111111");
 		aluno.setNomeCompleto("Edson jose de souza aluno");
 		aluno.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("30/06/1980"));
+		aluno.setTurma(turma);
 		
 		Usuario ualuno = new Usuario();
 		ualuno.setNomeUsuario("edson.souza aluno");
@@ -62,7 +63,7 @@ public class InserirDados {
 		em.persist(uteacher);
 		
 		em.persist(turma);
-		aluno.setTurma(turma);
+		
 		em.persist(aluno);
 		em.persist(ualuno);
 		

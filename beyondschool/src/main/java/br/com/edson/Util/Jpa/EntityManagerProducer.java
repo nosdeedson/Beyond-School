@@ -20,7 +20,7 @@ public class EntityManagerProducer {
 	}
 	
 	@Produces
-	@ViewScoped
+	@RequestScoped
 	public EntityManager createEntityManger() {
 		return emf.createEntityManager();
 	}

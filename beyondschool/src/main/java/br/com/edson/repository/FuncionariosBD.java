@@ -38,7 +38,6 @@ public class FuncionariosBD implements Serializable {
 	 * @return
 	 */
 	public Long salvarFuncionario( Funcionario funcionario) {
-		
 		this.em.merge(funcionario);
 		
 		String sql = "select max(idPessoa) from Funcionario";
