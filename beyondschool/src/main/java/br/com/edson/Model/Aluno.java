@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "aluno", uniqueConstraints = {@UniqueConstraint (columnNames = "matricula")})
@@ -18,18 +19,21 @@ public class Aluno extends Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private List<Avaliacao> avaliacoes;
-	private String matricula;
+	private Integer matricula;
 	private Turma turma;
 	
 	public Aluno() { }
 	
-	public String getMatricula() {
+	public Integer getMatricula() {
 		return matricula;
 	}
-	public void setMatricula(String matricula) {
+
+	public void setMatricula(Integer matricula) {
 		this.matricula = matricula;
 	}
-	
+
+
+
 	@OneToMany(mappedBy = "aluno")
 	public List<Avaliacao> getAvaliacoes() {
 		return avaliacoes;

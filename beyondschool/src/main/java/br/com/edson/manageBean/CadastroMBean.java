@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
@@ -31,7 +32,6 @@ import br.com.edson.service.CadastraAluno;
 import br.com.edson.service.CadastraProfessor;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.ValidaDadosCadastro;
-import br.com.edson.service.VerificaExisteAluno;
 import br.com.edson.service.VerificaExisteResponsavel;
 
 @Named
@@ -163,62 +163,69 @@ public class CadastroMBean implements Serializable {
 				JOptionPane.showMessageDialog(null, "aluno");
 				
 				validaDados.validarCodigo(codigoTurma);
-				
-				
+								
 				Aluno student = alunosBD.buscaAlunoPeloNome(nomeCompleto);
-				if(student == null)
+				if(student == null) {
 					student = new Aluno();
+				}
 					
 				Turma t = turmasBD.buscaTurma(codigoTurma);
 				
-				JOptionPane.showMessageDialog(null, t.getCodigoTurma());
-				// ok acima 
-				// gerar matricula sem dados no banco 
-				// nao esquecer de criar turma e gerar aluno existente cadastrando resp
-//				student.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
-//				student.setNomeCompleto(nomeCompleto);
-//				student.setTurma(t);
-//				Long idStudent = alunosBD.salvarAluno(student);
-//				student.setIdPessoa(idStudent);
-//				// talvez por falta da turma é que não está salvando
-//				
-//				user.setPessoa(student);
-//				userBD.salvarUser(user);
-//				
-//				if( getNomeResponsavel1().equals("")) {
-//					responsavel1 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel1);
-//					
-//					if(responsavel1 == null) {
-//						responsavel1 = new Responsavel();
-//						responsavel1.setNomeCompleto(nomeResponsavel1);
-//						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel1);
-//						responsavel1.setIdPessoa(idResponsa);
-//					}
-//					
-//					AlunoResponsavel ar = new AlunoResponsavel();
-//					
-//					ar.setAluno(student);
-//					ar.setResponsavel(responsavel1);
-//					alunosResponsaveisBD.salvarAlunoResponsavel(ar);
-//				}
-//				
-//				if( !getNomeResponsavel2().equals("")) {
-//					
-//					responsavel2 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel2);
-//					
-//					if( responsavel2 == null) {
-//						responsavel2 = new Responsavel();
-//						responsavel2.setNomeCompleto(nomeResponsavel2);
-//						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel2);
-//						responsavel2.setIdPessoa(idResponsa);
-//					}
-//					
-//					AlunoResponsavel ar2 = new AlunoResponsavel();
-//					ar2.setAluno(student);
-//					ar2.setResponsavel(responsavel2);
-//					alunosResponsaveisBD.salvarAlunoResponsavel(ar2);
-//				}
+				Integer mat = alunosBD.buscaMatricula();
 				
+				if( mat == null)
+					mat = 100;
+				else
+					mat++;
+				//JOptionPane.showMessageDialog(null, mat);
+				
+				// ok acima 
+				et.begin();
+				student.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
+				student.setNomeCompleto(nomeCompleto);
+				student.setMatricula(mat);
+				student.setTurma(t);
+				Long idStudent = alunosBD.salvarAluno(student);
+				student.setIdPessoa(idStudent);
+				
+				
+				user.setPessoa(student);
+				userBD.salvarUser(user);
+				
+				if( !getNomeResponsavel1().equals("")) {
+					responsavel1 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel1);
+					
+					if(responsavel1 == null) {
+						responsavel1 = new Responsavel();
+						responsavel1.setNomeCompleto(nomeResponsavel1);
+						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel1);
+						responsavel1.setIdPessoa(idResponsa);
+					}
+					
+					AlunoResponsavel ar = new AlunoResponsavel();
+					
+					ar.setAluno(student);
+					ar.setResponsavel(responsavel1);
+					alunosResponsaveisBD.salvarAlunoResponsavel(ar);
+				}
+				
+				if( !getNomeResponsavel2().equals("")) {
+					
+					responsavel2 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel2);
+					
+					if( responsavel2 == null) {
+						responsavel2 = new Responsavel();
+						responsavel2.setNomeCompleto(nomeResponsavel2);
+						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel2);
+						responsavel2.setIdPessoa(idResponsa);
+					}
+					
+					AlunoResponsavel ar2 = new AlunoResponsavel();
+					ar2.setAluno(student);
+					ar2.setResponsavel(responsavel2);
+					alunosResponsaveisBD.salvarAlunoResponsavel(ar2);
+				}
+				et.commit();
 				break;
 			case "Professor":
 				
@@ -294,7 +301,7 @@ public class CadastroMBean implements Serializable {
 			
 			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
 			
-		} catch ( NegocioException | ParseException | NullPointerException | FacesException | InjectionException e) {
+		} catch ( PersistenceException | NegocioException | ParseException | NullPointerException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);

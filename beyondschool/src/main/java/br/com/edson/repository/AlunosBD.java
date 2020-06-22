@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 
@@ -45,12 +46,28 @@ public class AlunosBD implements Serializable {
 		return aluno;
 	}
 	
+	public Integer buscaMatricula() {
+		
+		String sql = " select max(a.matricula) from Aluno a";
+		Integer mat = new Integer(100);
+		
+		try {
+			mat = this.em.createQuery(sql, Integer.class).getSingleResult();
+			return mat;
+		} catch ( PersistenceException e) {
+			return null;
+		}
+		
+	}
+	
 	public Long salvarAluno(Aluno aluno) {
 		this.em.merge(aluno);
 		
-		String sql = "select idPessoa from Aluno where nomeCompleto = :nomeCompleto";
+		String sql = "select a.idPessoa from Aluno a where nomeCompleto = :nomeCompleto";
 		
-		Long idAluno = this.em.createQuery(sql, Long.class).setParameter("nomeCompleto", aluno.getNomeCompleto()).getSingleResult();
+		String nome = aluno.getNomeCompleto();
+		
+		Long idAluno = this.em.createQuery(sql, Long.class).setParameter("nomeCompleto", nome).getSingleResult();
 		
 		return idAluno;
 	}

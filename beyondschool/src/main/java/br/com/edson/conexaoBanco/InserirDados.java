@@ -49,7 +49,7 @@ public class InserirDados {
 		
 		
 		Aluno aluno = new Aluno();
-		aluno.setMatricula("111111");
+		aluno.setMatricula(111111);
 		aluno.setNomeCompleto("Edson jose de souza aluno");
 		aluno.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("30/06/1980"));
 		aluno.setTurma(turma);
