@@ -38,24 +38,7 @@ public class CadastraAluno implements Serializable {
 	public CadastraAluno() { }
 	
 	public Aluno salvarAluno(String codigo, String nomeCompleto, String nascimento) throws ParseException {
-		
-		turma = turmasBD.buscaTurma(codigo);
-		
-		//Aluno aluno = verificaAluno.buscaAluno(nomeCompleto);
-//		if(aluno == null)
-//			aluno = new Aluno();
-		Aluno aluno = new Aluno();
-		JOptionPane.showMessageDialog(null, aluno);
-				
-		aluno.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
-
-		aluno.setNomeCompleto(nomeCompleto);
-		
-		aluno.setTurma(turma);
-		
-		alunosBD.salvarAlunosRespCadPrimerio(aluno);		
-		
-		return aluno;
+		return null;
 	}
 
 }

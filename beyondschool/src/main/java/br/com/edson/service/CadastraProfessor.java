@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.PapelEnum;
@@ -28,10 +29,15 @@ public class CadastraProfessor implements Serializable {
 	public CadastraProfessor() {
 	}
 
-	public Funcionario salvarProfessor(String codigo, String nomeCompleto, String nascimento) throws ParseException {
-
+	public Funcionario salvarProfessor(String codigo, String nomeCompleto, String nascimento) throws ParseException, NegocioException {
+		
+		
 		Long idProf = turmasBD.buscaIdProfessor(codigo);
-
+		
+		if( idProf == null ) {
+			throw new NegocioException("Código inexistente");
+		}
+		
 		funcionario.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
 
 		funcionario.setIdPessoa(idProf);
@@ -40,6 +46,8 @@ public class CadastraProfessor implements Serializable {
 		funcionario.setTipoAcesso(PapelEnum.PROFESSOR);
 
 		funcBD.salvarFuncionarioCadastro(funcionario);
+		
+		
 		return funcionario;
 	}
 

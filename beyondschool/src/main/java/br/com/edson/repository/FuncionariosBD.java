@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import br.com.edson.Model.Funcionario;
@@ -13,13 +15,25 @@ public class FuncionariosBD implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
 	private EntityManager em;
 
 	@Inject
-	public FuncionariosBD(EntityManager em) {
-		this.em = em;
+	public FuncionariosBD() {
 	}
 
+	public Funcionario buscaFuncionarioPeloNome(String nome) {
+		
+		Funcionario func = new Funcionario();
+		try {
+			String sql = "from Funcionario f where f.nomeCompleto = :nomeCompleto";
+			func = this.em.createQuery(sql, Funcionario.class).setParameter("nomeCompleto", nome).getSingleResult();
+		} catch (PersistenceException  e) {
+			return null;
+		}
+		return func;
+		
+	}
 	
 	public List<Funcionario> buscaFuncionarios() {
 		
@@ -40,9 +54,9 @@ public class FuncionariosBD implements Serializable {
 	public Long salvarFuncionario( Funcionario funcionario) {
 		this.em.merge(funcionario);
 		
-		String sql = "select max(idPessoa) from Funcionario";
+		String sql = "select idPessoa from Funcionario f where f.nomeCompleto = :nomeCompleto";
 		
-		Long query = this.em.createQuery(sql, Long.class).getSingleResult();
+		Long query = this.em.createQuery(sql, Long.class).setParameter("nomeCompleto", funcionario.getNomeCompleto()).getSingleResult();
 		
 		return query;
 	}

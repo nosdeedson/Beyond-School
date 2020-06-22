@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.swing.JOptionPane;
 
 import br.com.edson.repository.TurmasBD;
 
@@ -15,9 +16,8 @@ public class GeradorCodigo implements Serializable {
 	
 	@Inject
 	private TurmasBD turmasBD;
-	
-	private List<String> codigos = new ArrayList<String>();
 
+	@Inject
 	public GeradorCodigo() { }
 	
 	public String gerarCodigoTurma() {
@@ -42,13 +42,9 @@ public class GeradorCodigo implements Serializable {
 			
 		}
 		
-		codigos = turmasBD.buscaCodigos();
-		
-		for (String codTurma : codigos) {
-			if(codTurma.equals(codigo)) {
-				this.gerarCodigoTurma();
-			}
-		}
+		boolean flag = turmasBD.verificaCodigoGerado(codigo);
+		if(flag)
+			gerarCodigoTurma();
 		
 		
 		return codigo;

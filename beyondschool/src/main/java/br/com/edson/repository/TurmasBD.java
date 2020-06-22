@@ -5,38 +5,64 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.Turma;
+import br.com.edson.service.NegocioException;
 
 public class TurmasBD implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
 	private EntityManager em;
 
 	@Inject
-	public TurmasBD(EntityManager em) {
-		this.em = em;
-	}
-	
-	public List<String> buscaCodigos(){
-		
-		TypedQuery<String> codigos = this.em.createQuery("select t.codigoTurma from Turma t ", String.class);
-		return codigos.getResultList();
+	public TurmasBD() {
 	}
 	
 	public Long buscaIdProfessor( String codigo) {
-		Turma t = em.createQuery(" from Turma t where t.codigoTurma = :codigoTurma", Turma.class)
-				.setParameter("codigoTurma", codigo).getSingleResult();
+		Turma t = new Turma();
+		try {
+			t = em.createQuery(" from Turma t where t.codigoTurma = :codigoTurma", Turma.class)
+					.setParameter("codigoTurma", codigo).getSingleResult();
+		} catch ( PersistenceException e) {
+			return null;
+		}
+		
 		return t.getProfessor().getIdPessoa();
 	}
 	
-	public Turma buscaTurma( String codigo) {
-		String sql = "from Turma t where t.codigoTurma = :codigoTurma";
-		Turma turma = this.em.createQuery(sql, Turma.class).setParameter("codigoTurma", codigo).getSingleResult();
+	
+	public boolean verificaCodigoGerado( String codigo){
+		
+		try {
+			String cod = this.em.createQuery("select t.codigoTurma from Turma t where t.codigoTurma = :codigoTurma", String.class)
+					.setParameter("codigoTurma", codigo).getSingleResult();
+			if(!cod.equals(""))
+				return true;
+		} catch (PersistenceException e) {
+			return false;
+		}
+		
+		return false;
+	}
+	
+
+	public Turma buscaTurma( String codigo){
+		Turma turma;
+		try {
+			String sql = "select t from Turma t where t.codigoTurma = :codigoTurma";
+			turma = this.em.createQuery(sql, Turma.class).setParameter("codigoTurma", codigo).getSingleResult();
+			
+		} catch ( PersistenceException e) {
+			return null;
+		}
+		
 		
 		return turma;
 	}

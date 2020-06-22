@@ -3,9 +3,6 @@ package br.com.edson.manageBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -13,15 +10,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.Turma;
-import br.com.edson.Util.Jpa.Transactional;
 import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.service.GeradorCodigo;
-import br.com.edson.service.VerificaExisteProfessor;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -57,9 +53,6 @@ public class CadastrarTurmaMBean implements Serializable {
 	
 	private String codigo;
 	
-	@Inject
-	VerificaExisteProfessor verificaProf;
-	
 	private boolean flag = true;
 	
 	//métodos
@@ -69,23 +62,27 @@ public class CadastrarTurmaMBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();
 		
-		
-		Funcionario existe = verificaProf.existeProfessor(professor.getNomeCompleto());
-		if(existe != null) {
-			professor = existe;
-			flag = false;
-		}
-		
 		try {
 			
+			codigo = gerardorCodigo.gerarCodigoTurma();
+			
+			
+			
 			et.begin();
+			
+			Funcionario existe = funcionariosBD.buscaFuncionarioPeloNome(professor.getNomeCompleto());		
+			
+			if(existe != null) {
+				professor = existe;
+				flag = false;
+			}
 			
 			if(flag) {
 				Long idPessoa = funcionariosBD.salvarFuncionario(professor);
 				professor.setIdPessoa(idPessoa);
 			}
 			
-			codigo = gerardorCodigo.gerarCodigoTurma();
+			
 			
 			turma.setCodigoTurma(codigo);
 			turma.setHorario(new SimpleDateFormat("hh:mm").parse(hora));
@@ -98,7 +95,7 @@ public class CadastrarTurmaMBean implements Serializable {
 			
 			et.commit();
 			context.addMessage(null, new FacesMessage("Turma criada com sucesso!!\n Codigo da turma: " + codigo));
-		} catch (Exception e) {
+		} catch ( PersistenceException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			e.printStackTrace();
