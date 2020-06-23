@@ -46,6 +46,7 @@ public class InserirDados {
 		uteacher.setNomeUsuario("maria.silva prof");
 		uteacher.setPessoa(professor);
 		uteacher.setSenha("123");
+		uteacher.setTipoAcesso("professor");
 		
 		
 		Aluno aluno = new Aluno();
@@ -58,6 +59,7 @@ public class InserirDados {
 		ualuno.setNomeUsuario("edson.souza aluno");
 		ualuno.setPessoa(aluno);
 		ualuno.setSenha("123");
+		ualuno.setTipoAcesso("aluno");
 		
 		em.persist(professor);
 		em.persist(uteacher);
@@ -75,10 +77,12 @@ public class InserirDados {
 		f.setNomeCompleto("jose de souza admin");
 		f.setTipoAcesso(PapelEnum.ADMIN);
 		
+		
 		Usuario uadmin = new Usuario();
 		uadmin.setNomeUsuario("jose.souza");
 		uadmin.setPessoa(f);
 		uadmin.setSenha("123");
+		uadmin.setTipoAcesso("admin");
 		
 		em.persist(f);
 		em.persist(uadmin);
@@ -91,6 +95,7 @@ public class InserirDados {
 		uresp.setNomeUsuario("joao.silva");
 		uresp.setPessoa(professor);
 		uresp.setSenha("123");
+		uresp.setTipoAcesso("responsavel");
 		
 		em.persist(r);
 		em.persist(uresp);

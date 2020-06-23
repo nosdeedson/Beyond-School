@@ -28,7 +28,6 @@ import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.ResponsaveisBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.repository.UsuariosBD;
-import br.com.edson.service.CadastraAluno;
 import br.com.edson.service.CadastraProfessor;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.ValidaDadosCadastro;
@@ -157,8 +156,6 @@ public class CadastroMBean implements Serializable {
 				break;
 			case "Aluno":
 				
-				JOptionPane.showMessageDialog(null, "aluno");
-				
 				validaDados.validarCodigo(codigoTurma);
 								
 				Aluno student = alunosBD.buscaAlunoPeloNome(nomeCompleto);
@@ -174,7 +171,7 @@ public class CadastroMBean implements Serializable {
 					mat = 100;
 				else
 					mat++;
-				//JOptionPane.showMessageDialog(null, mat);
+				
 				
 				// ok acima 
 				et.begin();
@@ -229,7 +226,6 @@ public class CadastroMBean implements Serializable {
 				et.begin();
 					Funcionario f = new Funcionario();
 					f = cadProf.salvarProfessor(codigoTurma, nomeCompleto, nascimento);
-					JOptionPane.showMessageDialog(null, f.getIdPessoa() + f.getNomeCompleto());
 					user.setPessoa(f);
 					userBD.salvarUser(user);
 				et.commit();
@@ -319,11 +315,27 @@ public class CadastroMBean implements Serializable {
 		
 	}
 	
+	public void showAdmin() {
+		setTipoAcesso("Admin");
+		setMostraPanel2(true);
+		setMostraPanel1(false);
+		user.setTipoAcesso("admin");
+	}
+	
 	public void showAluno() {
 		setTipoAcesso("Aluno");
 		mostraInputResponsaveis = true;
 		setMostraPanel2(true);
 		setMostraPanel1(false);
+		user.setTipoAcesso("aluno");
+	}
+	
+	
+	public void showProfessor() {
+		setTipoAcesso("Professor");
+		setMostraPanel2(true);
+		setMostraPanel1(false);
+		user.setTipoAcesso("professor");
 	}
 	
 	public void showResponsaveis() {
@@ -331,19 +343,9 @@ public class CadastroMBean implements Serializable {
 		mostraInputParaAlunos = true;
 		setMostraPanel2(true);
 		setMostraPanel1(false);
+		user.setTipoAcesso("responsavel");
 	}
-	
-	public void showProfessor() {
-		setTipoAcesso("Professor");
-		setMostraPanel2(true);
-		setMostraPanel1(false);
-	}
-	
-	public void showAdmin() {
-		setTipoAcesso("Admin");
-		setMostraPanel2(true);
-		setMostraPanel1(false);
-	}
+
 	
 	
 	// getters and setters

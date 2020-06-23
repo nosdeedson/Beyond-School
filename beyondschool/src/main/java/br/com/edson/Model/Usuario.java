@@ -23,6 +23,7 @@ public class Usuario implements Serializable{
 	private String nomeUsuario;
 	private Pessoa pessoa;
 	private String senha;
+	private String tipoAcesso;
 	
 	public Usuario() { }
 
@@ -67,6 +68,16 @@ public class Usuario implements Serializable{
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+
+	@Column(name = "tipo_acesso", length = 11, nullable = false)
+	public String getTipoAcesso() {
+		return tipoAcesso;
+	}
+
+	public void setTipoAcesso(String tipoAcesso) {
+		this.tipoAcesso = tipoAcesso;
+	}
+	
 	
 	
 	
