@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="WEB-INF/template2.xhtml"
+<ui:composition template="WEB-INF/template/layout2.xhtml"
 xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -8,11 +8,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:define name="corpo2">
- 
+ <h:form>
+ <div  style="width: 60%; margin-left: 20px;" >
+			<p:messages/>
+		</div>	
 <div class="row">
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12"> 
  		
 <p:panelGrid columns="1" id="pg-criar-semestre">
+	
 	<f:facet name="header">
 		<p:row>
 			<p:column>
@@ -20,7 +24,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 			</p:column>
 		</p:row>
 	</f:facet>
-	<h:form>
+	
+	
 		<p:panelGrid columns="1">
 		<f:facet name="header">
 		<p:row>
@@ -29,10 +34,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 			</p:column>
 		</p:row>
 		</f:facet>
-			<p:calendar id="data_inicio_1_bimestre" placeholder="Inicio Bimestre" />
-			<p:calendar id="data_fim_1_bimestre" placeholder="Fim Bimestre" />
+			<p:calendar id="mask" navigator="true" value="#{criarSemestreMBean.primeiro.dataInicio}" pattern="dd-MM-yyyy" mask="true"  placeholder="Inicio" />
+			<p:calendar id="mask1" navigator="true" value="#{criarSemestreMBean.primeiro.dataFim}" pattern="dd-MM-yyyy" mask="true" placeholder="Fim"/>
+
 		</p:panelGrid>
-		<BR />
+		
 		<p:panelGrid columns="1">
 		<f:facet name="header">
 		<p:row>
@@ -41,21 +47,20 @@ xmlns="http://www.w3.org/1999/xhtml"
 			</p:column>
 		</p:row>
 		</f:facet>
-			<p:calendar id="data_inicio_2_bimestre" placeholder="Inicio Bimestre" />
-			<p:calendar id="data_fim_2_bimestre" placeholder="Fim Semestre" />
+			<p:calendar id="mask2" navigator="true" value="#{criarSemestreMBean.segundo.dataInicio}" pattern="dd-MM-yyyy" mask="true"  placeholder="Inicio"/>
+			<p:calendar id="mask3" navigator="true" value="#{criarSemestreMBean.segundo.dataFim}" pattern="dd-MM-yyyy" mask="true" placeholder="Fim"/>
 		</p:panelGrid>
-		<BR />
-		<p:commandButton value="Salvar" id="btn-salvar" />
-		<BR />
-		<BR />
-		<p:commandButton value="Cancelar" styleClass="btn btn-danger "/>
-	</h:form>
+	
+		<p:commandButton value="Salvar" id="btn-salvar" action="#{criarSemestreMBean.salvar}" update="@form"/>
+		
+		<p:commandButton value="Cancelar" styleClass="btn btn-danger " update="@form"/>
+	
 </p:panelGrid>
  
 </div>
 </div>
 
-
+</h:form>
 </ui:define>
 
 

@@ -107,10 +107,7 @@ public class CadastroMBean implements Serializable {
 	
 	@Inject
 	private VerificaExisteResponsavel verificaResp;
-	
-	@Inject
-	private CadastraAluno cadAluno;
-	
+		
 	@Inject
 	private AlunosResponsaveisBD alunosResponsaveisBD;
 

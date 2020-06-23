@@ -49,7 +49,7 @@ public class Bimestre implements Serializable {
 		this.atual = atual;
 	}
 	
-	@NotEmpty
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_inicio", nullable = false)
 	public Date getDataInicio() {
@@ -60,7 +60,7 @@ public class Bimestre implements Serializable {
 		this.dataInicio = dataInicio;
 	}
 
-	@NotEmpty
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_fim", nullable = false)
 	public Date getDataFim() {

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.enterprise.inject.InjectionException;
+import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ import br.com.edson.Model.Turma;
 import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.service.GeradorCodigo;
+import br.com.edson.service.NegocioException;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -95,7 +98,7 @@ public class CadastrarTurmaMBean implements Serializable {
 			
 			et.commit();
 			context.addMessage(null, new FacesMessage("Turma criada com sucesso!!\n Codigo da turma: " + codigo));
-		} catch ( PersistenceException e) {
+		} catch ( PersistenceException | ParseException | NullPointerException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			e.printStackTrace();
