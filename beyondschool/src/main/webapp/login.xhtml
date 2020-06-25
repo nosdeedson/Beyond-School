@@ -11,6 +11,7 @@
 
 
 		<p:panelGrid columns="1" id="pg-login-user">
+		<p:messages autoUpdate="true"/>
 			<f:facet name="header">
 				<p:row>
 					<p:outputLabel>Login</p:outputLabel>
@@ -18,13 +19,13 @@
 			</f:facet>
 			<h:form>
 				<p:inputText styleClass="entrada-texto"
-					placeholder="nome.sobrenome" />
+					placeholder="Nome usuario" />
 				<br />
 				<br />
 				<p:password styleClass="entrada-texto" placeholder="Senha" />
 				<br />
 				<br />
-				<p:commandButton value="Entrar" />
+				<p:commandButton value="Entrar" update="pg-login-user" />
 			</h:form>
 
 		</p:panelGrid>

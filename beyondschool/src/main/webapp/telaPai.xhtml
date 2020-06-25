@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/template2.xhtml"
+<ui:composition template="/WEB-INF/template/layout2.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -9,8 +9,9 @@
 
 	<ui:define name="corpo2">
 
-		<h:form id="pg-tela-pai">
-			<p:panelGrid columns="1" >
+		<h:form >
+			<p:panelGrid columns="1" styleClass="telaPai">
+			<p:messages/>
 				<f:facet name="header">
 					<p:row>
 						<p:column>
@@ -41,15 +42,17 @@
 						value="Todas Avaliações" />
 					<p:commandButton id="btn-next-son" value="Próximo filho" />
 				</p:panelGrid>
-				<p:inputTextarea id="text-area-coment-prof1"
+				<p:inputTextarea id="text-area-coment-prof1" styleClass="textComent"
 					value="Observação do professor" disabled="true" />
-			</p:panelGrid>
-			<h:panelGroup id="comment-teacher">
-				<p:inputTextarea id="text-area-coment-pai"
+					
+				<h:panelGroup id="comment-teacher">
+				<p:inputTextarea id="text-area-coment-pai" styleClass="textComent"
 					placeholder="Deixe seu comentário" />
 				<br />
-				<p:commandButton id="btn-tela-pai-enviar-comentario" value="Enviar" />
+				<p:commandButton value="Enviar" />
 			</h:panelGroup>
+			</p:panelGrid>
+			
 
 		</h:form>
 	</ui:define>

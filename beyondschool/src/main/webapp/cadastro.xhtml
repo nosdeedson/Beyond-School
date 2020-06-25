@@ -9,25 +9,28 @@
 	
 	<ui:define name="corpo">
 	
-<h:form id="formulario_cadastro" >
-		<div  style="width: 60%; margin-left: 20px;" >
-		<p:messages/>
-		</div>
-		
-		<h:panelGroup id="panel1" rendered="#{cadastroMBean.mostraPanel1}"  >
+<h:form  >
+			
+		<p:messages  autoUpdate="true" />
+			
+				
+		<h:panelGroup id="panel1" rendered="#{cadastroMBean.mostraPanel1}" 
+			styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt posicao-tela-t"   >
 			<p:outputLabel value="Escolha seu tipo de Acesso!!"/>
 			<br/>
-			<p:commandButton  value="Admin" update="@form"  action="#{cadastroMBean.showAdmin}" />
+			<p:commandButton styleClass="tm-botao" value="Admin" update="@form"  action="#{cadastroMBean.showAdmin}"  />
 			<br/>
-			<p:commandButton rendered="#{cadastroMBean.mostraPanel1}"  value="Aluno" update="@form"  action="#{cadastroMBean.showAluno}"  />
+			<p:commandButton styleClass="tm-botao" value="Aluno" update="@form" action="#{cadastroMBean.showAluno}"  />
 			<br/>
-			<p:commandButton rendered="#{cadastroMBean.mostraPanel1}"  value="Professor" update="@form" action="#{cadastroMBean.showProfessor}"  />
+			<p:commandButton styleClass="tm-botao" value="Professor" update="@form" action="#{cadastroMBean.showProfessor}"  />
 			<br/>			
-			<p:commandButton rendered="#{cadastroMBean.mostraPanel1}"  value="Responsavel" update="@form" action="#{cadastroMBean.showResponsaveis}" />
+			<p:commandButton styleClass="tm-botao" value="Responsavel" update="@form" action="#{cadastroMBean.showResponsaveis}" />
 			
 		</h:panelGroup>
 		
-		<p:panelGrid columns="1" id="panel2" rendered="#{cadastroMBean.mostraPanel2}">
+		<p:panelGrid columns="1" id="panel2" rendered="#{cadastroMBean.mostraPanel2}" 
+			styleClass="posicao-tela-s posicao-tela-sp posicao-tela-m posicao-tela-pt posicao-tela-t">
+			
 			<f:facet name="header">
 				<p:row>
 					<p:column>
@@ -36,29 +39,29 @@
 				</p:row>
 			</f:facet>
 			
-				<p:inputText placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" />
+				<p:inputText styleClass="tm-input" placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" />
 								
-				<p:inputMask mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" />
+				<p:inputMask styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" />
 				
-				<p:inputText placeholder="Código" value="#{cadastroMBean.codigoTurma}" required="true"/>
+				<p:inputText styleClass="tm-input"  placeholder="Código" value="#{cadastroMBean.codigoTurma}" required="true"/>
 				
-				<p:password id="senha" placeholder="Senha" value="#{cadastroMBean.user.senha}" required="true" />
+				<p:password styleClass="tm-input"  id="senha" placeholder="Senha" value="#{cadastroMBean.user.senha}" required="true" />
 				
-				<p:password id="confirme" placeholder="Corfirmar senha" value="#{cadastroMBean.confirmeSenha}" required="true" />
+				<p:password styleClass="tm-input"  id="confirme" placeholder="Corfirmar senha" value="#{cadastroMBean.confirmeSenha}" required="true" />
 				
 		
-					<p:inputText placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos}" value="#{cadastroMBean.nomeAluno1}"/>
+				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos}" value="#{cadastroMBean.nomeAluno1}"/>
 					
-					<p:inputText placeholder="Aluno" required="false" rendered="#{cadastroMBean.mostraInputParaAlunos}" value="#{cadastroMBean.nomeAluno2}"/>
+				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="false" rendered="#{cadastroMBean.mostraInputParaAlunos}" value="#{cadastroMBean.nomeAluno2}"/>
 	
 				
 				
-					<p:inputText placeholder="Responsável" required="false" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel1}" />
+				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="false" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel1}" />
 					
-					<p:inputText placeholder="Responsável" required="false" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel2}"/>
+				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="false" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel2}"/>
 			
 				
-				<p:commandButton value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" rendered="true" />
+				<p:commandButton styleClass="tm-input"  value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" rendered="true" />
 			
 		</p:panelGrid>
 	</h:form>

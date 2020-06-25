@@ -11,11 +11,8 @@
 <div class="row" id="corpo">
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">  
 
-<h:form  id="pg-casdastrar-turma">
-					<div  style="width: 60%; margin-left: 20px;" >
-						<p:messages/>
-					</div>
-					<p:panelGrid columns="1"  >
+					<p:panelGrid columns="1"  id="pg-casdastrar-turma" >
+					<p:messages autoUpdate="true"/>
 						<f:facet name="header">
 							<p:row>
 								<p:column>
@@ -24,24 +21,26 @@
 							</p:row>
 						</f:facet>
 						
-						<p:inputText placeholder="Nome Turma" value="#{cadastrarTurmaMBean.turma.nomeTurma}" required="true" />
+						<h:form>
 							
-							<p:inputText placeholder="Nome do livro" value="#{cadastrarTurmaMBean.turma.nomeLivro}" required="true"  />
-							
-							<p:inputText placeholder="Nome do Professor" value="#{cadastrarTurmaMBean.professor.nomeCompleto}" required="true" />
-							
-							<p:selectOneMenu id="console" styleClass="menu" value="#{cadastrarTurmaMBean.dia1}" required="true" >
-								<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true"  />
+							<p:inputText placeholder="Nome Turma" value="#{cadastrarTurmaMBean.turma.nomeTurma}" required="true" styleClass="tm-input" />
+							<br/>
+							<p:inputText placeholder="Nome do livro" value="#{cadastrarTurmaMBean.turma.nomeLivro}" required="true" styleClass="tm-input"  />
+							<br/>
+							<p:inputText placeholder="Nome do Professor" value="#{cadastrarTurmaMBean.professor.nomeCompleto}" required="true" styleClass="tm-input"/>
+							<br/>
+							<p:selectOneMenu id="console"  value="#{cadastrarTurmaMBean.dia1}" required="true" style="width: 200px;" >
+								<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" styleClass="tm-input" />
 								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
 								<f:selectItem itemLabel="Terça" itemValue="Terça" />
 								<f:selectItem itemLabel="Quarta" itemValue="Quarta" />
 								<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
 								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
 							</p:selectOneMenu>
-							
-							<p:inputMask id="horario1" value="#{cadastrarTurmaMBean.hora}" mask="99:99" placeholder="Horario de início" required="true"  />
-							
-							<p:selectOneMenu id="console1" styleClass="menu"  value="#{cadastrarTurmaMBean.dia2}" required="true"  >
+							<br/>
+							<p:inputMask id="horario1" value="#{cadastrarTurmaMBean.hora}" mask="99:99" placeholder="Horario de início" required="true"  styleClass="tm-input" />
+							<br/>
+							<p:selectOneMenu id="console1"   value="#{cadastrarTurmaMBean.dia2}" required="true" style="width: 200px;"  >
 								<f:selectItem itemLabel="Selecione " itemValue=""  noSelectionOption="true" />
 								<f:selectItem itemLabel="Segunda" itemValue="Segunda" />
 								<f:selectItem itemLabel="Terça" itemValue="Terça" />
@@ -49,17 +48,16 @@
 								<f:selectItem itemLabel="Quinta" itemValue="Quinta" />
 								<f:selectItem itemLabel="Sexta" itemValue="Sexta" />
 							</p:selectOneMenu>
-							
-							<p:inputMask id="horario2" value="#{cadastrarTurmaMBean.hora2}" mask="99:99" placeholder="Horario de início" required="true"  />
-
-							<p:commandButton value="Salvar" id="btn-salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma"/> 
-							
+							<br/>
+							<p:inputMask id="horario2" value="#{cadastrarTurmaMBean.hora2}" mask="99:99" placeholder="Horario de início" required="true" styleClass="tm-input" />
+							<br/>
+							<p:commandButton value="Salvar" id="btn-salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma" /> 
+							<br/>
 							<p:button value="Cancelar" styleClass="btn btn-danger " outcome="/telaAdmin" />
-					
-							
-						
+						</h:form>
+				
 					</p:panelGrid>
-	</h:form>
+	
 
 </div>
 </div>

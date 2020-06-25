@@ -19,3 +19,35 @@
 	color: yellow;
 	background-color: silver;
 }
+
+.tm-botao{
+	width: 160px;
+	margin-top: 4px;
+}
+
+.posicao-tela-s, .edtTurma, .edtProf, .listaTurma, .telaAdmin, .posicao-tela-sp, .posicao-tela-m, 
+.posicao-tela-pt, .posicao-tela-t, .telaAvaliacao, .telaPai{
+	position: relative;
+}
+
+.tm-input{
+	width: 200px;
+	margin-top: 4px;
+}
+
+.textComent{
+	width: 200px;
+}
+
+.outLabel{
+	width: 200px;
+}
+
+.seletor-conceito{
+	with:150px;
+}
+
+
+
+
+

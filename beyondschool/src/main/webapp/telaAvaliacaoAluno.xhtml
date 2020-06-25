@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/template2.xhtml"
+<ui:composition template="/WEB-INF/template/layout2.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -9,8 +9,8 @@
 
 	<ui:define name="corpo2">
 
-	<h:form id="pg-tela-avaliar-aluno">
-	<p:panelGrid columns="2" id="pg-tela-avaliar-aluno">
+	<h:form >
+	<p:panelGrid columns="2" styleClass="posicao-tela-s telaAvaliacao">
 	
 	<f:facet name="header">
 				<p:row>
@@ -26,6 +26,7 @@
 	
 	<p:outputLabel value="Vocabulary" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console">
+					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
 					<f:selectItem itemLabel="Good" itemValue="good" />
@@ -34,6 +35,7 @@
 				</p:selectOneMenu>
 	<p:outputLabel value="Reading" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console1">
+					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
 					<f:selectItem itemLabel="Good" itemValue="good" />
@@ -41,8 +43,9 @@
 					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Writing" />
+	<p:outputLabel value="Writing" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console2">
+					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
 					<f:selectItem itemLabel="Good" itemValue="good" />
@@ -50,8 +53,9 @@
 					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Listening" />
+	<p:outputLabel value="Listening" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console3">
+					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
 					<f:selectItem itemLabel="Good" itemValue="good" />
@@ -59,8 +63,9 @@
 					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Speakinng" />
+	<p:outputLabel value="Speakinng" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console4">
+					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
 					<f:selectItem itemLabel="Good" itemValue="good" />
@@ -68,8 +73,9 @@
 					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Grammar" />
+	<p:outputLabel value="Grammar" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console5">
+					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
 					<f:selectItem itemLabel="Good" itemValue="good" />
@@ -77,15 +83,16 @@
 					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="HomeWork" />
+	<p:outputLabel value="HomeWork" />
 				<p:selectOneMenu styleClass="seletor-conceito" id="console6">
+					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
 					<f:selectItem itemLabel="Bad" itemValue="bad" />
 					<f:selectItem itemLabel="Regular" itemValue="regular" />
 					<f:selectItem itemLabel="Good" itemValue="good" />
 					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
 					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
 				</p:selectOneMenu>
-				<p:inputTextarea id="text-area-coment-avaliacao-prof"
+				<p:inputTextarea styleClass="textAvaliacao-s textAvaliacao-sp"
 					placeholder="Deixe seu comentário sobre o aluno" />
 				<p:column>
 					<p:commandButton id="btn-next-aluno" value="Next student" />

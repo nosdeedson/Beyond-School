@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 <!-- 	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.min.css"/> -->
-	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.grid.css"/>
+<!-- 	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.grid.css"/> -->
 	<h:outputScript library="js" name="init.js" target="head"/>
 	
 	<h:outputStylesheet library="css" name="reset.css"/> 
@@ -38,11 +38,14 @@
 
 </header>
 
-<!-- <div class="row" id="corpo"> -->
-<!-- <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">   -->
-<ui:insert name="corpo" />
-<!-- </div> -->
-<!-- </div> -->
+
+<ui:insert name="corpo" >
+<div class="row" id="corpo">
+<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">  
+</div>
+</div>
+</ui:insert>
+
 		
 
 
@@ -54,12 +57,10 @@
 			<h:graphicImage library="images" name="facebook.png" class="img-social" /></a> 
 		<a class="link-pe" href="https://www.instagram.com/?hl=pt-br" target="_blank">
 			<h:graphicImage library="images" name="instagram.png" /></a>  
-		<a class="link-pe" href="https://twitter.com/" target="_blank">
-			<h:graphicImage library="images" name="twitter.png" /></a> 
 		</div>
-			<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12">  
+			
 		<span id="copy-right"> &#169; Copyright Beyond School</span>	
-	</div>
+	
 	</div>
 
 	</footer>

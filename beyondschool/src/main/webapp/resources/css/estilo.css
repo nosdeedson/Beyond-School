@@ -56,8 +56,9 @@
   	
   	#copy-right{
 		color: white;
-		font-size: 15px;
-		left: 5%;
+		font-size: 12px;
+		left: 18%;
+		position: relative;
 	}
 	
 	#pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-listar-turmas, #pg-login-user,
@@ -82,6 +83,18 @@
 		width: 90px;
 	}
 	
+	.posicao-tela-s, .listaTurma, .telaPai{
+		left: 0px;
+		font-size: 12px;
+	}
+	
+	.textAvaliacao-s{
+		width: 90px;
+	}
+	
+	.telaTransfer{
+		font-size: 12px;
+	}
 }
 
 @media (min-width: 331px) {
@@ -98,8 +111,6 @@
   .col-sp-11 {width: 91.66%;}
   .col-sp-12 {width: 100%;}
   
-	
-	
 	#link-cadastro-header, #link-voltar{
 		font-size: 15px;
 		top: 30px;
@@ -111,13 +122,15 @@
 	}
 	
 	.link-pe{
-  		left: 25%;
+  		left: 33%;
+  		position: relative;
   	}
   	
  	#copy-right{
 		color: white;
-		font-size: 16px;
-		left: 13%;
+		font-size: 14px;
+		left: 25%;
+		position: relative;
 	}
 	
 	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno, #pg-ver-boletim{
@@ -142,6 +155,23 @@
 	
 	#text-area-coment-avaliacao-prof{
 		width: 150px;
+	}
+	
+	.posicao-tela-sp{
+		left: 20%;
+		font-size: 14px;
+	}
+	
+	.telaAdmin{
+		left: 15%;
+	}
+	
+	.textAvaliacao-sp{
+		width: 110px;
+	}
+	
+	.telaTransfer{
+		font-size: 12px;
 	}
 }
 
@@ -189,6 +219,10 @@
 		left: 30%;
 	}
 	
+	.posicao-tela-m{
+		left: 30%;
+		font-size: 16px;
+	}
 }
 
 @media  (min-width: 500px) {
@@ -206,9 +240,17 @@
   .col-pt-11 {width: 91.66%;}
   .col-pt-12 {width: 100%;}
   
-  #copy-right{
-  	left: 30%;
-  }
+  .link-pe{
+  		left: 45%;
+  		position: relative;
+  	}
+  	
+ 	#copy-right{
+		color: white;
+		font-size: 14px;
+		left: 40%;
+		position: relative;
+	}
   
   	#pg-casdastrar-turma, #pg-cadastro-user, #pg-ver-boletim, #pg-criar-semestre	{
 		left: 20%;
@@ -229,6 +271,18 @@
 	#pg-tela-pai{
 		left: 10%;
 	}
+	
+	.posicao-tela-pt{
+		left: 40%;
+		font-size: 18px;
+	}
+	
+	.listaTurma, .telaAvaliacao, .telaPai{
+		left: 10%;
+	}
+	
+	
+
 }
 
 @media (min-width: 600px) {
@@ -255,13 +309,16 @@
 		left: 30%;
 	} 
    
-  	#copy-right{
-  		position: relative;
-  		left: 30%;
-  	}
+ 	#copy-right{
+		color: white;
+		font-size: 14px;
+		left: 40%;
+		position: relative;
+	}
   	
   	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno, #pg-ver-boletim, #pg-criar-semestre{
 		left: 30%;
+		position: relative;
 	}
 	
 	#pg-editar-turma-admin{
@@ -284,8 +341,24 @@
 		left: 20%;
 		top: 10px;
 	}
+	.posicao-tela-t{
+		left: 50%;
+	}
 	
-
+	.edtProf{
+		left: 10%;
+	}
+	
+	.listaTurma{
+		left: 20%;
+	}
+	.telaAvaliacao, .telaPai{
+		left: 15%;	
+	}
+	
+	.telaPai{
+		left: 25%;
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -343,6 +416,26 @@
 	#pg-tela-pai{
 		left: 30%;
 	}
+	
+	.edtTurma{
+		left: 5%;
+	}
+	
+	.edtProf{
+		left: 15%;
+	}
+	
+	.listaTurma{
+		left: 30%;
+	}
+	
+	.telaAvaliacao{
+		left: 25%;	
+	}
+	
+	.telaPai{
+		left: 30%;
+	}
 }
 
 @media (min-width: 900px) {
@@ -355,6 +448,18 @@
 		font-size: 20px;
 		left: 30%;	
 	}	
+	
+	.edtTurma{
+		left: 15%;
+	}
+	
+	.edtProf{
+		left: 25%;
+	}
+	
+	.telaAvaliacao{
+		left: 35%;	
+	}
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -373,8 +478,12 @@
   .col-x-12 {width: 100%;}
   
   #pg-editar-turma-admin{
-		font-size: 20px;
+		font-size: 18px;
 		left: 20%;
+	}
+	
+	.edtTurma{
+		left: 25%;
 	}
 }
 
@@ -386,6 +495,7 @@
 #criar-acesso, #logo-img{
 	position: relative;
 }
+
 #cabecalho{
   background-color: #3CB371;
   margin-bottom: 2%;

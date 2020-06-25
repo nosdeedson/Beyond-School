@@ -97,7 +97,7 @@ public class CadastrarTurmaMBean implements Serializable {
 			turmasBD.salvarTurma(turma);
 			
 			et.commit();
-			context.addMessage(null, new FacesMessage("Turma criada com sucesso!!\n Codigo da turma: " + codigo));
+			context.addMessage(null, new FacesMessage("Turma criada com sucesso!! Codigo da turma: " + codigo));
 		} catch ( PersistenceException | ParseException | NullPointerException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
