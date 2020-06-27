@@ -187,6 +187,11 @@ public class CadastroMBean implements Serializable {
 				userBD.salvarUser(user);
 				
 				if( !getNomeResponsavel1().equals("")) {
+					
+					int primeiroEspaco = getNomeResponsavel1().indexOf(" ");
+					if(primeiroEspaco == -1)
+						throw new NegocioException("Informe o nome e sobrenome do responsável.");
+					
 					responsavel1 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel1);
 					
 					if(responsavel1 == null) {
@@ -204,6 +209,10 @@ public class CadastroMBean implements Serializable {
 				}
 				
 				if( !getNomeResponsavel2().equals("")) {
+					
+					int primeiroEspaco = getNomeResponsavel1().indexOf(" ");
+					if(primeiroEspaco == -1)
+						throw new NegocioException("Informe o nome e sobrenome do responsável.");
 					
 					responsavel2 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel2);
 					
@@ -294,7 +303,7 @@ public class CadastroMBean implements Serializable {
 			
 			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
 			
-		} catch ( PersistenceException | NegocioException | ParseException | NullPointerException | FacesException | InjectionException e) {
+		} catch ( PersistenceException  | NullPointerException | ParseException | NegocioException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);

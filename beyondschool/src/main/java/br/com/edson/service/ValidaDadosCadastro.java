@@ -3,8 +3,11 @@ package br.com.edson.service;
 import java.io.Serializable;
 
 import javax.inject.Inject;
+import javax.swing.JOptionPane;
 
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.TurmasBD;
+import br.com.edson.repository.UsuariosBD;
 
 public class ValidaDadosCadastro implements Serializable {
 
@@ -12,6 +15,9 @@ public class ValidaDadosCadastro implements Serializable {
 	
 	@Inject
 	private TurmasBD turmasBD;
+	
+	@Inject
+	private UsuariosBD usersBD;
 	
 	@Inject
 	public ValidaDadosCadastro() {}
@@ -48,10 +54,13 @@ public class ValidaDadosCadastro implements Serializable {
 	 * @param nome
 	 * @return
 	 */
-	public String criaNomeUsuario(String nome) {
+	public String criaNomeUsuario(String nome) throws NegocioException{
+		
+		Long idUsuario = usersBD.buncaUltimoUser();
 		
 		int primeiroEspaco = nome.indexOf(" ");
-		
+		if(primeiroEspaco == -1)
+			throw new NegocioException("Informe o nome e sobrenome.");
 		int ultimoEspaco = nome.lastIndexOf(" ");
 		
 		int tm = nome.length();
@@ -61,6 +70,8 @@ public class ValidaDadosCadastro implements Serializable {
 		nomeUser += ".";
 		
 		nomeUser += nome.substring(ultimoEspaco+1, tm);
+		
+		nomeUser += (idUsuario+1);
 		
 		return nomeUser;
 	}

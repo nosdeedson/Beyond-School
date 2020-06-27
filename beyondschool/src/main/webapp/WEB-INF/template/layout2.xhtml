@@ -25,11 +25,11 @@
 		<div class="row">
 			<div
 				class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12  ">
-				<p:link outcome="index" id="link-home">
+				<p:link id="link-home">
 					<h:graphicImage library="images" name="logomedio.png" id="logo-img" />
 				</p:link>
-				<p:linkButton outcome="index" value="Voltar" id="link-voltar" />
-				<p:linkButton id="link-sair" styleClass="btn-danger" outcome="index" value="Sair"  />
+				<p:linkButton  value="Voltar" id="link-voltar" />
+				<p:commandButton id="link-sair" styleClass="btn-danger" outcome="index" value="Sair" action="#{loginMBean.logOut}"  />
 
 			</div>
 		</div>

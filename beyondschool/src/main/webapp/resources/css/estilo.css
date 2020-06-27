@@ -223,6 +223,10 @@
 		left: 30%;
 		font-size: 16px;
 	}
+	
+	.telaTransfer{
+		font-size: 14px;
+	}
 }
 
 @media  (min-width: 500px) {
@@ -281,7 +285,9 @@
 		left: 10%;
 	}
 	
-	
+	.telaTransfer{
+		font-size: 16px;
+	}
 
 }
 
@@ -358,6 +364,10 @@
 	
 	.telaPai{
 		left: 25%;
+	}
+	
+	.telaTransfer{
+		font-size: 18px;
 	}
 }
 

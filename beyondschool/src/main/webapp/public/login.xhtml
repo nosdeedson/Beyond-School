@@ -18,14 +18,13 @@
 				</p:row>
 			</f:facet>
 			<h:form>
-				<p:inputText styleClass="entrada-texto"
-					placeholder="Nome usuario" />
+				<p:inputText styleClass="entrada-texto" placeholder="Nome usuario"  value="#{loginMBean.nomeUser}"/>
 				<br />
 				<br />
-				<p:password styleClass="entrada-texto" placeholder="Senha" />
+				<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" />
 				<br />
 				<br />
-				<p:commandButton value="Entrar" update="pg-login-user" />
+				<p:commandButton value="Entrar" update="pg-login-user" action="#{loginMBean.login}" />
 			</h:form>
 
 		</p:panelGrid>
