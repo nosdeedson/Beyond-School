@@ -23,7 +23,7 @@
 	<f:facet name="header">
 				<p:row>
 					<p:column>
-						<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}" />
+						<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}" binding="#{telaAvaliacaoAlunoMBean.alunosAvaliados}" />
 					</p:column>
 				</p:row>
 	</f:facet>
@@ -92,7 +92,8 @@
 	 
 	 
 	<p:column>
-		<p:commandButton id="btn-next-aluno" value="Next student" action="#{telaAvaliacaoAlunoMBean.avaliar()}"  update="@form"/>
+		<p:commandButton id="btn-next-aluno" value="Next student" 
+			action="#{telaAvaliacaoAlunoMBean.avaliar()}"  update="@form"/>
 		<br/>
 		<p:commandButton styleClass="btn-danger " value="Cancelar" />
 	</p:column>

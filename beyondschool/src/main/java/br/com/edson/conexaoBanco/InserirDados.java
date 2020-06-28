@@ -118,13 +118,13 @@ public class InserirDados {
 		
 		a.setComentarios(coments);
 		
-		a.setEscrevendo(ConceitoEnum.BAd);
+		a.setEscrevendo(ConceitoEnum.BAD);
 		a.setEscutando(ConceitoEnum.EXCELLENT);
 		a.setFalando(ConceitoEnum.GOOD);
 		a.setGramatica(ConceitoEnum.VERYGOOD);
-		a.setHomeWork(ConceitoEnum.BAd);
-		a.setLeitura(ConceitoEnum.BAd);
-		a.setVocabulario(ConceitoEnum.BAd);
+		a.setHomeWork(ConceitoEnum.BAD);
+		a.setLeitura(ConceitoEnum.BAD);
+		a.setVocabulario(ConceitoEnum.BAD);
 		
 		a.setAluno(aluno);
 		a.setBimestre(b);

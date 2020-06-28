@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +19,7 @@ import br.com.edson.Model.Avaliacao;
 import br.com.edson.Model.ConceitoEnum;
 import br.com.edson.Model.Turma;
 import br.com.edson.repository.AlunosBD;
+import br.com.edson.repository.AvaliacoesBD;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.RegistrarAvaliacao;
 
@@ -30,15 +32,12 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	
 	@Inject
 	private Aluno aluno;
-	
-	@Inject
-	private AlunosBD alunosBD;
-	
+		
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	
 	@Inject
 	private Avaliacao avaliacao;
-	
+		
 	private String comentario;
 	
 	@Inject
@@ -48,53 +47,69 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	private EntityManager em;
 	
 	@Inject
-	private RegistrarAvaliacao registrarAvaliacao;
+	private RegistrarAvaliacao registra;
 
+	private HtmlOutputLabel outPutLabelAluno = new HtmlOutputLabel();
 	// métodos bs9op84o
 	
-	public void buscarAlunos() throws NegocioException {
-		alunos = alunosBD.buscaAlunosTurma(turma.getCodigoTurma());
-		aluno = alunos.get(0);
+	public void alunosAvaliados() {
+		if(alunos.size() == 0)
+			this.outPutLabelAluno.setValue("SEM ALUNOS PARA AVALIAR.");
 	}
 	
-	public void avaliar() {
+	public void buscarAlunos() throws NegocioException {
+		alunos = registra.buscarAlunosSemAvaliacao(turma.getCodigoTurma());
+		if(alunos.size() > 0) {
+			aluno = alunos.get(0);
+		}
+		
+	}
+	
+	public String avaliar() throws NegocioException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();
-		
-		for (int i = 0; i < alunos.size(); i++) {
+			
+		for (int i = 0; i < alunos.size()  ; i++) {
 			try {
 				
 				List<String> comments = new ArrayList<String>();
 				comments.add(comentario);
 				avaliacao.setComentarios(comments);
-				avaliacao.setAluno(aluno);
 				
+				avaliacao.setAluno(aluno);
+				JOptionPane.showMessageDialog(null, avaliacao.getEscutando());
+							
 				et.begin();
 				
-				registrarAvaliacao.salvarAvaliacao(avaliacao);
+				registra.salvarAvaliacao(avaliacao);
 				
 				et.commit();
 				
 				alunos.remove(i);
-				aluno = alunos.get(i + 1);
-				
-				
+				if(alunos.size() > 0)
+					aluno = alunos.get(i);
+				else
+					break;
 				
 				context.addMessage(null, new FacesMessage("Aluno avaliado com sucesso!!" ));
 				
-			} catch (PersistenceException e) {
+			} catch (PersistenceException | NullPointerException e) {
 				et.rollback();
+				e.printStackTrace();
 				aluno = alunos.get(i);
+				i--;
 				FacesMessage msg = new FacesMessage(e.getMessage());
 				e.printStackTrace();
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 				context.addMessage(null, msg);
 			}finally {
 				setComentario("");
+				avaliacao = new Avaliacao();
 			}
 			
 			
 		}//fim for
+		return "/APP/listaTurmas?faces-redirect=true";
 		
 	}
 	

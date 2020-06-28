@@ -117,7 +117,6 @@ public class Avaliacao implements Serializable {
 		this.gramatica = gramatica;
 	}
 	
-	@NotEmpty
 	@Enumerated(EnumType.STRING)
 	@Column(name = "homework", nullable = false)
 	public ConceitoEnum getHomeWork() {
