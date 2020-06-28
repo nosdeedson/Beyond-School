@@ -7,103 +7,100 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="corpo2">
+<f:metadata>
+<f:viewParam name="id" value="#{telaAvaliacaoAlunoMBean.turma}"/>
+<f:viewAction action="#{telaAvaliacaoAlunoMBean.buscarAlunos}"/>
+</f:metadata>
+
+<ui:define name="titulo">Avaliar</ui:define>
+<ui:define name="corpo2">
 
 	<h:form >
+		
+		<p:messages/>
 	<p:panelGrid columns="2" styleClass="posicao-tela-s telaAvaliacao">
-	
+
 	<f:facet name="header">
 				<p:row>
 					<p:column>
-						<p:outputLabel value="Turma x " />
+						<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}" binding="#{telaAvaliacaoAlunoMBean.alunosAvaliados}" />
 					</p:column>
 				</p:row>
 	</f:facet>
 	
-	<p:outputLabel value="12:00 as 13:00" />
-
-	<p:outputLabel value="Avaliar: Edson Jose de Souza" />
+	<p:column>
+		Horário: <p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.horario}" />
+	</p:column>
+	
+	
+	<p:column>
+		Avaliar: <p:outputLabel value="#{telaAvaliacaoAlunoMBean.aluno.nomeCompleto}" />
+	</p:column>
+	
 	
 	<p:outputLabel value="Vocabulary" />
-				<p:selectOneMenu styleClass="seletor-conceito" id="console">
-					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
-					<f:selectItem itemLabel="Bad" itemValue="bad" />
-					<f:selectItem itemLabel="Regular" itemValue="regular" />
-					<f:selectItem itemLabel="Good" itemValue="good" />
-					<f:selectItem itemLabel="Very good" itemValue="veryGood" />
-					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-				</p:selectOneMenu>
+	<p:selectOneMenu styleClass="seletor-conceito" id="console" value="#{telaAvaliacaoAlunoMBean.avaliacao.vocabulario}" required="true" >
+		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
+		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
+		 itemLabel="#{conceito.descricao}" />
+	</p:selectOneMenu>
+				
 	<p:outputLabel value="Reading" />
-				<p:selectOneMenu styleClass="seletor-conceito" id="console1">
-					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
-					<f:selectItem itemLabel="Bad" itemValue="bad" />
-					<f:selectItem itemLabel="Regular" itemValue="regular" />
-					<f:selectItem itemLabel="Good" itemValue="good" />
-					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-				</p:selectOneMenu>
+	<p:selectOneMenu styleClass="seletor-conceito" id="console1" value="#{telaAvaliacaoAlunoMBean.avaliacao.leitura}" required="true" >
+		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
+		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
+		 itemLabel="#{conceito.descricao}" />
+	</p:selectOneMenu>
 
 	<p:outputLabel value="Writing" />
-				<p:selectOneMenu styleClass="seletor-conceito" id="console2">
-					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
-					<f:selectItem itemLabel="Bad" itemValue="bad" />
-					<f:selectItem itemLabel="Regular" itemValue="regular" />
-					<f:selectItem itemLabel="Good" itemValue="good" />
-					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-				</p:selectOneMenu>
+	<p:selectOneMenu styleClass="seletor-conceito" id="console2" value="#{telaAvaliacaoAlunoMBean.avaliacao.escrevendo}" required="true" >
+		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
+		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
+		 itemLabel="#{conceito.descricao}" />
+	</p:selectOneMenu>
 
 	<p:outputLabel value="Listening" />
-				<p:selectOneMenu styleClass="seletor-conceito" id="console3">
-					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
-					<f:selectItem itemLabel="Bad" itemValue="bad" />
-					<f:selectItem itemLabel="Regular" itemValue="regular" />
-					<f:selectItem itemLabel="Good" itemValue="good" />
-					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-				</p:selectOneMenu>
+	<p:selectOneMenu styleClass="seletor-conceito" id="console3" value="#{telaAvaliacaoAlunoMBean.avaliacao.escutando}" required="true" >
+		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
+		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
+			 itemLabel="#{conceito.descricao}" />
+	</p:selectOneMenu>
 
 	<p:outputLabel value="Speakinng" />
-				<p:selectOneMenu styleClass="seletor-conceito" id="console4">
-					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
-					<f:selectItem itemLabel="Bad" itemValue="bad" />
-					<f:selectItem itemLabel="Regular" itemValue="regular" />
-					<f:selectItem itemLabel="Good" itemValue="good" />
-					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-				</p:selectOneMenu>
+	<p:selectOneMenu styleClass="seletor-conceito" id="console4" value="#{telaAvaliacaoAlunoMBean.avaliacao.falando}" required="true" >
+		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
+		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
+			 itemLabel="#{conceito.descricao}" />
+	</p:selectOneMenu>
 
 	<p:outputLabel value="Grammar" />
-				<p:selectOneMenu styleClass="seletor-conceito" id="console5">
-					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
-					<f:selectItem itemLabel="Bad" itemValue="bad" />
-					<f:selectItem itemLabel="Regular" itemValue="regular" />
-					<f:selectItem itemLabel="Good" itemValue="good" />
-					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-				</p:selectOneMenu>
+	<p:selectOneMenu styleClass="seletor-conceito" id="console5" value="#{telaAvaliacaoAlunoMBean.avaliacao.gramatica}" required="true" >
+		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
+		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
+			 itemLabel="#{conceito.descricao}" />
+	</p:selectOneMenu>
 
 	<p:outputLabel value="HomeWork" />
-				<p:selectOneMenu styleClass="seletor-conceito" id="console6">
-					<f:selectItem itemLabel="Selecione" itemValue="bad" noSelectionOption="true" />
-					<f:selectItem itemLabel="Bad" itemValue="bad" />
-					<f:selectItem itemLabel="Regular" itemValue="regular" />
-					<f:selectItem itemLabel="Good" itemValue="good" />
-					<f:selectItem itemLabel="veryGood" itemValue="veryGood" />
-					<f:selectItem itemLabel="Excellent" itemValue="Excellent" />
-				</p:selectOneMenu>
-				<p:inputTextarea styleClass="textAvaliacao-s textAvaliacao-sp"
-					placeholder="Deixe seu comentário sobre o aluno" />
-				<p:column>
-					<p:commandButton id="btn-next-aluno" value="Next student" />
-					<p:commandButton styleClass="btn-danger "
-						value="Cancelar" />
-				</p:column>
+	<p:selectOneMenu styleClass="seletor-conceito" id="console6" required="true" value="#{telaAvaliacaoAlunoMBean.avaliacao.homeWork}" >
+		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
+		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
+			itemLabel="#{conceito.descricao}" />
+	</p:selectOneMenu>
+	
+	<p:inputTextarea styleClass="textAvaliacao-s textAvaliacao-sp" placeholder="Deixe seu comentário sobre o aluno"
+	 value="#{telaAvaliacaoAlunoMBean.comentario}" required="true" />
+	 
+	 
+	<p:column>
+		<p:commandButton id="btn-next-aluno" value="Next student" 
+			action="#{telaAvaliacaoAlunoMBean.avaliar()}"  update="@form"/>
+		<br/>
+		<p:commandButton styleClass="btn-danger " value="Cancelar" />
+	</p:column>
 				
 	
 	
 	</p:panelGrid>
-	
 	
 	</h:form>
 		

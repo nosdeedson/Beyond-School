@@ -52,7 +52,11 @@ public class TurmasBD implements Serializable {
 		return false;
 	}
 	
-
+	/**
+	 * busca a turma pelo códgigo, não existe id do tipo long
+	 * @param codigo
+	 * @return
+	 */
 	public Turma buscaTurma( String codigo){
 		Turma turma;
 		try {
@@ -74,6 +78,26 @@ public class TurmasBD implements Serializable {
 	 */
 	public void salvarTurma(Turma turma) {
 		this.em.merge(turma);
+	}
+
+	/**
+	 * busca as turmas do professor dono do id
+	 * @param idProfessor
+	 * @return
+	 */
+	public List<Turma> turmasProfessor( Long idProfessor) {
+		
+		String sql = " select t from Turma t, Funcionario f  where f.idPessoa= :idPessoa";
+		
+		try {
+			TypedQuery<Turma> turmas = this.em.createQuery(sql, Turma.class)
+					.setParameter("idPessoa", idProfessor);
+			return  turmas.getResultList();
+			
+		} catch ( PersistenceException e) {
+			return null;
+		}
+
 	}
 	
 	

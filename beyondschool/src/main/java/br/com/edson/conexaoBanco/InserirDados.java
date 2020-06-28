@@ -43,22 +43,22 @@ public class InserirDados {
 		turma.setProfessor(professor);
 		
 		Usuario uteacher = new Usuario();
-		uteacher.setNomeUsuario("maria.silva prof");
+		uteacher.setNomeUsuario("maria.silva1");
 		uteacher.setPessoa(professor);
-		uteacher.setSenha("123");
+		uteacher.setSenha("123123123");
 		uteacher.setTipoAcesso("professor");
 		
 		
 		Aluno aluno = new Aluno();
-		aluno.setMatricula(111111);
-		aluno.setNomeCompleto("Edson jose de souza aluno");
+		aluno.setMatricula(100);
+		aluno.setNomeCompleto("Edson jose de souza");
 		aluno.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("30/06/1980"));
 		aluno.setTurma(turma);
 		
 		Usuario ualuno = new Usuario();
-		ualuno.setNomeUsuario("edson.souza aluno");
+		ualuno.setNomeUsuario("edson.souza2");
 		ualuno.setPessoa(aluno);
-		ualuno.setSenha("123");
+		ualuno.setSenha("123123123");
 		ualuno.setTipoAcesso("aluno");
 		
 		em.persist(professor);
@@ -74,14 +74,14 @@ public class InserirDados {
 				
 		Funcionario f = new Funcionario();
 		f.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("11/11/2020"));
-		f.setNomeCompleto("jose de souza admin");
+		f.setNomeCompleto("jose de souza");
 		f.setTipoAcesso(PapelEnum.ADMIN);
 		
 		
 		Usuario uadmin = new Usuario();
-		uadmin.setNomeUsuario("jose.souza");
+		uadmin.setNomeUsuario("jose.souza3");
 		uadmin.setPessoa(f);
-		uadmin.setSenha("123");
+		uadmin.setSenha("123123123");
 		uadmin.setTipoAcesso("admin");
 		
 		em.persist(f);
@@ -89,12 +89,12 @@ public class InserirDados {
 		
 		Responsavel r = new Responsavel();
 		r.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("11/11/2020"));
-		r.setNomeCompleto("joao da silva resp");
+		r.setNomeCompleto("joao da silva");
 		
 		Usuario uresp = new Usuario();
-		uresp.setNomeUsuario("joao.silva");
+		uresp.setNomeUsuario("joao.silva4");
 		uresp.setPessoa(professor);
-		uresp.setSenha("123");
+		uresp.setSenha("123123123");
 		uresp.setTipoAcesso("responsavel");
 		
 		em.persist(r);
@@ -118,13 +118,13 @@ public class InserirDados {
 		
 		a.setComentarios(coments);
 		
-		a.setEscrevendo(ConceitoEnum.BAd);
+		a.setEscrevendo(ConceitoEnum.BAD);
 		a.setEscutando(ConceitoEnum.EXCELLENT);
 		a.setFalando(ConceitoEnum.GOOD);
 		a.setGramatica(ConceitoEnum.VERYGOOD);
-		a.setHomeWork(ConceitoEnum.BAd);
-		a.setLeitura(ConceitoEnum.BAd);
-		a.setVocabulario(ConceitoEnum.BAd);
+		a.setHomeWork(ConceitoEnum.BAD);
+		a.setLeitura(ConceitoEnum.BAD);
+		a.setVocabulario(ConceitoEnum.BAD);
 		
 		a.setAluno(aluno);
 		a.setBimestre(b);

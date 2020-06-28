@@ -68,6 +68,7 @@ public class FuncionariosBD implements Serializable {
 	public void salvarFuncionarioCadastro( Funcionario funcionario) {
 		this.em.merge(funcionario);
 	}
+
 	
 	
 }
