@@ -25,6 +25,25 @@ public class AlunosBD implements Serializable {
 		this.em.merge(aluno);
 	}
 	
+	/**
+	 * busca os alunos relacionados com uma turma espeçifica.
+	 * @param codigoTurma
+	 * @return
+	 */
+	public List<Aluno> buscaAlunosTurma(String codigoTurma){
+		
+		try {
+			
+			String sql = " select a from Aluno a, Turma t where t.codigoTurma= :codigoTurma"; 	
+			
+			TypedQuery<Aluno> alunos = this.em.createQuery(sql, Aluno.class)
+					.setParameter("codigoTurma", codigoTurma);
+			return alunos.getResultList();
+		} catch (PersistenceException e) {
+			return null;
+		}		
+	}
+	
 	public List<Aluno> buscaAlunos(){
 		try {
 			TypedQuery<Aluno> alunos = this.em.createQuery("from Aluno", Aluno.class);

@@ -34,7 +34,7 @@ public class LoginMBean implements Serializable {
 		
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+//		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
 		try {
 			user = usersBD.ValidaUsuarioLogin( nomeUser, senha);
@@ -43,16 +43,16 @@ public class LoginMBean implements Serializable {
 			
 			switch (user.getTipoAcesso()) {
 			case "admin":
-				session.setAttribute("usuario", user);
+//				session.setAttribute("usuario", user);
 				return "/APP/telaAdmin?faces-redirect=true";
 			case "aluno":
-				session.setAttribute("usuario", user);
+//				session.setAttribute("usuario", user);
 				return "/APP/telaAluno?faces-redirect=true";
 			case "professor":
-				session.setAttribute("usuario", user);
+//				session.setAttribute("usuario", user);
 				return "/APP/listaTurmas?faces-redirect=true";
 			case "responsavel":
-				session.setAttribute("usuario", user);
+//				session.setAttribute("usuario", user);
 				return "/APP/template/telaPai?faces-redirect=true";
 			}
 			

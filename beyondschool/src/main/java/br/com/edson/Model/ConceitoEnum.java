@@ -4,14 +4,14 @@ public enum ConceitoEnum {
 	
 	BAd ("Bad"), REGULAR ("Regular"), GOOD ("Good"), VERYGOOD ("Very Good"), EXCELLENT ("Excellent");
 	
-	private String descrição;
+	private String descricao;
 
-	private ConceitoEnum(String descrição) {
-		this.descrição = descrição;
+	private ConceitoEnum(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getDescrição() {
-		return descrição;
+	public String getDescricao() {
+		return descricao;
 	}
 	
 }
