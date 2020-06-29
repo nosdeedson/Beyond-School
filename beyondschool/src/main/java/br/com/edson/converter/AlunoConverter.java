@@ -3,12 +3,14 @@ package br.com.edson.converter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Turma;
 import br.com.edson.repository.AlunosBD;
 
+@FacesConverter(forClass = Aluno.class)
 public class AlunoConverter implements Converter {
 
 	@Inject

@@ -31,8 +31,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Inject
-	private Aluno aluno;
+	private Aluno aluno = null;
 		
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	
@@ -49,6 +48,9 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	
 	@Inject
 	private RegistrarAvaliacao registra;
+	
+	@Inject
+	private AvaliacoesBD avaliacoes;
 	
 	private boolean flag = true;
 	
@@ -71,9 +73,39 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 		}
 	}
 	
+	public void buscarAvaliacao() throws NegocioException {
+		if( alunos.size() == 0 &&  aluno != null) {
+			
+			avaliacao = avaliacoes.buscaPorIdAluno(aluno.getIdPessoa());
+			if( avaliacao == null)
+				throw new NegocioException("Falha ao buscar avaliaçao");
+			avaliacao.setAluno(aluno);
+		}
+	}
+	
 	public String avaliar() throws NegocioException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();
+		
+		
+		try {
+			if(alunos.size() == 0  && aluno != null) {
+				List<String> comments= new ArrayList<String>();
+				comments.add(comentario);
+				avaliacao.setComentarios(comments);
+				et.begin();
+				avaliacoes.salvarAvaliacao(avaliacao);
+				et.commit();
+				return "/APP/listaTurmas?faces-redirect=true";
+			}
+		} catch ( java.lang.IllegalArgumentException e) {
+			et.rollback();
+			e.printStackTrace();
+		}
+		
+		
+		// usado quand edita avaliação
+	
 			
 		for (int i = 0; i < alunos.size()  ; i++) {
 			try {
@@ -102,7 +134,6 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 				aluno = alunos.get(i);
 				i--;
 				FacesMessage msg = new FacesMessage(e.getMessage());
-				e.printStackTrace();
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 				context.addMessage(null, msg);
 			}finally {
@@ -112,7 +143,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 			
 			
 		}//fim for
-		context.addMessage(null, new FacesMessage("Aluno avaliado com sucesso!!" ));
+		
 		return "/APP/listaTurmas?faces-redirect=true";
 		
 	}

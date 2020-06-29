@@ -33,19 +33,6 @@ public class RegistrarAvaliacao implements Serializable {
 	@Inject
 	public RegistrarAvaliacao() { 	}
 	
-	public void salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {
-		
-		try {
-			if (bimestre == null) {
-				throw new NegocioException("Falha ao registrar avaliação. Tente novamente.");
-			}
-			bimestre = bimestresBD.buscarBimestreAtual();
-			avaliacao.setBimestre(bimestre);
-			avaliacoesBD.salvarAvaliacao(avaliacao);
-		} catch ( PersistenceException | NegocioException e) {
-			throw new NegocioException("Falha ao registrar avaliação. Tente novamente.");
-		}	
-	}
 	
 	public List<Aluno> buscarAlunosSemAvaliacao(String codigoTurma) {
 		List<Avaliacao> avaliacoes = avaliacoesBD.buscarAvaliacoes();
@@ -61,5 +48,21 @@ public class RegistrarAvaliacao implements Serializable {
 		return alunos;
 	}
 	
+	public void salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {
+		
+		try {
+			bimestre = bimestresBD.buscarBimestreAtual();
+			if (bimestre == null) {
+				throw new NegocioException("Falha ao registrar avaliação. Tente novamente.");
+			}
+			
+			avaliacao.setBimestre(bimestre);
+			avaliacoesBD.salvarAvaliacao(avaliacao);
+		} catch ( PersistenceException | NegocioException e) {
+			throw new NegocioException("Falha ao registrar avaliação. Tente novamente.");
+		}	
+	}
+	
+
 
 }

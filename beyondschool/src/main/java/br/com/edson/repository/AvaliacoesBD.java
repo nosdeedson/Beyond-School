@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
+import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
 import br.com.edson.service.NegocioException;
 
@@ -21,16 +22,6 @@ public class AvaliacoesBD implements Serializable {
 
 	@Inject
 	public AvaliacoesBD() {	}
-	
-	public void salvarAvaliacao( Avaliacao avaliacao) throws NegocioException {
-		JOptionPane.showMessageDialog(null, avaliacao);
-		try {
-			this.em.merge(avaliacao);
-		} catch (PersistenceException e) {
-			throw new NegocioException("Falha ao salvar o aluno. Tente novamente.");
-		}
-		
-	}
 
 	public List<Avaliacao> buscarAvaliacoes() {
 		TypedQuery<Avaliacao> avaliacoes = this.em.createQuery("select a from Avaliacao a "
@@ -38,6 +29,26 @@ public class AvaliacoesBD implements Serializable {
 		return avaliacoes.getResultList();
 	}
 	
-	
+	public Avaliacao buscaPorIdAluno(Long id) {
+		
+		Avaliacao ava = null;
+		String sql = "select ava from Avaliacao ava, Aluno where ava.aluno.idPessoa= :idAluno";
+		try {
+			ava =	this.em.createQuery( sql, Avaliacao.class).setParameter("idAluno", id).getSingleResult();
+			return ava;
+		} catch ( PersistenceException | IllegalArgumentException e) {
+			e.printStackTrace();
+			return ava;
+		}
+	}
 
+	public void salvarAvaliacao( Avaliacao avaliacao) throws NegocioException {
+		
+		try {
+			this.em.merge(avaliacao);
+		} catch (PersistenceException e) {
+			throw new NegocioException("Falha ao salvar o aluno. Tente novamente.");
+		}
+		
+	}
 }

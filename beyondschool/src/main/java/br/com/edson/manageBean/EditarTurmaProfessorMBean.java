@@ -37,7 +37,7 @@ public class EditarTurmaProfessorMBean implements Serializable {
 	@Inject
 	private AlunosBD alunosBD;
 
-	//métodos
+	//métodos bs9op84o
 	public void buscarAlunos() {
 		alunos = alunosBD.buscaAlunosTurma(turma.getCodigoTurma());
 	}
