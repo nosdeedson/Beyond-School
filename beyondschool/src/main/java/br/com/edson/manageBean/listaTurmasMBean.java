@@ -10,12 +10,15 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
+import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
+import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.repository.UsuariosBD;
+import br.com.edson.service.RegistrarAvaliacao;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -34,6 +37,7 @@ public class listaTurmasMBean implements Serializable {
 	
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
+	
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
 	
@@ -42,7 +46,11 @@ public class listaTurmasMBean implements Serializable {
 		turmas = turmasBD.turmasProfessor(user.getPessoa().getIdPessoa());
 		
 	}
-
+	
+	public String avaliar() {
+		return "/APP/telaAvaliacaoAluno?faces-redirect=true";
+	}
+	
 	// getters and setters
 	public List<Turma> getTurmas() {
 		return turmas;

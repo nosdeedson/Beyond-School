@@ -9,7 +9,9 @@
 
 <f:metadata>
 <f:viewParam name="id" value="#{telaAvaliacaoAlunoMBean.turma}"/>
+<f:viewParam name="idAluno" value="#{telaAvaliacaoAlunoMBean.aluno}"/>
 <f:viewAction action="#{telaAvaliacaoAlunoMBean.buscarAlunos}"/>
+<f:viewAction action="#{telaAvaliacaoAlunoMBean.avaliados}"/>
 </f:metadata>
 
 <ui:define name="titulo">Avaliar</ui:define>
@@ -23,7 +25,7 @@
 	<f:facet name="header">
 				<p:row>
 					<p:column>
-						<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}" binding="#{telaAvaliacaoAlunoMBean.alunosAvaliados}" />
+						<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}"  />
 					</p:column>
 				</p:row>
 	</f:facet>
@@ -34,7 +36,9 @@
 	
 	
 	<p:column>
-		Avaliar: <p:outputLabel value="#{telaAvaliacaoAlunoMBean.aluno.nomeCompleto}" />
+		Avaliar: <p:outputLabel value="#{telaAvaliacaoAlunoMBean.aluno.nomeCompleto}" rendered="#{telaAvaliacaoAlunoMBean.flag}" />
+		<p:outputLabel value="Sem alunos para avaliar." rendered="#{telaAvaliacaoAlunoMBean.flag1}" />
+		
 	</p:column>
 	
 	

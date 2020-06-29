@@ -7,6 +7,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">>
 
+<f:metadata>
+	<f:viewParam name="id" value="#{editarTurmaProfessorMBean.turma}"/>
+	<f:viewAction action="#{editarTurmaProfessorMBean.buscarAlunos}" />
+	<f:viewAction action="#{editarTurmaProfessorMBean.buscarBimestre}" />
+</f:metadata>
 <ui:define name="corpo2">
 
 <h:form>
@@ -21,34 +26,48 @@ xmlns="http://www.w3.org/1999/xhtml"
 				</p:row>
 		</f:facet>
 		<p:row> 
-			<p:linkButton outcome="telaAvaliacaoAluno" value="Avaliar Turma" id="btn-avaliar-turma" />
+			<p:button value="Avaliar turma" outcome="/APP/telaAvaliacaoAluno" id="btn-avaliar-turma" >
+				<f:param name="id" value="#{editarTurmaProfessorMBean.turma.codigoTurma}"/>
+			</p:button>
 		</p:row>
 		
-		<p:panelGrid columns="3" id="pg-unidades-livro-prof">
-			<p:outputLabel value="Nome turma" />
-			<p:outputLabel value="12:00 as 13:00" />
-			<p:outputLabel value="livro" />
-			<p:outputLabel value="1º Bimestre" />
-			<p:outputLabel value="data inicio" />
-			<p:outputLabel value="data fim" />
-			<p:outputLabel value="2º Bimestre" />
-			<p:outputLabel value="data inicio" />
-			<p:outputLabel value="data fim" />
+		<p:panelGrid columns="2" id="pg-unidades-livro-prof">
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeTurma}" />
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeLivro}" />
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.primeiroDiaSemana}" />
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario}" />
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.segundoDiaSemana}" />
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario2}" />
+			<p:outputLabel value="Bimestre atual" />
+			<p:column>
+				<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataInicio} : " />
+				<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataFim}" />
+			</p:column>
 		</p:panelGrid>
 
 		<p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/>
 		
-		<p:panelGrid columns="2" id="pg-alunos">
-			<p:column>
-				<p:outputLabel value="Edson Jose de Souza" />
-			</p:column>
-			<p:column>
-				<p:linkButton outcome="telaAvaliacaoAluno" value="Editar avaliação" />
-				<p:linkButton outcome="verBoletim" value="Ver avaliação" />
-			</p:column>
-
-
-		</p:panelGrid>
+		<p:dataTable value="#{editarTurmaProfessorMBean.alunos}" var="aluno" border="1" style="width: 400px;"
+			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
+			
+		<p:column headerText="Nome"  width="65%" > 
+			<p:outputLabel  style="text-align: center;" value="#{aluno.nomeCompleto}"/>
+		</p:column>
+				
+		<p:column headerText="Ações" width="25%" > 
+					
+			<p:button  title="Editar" icon="ui-icon-pencil" outcome="/APP/telaAvaliacaoAluno">
+				<f:param name="idAluno" value="#{aluno.idPessoa}"/>
+			</p:button>
+					
+			<p:button title="Ver" icon="ui-icon-arrowthick-1-e" >
+				<f:param name="id"/>
+			</p:button>
+				
+		</p:column>
+			
+		</p:dataTable>
+	
 		
 </p:panelGrid> 
 

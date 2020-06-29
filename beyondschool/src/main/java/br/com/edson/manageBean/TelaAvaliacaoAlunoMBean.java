@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.New;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.context.FacesContext;
@@ -48,14 +49,12 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	
 	@Inject
 	private RegistrarAvaliacao registra;
-
-	private HtmlOutputLabel outPutLabelAluno = new HtmlOutputLabel();
-	// métodos bs9op84o
 	
-	public void alunosAvaliados() {
-		if(alunos.size() == 0)
-			this.outPutLabelAluno.setValue("SEM ALUNOS PARA AVALIAR.");
-	}
+	private boolean flag = true;
+	
+	private boolean flag1= false;
+	
+	// métodos bs9op84o
 	
 	public void buscarAlunos() throws NegocioException {
 		alunos = registra.buscarAlunosSemAvaliacao(turma.getCodigoTurma());
@@ -63,6 +62,13 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 			aluno = alunos.get(0);
 		}
 		
+	}
+	
+	public void avaliados() {
+		if(alunos.size() == 0 && aluno == null) {
+			flag = false;
+			flag1 = true;
+		}
 	}
 	
 	public String avaliar() throws NegocioException {
@@ -77,7 +83,6 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 				avaliacao.setComentarios(comments);
 				
 				avaliacao.setAluno(aluno);
-				JOptionPane.showMessageDialog(null, avaliacao.getEscutando());
 							
 				et.begin();
 				
@@ -90,8 +95,6 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 					aluno = alunos.get(i);
 				else
 					break;
-				
-				context.addMessage(null, new FacesMessage("Aluno avaliado com sucesso!!" ));
 				
 			} catch (PersistenceException | NullPointerException e) {
 				et.rollback();
@@ -109,6 +112,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 			
 			
 		}//fim for
+		context.addMessage(null, new FacesMessage("Aluno avaliado com sucesso!!" ));
 		return "/APP/listaTurmas?faces-redirect=true";
 		
 	}
@@ -128,6 +132,10 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	public Aluno getAluno() {
 		return aluno;
 	}
+	
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
 
 	public String getComentario() {
 		return comentario;
@@ -135,10 +143,6 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
 	}
 
 	public Avaliacao getAvaliacao() {
@@ -155,6 +159,22 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 
 	public void setTurma(Turma turma) {
 		this.turma = turma;
+	}
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
+	public boolean isFlag1() {
+		return flag1;
+	}
+
+	public void setFlag1(boolean flag1) {
+		this.flag1 = flag1;
 	}
 	
 	

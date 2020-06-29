@@ -36,6 +36,9 @@ public class RegistrarAvaliacao implements Serializable {
 	public void salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {
 		
 		try {
+			if (bimestre == null) {
+				throw new NegocioException("Falha ao registrar avaliação. Tente novamente.");
+			}
 			bimestre = bimestresBD.buscarBimestreAtual();
 			avaliacao.setBimestre(bimestre);
 			avaliacoesBD.salvarAvaliacao(avaliacao);

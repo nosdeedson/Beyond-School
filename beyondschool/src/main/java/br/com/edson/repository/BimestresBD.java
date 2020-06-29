@@ -24,16 +24,14 @@ public class BimestresBD implements Serializable {
 	}
 
 	public Bimestre buscarBimestreAtual() {
-		JOptionPane.showMessageDialog(null, "bimestre");
+		
 		String sql = "select b from Bimestre b where b.atual= true ";
 		
 		try {
 			Bimestre b = this.em.createQuery(sql, Bimestre.class)
 					.getSingleResult();
-			JOptionPane.showMessageDialog(null, b.getDataFim());
 			return b;
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			return null;
 		}
 		

@@ -100,4 +100,8 @@ public class AlunosBD implements Serializable {
 	public void salvarAlunosRespCadPrimerio( Aluno aluno) {
 		this.em.merge(aluno);
 	}
+
+	public Aluno porId(Long id) {
+		return this.em.find(Aluno.class, id);
+	}
 }
