@@ -59,7 +59,8 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	// métodos bs9op84o
 	
 	public void buscarAlunos() throws NegocioException {
-		alunos = registra.buscarAlunosSemAvaliacao(turma.getCodigoTurma());
+		if( aluno == null)
+			alunos = registra.buscarAlunosSemAvaliacao(turma.getCodigoTurma());
 		if(alunos.size() > 0) {
 			aluno = alunos.get(0);
 		}

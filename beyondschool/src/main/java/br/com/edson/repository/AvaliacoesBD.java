@@ -1,6 +1,8 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,6 +29,26 @@ public class AvaliacoesBD implements Serializable {
 		TypedQuery<Avaliacao> avaliacoes = this.em.createQuery("select a from Avaliacao a "
 				+ ", Bimestre b where a.bimestre= b.idBimestre and b.atual=true", Avaliacao.class);
 		return avaliacoes.getResultList();
+	}
+	
+	
+	public List<String> buscaComentarios(Long idAvaliacao){
+		List<String> comentarios = new ArrayList<String>();
+		Avaliacao avaliacao = new Avaliacao();
+		String sql = "from Avaliacao where idAvaliacao= :idAvaliacao";
+		
+		try {
+			avaliacao = this.em.createQuery(sql, Avaliacao.class)
+					.setParameter("idAvaliacao", idAvaliacao).getSingleResult();
+		} catch ( PersistenceException e) {
+			return null;
+		}
+		
+		for ( int i = 0; i < avaliacao.getComentarios().size(); i++) {
+			comentarios.add(avaliacao.getComentarios().get(i));
+		}
+		
+		return comentarios;
 	}
 	
 	public Avaliacao buscaPorIdAluno(Long id) {

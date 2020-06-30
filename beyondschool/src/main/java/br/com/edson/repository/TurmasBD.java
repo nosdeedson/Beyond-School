@@ -99,8 +99,5 @@ public class TurmasBD implements Serializable {
 		}
 
 	}
-	
-	
-
 
 }
