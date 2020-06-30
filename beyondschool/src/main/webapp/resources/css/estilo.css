@@ -95,6 +95,14 @@
 	.telaTransfer{
 		font-size: 12px;
 	}
+	
+	.pgTelaAdmin{
+		font-size: 12px;
+	}
+	
+	.btnAdmin{
+		margin-top: 5px;
+	}
 }
 
 @media (min-width: 331px) {

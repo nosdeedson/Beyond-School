@@ -22,9 +22,14 @@ public class TurmasBD implements Serializable {
 	private EntityManager em;
 
 	@Inject
-	public TurmasBD() {
-	}
+	public TurmasBD() { }
 	
+	
+	/**
+	 * retorna o id do professor da turma ao qual o codigo recebido se refere
+	 * @param codigo
+	 * @return
+	 */
 	public Long buscaIdProfessor( String codigo) {
 		Turma t = new Turma();
 		try {
@@ -37,7 +42,11 @@ public class TurmasBD implements Serializable {
 		return t.getProfessor().getIdPessoa();
 	}
 	
-	
+	/**
+	 * verifica se o codigo gerado pela classe gerador de código no pacote service já existe
+	 * @param codigo
+	 * @return
+	 */
 	public boolean verificaCodigoGerado( String codigo){
 		
 		try {
@@ -69,6 +78,11 @@ public class TurmasBD implements Serializable {
 		
 		
 		return turma;
+	}
+	
+	public List<Turma> todasTurmas(){
+		TypedQuery<Turma> turmas = this.em.createQuery("from Turma", Turma.class);
+		return turmas.getResultList();
 	}
 	
 	/**

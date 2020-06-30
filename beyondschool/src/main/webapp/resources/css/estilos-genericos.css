@@ -44,12 +44,9 @@
 }
 
 .seletor-conceito{
-	with:150px;
+	width:150px;
 }
 
-.star{
-	background-image: url("/../images/olho.png");
-}
 
 
 

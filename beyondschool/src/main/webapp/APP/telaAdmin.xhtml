@@ -6,35 +6,38 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
+<f:metadata>
+	<f:viewAction action="#{telaAdminMBean.buscarTurmas}"></f:viewAction>
+</f:metadata>
 	<ui:define name="corpo2">
 		<h:form>
-			<p:panelGrid columns="1" styleClass="posicao-tela-sp posicao-tela-m posicao-tela-pt posicao-tela-t">
-			<p:messages/>
-				<p:linkButton outcome="/APP/cadastrarTurma" value="Cadastrar turma"
-					id="btn-cadastrar-turma" styleClass="btn-acoes-admin" />
-				<p:linkButton outcome="criarSemestre" value="Criar Semestre" />
-				<p:linkButton outcome="transferirAlunosTurma"
-					value="Transferir alunos" />
-
-				<p:selectOneMenu styleClass="tm-input" id="console1" >
-					<f:selectItem itemLabel="Responsaveis/Alunos"
-						itemValue="paisTurmas" />
-					<f:selectItem itemLabel="turma 1" itemValue="turma 1" />
-					<f:selectItem itemLabel="turma 2" itemValue="turma 2" />
-					<f:selectItem itemLabel="turma 3" itemValue="turma 3" />
-					<f:selectItem itemLabel="turma 4" itemValue="turma 4" />
-					<f:selectItem itemLabel="turma 5" itemValue="turma 5" />
-				</p:selectOneMenu>
-
-				<p:selectOneMenu styleClass="tm-input" id="console2">
-					<f:selectItem itemLabel="Editar/Ver Turma" itemValue="turmas" />
-					<f:selectItem itemLabel="turma 1" itemValue="turma 1" />
-					<f:selectItem itemLabel="turma 2" itemValue="turma 2" />
-					<f:selectItem itemLabel="turma 3" itemValue="turma 3" />
-					<f:selectItem itemLabel="turma 4" itemValue="turma 4" />
-					<f:selectItem itemLabel="turma 5" itemValue="turma 5" />
-				</p:selectOneMenu>
+		
+			<p:panelGrid columns="1"  styleClass="pgTelaAdmin" >
+			
+				<h:panelGroup>
+					<p:linkButton outcome="/APP/criarSemestre" value="Criar Semestre" styleClass="btnAdmin" />
+					
+					<p:linkButton outcome="/APP/cadastrarTurma" value="Cadastrar turma" styleClass="btnAdmin"  />
+				
+					<p:linkButton outcome="/APP/transferirAlunosTurma" value="Transferir alunos" styleClass="btnAdmin"  />
+				</h:panelGroup>
+<!-- 								refazer css -->
+				<p:dataTable value="#{telaAdminMBean.turmas}" var="turma" border="1"  
+					cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!"  >
+					
+					<p:column headerText="Turma"  >
+						<p:outputLabel value="#{turma.nomeTurma}"></p:outputLabel>
+					</p:column>
+					<p:column headerText="Ações"  >
+						<p:button  value="Ver" outcome="/APP/editarTurmaAdmin">
+							<f:param name="id" value="#{turma.codigoTurma}"/>
+						</p:button>
+					
+					<p:button value="Pais/alunos" >
+						<f:param name="id" />
+					</p:button>
+					</p:column>
+				</p:dataTable>
 
 			</p:panelGrid>
 		</h:form>
