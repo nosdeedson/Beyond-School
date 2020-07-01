@@ -8,9 +8,9 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <f:metadata>
-	<f:viewParam name="id" value="#{editarTurmaAdmin.turma}"/>
-	<f:viewAction action="#{editarTurmaAdmin.buscarBimestre}" />
-	<f:viewAction action="#{editarTurmaAdmin.buscarAlunos}" />
+	<f:viewParam name="id" value="#{editarTurmaAdminMBean.turma}"/>
+	<f:viewAction action="#{editarTurmaAdminMBean.buscarBimestre}" />
+	<f:viewAction action="#{editarTurmaAdminMBean.buscarAlunos}" />
 </f:metadata>
 
 <ui:define name="corpo2">
@@ -26,18 +26,18 @@
 				</p:row>
 		</f:facet>		
 		<p:panelGrid columns="2" id="pg-unidades-livro-prof">
-			<p:outputLabel value="#{editarTurmaAdmin.turma.nomeTurma}" />
-			<p:outputLabel value="#{editarTurmaAdmin.turma.nomeLivro}" />
-			<p:outputLabel value="#{editarTurmaAdmin.turma.primeiroDiaSemana}" />
-			<p:outputLabel value="#{editarTurmaAdmin.turma.horario}" />
-			<p:outputLabel value="#{editarTurmaAdmin.turma.segundoDiaSemana}" />
-			<p:outputLabel value="#{editarTurmaAdmin.turma.horario2}" />
+			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeTurma}" />
+			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeLivro}" />
+			<p:outputLabel value="#{editarTurmaAdminMBean.turma.primeiroDiaSemana}" />
+			<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario}" />
+			<p:outputLabel value="#{editarTurmaAdminMBean.turma.segundoDiaSemana}" />
+			<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario2}" />
 			<p:outputLabel value="Bimestre atual" />
 			<p:column>
-				<p:outputLabel value="#{editarTurmaAdmin.bimestreAtual.dataInicio}" >
+				<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataInicio}" >
 					<f:convertDateTime pattern="dd/MM/yyyy : "/>
 				</p:outputLabel>
-				<p:outputLabel value="#{editarTurmaAdmin.bimestreAtual.dataFim}" >
+				<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataFim}" >
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</p:outputLabel>
 			</p:column>
@@ -48,19 +48,19 @@
 				</p:button>
 		
 				<p:button  title="Editar turma" icon="ui-icon-pencil" outcome="/APP/cadastrarTurma" >
-					<f:param name="idTurma" value="#{editarTurmaAdmin.turma.codigoTurma}" />
+					<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
 				</p:button>
 			</p:column>
 			<p:column>
 			<p:button value="Novo Professor" outcome="/APP/cadastrarTurma"  >
-				<f:param name="idTurma" value="#{editarTurmaAdmin.turma.codigoTurma}" />
+				<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
 			</p:button>
 			</p:column>
 		</p:panelGrid>
 
 		<p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/>
 		
-		<p:dataTable value="#{editarTurmaAdmin.alunos}" var="aluno" border="1"
+		<p:dataTable value="#{editarTurmaAdminMBean.alunos}" var="aluno" border="1"
 			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
 			
 		<p:column headerText="Nome"  width="40%" > 

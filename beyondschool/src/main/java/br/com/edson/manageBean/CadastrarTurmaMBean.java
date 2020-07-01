@@ -60,15 +60,27 @@ public class CadastrarTurmaMBean implements Serializable {
 	
 	//métodos
 	
+	public void buscarProfessor() {
+		if(turma.getCodigoTurma() != null) {
+			this.professor = funcionariosBD.buscaProfessorCodigoTurma(turma.getCodigoTurma(), turma.getHorario());
+			this.hora = turma.getHorario().toString();
+			this.hora2 = turma.getHorario2().toString();
+			this.dia1 = turma.getPrimeiroDiaSemana();
+			this.dia2 = turma.getSegundoDiaSemana();
+		}
+	}
+	
 	public void salvar() throws ParseException {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();
 		
+		
+		
 		try {
 			
-			codigo = gerardorCodigo.gerarCodigoTurma();
-			
+			if(turma.getCodigoTurma() == null )
+				codigo = gerardorCodigo.gerarCodigoTurma();
 			
 			
 			et.begin();
@@ -84,10 +96,10 @@ public class CadastrarTurmaMBean implements Serializable {
 				Long idPessoa = funcionariosBD.salvarFuncionario(professor);
 				professor.setIdPessoa(idPessoa);
 			}
-			
-			
-			
+			///no caso de edição de turma tenho que manter o mesmo codigo e nome do professor
+			if( codigo != null)
 			turma.setCodigoTurma(codigo);
+			
 			turma.setHorario(new SimpleDateFormat("hh:mm").parse(hora));
 			turma.setHorario2(new SimpleDateFormat("hh:mm").parse(hora2));
 			turma.setPrimeiroDiaSemana(dia1);
@@ -97,8 +109,9 @@ public class CadastrarTurmaMBean implements Serializable {
 			turmasBD.salvarTurma(turma);
 			
 			et.commit();
-			context.addMessage(null, new FacesMessage("Turma criada com sucesso!! Codigo da turma: " + codigo));
-		} catch ( PersistenceException | ParseException | NullPointerException | FacesException | InjectionException e) {
+			context.addMessage(null, new FacesMessage("Turma criada com sucesso!! Codigo da turma: " + turma.getCodigoTurma()));
+				
+		} catch ( PersistenceException | NullPointerException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			e.printStackTrace();

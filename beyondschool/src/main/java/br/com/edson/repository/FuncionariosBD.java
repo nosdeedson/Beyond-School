@@ -1,6 +1,7 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
+
+import org.hibernate.NonUniqueResultException;
 
 import br.com.edson.Model.Funcionario;
 
@@ -67,6 +71,25 @@ public class FuncionariosBD implements Serializable {
 	 */
 	public void salvarFuncionarioCadastro( Funcionario funcionario) {
 		this.em.merge(funcionario);
+	}
+
+	public Funcionario buscaProfessorCodigoTurma(String codigoTurma, Date horario) {
+	
+		String sql = "select f from Funcionario f, Turma t where t.codigoTurma= :codigoTurma and t.horario= :horario"
+				+ " and f.idPessoa = t.professor.idPessoa";
+		Funcionario prof = null;
+		
+		try {
+			prof = this.em.createQuery(sql, Funcionario.class).setParameter("codigoTurma", codigoTurma)
+					.setParameter("horario", horario)
+					.getSingleResult();
+			return prof;
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			return prof;
+		}
+		
+		
 	}
 
 	
