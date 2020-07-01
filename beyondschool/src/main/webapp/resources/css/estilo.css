@@ -92,12 +92,12 @@
 		width: 90px;
 	}
 	
-	.telaTransfer{
+	.telaTransfer, .pgTelaAdmin {
 		font-size: 12px;
 	}
 	
-	.pgTelaAdmin{
-		font-size: 12px;
+	.pgEditaAdmin{
+		font-size: 10px;
 	}
 	
 	.btnAdmin{
@@ -178,8 +178,12 @@
 		width: 110px;
 	}
 	
-	.telaTransfer{
+	.telaTransfer, .pgTelaAdmin{
 		font-size: 12px;
+	}
+	
+	.pgEditaAdmin{
+		font-size: 11px;
 	}
 }
 
@@ -232,8 +236,17 @@
 		font-size: 16px;
 	}
 	
-	.telaTransfer{
+	.telaTransfer, .pgTelaAdmin{
 		font-size: 14px;
+	}
+	
+	.pgEditaAdmin{
+		font-size: 12px;
+		width: 380px;
+	}
+	
+	.edtAdmin{
+		width: 400px;
 	}
 }
 
@@ -293,8 +306,14 @@
 		left: 10%;
 	}
 	
-	.telaTransfer{
+	.telaTransfer, .pgTelaAdmin{
 		font-size: 16px;
+		width: 500px;
+	}
+	
+	.edtAdmin{
+		left: 15%;
+		position: relative;
 	}
 
 }
@@ -377,6 +396,17 @@
 	.telaTransfer{
 		font-size: 18px;
 	}
+	
+	.pgTelaAdmin{
+		font-size: 16px;
+		left: 8%;
+		position: relative;
+	}
+	
+	.edtAdmin{
+		left: 22%;
+		position: relative;
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -454,6 +484,16 @@
 	.telaPai{
 		left: 30%;
 	}
+	
+	.pgTelaAdmin{
+		left: 20%;
+		position: relative;
+	}
+	
+	.edtAdmin{
+		left: 30%;
+		position: relative;
+	}
 }
 
 @media (min-width: 900px) {
@@ -478,6 +518,13 @@
 	.telaAvaliacao{
 		left: 35%;	
 	}
+	
+	.pgTelaAdmin{
+		left: 30%;
+		position: relative;
+	}
+	
+	
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
