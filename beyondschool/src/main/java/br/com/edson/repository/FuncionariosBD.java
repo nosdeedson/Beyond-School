@@ -73,23 +73,13 @@ public class FuncionariosBD implements Serializable {
 		this.em.merge(funcionario);
 	}
 
-	public Funcionario buscaProfessorCodigoTurma(String codigoTurma, Date horario) {
-	
-		String sql = "select f from Funcionario f, Turma t where t.codigoTurma= :codigoTurma and t.horario= :horario"
-				+ " and f.idPessoa = t.professor.idPessoa";
-		Funcionario prof = null;
-		
+	public Funcionario porId(Long idPessoa) {
 		try {
-			prof = this.em.createQuery(sql, Funcionario.class).setParameter("codigoTurma", codigoTurma)
-					.setParameter("horario", horario)
-					.getSingleResult();
-			return prof;
+			return this.em.find(Funcionario.class, idPessoa);
 		} catch (PersistenceException e) {
 			e.printStackTrace();
-			return prof;
+			return null;
 		}
-		
-		
 	}
 
 	

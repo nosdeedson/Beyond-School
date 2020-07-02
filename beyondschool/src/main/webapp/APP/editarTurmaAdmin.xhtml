@@ -25,6 +25,7 @@
 					</p:column>
 				</p:row>
 		</f:facet>		
+		<p:messages style="width:300px;"/>
 		<p:panelGrid columns="2" id="pg-unidades-livro-prof">
 			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeTurma}" />
 			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeLivro}" />
@@ -49,6 +50,7 @@
 		
 				<p:button  title="Editar turma" icon="ui-icon-pencil" outcome="/APP/cadastrarTurma" >
 					<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
+					<f:param name="idProfessor" value="#{editarTurmaAdminMBean.turma.professor.idPessoa}" />
 				</p:button>
 			</p:column>
 			<p:column>
@@ -77,9 +79,18 @@
 				<f:param name="id" value="#{aluno.idPessoa}"/>
 			</p:button>
 			
-			<p:button title="Excluir" icon="ui-icon-trash" styleClass="btn btn-danger" >
-				<f:param name="id" value="#{aluno.idPessoa}"/>
-			</p:button>
+			
+			<p:commandButton title="Excluir" icon="ui-icon-trash" styleClass="btn btn-danger" action="#{editarTurmaAdminMBean.excluirAluno}" 
+			 update="@form">
+				<f:setPropertyActionListener value="#{aluno}" target="#{editarTurmaAdminMBean.alunoSerExcluido}"></f:setPropertyActionListener>
+				<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/>
+			</p:commandButton>
+<!-- 				botoes para confirmar exclusão -->
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+				
 				
 		</p:column>
 			

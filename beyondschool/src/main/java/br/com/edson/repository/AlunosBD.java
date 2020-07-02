@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
+import br.com.edson.service.NegocioException;
 
 public class AlunosBD implements Serializable {
 
@@ -18,6 +19,9 @@ public class AlunosBD implements Serializable {
 
 	@Inject
 	private EntityManager em;
+	
+	@Inject
+	private UsuariosBD usersBD;
 	
 	@Inject
 	public AlunosBD() {}
@@ -35,7 +39,7 @@ public class AlunosBD implements Serializable {
 		
 		try { 
 			
-			String sql = " select a from Aluno a, Turma t where t.codigoTurma= :codigoTurma";  	
+			String sql = " select a from Aluno a, Turma t where t.codigoTurma= :codigoTurma and a.deletado = 0";  	
 			
 			TypedQuery<Aluno> alunos = this.em.createQuery(sql, Aluno.class)
 					.setParameter("codigoTurma", codigoTurma);
@@ -46,9 +50,13 @@ public class AlunosBD implements Serializable {
 		}		
 	}
 	
+	/**
+	 * retorna todos os alunos
+	 * @return
+	 */
 	public List<Aluno> buscaAlunos(){
 		try {
-			TypedQuery<Aluno> alunos = this.em.createQuery("from Aluno", Aluno.class);
+			TypedQuery<Aluno> alunos = this.em.createQuery("from Aluno a where a.deletado= 0", Aluno.class);
 			return alunos.getResultList();
 		} catch (PersistenceException e) {
 			return null;
@@ -56,6 +64,11 @@ public class AlunosBD implements Serializable {
 
 	}
 	
+	/**
+	 * retorn aluno pelo nome
+	 * @param nome
+	 * @return
+	 */
 	public Aluno buscaAlunoPeloNome( String nome) {
 		Aluno aluno;
 		try {
@@ -67,6 +80,10 @@ public class AlunosBD implements Serializable {
 		return aluno;
 	}
 	
+	/**
+	 * pega a ultima matricula tirar ao terminar de criar
+	 * @return
+	 */
 	public Integer buscaMatricula() {
 		
 		String sql = " select max(a.matricula) from Aluno a";
@@ -103,5 +120,25 @@ public class AlunosBD implements Serializable {
 
 	public Aluno porId(Long id) {
 		return this.em.find(Aluno.class, id);
+	}
+
+	/**
+	 * primeiro exclui o usuário depois seta o atributo deletado para true possibilitando reativar o aluno
+	 * não remove a pessoa em si do banco 
+	 * @param alunoSerExcluido
+	 * @throws NegocioException
+	 */
+	public void excluirAluno(Aluno alunoSerExcluido) throws NegocioException{
+			try {
+				int res = usersBD.excluirUser(alunoSerExcluido.getIdPessoa());
+				if(res == 0) {
+					throw new NegocioException("Falha ao excluir o aluno. Tente novamente.");
+				}
+				alunoSerExcluido.setDeletado(true);
+				this.em.merge(alunoSerExcluido);
+			} catch (PersistenceException e) {
+				throw new NegocioException("Falha ao excluir aluno. Tente novamente.");
+			}
+			
 	}
 }

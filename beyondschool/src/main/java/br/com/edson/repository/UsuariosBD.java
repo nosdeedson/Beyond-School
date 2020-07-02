@@ -1,6 +1,7 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.time.Period;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -37,7 +38,26 @@ public class UsuariosBD implements Serializable {
 		return id;
 	}
 
+	public int excluirUser(Long id) {
+		int t = 0;
+		String sql = "delete from Usuario u where u.pessoa.idPessoa= :idPessoa";
+		try {
+			t = this.em.createQuery(sql).setParameter("idPessoa", id).executeUpdate();
+			return t;
+		} catch ( PersistenceException e) {
+			return 0;
+		}
+		
+		
+		
+	}
 
+	/**
+	 * valida o usuário informado no login
+	 * @param nomeUser
+	 * @param senha
+	 * @return
+	 */
 	public  Usuario ValidaUsuarioLogin(String nomeUser, String senha) {
 		Usuario user = null;
 		String sql = "select u from Usuario u where u.nomeUsuario= :nomeUsuario and u.senha= :senha";
@@ -51,5 +71,7 @@ public class UsuariosBD implements Serializable {
 		}
 		
 	}
+	
+	
 
 }

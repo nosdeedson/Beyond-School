@@ -62,7 +62,6 @@ public class CadastrarTurmaMBean implements Serializable {
 	
 	public void buscarProfessor() {
 		if(turma.getCodigoTurma() != null) {
-			this.professor = funcionariosBD.buscaProfessorCodigoTurma(turma.getCodigoTurma(), turma.getHorario());
 			this.hora = turma.getHorario().toString();
 			this.hora2 = turma.getHorario2().toString();
 			this.dia1 = turma.getPrimeiroDiaSemana();
@@ -98,7 +97,7 @@ public class CadastrarTurmaMBean implements Serializable {
 			}
 			///no caso de edição de turma tenho que manter o mesmo codigo e nome do professor
 			if( codigo != null)
-			turma.setCodigoTurma(codigo);
+				turma.setCodigoTurma(codigo);
 			
 			turma.setHorario(new SimpleDateFormat("hh:mm").parse(hora));
 			turma.setHorario2(new SimpleDateFormat("hh:mm").parse(hora2));

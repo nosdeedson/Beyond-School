@@ -7,6 +7,10 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+	<f:viewAction action="#{transferirAlunoTurmaMBean.buscarAlunos}"></f:viewAction>
+	<f:viewAction action="#{transferirAlunoTurmaMBean.buscarTurmas}"></f:viewAction>
+</f:metadata>
 	<ui:define name="corpo2">
 
 				<p:panelGrid columns="1" styleClass="telaTransfer">
@@ -20,25 +24,26 @@
 					<h:form id="carForm">
 						<p:messages/>
 						<p:fieldset id="availableCarsField" legend="Alunos">
-							<p:dataTable id="alunos" var="" value="">
+						
+							<p:dataTable id="alunos" value="#{transferirAlunoTurmaMBean.alunos}" var="aluno">
+							
 								<p:column width="10%">
-									<h:outputText id="teste" value="+" styleClass="ui-icon pi pi-plus" />
+									<h:outputText id="teste" value="X" styleClass="ui-icon pi pi-plus"  />
 									<p:draggable for="teste" revert="" helper=""/>
 								</p:column>
 
-								<p:column headerText="nome aluno" width="25%">
-									<h:outputText value="Edson Jose de Souza" />
+								<p:column headerText="Aluno" width="25%">
+									<h:outputText value="#{aluno.nomeCompleto}" />
 								</p:column>
 
 								<p:column headerText="Turma atual" width="25%">
-									<h:outputText value="turma 1" />
+									<h:outputText value="#{aluno.getTurma().getNomeTurma()}" />
 								</p:column>
 								<p:column headerText="Turma destino">
-									<p:selectOneMenu id="console" styleClass="menu">
-										<f:selectItem itemLabel="Selecione"
-											itemValue="turma" />
-										<f:selectItem itemLabel="Turma 1" itemValue="Turma 1" />
-										<f:selectItem itemLabel="Turma 2" itemValue="Turma 2" />
+									<p:selectOneMenu id="console" styleClass="menu" >
+										<f:selectItem itemLabel="Selecione" itemValue="" />
+										<f:selectItems value="#{transferirAlunoTurmaMBean.turmas}" var="turma" 
+											itemLabel="#{turma.nomeTurma}" itemValue="#{turma}" />
 									</p:selectOneMenu>
 								</p:column>
 							</p:dataTable>
