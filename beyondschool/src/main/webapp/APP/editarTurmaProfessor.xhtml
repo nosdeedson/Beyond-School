@@ -38,15 +38,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario}" />
 			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.segundoDiaSemana}" />
 			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario2}" />
-			<p:outputLabel value="Bimestre atual" />
-			<p:column>
+			<p:outputLabel value="Início Bimestre" />
+			
 				<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataInicio}" >
-					<f:convertDateTime pattern="dd/MM/yyyy : "/>
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</p:outputLabel>
+			<p:outputLabel value="Registrar avaliação até: " />
 				<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataFim}" >
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</p:outputLabel>
-			</p:column>
+		
 		</p:panelGrid>
 
 		<p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/>
@@ -60,11 +61,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 				
 		<p:column headerText="Ações" width="25%" > 
 					
-			<p:button  title="Editar" icon="ui-icon-pencil" outcome="/APP/telaAvaliacaoAluno">
+			<p:button  title="Editar Avaliação" icon="ui-icon-pencil" outcome="/APP/telaAvaliacaoAluno">
 				<f:param name="idAluno" value="#{aluno.idPessoa}"/>
 			</p:button>
 					
-			<p:button title="Ver" icon="ui-icon-arrowthick-1-e" outcome="/APP/verBoletim" >
+			<p:button title="Ver avaliação" icon="ui-icon-arrowthick-1-e" outcome="/APP/verBoletim" >
 				<f:param name="id" value="#{aluno.idPessoa}"/>
 			</p:button>
 				

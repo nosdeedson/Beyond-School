@@ -84,22 +84,26 @@ public class EditarTurmaAdminMBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = this.em.getTransaction();
 		try {
-			JOptionPane.showMessageDialog(null, "excluindo tuma");
-//			if( alunos.size() > 0) {
-//				throw new NegocioException(" Transfira o(s) aluno(s) primeiro!!");
-//			}
+			
+			if( alunos.size() > 0) {
+				throw new NegocioException(" Transfira o(s) aluno(s) primeiro!!");
+			}
 			 
-			JOptionPane.showMessageDialog(null, turmaSerExcluida.getNomeTurma());
+			et.begin();
+			
+			turmasBD.excluir(turmaSerExcluida);
+			
+			et.commit();
 			
 			
 			context.addMessage(null, new FacesMessage("Turma Excluida."));
-		} catch ( PersistenceException e) {
+		} catch ( PersistenceException |NegocioException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 			context.addMessage(null, msg);
 		}
-		return "/APP/template/telaAdminMBean?faces-redirect=true";
+		return "/APP/telaAdmin?faces-redirect=true";
 	}
 	
 	// getters and setters

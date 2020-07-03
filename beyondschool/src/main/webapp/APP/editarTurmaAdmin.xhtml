@@ -18,6 +18,7 @@
 <h:form>
 
 <p:panelGrid columns="1" styleClass="edtAdmin">
+<p:messages style="width:400px;"/>
 		<f:facet name="header">
 				<p:row>
 					<p:column>
@@ -25,7 +26,7 @@
 					</p:column>
 				</p:row>
 		</f:facet>		
-		<p:messages style="width:400px;"/>
+		
 		<p:panelGrid columns="2" id="pg-unidades-livro-prof">
 			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeTurma}" />
 			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeLivro}" />
@@ -51,12 +52,13 @@
 				<p:commandButton title="Excluir turma" icon="ui-icon-trash"  styleClass="btn btn-danger" 
 							update="@form"	action="#{editarTurmaAdminMBean.excluirTurma}">
 					<f:setPropertyActionListener value="#{editarTurmaAdminMBean.turma}" target="#{editarTurmaAdminMBean.turmaSerExcluida}"></f:setPropertyActionListener>
-					<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle" />
+					
+					<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/>
 					
 				</p:commandButton>
 		
 <!-- 				janela de confirmação de exclusão -->
-				<p:confirmDialog showEffect="fade" hideEffect="fade">
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 				
 					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
 					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
@@ -110,12 +112,12 @@
 			</p:commandButton>
 			
 <!-- 				botoes para confirmar exclusão -->
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >   
+<!-- 			<p:confirmDialog global="false" showEffect="fade" hideEffect="fade" >    -->
 			
-				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+<!-- 				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" /> -->
+<!-- 				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" /> -->
 				
-			</p:confirmDialog>
+<!-- 			</p:confirmDialog> -->
 				
 				
 		</p:column>
