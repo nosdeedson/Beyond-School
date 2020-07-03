@@ -38,8 +38,8 @@ public class AlunosBD implements Serializable {
 	public List<Aluno> buscaAlunosTurma(String codigoTurma){
 		
 		try { 
-			
-			String sql = " select a from Aluno a, Turma t where t.codigoTurma= :codigoTurma and a.deletado = 0";  	
+								  
+			String sql = " select distinct a from Aluno a, Turma t where a.turma.codigoTurma= :codigoTurma and a.deletado = false";  	
 			
 			TypedQuery<Aluno> alunos = this.em.createQuery(sql, Aluno.class)
 					.setParameter("codigoTurma", codigoTurma);
@@ -141,4 +141,29 @@ public class AlunosBD implements Serializable {
 			}
 			
 	}
+	
+	public int tranferirAluno( Aluno aluno, String codigoTurma) throws NegocioException {
+		
+		String sql = "update Aluno a set a.turma.codigoTurma= :codigoTurma where a.idPessoa= :idPessoa";
+		Long id = aluno.getIdPessoa();
+		try {
+			int a = this.em.createQuery(sql)
+					.setParameter("codigoTurma", codigoTurma)
+					.setParameter("idPessoa", id).executeUpdate();
+			return a;
+		} catch ( PersistenceException e) {
+			throw new NegocioException("Falha ao transferir aluno.");
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

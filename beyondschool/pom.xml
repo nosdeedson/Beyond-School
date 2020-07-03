@@ -86,5 +86,15 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
+		</dependency>
+
+	</repositories>
+
 
 </project>

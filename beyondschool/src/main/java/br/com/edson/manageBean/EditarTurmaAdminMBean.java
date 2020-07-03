@@ -33,6 +33,9 @@ public class EditarTurmaAdminMBean implements Serializable {
 	@Inject
 	private TurmasBD turmasBD;
 	
+	@Inject
+	private Turma turmaSerExcluida;
+	
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	
 	@Inject
@@ -76,6 +79,29 @@ public class EditarTurmaAdminMBean implements Serializable {
 		}
 	}
 	
+	public String excluirTurma() throws NegocioException {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		EntityTransaction et = this.em.getTransaction();
+		try {
+			JOptionPane.showMessageDialog(null, "excluindo tuma");
+//			if( alunos.size() > 0) {
+//				throw new NegocioException(" Transfira o(s) aluno(s) primeiro!!");
+//			}
+			 
+			JOptionPane.showMessageDialog(null, turmaSerExcluida.getNomeTurma());
+			
+			
+			context.addMessage(null, new FacesMessage("Turma Excluida."));
+		} catch ( PersistenceException e) {
+			et.rollback();
+			FacesMessage msg = new FacesMessage(e.getMessage());
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
+			context.addMessage(null, msg);
+		}
+		return "/APP/template/telaAdminMBean?faces-redirect=true";
+	}
+	
 	// getters and setters
 	public Turma getTurma() {
 		return turma;
@@ -107,6 +133,14 @@ public class EditarTurmaAdminMBean implements Serializable {
 
 	public void setAlunoSerExcluido(Aluno alunoSerExcluido) {
 		this.alunoSerExcluido = alunoSerExcluido;
+	}
+
+	public Turma getTurmaSerExcluida() {
+		return turmaSerExcluida;
+	}
+
+	public void setTurmaSerExcluida(Turma turmaSerExcluida) {
+		this.turmaSerExcluida = turmaSerExcluida;
 	}
 	
 	

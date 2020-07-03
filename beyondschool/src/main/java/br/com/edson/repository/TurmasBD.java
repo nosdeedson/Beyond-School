@@ -114,4 +114,16 @@ public class TurmasBD implements Serializable {
 
 	}
 
+
+	public void excluir(Turma turmaSerExcluida) throws NegocioException {
+		JOptionPane.showMessageDialog(null, "banco");
+		try {
+			this.em.remove(turmaSerExcluida);
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw new NegocioException("Falha ao excluir turma.");
+		}
+		
+	}
+
 }
