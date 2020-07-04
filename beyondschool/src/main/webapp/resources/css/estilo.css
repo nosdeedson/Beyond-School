@@ -100,12 +100,13 @@
 		font-size: 10px;
 	}
 	
-	.btnAdmin{
-		margin-top: 5px;
+	.tabelaTurma{
+		font-size: 12px;
 	}
+	
 }
 
-@media (min-width: 331px) {
+@media only screen (min-width: 331px) {
   .col-sp-1 {width: 8.33%;}
   .col-sp-2 {width: 16.66%;}
   .col-sp-3 {width: 25%;}
@@ -185,6 +186,10 @@
 	.pgEditaAdmin{
 		font-size: 11px;
 	}
+	
+	.tabelaTurma{
+		font-size: 12px;
+	}
 }
 
 @media (min-width: 400px) {
@@ -247,6 +252,15 @@
 	
 	.edtAdmin{
 		width: 400px;
+	}
+	
+	.tabelaTurma{
+		font-size: 12px;
+	}
+	.listaTurma{
+		font-size: 15px;
+		left: 45%;
+		position: relative;
 	}
 }
 
@@ -315,6 +329,16 @@
 	
 	.edtAdmin{
 		left: 15%;
+		position: relative;
+	}
+	
+	.tabelaTurma{
+		font-size: 13px;
+		width: 499px;
+	}
+	.listaTurma{
+		font-size: 18px;
+		left: 45%;
 		position: relative;
 	}
 
@@ -416,6 +440,18 @@
 		position: relative;
 		width: 550px;
 	}
+	
+	.tabelaTurma{
+		font-size: 12px;
+		position:relative;
+		width: 600px;
+	}
+	
+	.listaTurma{
+		font-size: 18px;
+		left: 45%;
+		position: relative;
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -509,6 +545,19 @@
 		position: relative;
 		width: 700px;
 	}
+	
+	.tabelaTurma{
+		font-size: 15px;
+		left: 5%;
+		position: relative;
+		width: 700px;
+	}
+	
+	.listaTurma{
+		font-size: 18px;
+		left: 45%;
+		position: relative;
+	}
 }
 
 @media (min-width: 900px) {
@@ -544,6 +593,21 @@
 		position: relative;
 	}
 	
+	.listaTurma{
+		font-size: 18px;
+		left: 45%;
+		padding:5px;
+		position: relative;
+		
+	}
+	
+	.tabelaTurma{
+		font-size: 17px;
+		left: 5%;
+		position:relative;
+		width: 800px;
+	}
+	
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -572,6 +636,18 @@
 	
 	.telaTransfer{
 		left:25%;
+		position: relative;
+	}
+	
+	.tabelaTurma{
+		font-size: 17px;
+		left: 20%;
+		position:relative;
+		width: 800px;
+	}
+	.listaTurma{
+		font-size: 18px;
+		left: 45%;
 		position: relative;
 	}
 }

@@ -64,10 +64,6 @@
 					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 					
 				</p:confirmDialog>
-			
-		
-		
-		
 		
 				<p:button  title="Editar turma" icon="ui-icon-pencil" outcome="/APP/cadastrarTurma" >
 					<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
@@ -75,10 +71,8 @@
 				</p:button>
 			</p:column>
 			
-			
-			
 			<p:column>			
-				<p:button value="Novo Professor" outcome="/APP/cadastrarTurma"  >
+				<p:button value="Novo professor" outcome="/APP/cadastrarTurma" styleClass="btnProfAdmin"  >
 					<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
 				</p:button>
 			</p:column>

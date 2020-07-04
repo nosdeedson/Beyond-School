@@ -38,19 +38,17 @@
 					<p:outputLabel value="Good" />
 					<p:outputLabel value="HomeWork" />
 					<p:outputLabel value="Bad" />
-					<p:commandButton id="btn-toda-avaliacao-pai"
-						value="Todas Avaliações" />
-					<p:commandButton id="btn-next-son" value="Próximo filho" />
+					<p:commandButton styleClass="tm-botao" value="Avaliações" />
+					<p:commandButton value="Próximo filho" styleClass="tm-botao" />
 				</p:panelGrid>
-				<p:inputTextarea id="text-area-coment-prof1" styleClass="textComent"
-					value="Observação do professor" disabled="true" />
+				<p:inputTextarea styleClass="textComent" value="Observação do professor" disabled="true" />
 					
 				<h:panelGroup id="comment-teacher">
-				<p:inputTextarea id="text-area-coment-pai" styleClass="textComent"
-					placeholder="Deixe seu comentário" />
-				<br />
-				<p:commandButton value="Enviar" />
-			</h:panelGroup>
+					<p:inputTextarea  styleClass="textComent"
+						placeholder="Deixe seu comentário" />
+					<br />
+				<p:commandButton value="Enviar" styleClass="tm-botao" />
+				</h:panelGroup>
 			</p:panelGrid>
 			
 

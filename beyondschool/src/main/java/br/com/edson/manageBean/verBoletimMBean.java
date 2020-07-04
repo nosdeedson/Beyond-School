@@ -54,10 +54,6 @@ public class verBoletimMBean implements Serializable {
 		avaliacao= avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
 	}
 	
-	public void buscarTurma() {
-		turma = turmasBD.buscaTurma(aluno.getTurma().getCodigoTurma());
-	}
-	
 	public void buscarComentarios() {
 		
 		comentarios = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());

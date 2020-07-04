@@ -26,7 +26,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 				</p:row>
 		</f:facet>
 		<p:row> 
-			<p:button value="Avaliar turma" outcome="/APP/telaAvaliacaoAluno" id="btn-avaliar-turma" >
+			<p:button value="Avaliar turma" outcome="/APP/telaAvaliacaoAluno" id="btn-avaliar-turma" styleClass="tm-botao">
 				<f:param name="id" value="#{editarTurmaProfessorMBean.turma.codigoTurma}"/>
 			</p:button>
 		</p:row>
@@ -67,6 +67,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 					
 			<p:button title="Ver avaliação" icon="ui-icon-arrowthick-1-e" outcome="/APP/verBoletim" >
 				<f:param name="id" value="#{aluno.idPessoa}"/>
+				<f:param name="idTurma" value="#{editarTurmaProfessorMBean.turma}"/>
 			</p:button>
 				
 		</p:column>

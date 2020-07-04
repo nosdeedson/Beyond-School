@@ -56,7 +56,7 @@
 							<br/>
 							<p:inputMask id="horario2" value="#{cadastrarTurmaMBean.hora2}" mask="99:99" placeholder="Horario de início" required="true" styleClass="tm-input" />
 							<br/>
-							<p:commandButton value="Salvar" id="btn-salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma" /> 
+							<p:commandButton value="Salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma" styleClass="tm-botao"/> 
 							<br/>
 							<p:button value="Cancelar" styleClass="btn btn-danger " outcome="/APP/telaAdmin" />
 						</h:form>

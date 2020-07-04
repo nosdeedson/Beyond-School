@@ -50,9 +50,9 @@ xmlns="http://www.w3.org/1999/xhtml"
 			<p:calendar id="mask3" navigator="true" value="#{criarSemestreMBean.segundo.dataFim}" pattern="dd-MM-yyyy" mask="true" placeholder="Fim"/>
 		</p:panelGrid>
 	
-		<p:commandButton value="Salvar" id="btn-salvar" action="#{criarSemestreMBean.salvar}" update="@form"/>
+		<p:commandButton value="Salvar" id="btn-salvar" action="#{criarSemestreMBean.salvar}" update="@form" styleClass="tm-botao"/>
 		
-		<p:linkButton value="Voltar" styleClass="btn btn-danger" outcome="/APP/telaAdmin" />
+		<p:linkButton value="Voltar" styleClass="btn" outcome="/APP/telaAdmin" />
 	
 </p:panelGrid>
  

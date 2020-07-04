@@ -8,6 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <f:metadata>
 <f:viewParam name="id" value="#{verBoletimMBean.aluno}"></f:viewParam>
+<f:viewParam name="id" value="#{verBoletimMBean.turma}"></f:viewParam>
 <f:viewAction action="#{verBoletimMBean.buscarAvaliacao}"></f:viewAction>
 <f:viewAction action="#{verBoletimMBean.buscarTurma}"></f:viewAction>
 <f:viewAction action="#{verBoletimMBean.buscarComentarios}"></f:viewAction>
@@ -31,19 +32,19 @@
 				<p:outputLabel value="Habilidade" />
 				<p:outputLabel value="Desempenho" />
 				<p:outputLabel value="Vocabulary" />
-				<p:outputLabel value="#{verBoletimMBean.avaliacao.vocabulario}" />
+				<p:outputLabel value="#{verBoletimMBean.avaliacao.vocabulario.descricao}" />
 				<p:outputLabel value="Reading" />
-				<p:outputLabel value="#{verBoletimMBean.avaliacao.leitura}" />
+				<p:outputLabel value="#{verBoletimMBean.avaliacao.leitura.descricao}" />
 				<p:outputLabel value="Writing" />
-				<p:outputLabel value="#{verBoletimMBean.avaliacao.escrevendo}" />
+				<p:outputLabel value="#{verBoletimMBean.avaliacao.escrevendo.descricao}" />
 				<p:outputLabel value="Listening" />
-				<p:outputLabel value="#{verBoletimMBean.avaliacao.escutando}" />
+				<p:outputLabel value="#{verBoletimMBean.avaliacao.escutando.descricao}" />
 				<p:outputLabel value="Speaking" />
-				<p:outputLabel value="#{verBoletimMBean.avaliacao.falando}" />
+				<p:outputLabel value="#{verBoletimMBean.avaliacao.falando.descricao}" />
 				<p:outputLabel value="Grammar" />
-				<p:outputLabel value="#{verBoletimMBean.avaliacao.gramatica}" />
+				<p:outputLabel value="#{verBoletimMBean.avaliacao.gramatica.descricao}" />
 				<p:outputLabel value="HomeWork" />
-				<p:outputLabel value="#{verBoletimMBean.avaliacao.homeWork}" />
+				<p:outputLabel value="#{verBoletimMBean.avaliacao.homeWork.descricao}" />
 			</p:panelGrid> 
 			
 			<p:button value="Editar avaliação" outcome="/APP/telaAvaliacaoAluno" styleClass="btn-boletim">

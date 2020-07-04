@@ -6,6 +6,11 @@
 	transform: scaleY(1.5);	
 }
 
+.btn{
+	width: 160px;
+	font-size: 16px;
+}
+
 .entrada-texto{
 	width: 180px;
 }
@@ -23,6 +28,15 @@
 .tm-botao{
 	width: 160px;
 	margin-top: 4px;
+	margin-right: 4px;
+	font-size: 16px;
+}
+
+.btnAdmin{
+	margin-top: 5px;
+	margin-right: 8px;
+	font-size: 16px;
+	width: 165px;
 }
 
 .posicao-tela-s, .edtTurma, .edtProf, .listaTurma, .telaAdmin, .posicao-tela-sp, .posicao-tela-m, 
@@ -36,7 +50,7 @@
 }
 
 .textComent{
-	width: 200px;
+	width: 300px;
 }
 
 .outLabel{
@@ -45,6 +59,10 @@
 
 .seletor-conceito{
 	width:150px;
+}
+
+.btnProfAdmin{
+	width: 175px;
 }
 
 

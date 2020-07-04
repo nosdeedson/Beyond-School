@@ -9,59 +9,56 @@
 	
 <f:metadata >
  <f:viewAction action="#{listaTurmasMBean.buscarTurmas()}" />
+ <f:viewAction action="#{listaTurmasMBean.atualizaBimestre}" />
 </f:metadata>
 
 <ui:define name="titulo">Turmas</ui:define>
 	<ui:define name="corpo2">
 
 		<h:form >
-			<p:panelGrid styleClass="listaTurma" style="margin-rigth:200px;">
-				<p:messages/>
-				<p:outputLabel value="Suas Turmas" style="text-align: center;"/>
-			</p:panelGrid>
+			<p:outputLabel value="Suas Turmas" styleClass="listaTurma"/>
 			<br/>
 			
-			<p:dataTable value="#{listaTurmasMBean.turmas}" var="turma" border="1" 
+			<p:dataTable value="#{listaTurmasMBean.turmas}" var="turma" border="1" styleClass="tabelaTurma"
 			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
 			
-				<p:column headerText="Código" sortBy="#{turma.codigoTurma}" width="10%" > 
-					<p:outputLabel value="#{turma.codigoTurma}" style="text-align: center;"/>
+				<p:column headerText="Código" sortBy="#{turma.codigoTurma}" width="6%" > 
+					<p:outputLabel value="#{turma.codigoTurma}"/>
 				</p:column>
 				
-				<p:column headerText="Nome" sortBy="#{turma.nomeTurma}" width="15%"> 
+				<p:column headerText="Nome" sortBy="#{turma.nomeTurma}" width="8%"> 
 					<p:outputLabel value="#{turma.nomeTurma}" style="text-align: center;"/>
 				</p:column>
 				
-				<p:column headerText="First Day" width="15%" > 
-					<p:outputLabel value="#{turma.primeiroDiaSemana}" style="text-align: center;"/>
+				<p:column headerText="Dia/Horario" width="7%" > 
+					<p:menuButton value="#{turma.primeiroDiaSemana}">
+        				<p:menuitem value="#{turma.horario}" />
+       				</p:menuButton>
 				</p:column>
 				
-				<p:column headerText="Horário" width="9%" > 
-					<p:outputLabel value="#{turma.horario}" style="text-align: center;" />
+				<p:column headerText="Dia/Horario" width="7%" > 
+					<p:menuButton value="#{turma.segundoDiaSemana}" >
+        				<p:menuitem value="#{turma.horario2}" />
+       				</p:menuButton>
 				</p:column>
 				
-				<p:column headerText="Second Day" width="15%" > 
-					<p:outputLabel value="#{turma.segundoDiaSemana}" style="text-align: center;" />
-				</p:column>
-				<p:column headerText="Horário" width="9%" > 
-					<p:outputLabel value="#{turma.horario}" style="text-align: center;" />
-						
-				</p:column>
-				
-				<p:column headerText="Ações" > 
-					
-					<p:button  value="Avaliar" outcome="/APP/telaAvaliacaoAluno">
-						<f:param name="id" value="#{turma.codigoTurma}"/>
-					</p:button>
-					
-					<p:button value="Ver" outcome="/APP/editarTurmaProfessor">
-						<f:param name="id" value="#{turma.codigoTurma}"/>
-					</p:button>
+				<p:column headerText="Ações" width="6%" > 
+							
+				    <p:menuButton value="Click">
+				        <p:menuitem value="Avaliar" icon="pi pi-save" outcome="/APP/telaAvaliacaoAluno"  >
+				        	<f:param name="id" value="#{turma.codigoTurma}"/>
+				        </p:menuitem>
+				        <p:separator />
+				        <p:menuitem value="Ver" action="#{menuView.update}" icon="pi pi-refresh" outcome="/APP/editarTurmaProfessor"> >
+				       		<f:param name="id" value="#{turma.codigoTurma}"/>
+				        </p:menuitem>
+				        
+				    </p:menuButton>
 				
 				</p:column>
 				
 			</p:dataTable>
-			
+			<p:commandButton value="teste" action="#{listaTurmasMBean.atualizaBimestre}"/>
 		</h:form>
 	</ui:define>
 

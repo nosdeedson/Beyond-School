@@ -28,10 +28,10 @@
 				<p:dataTable value="#{telaAdminMBean.turmas}" var="turma" border="1"  
 					cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!"  >
 					
-					<p:column headerText="Turma"  >
+					<p:column headerText="Turma" width="15%"  >
 						<p:outputLabel value="#{turma.nomeTurma}"></p:outputLabel>
 					</p:column>
-					<p:column headerText="Ações"  >
+					<p:column headerText="Ações" width="20%"  >
 						<p:button  value="Ver" outcome="/APP/editarTurmaAdmin">
 							<f:param name="id" value="#{turma.codigoTurma}"/>
 						</p:button>

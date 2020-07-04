@@ -1,12 +1,17 @@
 package br.com.edson.manageBean;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
@@ -18,6 +23,8 @@ import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.repository.UsuariosBD;
+import br.com.edson.service.AtualizaBimestre;
+import br.com.edson.service.NegocioException;
 import br.com.edson.service.RegistrarAvaliacao;
 
 @Named
@@ -37,6 +44,11 @@ public class listaTurmasMBean implements Serializable {
 	
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
+	@Inject
+	private AtualizaBimestre atualizaBimeste;
+	
+	@Inject
+	private EntityManager em;
 	
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
@@ -49,6 +61,21 @@ public class listaTurmasMBean implements Serializable {
 	
 	public String avaliar() {
 		return "/APP/telaAvaliacaoAluno?faces-redirect=true";
+	}
+	
+	public void atualizaBimestre() throws NegocioException {
+		EntityTransaction et = this.em.getTransaction();
+
+			
+		try {
+			et.begin();
+			atualizaBimeste.atualizaBimestre();
+			et.commit();
+		} catch (PersistenceException |NegocioException e) {
+			et.rollback();
+			throw new NegocioException("Falha ao atualizar o bimestre");
+		}
+		
 	}
 	
 	// getters and setters

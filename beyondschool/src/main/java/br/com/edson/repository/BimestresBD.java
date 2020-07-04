@@ -20,6 +20,7 @@ public class BimestresBD implements Serializable {
 	public BimestresBD() {}
 	
 	public void salvarBimestre(Bimestre bimestre) {
+		
 		this.em.merge(bimestre);
 	}
 
@@ -34,9 +35,15 @@ public class BimestresBD implements Serializable {
 		} catch (PersistenceException e) {
 			return null;
 		}
-		
-		
 	}
 	
+	public Bimestre porId( Long id) {
+		try {
+			return this.em.find(Bimestre.class, id);
+		} catch ( PersistenceException e) {
+			return null;
+		}
+		
+	}
 	
 }
