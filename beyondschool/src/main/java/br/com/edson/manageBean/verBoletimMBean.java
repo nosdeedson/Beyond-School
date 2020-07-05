@@ -62,13 +62,12 @@ public class verBoletimMBean implements Serializable {
 	
 	public void buscarComentarios() {
 		
-		if( avaliacao != null)
-		comentarios = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
 		
-		if(comentarios.size() == 0)
-			comentarios.add("Sem comentarios");
+		Avaliacao ava = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
+		
 		for ( int i = 0; i < comentarios.size(); i++) {
-			comentario[i] = comentarios.get(i);
+			if( ava.getComentarios().get(i) == null);
+				comentario[i] = ava.getComentarios().get(i);
 			if( i ==  1) {
 				flag1 = true;
 			}
