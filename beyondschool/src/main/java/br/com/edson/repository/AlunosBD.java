@@ -31,7 +31,7 @@ public class AlunosBD implements Serializable {
 	}
 	
 	/**
-	 * busca os alunos relacionados com uma turma espeçifica.
+	 * busca os alunos relacionados com uma turma especifica.
 	 * @param codigoTurma
 	 * @return
 	 */
@@ -50,6 +50,8 @@ public class AlunosBD implements Serializable {
 		}		
 	}
 	
+	
+	
 	/**
 	 * retorna todos os alunos
 	 * @return
@@ -65,7 +67,9 @@ public class AlunosBD implements Serializable {
 	}
 	
 	/**
-	 * retorn aluno pelo nome
+	 * retorna aluno pelo nome usado no cadastro para ver se o aluno já é cadastrado 
+	 * pois o mesmo pode ter sido cadastrado no momento que o resposável se cadastrou, 
+	 * visto que o responsável fez o cadastro primeiro 
 	 * @param nome
 	 * @return
 	 */
@@ -78,6 +82,21 @@ public class AlunosBD implements Serializable {
 			return null;
 		}
 		return aluno;
+	}
+	
+	
+	public List<Aluno> buscaAlunoPorResponsavel(Long idResponsavel){
+		String sql = "select a from Aluno a, AlunoResponsavel ar where a.idPessoa = ar.aluno.idPessoa "
+				+ " and ar.responsavel.idPessoa= :idPessoa order by a.nomeCompleto";
+		
+		try {
+			TypedQuery<Aluno> alunos = this.em.createQuery(sql, Aluno.class).setParameter("idPessoa", idResponsavel);
+			return alunos.getResultList();
+		} catch ( PersistenceException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 	
 	/**
@@ -118,6 +137,11 @@ public class AlunosBD implements Serializable {
 		this.em.merge(aluno);
 	}
 
+	/**
+	 * busca aluno pela idPessoa
+	 * @param id
+	 * @return
+	 */
 	public Aluno porId(Long id) {
 		return this.em.find(Aluno.class, id);
 	}

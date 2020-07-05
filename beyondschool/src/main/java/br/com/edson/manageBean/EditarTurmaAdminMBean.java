@@ -19,6 +19,7 @@ import br.com.edson.Model.Turma;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.BimestresBD;
 import br.com.edson.repository.TurmasBD;
+import br.com.edson.service.AtualizaBimestre;
 import br.com.edson.service.NegocioException;
 
 @Named
@@ -53,6 +54,9 @@ public class EditarTurmaAdminMBean implements Serializable {
 	@Inject
 	private EntityManager em;
 	
+	@Inject
+	private AtualizaBimestre atualizaBimeste;
+	
 	// metodos
 	public void buscarBimestre() {
 		bimestreAtual = bimestesBD.buscarBimestreAtual();
@@ -60,6 +64,21 @@ public class EditarTurmaAdminMBean implements Serializable {
 	
 	public void buscarAlunos() {
 		alunos = alunosBD.buscaAlunosTurma(turma.getCodigoTurma());
+	}
+	
+	public void atualizaBimestre() throws NegocioException {
+		EntityTransaction et = this.em.getTransaction();
+
+			
+		try {
+			et.begin();
+			atualizaBimeste.atualizaBimestre();
+			et.commit();
+		} catch (PersistenceException |NegocioException e) {
+			et.rollback();
+			throw new NegocioException("Falha ao atualizar o bimestre");
+		}
+		
 	}
 	
 	public void excluirAluno() {

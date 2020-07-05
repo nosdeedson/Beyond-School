@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Responsavel;
@@ -49,6 +50,15 @@ public class ResponsaveisBD implements Serializable {
 	public void salvarResponsavelCadastro(Responsavel responsavel) {
 		
 		this.em.merge(responsavel);		
+		
+	}
+
+	public Responsavel porId(Long idPessoa) {
+		try {
+			return this.em.find(Responsavel.class,idPessoa);
+		} catch (Exception e) {
+			return null;
+		}
 		
 	}
 	

@@ -126,4 +126,26 @@ public class TurmasBD implements Serializable {
 		
 	}
 
+	/**
+	 * 
+	 * @param idPessoa
+	 * @return
+	 */
+
+	public Turma buscaTurma(Long idPessoa) {
+		Turma t = null;
+		
+		String sql = "select t from Turma t, Aluno a where "
+				+ " a.idPessoa= :idPessoa and t.codigoTurma=a.turma.codigoTurma";
+		
+		try {
+			t = this.em.createQuery(sql, Turma.class).setParameter("idPessoa", idPessoa)
+					.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return t;
+	}
+
 }

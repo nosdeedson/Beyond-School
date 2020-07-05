@@ -32,23 +32,19 @@ public class AvaliacoesBD implements Serializable {
 	}
 	
 	
-	public List<String> buscaComentarios(Long idAvaliacao){
-		List<String> comentarios = new ArrayList<String>();
-		Avaliacao avaliacao = new Avaliacao();
-		String sql = "from Avaliacao where idAvaliacao= :idAvaliacao";
-		
+	public Avaliacao buscaComentarios(Long idAvaliacao){
+		Avaliacao avaliacao;
+//		use o find
 		try {
-			avaliacao = this.em.createQuery(sql, Avaliacao.class)
-					.setParameter("idAvaliacao", idAvaliacao).getSingleResult();
+			avaliacao = this.em.find(Avaliacao.class, idAvaliacao);
+			JOptionPane.showMessageDialog(null, avaliacao.getComentarios().get(0) );
 		} catch ( PersistenceException e) {
 			return null;
 		}
 		
-		for ( int i = 0; i < avaliacao.getComentarios().size(); i++) {
-			comentarios.add(avaliacao.getComentarios().get(i));
-		}
 		
-		return comentarios;
+		
+		return avaliacao;
 	}
 	
 	public Avaliacao buscaPorIdAluno(Long id) {

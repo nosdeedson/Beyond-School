@@ -11,7 +11,7 @@
 <f:viewParam name="id" value="#{telaAvaliacaoAlunoMBean.turma}"/>
 <f:viewParam name="idAluno" value="#{telaAvaliacaoAlunoMBean.aluno}"/>
 <f:viewAction action="#{telaAvaliacaoAlunoMBean.buscarAlunos}"/>
-<f:viewAction action="#{telaAvaliacaoAlunoMBean.avaliados}"/>
+<!-- <f:viewAction action="#{telaAvaliacaoAlunoMBean.avaliados}"/> -->
 <f:viewAction action="#{telaAvaliacaoAlunoMBean.buscarAvaliacao}"/>
 </f:metadata>
 
@@ -27,83 +27,86 @@
 				<p:row>
 					<p:column>
 						<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}"  />
+						<BR/>
+						<h:outputLabel value="O aluno(a): #{telaAvaliacaoAlunoMBean.aluno.nomeCompleto} não foi avaliado(a) ainda." rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao eq false}"/>
+						
 					</p:column>
 				</p:row>
 	</f:facet>
 	
 	<p:column>
-		Horário: <p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.horario}" />
+		<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}" />		
 	</p:column>
 	
 	
 	<p:column>
 		Avaliar: <p:outputLabel value="#{telaAvaliacaoAlunoMBean.aluno.nomeCompleto}" rendered="#{telaAvaliacaoAlunoMBean.flag}" />
-		<p:outputLabel value="Alunos já avalidos neste bimestre." rendered="#{telaAvaliacaoAlunoMBean.flag1}" />
+		<p:outputLabel value="Alunos já avalidos." rendered="#{telaAvaliacaoAlunoMBean.flag1}" />
 		
 	</p:column>
 	
 	
 	<p:outputLabel value="Vocabulary" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console" value="#{telaAvaliacaoAlunoMBean.avaliacao.vocabulario}" required="true" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console" value="#{telaAvaliacaoAlunoMBean.avaliacao.vocabulario}" required="true" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" >
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 		 itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 				
 	<p:outputLabel value="Reading" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console1" value="#{telaAvaliacaoAlunoMBean.avaliacao.leitura}" required="true" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console1" value="#{telaAvaliacaoAlunoMBean.avaliacao.leitura}" required="true" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" >
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 		 itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 
 	<p:outputLabel value="Writing" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console2" value="#{telaAvaliacaoAlunoMBean.avaliacao.escrevendo}" required="true" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console2" value="#{telaAvaliacaoAlunoMBean.avaliacao.escrevendo}" required="true" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" >
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 		 itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 
 	<p:outputLabel value="Listening" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console3" value="#{telaAvaliacaoAlunoMBean.avaliacao.escutando}" required="true" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console3" value="#{telaAvaliacaoAlunoMBean.avaliacao.escutando}" required="true" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}">
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 			 itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 
 	<p:outputLabel value="Speakinng" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console4" value="#{telaAvaliacaoAlunoMBean.avaliacao.falando}" required="true" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console4" value="#{telaAvaliacaoAlunoMBean.avaliacao.falando}" required="true" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" >
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 			 itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 
 	<p:outputLabel value="Grammar" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console5" value="#{telaAvaliacaoAlunoMBean.avaliacao.gramatica}" required="true" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console5" value="#{telaAvaliacaoAlunoMBean.avaliacao.gramatica}" required="true" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" >
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 			 itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 
 	<p:outputLabel value="HomeWork" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console6" required="true" value="#{telaAvaliacaoAlunoMBean.avaliacao.homeWork}" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console6" required="true" value="#{telaAvaliacaoAlunoMBean.avaliacao.homeWork}"  disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" >
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 			itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 	
-	<p:inputTextarea styleClass="textAvaliacao-s textAvaliacao-sp" placeholder="Deixe seu comentário sobre o aluno"
-	 value="#{telaAvaliacaoAlunoMBean.comentario}" required="true" />
+	<p:inputTextarea style="width: 150px;" value="#{telaAvaliacaoAlunoMBean.comentario}" required="true" placeholder="Deixe seu comentário sobre o aluno" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" />
 	 
 	 
 	<p:column>
-		<p:commandButton id="btn-next-aluno" value="Next student" 
-			action="#{telaAvaliacaoAlunoMBean.avaliar()}"  update="@form"/>
+		<p:commandButton id="btn-next-aluno" value="Next student" rendered="#{telaAvaliacaoAlunoMBean.flagAvaliar}"
+			action="#{telaAvaliacaoAlunoMBean.avaliar()}" update="@form" />
 		<br/>
-		<p:commandButton styleClass="btn-danger " value="Cancelar" />
-	</p:column>
-				
-	
+		<p:commandButton  value="Buscar aluno" 
+			action="#{telaAvaliacaoAlunoMBean.buscarAlunos()}" update="@form" rendered="#{telaAvaliacaoAlunoMBean.flagBuscar}"/>
+		<br/>
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" />
+	</p:column>	
 	
 	</p:panelGrid>
 	

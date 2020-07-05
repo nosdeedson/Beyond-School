@@ -7,53 +7,85 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+	<f:viewAction action="#{telaAlunoMBean.buscarUser}"></f:viewAction>
+	<f:viewAction action="#{telaAlunoMBean.buscarAluno}"></f:viewAction> 
+	<f:viewAction action="#{telaAlunoMBean.buscaTurma}"></f:viewAction>
+	<f:viewAction action="#{telaAlunoMBean.buscaAvaliacao}"></f:viewAction>
+	<f:viewAction action="#{telaAlunoMBean.buscarComentarios}"></f:viewAction>  
+</f:metadata>
 	<ui:define name="corpo2">
-
+		
+		
 		<h:form>
-			<p:panelGrid columns="1" styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt posicao-tela-t" >
-				<p:messages/>
+			<p:panelGrid columns="1" styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt"  >
+				<p:messages autoupdate="true" style="width: 200px;"/>
 				<f:facet name="header">
 					<p:row>
 						<p:column>
-							<h5>Edson jose de souza</h5>
+							<h:outputLabel value="#{telaAlunoMBean.aluno.nomeCompleto}"></h:outputLabel>
 						</p:column>
 					</p:row>
 				</f:facet>
+				
+				<p:panelGrid columns="2">
+					<p:outputLabel value="#{telaAlunoMBean.turma.nomeTurma}"/>
+					<p:column>
+						<p:outputLabel value="Livro:" />
+						<p:outputLabel value="#{telaAlunoMBean.turma.nomeLivro}"/>
+					</p:column>
+					<p:outputLabel value="Dia da semana:"/>
+					<p:outputLabel value="#{telaAlunoMBean.turma.primeiroDiaSemana}"/>
+					<p:outputLabel value="Horário: "/>
+					<p:outputLabel value="#{telaAlunoMBean.turma.horario}"/>
+					<p:outputLabel value="Dia da Semana:"/>
+					<p:outputLabel value="#{telaAlunoMBean.turma.segundoDiaSemana}"/>
+					<p:outputLabel value="Horário: "/>
+					<p:outputLabel value="#{telaAlunoMBean.turma.horario2}"/>
+					
+				</p:panelGrid>
 
 				<p:panelGrid columns="2">
-					<p:outputLabel>
-						<h3 id="titulo-nome-turma">Nome turma</h3>
-					</p:outputLabel>
-					<p:outputLabel>
-						<h3 id="titulo-ultima-avaliacao">12:00 as 13:00</h3>
-					</p:outputLabel>
+					
 					<p:outputLabel value="Habilidade" />
 					<p:outputLabel value="Desempenho" />
 					<p:outputLabel value="Vocabulary" />
-					<p:outputLabel value="Good" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.vocabulario.descricao}" />
 					<p:outputLabel value="Reading" />
-					<p:outputLabel value="Very Good" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.leitura.descricao}" />
 					<p:outputLabel value="Writing" />
-					<p:outputLabel value="Regular" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.escrevendo.descricao}" />
 					<p:outputLabel value="Listening" />
-					<p:outputLabel value="Bad" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.escutando.descricao}" />
 					<p:outputLabel value="Speaking" />
-					<p:outputLabel value="Excellent" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.falando.descricao}" />
 					<p:outputLabel value="Grammar" />
-					<p:outputLabel value="Good" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.gramatica.descricao}" />
 					<p:outputLabel value="HomeWork" />
-					<p:outputLabel value="Bad" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.homeWork.descricao}" />
 
 				</p:panelGrid>
-				<p:inputTextarea id="text-area-coment-prof" styleClass="textComent"
-					value="obervação do professor" disabled="true" />
+				<p:inputTextarea id="text-area-coment-prof" styleClass="textComent" value="#{telaAlunoMBean.comentario[0]}"
+				readonly="true" style="font-weight: bold;" />
+				
 				<p:commandButton value="Avaliações" styleClass="tm-botao" id="btn-ver-todas-avaliacoes" />
-				<h:panelGroup id="pg-comment-aluno">
-					<p:inputTextarea id="text-area-coment-aluno" styleClass="textComent"
-						placeholder="Aluno deixe seu comentário" />
+				<h:panelGroup id="pg-comment-aluno" >
+				
+					<p:inputTextarea value="#{telaAlunoMBean.comentario[1]}" rendered="#{telaAlunoMBean.flag1}" id="text-area-coment-aluno" styleClass="textComent" readonly="true" style="font-weight: bold;"  />
 					<br />
-					<p:commandButton value="Enviar" id="btn-enviar-comment-aluno" styleClass="tm-botao" />
+					<p:inputTextarea value="#{telaAlunoMBean.comentarioAluno}" rendered="#{telaAlunoMBean.flag1 eq false}"  styleClass="textComent" placeholder="Aluno deixe seu comentário" />
+					
+					<BR/>
+					<p:commandButton action="#{telaAlunoMBean.salvarComentarioAluno}"   update="@form" rendered="#{telaAlunoMBean.flag eq false}" value="Enviar" id="btn-enviar-comment-aluno" styleClass="tm-botao"  />
+					
+					<h:outputLabel value="Comentário do(s) responsável" rendered="#{telaAlunoMBean.flag2}" />
+					<br />
+					<p:inputTextarea value="#{telaAlunoMBean.comentario[2]}" rendered="#{telaAlunoMBean.flag2}" id="text-area-coment-aluno" styleClass="textComent" readonly="true" style="font-weight: bold;"  />
+					
+					
 				</h:panelGroup>
+				
+				
 			</p:panelGrid>
 
 

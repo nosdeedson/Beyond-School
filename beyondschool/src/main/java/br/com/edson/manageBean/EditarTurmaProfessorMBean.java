@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Bimestre;
@@ -13,6 +16,8 @@ import br.com.edson.Model.Turma;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.BimestresBD;
 import br.com.edson.repository.TurmasBD;
+import br.com.edson.service.AtualizaBimestre;
+import br.com.edson.service.NegocioException;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -24,9 +29,6 @@ public class EditarTurmaProfessorMBean implements Serializable {
 	private Turma turma;
 	
 	@Inject
-	private TurmasBD turmasBD;
-	
-	@Inject
 	private Bimestre bimestreAtual;
 	
 	@Inject
@@ -36,15 +38,38 @@ public class EditarTurmaProfessorMBean implements Serializable {
 	
 	@Inject
 	private AlunosBD alunosBD;
+	
+	@Inject
+	private AtualizaBimestre atualizaBimestre;
+	
+	@Inject
+	private EntityManager em;
 
 	//métodos bs9op84o
 	public void buscarAlunos() {
 		alunos = alunosBD.buscaAlunosTurma(turma.getCodigoTurma());
 	}
 	
+	public void atualizaBimestre() throws NegocioException {
+		EntityTransaction et = this.em.getTransaction();
+
+			
+		try {
+			et.begin();
+			atualizaBimestre.atualizaBimestre();
+			et.commit();
+		} catch (PersistenceException |NegocioException e) {
+			et.rollback();
+			throw new NegocioException("Falha ao atualizar o bimestre");
+		}
+		
+	}
+	
 	public void buscarBimestre() {
 		bimestreAtual = bimestresBD.buscarBimestreAtual();
 	}
+	
+	
 	
 	//getters and setters
 	public Turma getTurma() {

@@ -32,7 +32,9 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Aluno aluno = null;
-		
+	
+	private Aluno alunoEditar = null;
+	
 	private List<Aluno> alunos = new ArrayList<Aluno>();
 	
 	@Inject
@@ -50,104 +52,130 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	private RegistrarAvaliacao registra;
 	
 	@Inject
-	private AvaliacoesBD avaliacoes;
+	private AvaliacoesBD avaliacoesBD;
 	
 	private boolean flag = true;
 	
 	private boolean flag1= false;
 	
+	private boolean flagAvaliar = true;
+	
+	private boolean flagBuscar = false;
+	
+	private boolean flagTemAvaliacao = true;
+	
+	
 	// métodos bs9op84o
 	
-	public void buscarAlunos() throws NegocioException {
-		if( aluno == null)
-			alunos = registra.buscarAlunosSemAvaliacao(turma.getCodigoTurma());
-		if(alunos.size() > 0) {
-			aluno = alunos.get(0);
-		}
-		
-	}
+	public void buscarAlunos() throws Exception {
+			if( aluno == null)
+				alunos = registra.buscarAlunosSemAvaliacao(turma.getCodigoTurma());
+			if(alunos.size() > 0) {
+				aluno = alunos.get(0);
+				flagAvaliar = true;
+				flagBuscar = false;
+			}
+			else  {
+				flag = false;
+				flag1 = true;
+				flagAvaliar = false;
+				flagBuscar = true;
+			}
 	
-	public void avaliados() {
-		if(alunos.size() == 0 && aluno == null) {
-			flag = false;
-			flag1 = true;
-		}
 	}
+
 	
 	public void buscarAvaliacao() throws NegocioException {
 		if( alunos.size() == 0 &&  aluno != null) {
+			flag = true;
+			flag1 = false;
+			flagAvaliar = true;
+			flagBuscar = false;
 			
-			avaliacao = avaliacoes.buscaPorIdAluno(aluno.getIdPessoa());
-			if( avaliacao == null)
-				throw new NegocioException("Falha ao buscar avaliaçao");
-			avaliacao.setAluno(aluno);
+			FacesContext context = FacesContext.getCurrentInstance();
+			try {
+				avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
+				if( avaliacao == null) {
+					avaliacao = new Avaliacao();
+					flagTemAvaliacao = false;
+				}
+			} catch ( PersistenceException e) {
+				FacesMessage msg = new FacesMessage(e.getMessage());
+				e.printStackTrace();
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				context.addMessage(null, msg );
+			}
+
 		}
 	}
 	
-	public String avaliar() throws NegocioException {
+	
+	//avalia alunos
+	public void avaliar() throws NegocioException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();
 		
-		
-		try {
-			if(alunos.size() == 0  && aluno != null) {
-				List<String> comments= new ArrayList<String>();
-				comments.add(comentario);
-				avaliacao.setComentarios(comments);
-				et.begin();
-				avaliacoes.salvarAvaliacao(avaliacao);
-				et.commit();
-				return "/APP/listaTurmas?faces-redirect=true";
-			}
-		} catch ( java.lang.IllegalArgumentException e) {
-			et.rollback();
-			e.printStackTrace();
-		}
-		
-		
-		// usado quand edita avaliação
-	
-			
-		for (int i = 0; i < alunos.size()  ; i++) {
+		// usado quando edita avaliação
+		if(alunos.size() == 0  && aluno != null) {
 			try {
 				
+					List<String> comments= new ArrayList<String>();
+					comments.add(comentario);
+					avaliacao.setComentarios(comments);
+					et.begin();
+					registra.salvarAvaliacao(avaliacao);
+					//avaliacoesBD.salvarAvaliacao(avaliacao);
+					et.commit();
+					comentario = "";
+					avaliacao = new Avaliacao();
+					aluno = new Aluno();
+					flagAvaliar = false;
+					flagBuscar = true;
+					context.addMessage(null, new FacesMessage( "Avaliação editada.") );
+				
+			} catch ( PersistenceException e) {
+				et.rollback();
+				System.out.println("catch");
+				e.printStackTrace();
+			}
+		}else {
+			int cont = 0;
+			
+			try {
+									
 				List<String> comments = new ArrayList<String>();
 				comments.add(comentario);
 				avaliacao.setComentarios(comments);
 				
 				avaliacao.setAluno(aluno);
-							
+								
 				et.begin();
-				
+					
 				registra.salvarAvaliacao(avaliacao);
-				
+					
 				et.commit();
-				
-				alunos.remove(i);
-				if(alunos.size() > 0)
-					aluno = alunos.get(i);
-				else
-					break;
-				
-			} catch (PersistenceException | NullPointerException e) {
-				et.rollback();
-				e.printStackTrace();
-				aluno = alunos.get(i);
-				i--;
-				FacesMessage msg = new FacesMessage(e.getMessage());
-				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-				context.addMessage(null, msg);
-			}finally {
-				setComentario("");
+				alunos.remove(cont);
+					
+				comentario = "";
 				avaliacao = new Avaliacao();
-			}
+				aluno = new Aluno();
+				flagAvaliar = false;
+				flagBuscar = true;
+				context.addMessage(null, new FacesMessage( "Aluno avaliado. Clique em buscar aluno.") );
+	
+				} catch (Exception e) {
+					et.rollback();
+					e.printStackTrace();
+					FacesMessage msg = new FacesMessage("Falha ao avaliar o aluno.");
+					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+					context.addMessage(null, msg);
 			
-			
-		}//fim for
-		
-		return "/APP/listaTurmas?faces-redirect=true";
+				}
+		}
+
 		
 	}
+	
 	
 	/**
 	 * método que pego os valores dos enums
@@ -208,6 +236,41 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	public void setFlag1(boolean flag1) {
 		this.flag1 = flag1;
 	}
+
+	public Aluno getAlunoEditar() {
+		return alunoEditar;
+	}
+
+	public void setAlunoEditar(Aluno alunoEditar) {
+		this.alunoEditar = alunoEditar;
+	}
+
+	public boolean isFlagAvaliar() {
+		return flagAvaliar;
+	}
+
+	public void setFlagAvaliar(boolean flagAvaliar) {
+		this.flagAvaliar = flagAvaliar;
+	}
+
+	public boolean isFlagBuscar() {
+		return flagBuscar;
+	}
+
+	public void setFlagBuscar(boolean flagBuscar) {
+		this.flagBuscar = flagBuscar;
+	}
+
+
+	public boolean isFlagTemAvaliacao() {
+		return flagTemAvaliacao;
+	}
+
+
+	public void setFlagTemAvaliacao(boolean flagTemAvaliacao) {
+		this.flagTemAvaliacao = flagTemAvaliacao;
+	}
+	
 	
 	
 	

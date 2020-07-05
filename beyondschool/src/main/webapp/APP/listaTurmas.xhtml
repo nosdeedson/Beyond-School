@@ -9,7 +9,6 @@
 	
 <f:metadata >
  <f:viewAction action="#{listaTurmasMBean.buscarTurmas()}" />
- <f:viewAction action="#{listaTurmasMBean.atualizaBimestre}" />
 </f:metadata>
 
 <ui:define name="titulo">Turmas</ui:define>
@@ -23,7 +22,7 @@
 			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
 			
 				<p:column headerText="Código" sortBy="#{turma.codigoTurma}" width="6%" > 
-					<p:outputLabel value="#{turma.codigoTurma}"/>
+					<p:outputLabel value="#{turma.codigoTurma}" />
 				</p:column>
 				
 				<p:column headerText="Nome" sortBy="#{turma.nomeTurma}" width="8%"> 
@@ -58,7 +57,7 @@
 				</p:column>
 				
 			</p:dataTable>
-			<p:commandButton value="teste" action="#{listaTurmasMBean.atualizaBimestre}"/>
+			
 		</h:form>
 	</ui:define>
 

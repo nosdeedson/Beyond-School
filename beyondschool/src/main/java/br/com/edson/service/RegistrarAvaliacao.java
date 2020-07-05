@@ -45,6 +45,8 @@ public class RegistrarAvaliacao implements Serializable {
 				}
 			}
 		}
+		if(alunos.size() == 0)
+			return null;
 		return alunos;
 	}
 	

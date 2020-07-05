@@ -7,6 +7,14 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
+
+<f:metadata>
+<f:viewAction action="#{telaPaiMBean.buscarUser}" />
+<f:viewAction action="#{telaPaiMBean.buscarAlunos}" />
+<f:viewAction action="#{telaPaiMBean.buscarTurma}" />
+<!-- <f:viewAction action="#{telaPaiMBean.buscarComentarios}"/> -->
+</f:metadata>
+
 	<ui:define name="corpo2">
 
 		<h:form >
@@ -15,43 +23,64 @@
 				<f:facet name="header">
 					<p:row>
 						<p:column>
-							<p:outputLabel value="Boletim:Edson jose de Souza" />
+							<p:outputLabel value="Boletim: #{telaPaiMBean.aluno.nomeCompleto}" />
 						</p:column>
 					</p:row>
 				</f:facet>
-				<p:panelGrid columns="2">
-					<p:outputLabel value="Nome Turma" />
-					<p:outputLabel value="12:00 as 12:50" />
-					<p:outputLabel value="Habilidade" />
-					<p:outputLabel value="Desempenho" />
-					<p:outputLabel value="Vocabulary" />
-					<p:outputLabel value="Good" />
-					<p:outputLabel value="Reading" />
-					<p:outputLabel value="Very Good" />
-					<p:outputLabel value="Writing" />
-					<p:outputLabel value="Regular" />
-					<p:outputLabel value="Listening" />
-					<p:outputLabel value="Bad" />
-					<p:outputLabel value="Speaking" />
-					<p:outputLabel value="Excellent" />
-					<p:outputLabel value="Grammar" />
-					<p:outputLabel value="Good" />
-					<p:outputLabel value="HomeWork" />
-					<p:outputLabel value="Bad" />
-					<p:commandButton styleClass="tm-botao" value="Avaliações" />
-					<p:commandButton value="Próximo filho" styleClass="tm-botao" />
-				</p:panelGrid>
-				<p:inputTextarea styleClass="textComent" value="Observação do professor" disabled="true" />
+					<p:panelGrid columns="2" style="width:355px;">
+						<p:outputLabel value="#{telaPaiMBean.turma.nomeTurma}" />
+						<p:outputLabel value="#{telaPaiMBean.turma.nomeLivro}" />
+						<p:outputLabel value="Dia: " />
+						<p:outputLabel value="#{telaPaiMBean.turma.primeiroDiaSemana}" />
+						<p:outputLabel value="Dia: " />
+						<p:outputLabel value="#{telaPaiMBean.turma.segundoDiaSemana}" />
+						<p:outputLabel value="Horario: " />
+						<p:outputLabel value="#{telaPaiMBean.turma.horario}"  />
+						<p:outputLabel value="Horario: " />
+						<p:outputLabel value="#{telaPaiMBean.turma.horario2}"  />
+					</p:panelGrid>
+
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Habilidade" />
+						<p:outputLabel value="Desempenho" />
+						<p:outputLabel value="Vocabulário" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.vocabulario.descricao}" />
+						<p:outputLabel value="Leitura" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.leitura.descricao}" />
+						<p:outputLabel value="Escrevendo" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.escrevendo.descricao}" />
+						<p:outputLabel value="Escutando" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.escutando.descricao}" />
+						<p:outputLabel value="Falando" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.falando.descricao}" />
+						<p:outputLabel value="Gramática" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.gramatica.descricao}" />
+						<p:outputLabel value="Lição de casa" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.homeWork.descricao}" />
+						<p:commandButton styleClass="tm-botao" value="Avaliações" />
+						<p:commandButton value="Próximo filho" styleClass="tm-botao" />
+					
+					</p:panelGrid>
+
+				
+				<p:inputTextarea value="#{telaPaiMBean.comentario[0]}"  styleClass="textComent"  disabled="true" />
+				<br />
+				<h:outputLabel value="Comentário aluno: " rendered="#{telaPaiMBean.flagCommentAluno}" />
+				<p:inputTextarea value="#{telaPaiMBean.comentario[1]}" rendered="#{telaPaiMBean.flagCommentAluno}"  styleClass="textComent"  disabled="true" />
+				
 					
 				<h:panelGroup id="comment-teacher">
-					<p:inputTextarea  styleClass="textComent"
-						placeholder="Deixe seu comentário" />
+				
+					<p:inputTextarea value="#{telaPaiMBean.comentarioResponsavel}" rendered="#{telaPaiMBean.flagCommentPai eq false}" styleClass="textComent" placeholder="Deixe seu comentário" />
+					<p:inputTextarea value="#{telaPaiMBean.comentario[2]}" rendered="#{telaPaiMBean.flagCommentPai}" styleClass="textComent" placeholder="Deixe seu comentário" />
+					
 					<br />
-				<p:commandButton value="Enviar" styleClass="tm-botao" />
+				<p:commandButton value="Enviar" action="#{telaPaiMBean.salvarComentarioAluno}" update="@form" styleClass="tm-botao" />
+				
 				</h:panelGroup>
 			</p:panelGrid>
 			
-
+<p:commandButton value="teste" action="#{telaPaiMBean.buscarComentarios}" update="@form" styleClass="tm-botao" />
 		</h:form>
 	</ui:define>
 

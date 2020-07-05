@@ -63,21 +63,6 @@ public class listaTurmasMBean implements Serializable {
 		return "/APP/telaAvaliacaoAluno?faces-redirect=true";
 	}
 	
-	public void atualizaBimestre() throws NegocioException {
-		EntityTransaction et = this.em.getTransaction();
-
-			
-		try {
-			et.begin();
-			atualizaBimeste.atualizaBimestre();
-			et.commit();
-		} catch (PersistenceException |NegocioException e) {
-			et.rollback();
-			throw new NegocioException("Falha ao atualizar o bimestre");
-		}
-		
-	}
-	
 	// getters and setters
 	public List<Turma> getTurmas() {
 		return turmas;

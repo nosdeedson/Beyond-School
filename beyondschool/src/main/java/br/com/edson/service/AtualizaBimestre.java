@@ -33,9 +33,9 @@ public class AtualizaBimestre implements Serializable {
 	    try {
 	    	bimestre = bimestresBD.buscarBimestreAtual();
 		    
-		    
 		    if( bimestre == null || next == null)
 		    	throw new NegocioException("Falha ao atualizar o bimestre");
+		    
 		    if( date.after(bimestre.getDataFim())){
 		    	next = bimestresBD.porId(bimestre.getIdBimestre()  + 1);
 		    	bimestre.setAtual(false);

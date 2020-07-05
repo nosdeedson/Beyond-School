@@ -10,12 +10,10 @@
 	<ui:define name="corpo">
 	
 <h:form  >
-			
-		<p:messages  autoUpdate="true" />
-			
-				
+			<p:messages  autoUpdate="true" style="width: 200px; position:relative; left:20%;"/>	
 		<h:panelGroup id="panel1" rendered="#{cadastroMBean.mostraPanel1}" 
-			styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt posicao-tela-t"   >
+			styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt"   >
+			
 			<p:outputLabel value="Escolha seu tipo de Acesso!!"/>
 			<br/>
 			<p:commandButton styleClass="tm-botao" value="Admin" update="@form"  action="#{cadastroMBean.showAdmin}"  />
@@ -65,6 +63,8 @@
 			
 		</p:panelGrid>
 	</h:form>
+	<h:outputLabel value="bs9op84o"/>
+	
 <script type="text/javascript">
   function mostra(){
 	  alert(document.getElementById('formulario_cadastro:console').value);

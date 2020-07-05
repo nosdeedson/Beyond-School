@@ -33,8 +33,8 @@ public class InserirDados {
 		turma.setNomeTurma("turma 1");
 		turma.setHorario(new SimpleDateFormat("hh:mm").parse("10:00"));
 		turma.setHorario2(new SimpleDateFormat("hh:mm").parse("10:00"));
-		turma.setPrimeiroDiaSemana("Segunda feira");
-		turma.setSegundoDiaSemana("Quinta Feira");
+		turma.setPrimeiroDiaSemana("Segunda");
+		turma.setSegundoDiaSemana("Quinta");
 		
 		Funcionario professor = new Funcionario();
 		professor.setNomeCompleto("maria da silva");
@@ -90,14 +90,15 @@ public class InserirDados {
 		Responsavel r = new Responsavel();
 		r.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("11/11/2020"));
 		r.setNomeCompleto("joao da silva");
+		em.persist(r);
 		
 		Usuario uresp = new Usuario();
 		uresp.setNomeUsuario("joao.silva4");
-		uresp.setPessoa(professor);
+		uresp.setPessoa(r);
 		uresp.setSenha("123123123");
 		uresp.setTipoAcesso("responsavel");
 		
-		em.persist(r);
+		
 		em.persist(uresp);
 	
 		

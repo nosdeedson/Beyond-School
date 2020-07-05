@@ -8,16 +8,16 @@
 	xmlns:p="http://primefaces.org/ui">
 <f:metadata>
 <f:viewParam name="id" value="#{verBoletimMBean.aluno}"></f:viewParam>
-<f:viewParam name="id" value="#{verBoletimMBean.turma}"></f:viewParam>
+<f:viewParam name="idTurma" value="#{verBoletimMBean.turma}"></f:viewParam>
 <f:viewAction action="#{verBoletimMBean.buscarAvaliacao}"></f:viewAction>
-<f:viewAction action="#{verBoletimMBean.buscarTurma}"></f:viewAction>
+
 <f:viewAction action="#{verBoletimMBean.buscarComentarios}"></f:viewAction>
 </f:metadata>
 <ui:define name="titulo">Boletim</ui:define>
 	<ui:define name="corpo2">
 	
 
-		<p:panelGrid columns="1" id="pg-ver-boletim" style="margin: left: 200px;">
+		<p:panelGrid columns="1" id="pg-ver-boletim" style="margin: left: 200px;"  >
 
 			<f:facet name="header">
 				<p:row>
@@ -26,7 +26,7 @@
 					</p:column>
 				</p:row>
 			</f:facet>
-			<p:panelGrid columns="2">
+			<p:panelGrid columns="2" rendered="#{verBoletimMBean.flagTemAvaliacao}" >
 				<p:outputLabel value="#{verBoletimMBean.turma.nomeTurma}"/>
 				<p:outputLabel value="#{verBoletimMBean.turma.nomeLivro}"/>
 				<p:outputLabel value="Habilidade" />
@@ -47,23 +47,32 @@
 				<p:outputLabel value="#{verBoletimMBean.avaliacao.homeWork.descricao}" />
 			</p:panelGrid> 
 			
-			<p:button value="Editar avaliação" outcome="/APP/telaAvaliacaoAluno" styleClass="btn-boletim">
+			<p:button value="Editar avaliação" outcome="/APP/telaAvaliacaoAluno" styleClass="btn-boletim" rendered="#{verBoletimMBean.flagTemAvaliacao}">
 				<f:param name="idAluno" value="#{verBoletimMBean.aluno.idPessoa}"></f:param>
+				<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 			</p:button>
 			
 
 			<p:inputTextarea styleClass="textComent" readonly="true" value="#{verBoletimMBean.comentario[0]}" 
-				style="font-weight: bold;" />
+				style="font-weight: bold;" rendered="#{verBoletimMBean.flag1}" />
 					
 			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flag1}" disabled="true" value="#{verBoletimMBean.comentario[1]}"
-				 style="font-weight: bold;" />
+				 style="font-weight: bold;"  />
 			
 			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flag2}" disabled="true" value="#{verBoletimMBean.comentario[2]}"
 				 style="font-weight: bold;" />
 			
+			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{verBoletimMBean.flagTemAvaliacao}"/> 
 			
+			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" />
+		<BR/>
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" 
+			rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" >
+			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
+		</p:linkButton>
 		</p:panelGrid>
-
+		
+		
 	</ui:define>
 
 

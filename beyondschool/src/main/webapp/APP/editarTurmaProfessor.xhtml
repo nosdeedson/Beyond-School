@@ -10,6 +10,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 <f:metadata>
 	<f:viewParam name="id" value="#{editarTurmaProfessorMBean.turma}"/>
 	<f:viewAction action="#{editarTurmaProfessorMBean.buscarAlunos}" />
+	<f:viewAction action="#{editarTurmaProfessorMBean.atualizaBimestre}" />
 	<f:viewAction action="#{editarTurmaProfessorMBean.buscarBimestre}" />
 </f:metadata>
 <ui:define name="corpo2">
@@ -61,13 +62,14 @@ xmlns="http://www.w3.org/1999/xhtml"
 				
 		<p:column headerText="Ações" width="25%" > 
 					
-			<p:button  title="Editar Avaliação" icon="ui-icon-pencil" outcome="/APP/telaAvaliacaoAluno">
+			<p:button title="Editar Avaliação" icon="ui-icon-pencil" outcome="/APP/telaAvaliacaoAluno" >
 				<f:param name="idAluno" value="#{aluno.idPessoa}"/>
+				<f:param name="id" value="#{editarTurmaProfessorMBean.turma.codigoTurma}"/>
 			</p:button>
 					
 			<p:button title="Ver avaliação" icon="ui-icon-arrowthick-1-e" outcome="/APP/verBoletim" >
 				<f:param name="id" value="#{aluno.idPessoa}"/>
-				<f:param name="idTurma" value="#{editarTurmaProfessorMBean.turma}"/>
+				<f:param name="idTurma" value="#{editarTurmaProfessorMBean.turma.codigoTurma}"/>
 			</p:button>
 				
 		</p:column>
