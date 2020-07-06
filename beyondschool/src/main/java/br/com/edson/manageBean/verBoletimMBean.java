@@ -67,7 +67,7 @@ public class verBoletimMBean implements Serializable {
 		
 		for ( int i = 0; i < comentarios.size(); i++) {
 			if( ava.getComentarios().get(i) == null);
-				comentario[i] = ava.getComentarios().get(i);
+				//comentario[i] = ava.getComentarios().get(i);
 			if( i ==  1) {
 				flag1 = true;
 			}

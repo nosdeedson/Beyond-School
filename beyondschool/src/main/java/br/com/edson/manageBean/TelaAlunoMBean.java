@@ -92,7 +92,7 @@ public class TelaAlunoMBean implements Serializable {
 			comentarios.add("Sem comentarios");
 		for ( int i = 0; i < comentarios.size(); i++) {
 			if(avaliacao.getComentarios().get(i) == null)
-			comentario[i] = a.getComentarios().get(i);
+			//comentario[i] = a.getComentarios().get(i);
 			//JOptionPane.showMessageDialog(null, comentario[i]);
 			if( i ==  1) {
 				flag1 = true;
@@ -112,7 +112,7 @@ public class TelaAlunoMBean implements Serializable {
 			List<String> comments = new ArrayList<String>();
 			comments.add(comentario[0]);
 			comments.add(comentarioAluno);
-			avaliacao.setComentarios(comments);
+			//avaliacao.setComentarios(comments);
 			et.begin();
 			avaliacoesBD.salvarAvaliacao(avaliacao);
 			et.commit();

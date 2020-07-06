@@ -5,21 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "avaliacao")
@@ -30,7 +25,7 @@ public class Avaliacao implements Serializable {
 	private Long idAvaliacao;
 	private Aluno aluno;
 	private Bimestre bimestre;
-	private List<String> comentarios = new ArrayList<String>();
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	private ConceitoEnum escrevendo;
 	private ConceitoEnum escutando;
 	private ConceitoEnum falando;
@@ -68,15 +63,6 @@ public class Avaliacao implements Serializable {
 	}
 	public void setBimestre(Bimestre bimestre) {
 		this.bimestre = bimestre;
-	}
-	
-	@ElementCollection( targetClass = String.class, fetch = FetchType.LAZY)
-	@Column(name = "comentario", nullable = true, length = 400)
-	public List<String> getComentarios() {
-		return comentarios;
-	}
-	public void setComentarios(List<String> comentarios) {
-		this.comentarios = comentarios;
 	}
 	
 	@Enumerated(EnumType.STRING)
@@ -144,6 +130,17 @@ public class Avaliacao implements Serializable {
 	}
 	public void setVocabulario(ConceitoEnum vocabulario) {
 		this.vocabulario = vocabulario;
+	}
+
+	@OneToMany
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}	
+	
+	
 	
 }

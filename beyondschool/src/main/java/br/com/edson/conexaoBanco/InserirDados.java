@@ -16,6 +16,7 @@ import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;
 import br.com.edson.Model.Avaliacao;
 import br.com.edson.Model.Bimestre;
+import br.com.edson.Model.Comentario;
 import br.com.edson.Model.ConceitoEnum;
 import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.PapelEnum;
@@ -118,11 +119,21 @@ public class InserirDados {
 		b2.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("03/08/2020"));
 		b2.setAtual(false);
 		
-		List<String> coments = new ArrayList<String>();
-		coments.add(new String("teste"));
+		Comentario comentario1 = new Comentario();
+		comentario1.setComentaio("comentario um prof");
+		comentario1.setQuemFez("professor");
+		
+		em.persist(comentario1);
+		
+		List<Comentario> comments = new ArrayList<Comentario>(); 
+		comments.add(comentario1);
+		
+		
+		
+		
 		Avaliacao a = new Avaliacao();
 		
-		a.setComentarios(coments);
+		a.setComentarios(comments);
 		
 		a.setEscrevendo(ConceitoEnum.BAD);
 		a.setEscutando(ConceitoEnum.EXCELLENT);

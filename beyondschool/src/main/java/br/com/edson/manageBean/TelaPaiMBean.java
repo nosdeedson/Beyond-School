@@ -11,7 +11,10 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
+
+import org.hibernate.Session;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
@@ -69,15 +72,18 @@ public class TelaPaiMBean implements Serializable {
 	@Inject
 	private BuscaDadosResponsavel buscaResp;
 	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	
 	@Inject
 	private EntityManager em;
 
 	//métodos
-	public void buscarUser() {
-		user = usersBD.ValidaUsuarioLogin("joao.silva4", "123123123");
-	}
+//	public void buscarUser() {
+//		user = usersBD.ValidaUsuarioLogin("joao.silva4", "123123123");
+//	}
 	
 	public void buscarAlunos() throws NegocioException {
+		user = (Usuario) session.getAttribute("usuario");
 		alunos = buscaResp.buscaAlunosDoResponsavel(user.getPessoa().getIdPessoa());	
 	}
 	
@@ -89,48 +95,49 @@ public class TelaPaiMBean implements Serializable {
 	
 	public void buscarComentarios() {
 		// talvez não precise deste metodo com session tente com session
-		JOptionPane.showMessageDialog(null, "comment");
-			Avaliacao ava = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
-			if(comentarios.size() == 0)
-				comentarios.add("Sem comentarios");
-			for ( int i = 0; i < comentarios.size(); i++) {
-				if(ava.getComentarios().get(i) == null)
-				comentario[i] = ava.getComentarios().get(i);
-				JOptionPane.showMessageDialog(null, comentario[i]);
-				if( i ==  1) {
-					flagCommentAluno = true;
-				}
-				if( i ==  2) {
-					flagCommentPai = true;
-				}
-			}
+		
+		JOptionPane.showMessageDialog(null, avaliacao.getComentarios().get(0));
+			//Avaliacao ava = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
+//			if(comentarios.size() == 0)
+//				comentarios.add("Sem comentarios");
+//			for ( int i = 0; i < comentarios.size(); i++) {
+//				if(ava.getComentarios().get(i) == null)
+//				comentario[i] = ava.getComentarios().get(i);
+//				JOptionPane.showMessageDialog(null, comentario[i]);
+//				if( i ==  1) {
+//					flagCommentAluno = true;
+//				}
+//				if( i ==  2) {
+//					flagCommentPai = true;
+//				}
+//			}
 			
 		}
 	
 	public void salvarComentarioAluno() throws NegocioException {
-		FacesContext context = FacesContext.getCurrentInstance();
-		EntityTransaction et = this.em.getTransaction();
-		
-		try {
-			List<String> comments = new ArrayList<String>();
-			comments.add(comentario[0]);
-			if(flagCommentAluno)
-				comments.add(comentario[1]);
-			comments.add(comentarioResponsavel);
-			avaliacao.setComentarios(comments);
-			et.begin();
-			avaliacoesBD.salvarAvaliacao(avaliacao);
-			et.commit();
-			flagCommentAluno = true;
-			context.addMessage(null, new FacesMessage("Comentário salvo."));
-			buscarComentarios();
-		} catch (PersistenceException |NegocioException e) {
-			et.rollback();
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage("Falha ao salvar comentário");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			context.addMessage(null, msg);
-		}
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		EntityTransaction et = this.em.getTransaction();
+//		
+//		try {
+//			List<String> comments = new ArrayList<String>();
+//			comments.add(avaliacao.getComentarios().get(0));
+//			if(flagCommentAluno)
+//				comments.add(avaliacao.getComentarios().get(1));
+//			comments.add(comentarioResponsavel);
+//			avaliacao.setComentarios(comments);
+//			et.begin();
+//			avaliacoesBD.salvarAvaliacao(avaliacao);
+//			et.commit();
+//			flagCommentPai = true;
+//			context.addMessage(null, new FacesMessage("Comentário salvo."));
+//			buscarComentarios();
+//		} catch (PersistenceException |NegocioException e) {
+//			et.rollback();
+//			e.printStackTrace();
+//			FacesMessage msg = new FacesMessage("Falha ao salvar comentário");
+//			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+//			context.addMessage(null, msg);
+//		}
 	}
 	
 	//getters and setters 

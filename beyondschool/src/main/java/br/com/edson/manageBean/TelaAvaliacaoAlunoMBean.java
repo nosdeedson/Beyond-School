@@ -121,7 +121,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 				
 					List<String> comments= new ArrayList<String>();
 					comments.add(comentario);
-					avaliacao.setComentarios(comments);
+					//avaliacao.setComentarios(comments);
 					et.begin();
 					registra.salvarAvaliacao(avaliacao);
 					//avaliacoesBD.salvarAvaliacao(avaliacao);
@@ -145,7 +145,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 									
 				List<String> comments = new ArrayList<String>();
 				comments.add(comentario);
-				avaliacao.setComentarios(comments);
+				//avaliacao.setComentarios(comments);
 				
 				avaliacao.setAluno(aluno);
 								

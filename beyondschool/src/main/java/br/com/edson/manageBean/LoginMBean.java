@@ -26,34 +26,35 @@ public class LoginMBean implements Serializable {
 	@Inject
 	private UsuariosBD usersBD;
 	
-	private String nomeUser;
+	private String nomeUser = "joao.silva4";
 	
-	private String senha;
+	private String senha = "123123123";
 
 	public String login() throws NegocioException {
 		
 
 		FacesContext context = FacesContext.getCurrentInstance();
-//		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
 		try {
 			user = usersBD.ValidaUsuarioLogin( nomeUser, senha);
+			
 			if(user == null)
 				throw new NegocioException("Nome de usuário/senha inválido.");
 			
 			switch (user.getTipoAcesso()) {
 			case "admin":
-//				session.setAttribute("usuario", user);
+				session.setAttribute("usuario", user);
 				return "/APP/telaAdmin?faces-redirect=true";
 			case "aluno":
-//				session.setAttribute("usuario", user);
+				session.setAttribute("usuario", user);
 				return "/APP/telaAluno?faces-redirect=true";
 			case "professor":
-//				session.setAttribute("usuario", user);
+				session.setAttribute("usuario", user);
 				return "/APP/listaTurmas?faces-redirect=true";
 			case "responsavel":
-//				session.setAttribute("usuario", user);
-				return "/APP/template/telaPai?faces-redirect=true";
+				session.setAttribute("usuario", user);
+				return "/APP/telaPai?faces-redirect=true";
 			}
 			
 			

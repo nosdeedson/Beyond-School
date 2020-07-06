@@ -37,7 +37,6 @@ public class AvaliacoesBD implements Serializable {
 //		use o find
 		try {
 			avaliacao = this.em.find(Avaliacao.class, idAvaliacao);
-			JOptionPane.showMessageDialog(null, avaliacao.getComentarios().get(0) );
 		} catch ( PersistenceException e) {
 			return null;
 		}

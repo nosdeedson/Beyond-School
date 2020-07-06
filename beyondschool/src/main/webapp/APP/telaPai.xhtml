@@ -9,7 +9,7 @@
 
 
 <f:metadata>
-<f:viewAction action="#{telaPaiMBean.buscarUser}" />
+<!-- <f:viewAction action="#{telaPaiMBean.buscarUser}" /> -->
 <f:viewAction action="#{telaPaiMBean.buscarAlunos}" />
 <f:viewAction action="#{telaPaiMBean.buscarTurma}" />
 <!-- <f:viewAction action="#{telaPaiMBean.buscarComentarios}"/> -->
@@ -63,16 +63,20 @@
 					</p:panelGrid>
 
 				
-				<p:inputTextarea value="#{telaPaiMBean.comentario[0]}"  styleClass="textComent"  disabled="true" />
+				<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(0)}"  styleClass="textComent"  disabled="true" style="font-weight: bold;"  />
 				<br />
-				<h:outputLabel value="Comentário aluno: " rendered="#{telaPaiMBean.flagCommentAluno}" />
-				<p:inputTextarea value="#{telaPaiMBean.comentario[1]}" rendered="#{telaPaiMBean.flagCommentAluno}"  styleClass="textComent"  disabled="true" />
+				
+				<p:column rendered="#{telaPaiMBean.flagCommentAluno}">
+					<h:outputLabel value="Comentário aluno: "  />
+					<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(1)}"   styleClass="textComent"  disabled="true" />
+					
+				</p:column>
 				
 					
 				<h:panelGroup id="comment-teacher">
 				
 					<p:inputTextarea value="#{telaPaiMBean.comentarioResponsavel}" rendered="#{telaPaiMBean.flagCommentPai eq false}" styleClass="textComent" placeholder="Deixe seu comentário" />
-					<p:inputTextarea value="#{telaPaiMBean.comentario[2]}" rendered="#{telaPaiMBean.flagCommentPai}" styleClass="textComent" placeholder="Deixe seu comentário" />
+					<p:inputTextarea value="#{telaPaiMBean.comentario[2]}" rendered="#{telaPaiMBean.flagCommentPai}" styleClass="textComent" disabled="true" />
 					
 					<br />
 				<p:commandButton value="Enviar" action="#{telaPaiMBean.salvarComentarioAluno}" update="@form" styleClass="tm-botao" />
