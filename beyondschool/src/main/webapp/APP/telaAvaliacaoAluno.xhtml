@@ -105,7 +105,13 @@
 		<p:commandButton  value="Buscar aluno" 
 			action="#{telaAvaliacaoAlunoMBean.buscarAlunos()}" update="@form" rendered="#{telaAvaliacaoAlunoMBean.flagBuscar}"/>
 		<br/>
-		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" />
+		
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao eq false}" >
+			<f:param name="id" value="#{telaAvaliacaoAlunoMBean.turma.codigoTurma}"></f:param>
+		</p:linkButton>
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao}" >
+			<f:param name="id" value="#{telaAvaliacaoAlunoMBean.turma.codigoTurma}"></f:param>
+		</p:linkButton>
 	</p:column>	
 	
 	</p:panelGrid>

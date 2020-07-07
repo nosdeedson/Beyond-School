@@ -69,6 +69,8 @@ public class TelaPaiMBean implements Serializable {
 	
 	private boolean flagCommentPai = false;
 	
+	private boolean flagTemAvaliacao = true;
+	
 	
 	@Inject
 	private BuscaDadosResponsavel buscaResp;
@@ -88,41 +90,49 @@ public class TelaPaiMBean implements Serializable {
 	
 	public void buscarAlunos() throws NegocioException {
 		user = (Usuario) session.getAttribute("usuario");
-		alunos = buscaResp.buscaAlunosDoResponsavel(user.getPessoa().getIdPessoa());
-		
+		alunos = buscaResp.buscaAlunosDoResponsavel(user.getPessoa().getIdPessoa());	
 	}
 	
 	public void buscarTurma() {
 		turma = turmasBD.buscaTurma(alunos.get(0).getIdPessoa());
 		aluno = alunos.get(0);
 		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
+		if(avaliacao == null) {
+			flagTemAvaliacao = false;
+		}
 	}
 	
 	public void proximoAluno() {
 		alunos.remove(aluno);
 		aluno = alunos.get(0);
-		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
-		if(avaliacao.getComentarios().size() == 1)
-			flagCommentAluno = false;
+		buscarTurma();
 		
-			flagCommentPai = false;
+		if( flagTemAvaliacao) {
+			if( avaliacao.getComentarios().size() == 1) {
+				flagCommentAluno = false;
+				flagCommentPai = false;
+			}
+		}
+
+			
 	}
 	
 	public void buscarComentarios() {
-		if( avaliacao.getComentarios().size() == 2 ) {
+		if( flagTemAvaliacao ) {
 			
-			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
+			
+			if( avaliacao.getComentarios().size() > 1 && avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa())  )
 			{	JOptionPane.showMessageDialog(null, "1");
 				flagCommentAluno = true;
 				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
 			}
-			else {
+			else if ( avaliacao.getComentarios().size() > 1  ){
 				JOptionPane.showMessageDialog(null, "2");
 				flagCommentPai = true;
 				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
 			}
 		}
-		if( avaliacao.getComentarios().size() > 2) {
+		if( avaliacao.getComentarios().size() > 2  && flagTemAvaliacao  ) {
 			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
 			{	JOptionPane.showMessageDialog(null, "3");
 				flagCommentPai = true;
@@ -249,6 +259,15 @@ public class TelaPaiMBean implements Serializable {
 	public void setComentarioResponsavel(String comentarioResponsavel) {
 		this.comentarioResponsavel = comentarioResponsavel;
 	}
+
+	public boolean isFlagTemAvaliacao() {
+		return flagTemAvaliacao;
+	}
+
+	public void setFlagTemAvaliacao(boolean flagTemAvaliacao) {
+		this.flagTemAvaliacao = flagTemAvaliacao;
+	}
+	
 	
 	
 	

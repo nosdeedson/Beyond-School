@@ -62,12 +62,12 @@
 			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flag2}" disabled="true" value="#{verBoletimMBean.comentario[2]}"
 				 style="font-weight: bold;" />
 			
-			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{verBoletimMBean.flagTemAvaliacao}"/> 
+			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}"/> 
 			
 			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" />
 		<BR/>
 		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" 
-			rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" >
+			rendered="#{verBoletimMBean.flagTemAvaliacao}" >
 			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 		</p:linkButton>
 		</p:panelGrid>

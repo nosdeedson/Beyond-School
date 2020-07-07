@@ -27,7 +27,7 @@
 						</p:column>
 					</p:row>
 				</f:facet>
-					<p:panelGrid columns="2" style="width:355px;">
+					<p:panelGrid columns="2" style="width:355px;" >
 						<p:outputLabel value="#{telaPaiMBean.turma.nomeTurma}" />
 						<p:outputLabel value="#{telaPaiMBean.turma.nomeLivro}" />
 						<p:outputLabel value="Dia: " />
@@ -40,7 +40,7 @@
 						<p:outputLabel value="#{telaPaiMBean.turma.horario2}"  />
 					</p:panelGrid>
 
-					<p:panelGrid columns="2">
+					<p:panelGrid columns="2" rendered="#{telaPaiMBean.flagTemAvaliacao}">
 						<p:outputLabel value="Habilidade" />
 						<p:outputLabel value="Desempenho" />
 						<p:outputLabel value="Vocabulário" />
@@ -66,12 +66,12 @@
 					
 					</p:panelGrid>
 
-				
+				<h:panelGroup rendered="#{telaPaiMBean.flagTemAvaliacao}">
 				<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(0).getComentario()}"  style="font-weight: 900;" readonly="true"    />
 				
 				
 				<p:column rendered="#{telaPaiMBean.flagCommentAluno}">
-				
+				<br />
 					<h:outputLabel value="Comentário aluno: "  />
 					<br />
 					<p:inputTextarea value="#{telaPaiMBean.comentario[0]}"    style="font-weight: 900;" readonly="true"  />
@@ -79,7 +79,7 @@
 				</p:column>
 				
 				<p:column rendered="#{telaPaiMBean.flagCommentPai}">
-				
+					<br />
 					<h:outputLabel value="Comentário responsável: "  />
 					<br />
 					<p:inputTextarea value="#{telaPaiMBean.comentario[1]}"    style="font-weight: 900;" readonly="true"  />
@@ -88,12 +88,18 @@
 				
 					
 				<h:panelGroup id="comment-teacher" rendered="#{telaPaiMBean.flagCommentAluno eq false or telaPaiMBean.flagCommentPai eq false}"  >
-					
+					<br />
 					<p:inputTextarea value="#{telaPaiMBean.comentarioResponsavel}" styleClass="textComent" placeholder="Deixe seu comentário" />
 					<br />
 					<p:commandButton value="Enviar" action="#{telaPaiMBean.salvarComentarioAluno}" update="@form" styleClass="tm-botao" />
 				
 				</h:panelGroup>
+				
+				
+				</h:panelGroup>
+				
+				<h:outputLabel value="#{telaPaiMBean.aluno.nomeCompleto} não foi avaliado neste biemstre ainda." rendered="#{telaPaiMBean.flagTemAvaliacao eq false}"/>
+				<p:commandButton action="#{telaPaiMBean.proximoAluno}" update="@form"  value="Próximo filho" rendered="#{telaPaiMBean.flagTemAvaliacao eq false}"  styleClass="tm-botao" />
 			</p:panelGrid>
 			
 		</h:form>

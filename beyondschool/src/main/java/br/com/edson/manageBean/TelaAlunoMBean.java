@@ -59,13 +59,15 @@ public class TelaAlunoMBean implements Serializable {
 	
 	private List<String> comentarios = new ArrayList<String>();
 	
-	private String[] comentario = new String[comentarios.size()];
+	private String[] comentario = new String[2];
 	
 	private String comentarioAluno;
 	
 	private boolean flagCommentAluno = false;
 	
 	private boolean flagCommentResp = false;
+	
+	private boolean flagTemAvaliacao = true;
 	
 	@Inject
 	private Comentario objComentario;
@@ -92,14 +94,41 @@ public class TelaAlunoMBean implements Serializable {
 	
 	public void buscaAvaliacao() {
 		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
+		if(avaliacao == null)
+			flagTemAvaliacao = false;
 	}
 	
 	public void buscarComentarios() {
+	if( flagTemAvaliacao ) {
+			
+			
+			if( avaliacao.getComentarios().size() > 1 && avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa())  )
+			{	JOptionPane.showMessageDialog(null, "1");
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
+			}
+			else if ( avaliacao.getComentarios().size() > 1  ){
+				JOptionPane.showMessageDialog(null, "2");
+				flagCommentResp = true;
+				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
+			}
+		}
+		if( avaliacao.getComentarios().size() > 2  && flagTemAvaliacao  ) {
+			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
+			{	JOptionPane.showMessageDialog(null, "3");
+				flagCommentResp = true;
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
+				comentario[1] = avaliacao.getComentarios().get(2).getComentario();
+			}
+			else { JOptionPane.showMessageDialog(null, "4");
+				flagCommentResp = true;
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(2).getComentario();
+				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
+			}
+		}
 		
-		if( avaliacao.getComentarios().size() > 1)
-			flagCommentAluno = true;
-		if( avaliacao.getComentarios().size() > 2)
-			flagCommentResp = true;
 	}
 	
 	public void salvarComentarioAluno() throws NegocioException {
@@ -120,6 +149,7 @@ public class TelaAlunoMBean implements Serializable {
 			et.commit();
 			flagCommentAluno = true;
 			context.addMessage(null, new FacesMessage("Comentário salvo."));
+			buscaAvaliacao();
 			buscarComentarios();
 		} catch (PersistenceException |NegocioException e) {
 			et.rollback();
@@ -194,6 +224,15 @@ public class TelaAlunoMBean implements Serializable {
 	public void setComentarioAluno(String comentarioAluno) {
 		this.comentarioAluno = comentarioAluno;
 	}
+
+	public boolean isFlagTemAvaliacao() {
+		return flagTemAvaliacao;
+	}
+
+	public void setFlagTemAvaliacao(boolean flagTemAvaliacao) {
+		this.flagTemAvaliacao = flagTemAvaliacao;
+	}
+	
 	
 	
 }

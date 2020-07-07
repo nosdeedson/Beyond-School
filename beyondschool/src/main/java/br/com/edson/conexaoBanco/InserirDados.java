@@ -153,7 +153,60 @@ public class InserirDados {
 		comentario2.setAvaliacao(a);
 		
 		em.persist(comentario2);
-				
+		
+		Aluno aluno1 = new Aluno();
+		aluno1.setMatricula(101);
+		aluno1.setNomeCompleto("Joao pedro souza");
+		aluno1.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("21/01/2000"));
+		aluno1.setTurma(turma);
+		
+		em.persist(aluno1);
+		
+		Usuario ualuno1 = new Usuario();
+		ualuno1.setNomeUsuario("joao.souza5");
+		ualuno1.setPessoa(aluno1);
+		ualuno1.setSenha("123123123");
+		ualuno1.setTipoAcesso("aluno");
+		em.persist(ualuno1);
+		
+		Responsavel r1 = new Responsavel();
+		r1.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("18/09/1982"));
+		r1.setNomeCompleto("silvana souza");
+		em.persist(r1);
+		
+		Usuario uresp1 = new Usuario();
+		uresp1.setNomeUsuario("silvana.souza6");
+		uresp1.setPessoa(r1);
+		uresp1.setSenha("123123123");
+		uresp1.setTipoAcesso("responsavel");
+		
+		AlunoResponsavel ar1 = new AlunoResponsavel();
+		ar1.setAluno(aluno1);
+		ar1.setResponsavel(r1);
+		
+		em.persist(r1);
+		em.persist(uresp1);
+		em.persist(ar1);
+		
+		Aluno aluno2 = new Aluno();
+		aluno2.setMatricula(102);
+		aluno2.setNomeCompleto("isabela souza");
+		aluno2.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("02/08/2000"));
+		aluno2.setTurma(turma);
+		
+		em.persist(aluno2);
+		
+		Usuario ualuno2 = new Usuario();
+		ualuno2.setNomeUsuario("isabela.souza7");
+		ualuno2.setPessoa(aluno2);
+		ualuno2.setSenha("123123123");
+		ualuno2.setTipoAcesso("aluno");
+		em.persist(ualuno2);
+		
+		AlunoResponsavel ar2 = new AlunoResponsavel();
+		ar2.setAluno(aluno2);
+		ar2.setResponsavel(r1);
+		em.persist(ar2);
 		
 	}
 
