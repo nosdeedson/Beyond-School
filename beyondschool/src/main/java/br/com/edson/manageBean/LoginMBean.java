@@ -26,9 +26,9 @@ public class LoginMBean implements Serializable {
 	@Inject
 	private UsuariosBD usersBD;
 	
-	private String nomeUser = "joao.silva4";
+	private String nomeUser;
 	
-	private String senha = "123123123";
+	private String senha;
 
 	public String login() throws NegocioException {
 		

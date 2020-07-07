@@ -53,8 +53,8 @@
 			</p:button>
 			
 
-			<p:inputTextarea styleClass="textComent" readonly="true" value="#{verBoletimMBean.comentario[0]}" 
-				style="font-weight: bold;" rendered="#{verBoletimMBean.flag1}" />
+			<p:inputTextarea styleClass="textComent" readonly="true" value="#{verBoletimMBean.avaliacao.getComentarios().get(0).getComentario()}" 
+				style="font-weight: bold;"  />
 					
 			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flag1}" disabled="true" value="#{verBoletimMBean.comentario[1]}"
 				 style="font-weight: bold;"  />

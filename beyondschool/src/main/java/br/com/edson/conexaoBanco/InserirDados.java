@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -117,23 +118,10 @@ public class InserirDados {
 		Bimestre b2 = new Bimestre();
 		b2.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("10/12/2020"));
 		b2.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("03/08/2020"));
-		b2.setAtual(false);
-		
-		Comentario comentario1 = new Comentario();
-		comentario1.setComentaio("comentario um prof");
-		comentario1.setQuemFez("professor");
-		
-		em.persist(comentario1);
-		
-		List<Comentario> comments = new ArrayList<Comentario>(); 
-		comments.add(comentario1);
-		
-		
+		b2.setAtual(false);		
 		
 		
 		Avaliacao a = new Avaliacao();
-		
-		a.setComentarios(comments);
 		
 		a.setEscrevendo(ConceitoEnum.BAD);
 		a.setEscutando(ConceitoEnum.EXCELLENT);
@@ -149,6 +137,22 @@ public class InserirDados {
 		em.persist(b);
 		em.persist(b2);
 		em.persist(a);
+		
+		Comentario comentario1 = new Comentario();
+		comentario1.setComentario("comentario um prof");
+		comentario1.setIdPessoaQueFez(professor.getIdPessoa());
+		comentario1.setDataComentario(new Date());
+		comentario1.setAvaliacao(a);
+		
+		em.persist(comentario1);
+		
+		Comentario comentario2 = new Comentario();
+		comentario2.setComentario("comentario aluno");
+		comentario2.setIdPessoaQueFez(aluno.getIdPessoa());
+		comentario2.setDataComentario(new Date());
+		comentario2.setAvaliacao(a);
+		
+		em.persist(comentario2);
 				
 		
 	}

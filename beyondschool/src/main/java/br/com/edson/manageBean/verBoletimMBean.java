@@ -65,9 +65,9 @@ public class verBoletimMBean implements Serializable {
 		
 		Avaliacao ava = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
 		
-		for ( int i = 0; i < comentarios.size(); i++) {
-			if( ava.getComentarios().get(i) == null);
-				//comentario[i] = ava.getComentarios().get(i);
+		for ( int i = 1; i < comentarios.size(); i++) {
+//			if( ava.getComentarios().get(i) == null);
+//				comentario[i] = ava.getComentarios().get(i).getComentario();
 			if( i ==  1) {
 				flag1 = true;
 			}
@@ -130,9 +130,6 @@ public class verBoletimMBean implements Serializable {
 	public boolean isFlagTemAvaliacao() {
 		return flagTemAvaliacao;
 	}
-
-
-
 	public void setFlagTemAvaliacao(boolean flagTemAvaliacao) {
 		this.flagTemAvaliacao = flagTemAvaliacao;
 	}

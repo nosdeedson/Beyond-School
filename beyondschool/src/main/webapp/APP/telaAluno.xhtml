@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
-	<f:viewAction action="#{telaAlunoMBean.buscarUser}"></f:viewAction>
+<!-- 	<f:viewAction action="#{telaAlunoMBean.buscarUser}"></f:viewAction> -->
 	<f:viewAction action="#{telaAlunoMBean.buscarAluno}"></f:viewAction> 
 	<f:viewAction action="#{telaAlunoMBean.buscaTurma}"></f:viewAction>
 	<f:viewAction action="#{telaAlunoMBean.buscaAvaliacao}"></f:viewAction>
@@ -65,22 +65,22 @@
 					<p:outputLabel value="#{telaAlunoMBean.avaliacao.homeWork.descricao}" />
 
 				</p:panelGrid>
-				<p:inputTextarea id="text-area-coment-prof" styleClass="textComent" value="#{telaAlunoMBean.comentario[0]}"
+				<p:inputTextarea id="text-area-coment-prof" styleClass="textComent" value="#{telaAlunoMBean.avaliacao.getComentarios().get(0).getComentario()}"
 				readonly="true" style="font-weight: bold;" />
 				
 				<p:commandButton value="Avaliações" styleClass="tm-botao" id="btn-ver-todas-avaliacoes" />
 				<h:panelGroup id="pg-comment-aluno" >
 				
-					<p:inputTextarea value="#{telaAlunoMBean.comentario[1]}" rendered="#{telaAlunoMBean.flag1}" id="text-area-coment-aluno" styleClass="textComent" readonly="true" style="font-weight: bold;"  />
+					<p:inputTextarea value="#{telaAlunoMBean.avaliacao.getComentarios().get(1).getComentario()}" rendered="#{telaAlunoMBean.flagCommentAluno}" id="text-area-coment-aluno" styleClass="textComent" readonly="true" style="font-weight: bold;"  />
 					<br />
-					<p:inputTextarea value="#{telaAlunoMBean.comentarioAluno}" rendered="#{telaAlunoMBean.flag1 eq false}"  styleClass="textComent" placeholder="Aluno deixe seu comentário" />
+					<p:inputTextarea value="#{telaAlunoMBean.comentarioAluno}" rendered="#{telaAlunoMBean.flagCommentAluno eq false}"  styleClass="textComent" placeholder="Aluno deixe seu comentário" />
 					
 					<BR/>
-					<p:commandButton action="#{telaAlunoMBean.salvarComentarioAluno}"   update="@form" rendered="#{telaAlunoMBean.flag eq false}" value="Enviar" id="btn-enviar-comment-aluno" styleClass="tm-botao"  />
+					<p:commandButton action="#{telaAlunoMBean.salvarComentarioAluno}"   update="@form" rendered="#{telaAlunoMBean.flagCommentAluno eq false}" value="Enviar" id="btn-enviar-comment-aluno" styleClass="tm-botao"  />
 					
-					<h:outputLabel value="Comentário do(s) responsável" rendered="#{telaAlunoMBean.flag2}" />
+					<h:outputLabel value="Comentário do(s) responsável" rendered="#{telaAlunoMBean.flagCommentResp}" />
 					<br />
-					<p:inputTextarea value="#{telaAlunoMBean.comentario[2]}" rendered="#{telaAlunoMBean.flag2}" id="text-area-coment-aluno" styleClass="textComent" readonly="true" style="font-weight: bold;"  />
+					<p:inputTextarea value="#{telaAlunoMBean.comentario[2]}" rendered="#{telaAlunoMBean.flagCommentResp}" styleClass="textComent" readonly="true" style="font-weight: bold;"  />
 					
 					
 				</h:panelGroup>

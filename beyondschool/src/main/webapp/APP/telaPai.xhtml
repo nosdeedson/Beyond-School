@@ -12,7 +12,7 @@
 <!-- <f:viewAction action="#{telaPaiMBean.buscarUser}" /> -->
 <f:viewAction action="#{telaPaiMBean.buscarAlunos}" />
 <f:viewAction action="#{telaPaiMBean.buscarTurma}" />
-<!-- <f:viewAction action="#{telaPaiMBean.buscarComentarios}"/> -->
+<f:viewAction action="#{telaPaiMBean.buscarComentarios}"/>
 </f:metadata>
 
 	<ui:define name="corpo2">
@@ -57,34 +57,45 @@
 						<p:outputLabel value="#{telaPaiMBean.avaliacao.gramatica.descricao}" />
 						<p:outputLabel value="Lição de casa" />
 						<p:outputLabel value="#{telaPaiMBean.avaliacao.homeWork.descricao}" />
+						
 						<p:commandButton styleClass="tm-botao" value="Avaliações" />
-						<p:commandButton value="Próximo filho" styleClass="tm-botao" />
+						
+						<p:commandButton action="#{telaPaiMBean.proximoAluno}" update="@form"  value="Próximo filho" rendered="#{telaPaiMBean.alunos.size() > 1}"  styleClass="tm-botao" />
+						
+						<p:outputLabel value="" rendered="#{telaPaiMBean.alunos.size() == 1}"  />
 					
 					</p:panelGrid>
 
 				
-				<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(0)}"  styleClass="textComent"  disabled="true" style="font-weight: bold;"  />
-				<br />
+				<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(0).getComentario()}"  style="font-weight: 900;" readonly="true"    />
+				
 				
 				<p:column rendered="#{telaPaiMBean.flagCommentAluno}">
+				
 					<h:outputLabel value="Comentário aluno: "  />
-					<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(1)}"   styleClass="textComent"  disabled="true" />
+					<br />
+					<p:inputTextarea value="#{telaPaiMBean.comentario[0]}"    style="font-weight: 900;" readonly="true"  />
+					
+				</p:column>
+				
+				<p:column rendered="#{telaPaiMBean.flagCommentPai}">
+				
+					<h:outputLabel value="Comentário responsável: "  />
+					<br />
+					<p:inputTextarea value="#{telaPaiMBean.comentario[1]}"    style="font-weight: 900;" readonly="true"  />
 					
 				</p:column>
 				
 					
-				<h:panelGroup id="comment-teacher">
-				
-					<p:inputTextarea value="#{telaPaiMBean.comentarioResponsavel}" rendered="#{telaPaiMBean.flagCommentPai eq false}" styleClass="textComent" placeholder="Deixe seu comentário" />
-					<p:inputTextarea value="#{telaPaiMBean.comentario[2]}" rendered="#{telaPaiMBean.flagCommentPai}" styleClass="textComent" disabled="true" />
+				<h:panelGroup id="comment-teacher" rendered="#{telaPaiMBean.flagCommentAluno eq false or telaPaiMBean.flagCommentPai eq false}"  >
 					
+					<p:inputTextarea value="#{telaPaiMBean.comentarioResponsavel}" styleClass="textComent" placeholder="Deixe seu comentário" />
 					<br />
-				<p:commandButton value="Enviar" action="#{telaPaiMBean.salvarComentarioAluno}" update="@form" styleClass="tm-botao" />
+					<p:commandButton value="Enviar" action="#{telaPaiMBean.salvarComentarioAluno}" update="@form" styleClass="tm-botao" />
 				
 				</h:panelGroup>
 			</p:panelGrid>
 			
-<p:commandButton value="teste" action="#{telaPaiMBean.buscarComentarios}" update="@form" styleClass="tm-botao" />
 		</h:form>
 	</ui:define>
 

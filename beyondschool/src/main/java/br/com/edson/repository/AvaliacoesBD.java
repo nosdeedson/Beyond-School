@@ -59,13 +59,19 @@ public class AvaliacoesBD implements Serializable {
 		}
 	}
 
-	public void salvarAvaliacao( Avaliacao avaliacao) throws NegocioException {
+	public Long salvarAvaliacao( Avaliacao avaliacao) throws NegocioException {
 		
+		Long idAvaliacao;
 		try {
 			this.em.merge(avaliacao);
+			String sql = "select max(idAvaliacao) from Avaliacao";
+			idAvaliacao= this.em.createQuery(sql, Long.class).getSingleResult();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Falha ao salvar o aluno. Tente novamente.");
+			e.printStackTrace();
+			throw new NegocioException("Falha ao salvar o comentario");
 		}
+		return idAvaliacao;
+		
 		
 	}
 }

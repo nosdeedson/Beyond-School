@@ -132,7 +132,7 @@ public class Avaliacao implements Serializable {
 		this.vocabulario = vocabulario;
 	}
 
-	@OneToMany
+	@OneToMany (mappedBy = "avaliacao")
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}

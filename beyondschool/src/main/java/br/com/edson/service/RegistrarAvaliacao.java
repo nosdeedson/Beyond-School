@@ -1,6 +1,7 @@
 package br.com.edson.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,12 +47,12 @@ public class RegistrarAvaliacao implements Serializable {
 			}
 		}
 		if(alunos.size() == 0)
-			return null;
+			return alunos = new ArrayList<Aluno>();
 		return alunos;
 	}
 	
-	public void salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {
-		
+	public Long salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {
+		Long idAvaliacao;
 		try {
 			bimestre = bimestresBD.buscarBimestreAtual();
 			if (bimestre == null) {
@@ -59,10 +60,11 @@ public class RegistrarAvaliacao implements Serializable {
 			}
 			
 			avaliacao.setBimestre(bimestre);
-			avaliacoesBD.salvarAvaliacao(avaliacao);
+			idAvaliacao = avaliacoesBD.salvarAvaliacao(avaliacao);
 		} catch ( PersistenceException | NegocioException e) {
 			throw new NegocioException("Falha ao registrar avaliação. Tente novamente.");
 		}	
+		return idAvaliacao;
 	}
 	
 

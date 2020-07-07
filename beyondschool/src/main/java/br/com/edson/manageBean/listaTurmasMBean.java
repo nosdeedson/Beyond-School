@@ -44,19 +44,12 @@ public class listaTurmasMBean implements Serializable {
 	
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
-	@Inject
-	private AtualizaBimestre atualizaBimeste;
-	
-	@Inject
-	private EntityManager em;
-	
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
 	
 	public void buscarTurmas() {
-		user = usersBD.ValidaUsuarioLogin("maria.silva1", "123123123");
+		user = (Usuario) session.getAttribute("usuario");
 		turmas = turmasBD.turmasProfessor(user.getPessoa().getIdPessoa());
-		
 	}
 	
 	public String avaliar() {

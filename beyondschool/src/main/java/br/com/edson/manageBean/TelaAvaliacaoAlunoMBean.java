@@ -1,7 +1,9 @@
 package br.com.edson.manageBean;
 
+import java.awt.color.CMMException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.inject.New;
@@ -13,14 +15,18 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
+import br.com.edson.Model.Comentario;
 import br.com.edson.Model.ConceitoEnum;
 import br.com.edson.Model.Turma;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AvaliacoesBD;
+import br.com.edson.repository.ComentariosBD;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.RegistrarAvaliacao;
 
@@ -64,10 +70,21 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 	
 	private boolean flagTemAvaliacao = true;
 	
+	@Inject
+	private Comentario objComentario;
 	
-	// métodos bs9op84o
+	@Inject
+	private ComentariosBD comentariosBD;
+	
+	@Inject
+	private Usuario usuario;
+	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	
+	// métodos
 	
 	public void buscarAlunos() throws Exception {
+			usuario = (Usuario) session.getAttribute("usuario");
 			if( aluno == null)
 				alunos = registra.buscarAlunosSemAvaliacao(turma.getCodigoTurma());
 			if(alunos.size() > 0) {
@@ -99,6 +116,8 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 					avaliacao = new Avaliacao();
 					flagTemAvaliacao = false;
 				}
+				if(avaliacao != null)
+					comentario = avaliacao.getComentarios().get(0).getComentario();
 			} catch ( PersistenceException e) {
 				FacesMessage msg = new FacesMessage(e.getMessage());
 				e.printStackTrace();
@@ -118,13 +137,16 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 		// usado quando edita avaliação
 		if(alunos.size() == 0  && aluno != null) {
 			try {
-				
-					List<String> comments= new ArrayList<String>();
-					comments.add(comentario);
-					//avaliacao.setComentarios(comments);
+					objComentario = avaliacao.getComentarios().get(0);
+					//objComentario.setComentario(comentario);
+					//avaliacao.getComentarios().get(0).setComentario(comentario);
 					et.begin();
-					registra.salvarAvaliacao(avaliacao);
-					//avaliacoesBD.salvarAvaliacao(avaliacao);
+					
+					objComentario.setComentario(comentario);
+					registra.salvarAvaliacao(avaliacao);		
+					
+					comentariosBD.salvarComentario(objComentario);
+					
 					et.commit();
 					comentario = "";
 					avaliacao = new Avaliacao();
@@ -143,22 +165,26 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 			
 			try {
 									
-				List<String> comments = new ArrayList<String>();
-				comments.add(comentario);
-				//avaliacao.setComentarios(comments);
+				objComentario.setComentario(comentario);
+				objComentario.setDataComentario(new Date());
+				objComentario.setIdPessoaQueFez(usuario.getPessoa().getIdPessoa());
 				
 				avaliacao.setAluno(aluno);
 								
 				et.begin();
-					
-				registra.salvarAvaliacao(avaliacao);
+	
+				Long idAvaliacao = registra.salvarAvaliacao(avaliacao);
+				avaliacao.setIdAvaliacao(idAvaliacao);
+				
+				objComentario.setAvaliacao(avaliacao);
+				comentariosBD.salvarComentario(objComentario);		
 					
 				et.commit();
 				alunos.remove(cont);
 					
 				comentario = "";
 				avaliacao = new Avaliacao();
-				aluno = new Aluno();
+				aluno = null;
 				flagAvaliar = false;
 				flagBuscar = true;
 				context.addMessage(null, new FacesMessage( "Aluno avaliado. Clique em buscar aluno.") );
@@ -169,7 +195,6 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 					FacesMessage msg = new FacesMessage("Falha ao avaliar o aluno.");
 					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 					context.addMessage(null, msg);
-			
 				}
 		}
 

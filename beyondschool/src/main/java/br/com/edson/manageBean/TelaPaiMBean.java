@@ -2,6 +2,7 @@ package br.com.edson.manageBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -18,10 +19,12 @@ import org.hibernate.Session;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
+import br.com.edson.Model.Comentario;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AvaliacoesBD;
+import br.com.edson.repository.ComentariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.repository.UsuariosBD;
 import br.com.edson.service.BuscaDadosResponsavel;
@@ -41,10 +44,7 @@ public class TelaPaiMBean implements Serializable {
 	
 	@Inject
 	private Usuario user;
-	
-	@Inject
-	private UsuariosBD usersBD;
-	
+		
 	@Inject
 	private Avaliacao avaliacao;
 	
@@ -61,7 +61,7 @@ public class TelaPaiMBean implements Serializable {
 	
 	private List<String> comentarios = new ArrayList<String>();
 	
-	private String[] comentario = new String[comentarios.size()];
+	private String[] comentario = new String[2];
 	
 	private String comentarioResponsavel;
 	
@@ -69,22 +69,27 @@ public class TelaPaiMBean implements Serializable {
 	
 	private boolean flagCommentPai = false;
 	
+	
 	@Inject
 	private BuscaDadosResponsavel buscaResp;
 	
+	@Inject
+	private Comentario objComentario;
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
 	@Inject
 	private EntityManager em;
+	
+	@Inject
+	private ComentariosBD comentariosBD;
 
 	//métodos
-//	public void buscarUser() {
-//		user = usersBD.ValidaUsuarioLogin("joao.silva4", "123123123");
-//	}
+	// fazer lógica para exibir os comentarios
 	
 	public void buscarAlunos() throws NegocioException {
 		user = (Usuario) session.getAttribute("usuario");
-		alunos = buscaResp.buscaAlunosDoResponsavel(user.getPessoa().getIdPessoa());	
+		alunos = buscaResp.buscaAlunosDoResponsavel(user.getPessoa().getIdPessoa());
+		
 	}
 	
 	public void buscarTurma() {
@@ -93,51 +98,75 @@ public class TelaPaiMBean implements Serializable {
 		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
 	}
 	
-	public void buscarComentarios() {
-		// talvez não precise deste metodo com session tente com session
+	public void proximoAluno() {
+		alunos.remove(aluno);
+		aluno = alunos.get(0);
+		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
+		if(avaliacao.getComentarios().size() == 1)
+			flagCommentAluno = false;
 		
-		JOptionPane.showMessageDialog(null, avaliacao.getComentarios().get(0));
-			//Avaliacao ava = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
-//			if(comentarios.size() == 0)
-//				comentarios.add("Sem comentarios");
-//			for ( int i = 0; i < comentarios.size(); i++) {
-//				if(ava.getComentarios().get(i) == null)
-//				comentario[i] = ava.getComentarios().get(i);
-//				JOptionPane.showMessageDialog(null, comentario[i]);
-//				if( i ==  1) {
-//					flagCommentAluno = true;
-//				}
-//				if( i ==  2) {
-//					flagCommentPai = true;
-//				}
-//			}
+			flagCommentPai = false;
+	}
+	
+	public void buscarComentarios() {
+		if( avaliacao.getComentarios().size() == 2 ) {
 			
+			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
+			{	JOptionPane.showMessageDialog(null, "1");
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "2");
+				flagCommentPai = true;
+				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
+			}
 		}
+		if( avaliacao.getComentarios().size() > 2) {
+			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
+			{	JOptionPane.showMessageDialog(null, "3");
+				flagCommentPai = true;
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
+				comentario[1] = avaliacao.getComentarios().get(2).getComentario();
+			}
+			else { JOptionPane.showMessageDialog(null, "4");
+				flagCommentPai = true;
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(2).getComentario();
+				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
+			}
+		}
+			
+	}
 	
 	public void salvarComentarioAluno() throws NegocioException {
-//		FacesContext context = FacesContext.getCurrentInstance();
-//		EntityTransaction et = this.em.getTransaction();
-//		
-//		try {
-//			List<String> comments = new ArrayList<String>();
-//			comments.add(avaliacao.getComentarios().get(0));
-//			if(flagCommentAluno)
-//				comments.add(avaliacao.getComentarios().get(1));
-//			comments.add(comentarioResponsavel);
-//			avaliacao.setComentarios(comments);
-//			et.begin();
-//			avaliacoesBD.salvarAvaliacao(avaliacao);
-//			et.commit();
-//			flagCommentPai = true;
-//			context.addMessage(null, new FacesMessage("Comentário salvo."));
-//			buscarComentarios();
-//		} catch (PersistenceException |NegocioException e) {
-//			et.rollback();
-//			e.printStackTrace();
-//			FacesMessage msg = new FacesMessage("Falha ao salvar comentário");
-//			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-//			context.addMessage(null, msg);
-//		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		EntityTransaction et = this.em.getTransaction();
+		
+		try {
+			
+			objComentario.setComentario(comentarioResponsavel);
+			objComentario.setDataComentario(new Date());
+			objComentario.setIdPessoaQueFez(user.getPessoa().getIdPessoa());
+			objComentario.setAvaliacao(avaliacao);
+			
+			et.begin();
+			
+			
+			comentariosBD.salvarComentario(objComentario);
+			
+			et.commit();
+			flagCommentPai = true;
+			context.addMessage(null, new FacesMessage("Comentário salvo."));
+			buscarComentarios();
+		} catch (PersistenceException |NegocioException e) {
+			et.rollback();
+			e.printStackTrace();
+			FacesMessage msg = new FacesMessage("Falha ao salvar comentário");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, msg);
+		}
 	}
 	
 	//getters and setters 

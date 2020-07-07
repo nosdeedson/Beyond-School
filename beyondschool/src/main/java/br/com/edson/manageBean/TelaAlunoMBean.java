@@ -2,6 +2,7 @@ package br.com.edson.manageBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -11,14 +12,17 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
+import br.com.edson.Model.Comentario;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AvaliacoesBD;
+import br.com.edson.repository.ComentariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.repository.UsuariosBD;
 import br.com.edson.service.NegocioException;
@@ -59,20 +63,26 @@ public class TelaAlunoMBean implements Serializable {
 	
 	private String comentarioAluno;
 	
-	private boolean flag1 = false;
+	private boolean flagCommentAluno = false;
 	
-	private boolean flag2 = false;
+	private boolean flagCommentResp = false;
+	
+	@Inject
+	private Comentario objComentario;
+	
+	@Inject
+	private ComentariosBD comentariosBD;
 	
 	@Inject
 	private EntityManager em;
 	
-	//métodos
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
-	public void buscarUser() {
-		user = usersBD.ValidaUsuarioLogin("edson.souza2", "123123123");
-	}
+	//métodos
+
 
 	public void buscarAluno() {
+		user = (Usuario) session.getAttribute("usuario");
 		aluno = alunosBD.porId(user.getPessoa().getIdPessoa());
 	}
 	
@@ -86,22 +96,10 @@ public class TelaAlunoMBean implements Serializable {
 	
 	public void buscarComentarios() {
 		
-		// testar e  corrigir 
-		Avaliacao a  = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
-		if(comentarios.size() == 0)
-			comentarios.add("Sem comentarios");
-		for ( int i = 0; i < comentarios.size(); i++) {
-			if(avaliacao.getComentarios().get(i) == null)
-			//comentario[i] = a.getComentarios().get(i);
-			//JOptionPane.showMessageDialog(null, comentario[i]);
-			if( i ==  1) {
-				flag1 = true;
-			}
-			if( i ==  2) {
-				flag2 = true;
-			}
-		}
-		
+		if( avaliacao.getComentarios().size() > 1)
+			flagCommentAluno = true;
+		if( avaliacao.getComentarios().size() > 2)
+			flagCommentResp = true;
 	}
 	
 	public void salvarComentarioAluno() throws NegocioException {
@@ -109,14 +107,18 @@ public class TelaAlunoMBean implements Serializable {
 		EntityTransaction et = this.em.getTransaction();
 		
 		try {
-			List<String> comments = new ArrayList<String>();
-			comments.add(comentario[0]);
-			comments.add(comentarioAluno);
-			//avaliacao.setComentarios(comments);
+			
+			objComentario.setComentario(comentarioAluno);
+			objComentario.setDataComentario(new Date());
+			objComentario.setIdPessoaQueFez(aluno.getIdPessoa());
+			objComentario.setAvaliacao(avaliacao);
 			et.begin();
-			avaliacoesBD.salvarAvaliacao(avaliacao);
+			
+			
+			comentariosBD.salvarComentario(objComentario);
+			
 			et.commit();
-			flag1 = true;
+			flagCommentAluno = true;
 			context.addMessage(null, new FacesMessage("Comentário salvo."));
 			buscarComentarios();
 		} catch (PersistenceException |NegocioException e) {
@@ -169,20 +171,20 @@ public class TelaAlunoMBean implements Serializable {
 		this.comentario = comentario;
 	}
 
-	public boolean isFlag1() {
-		return flag1;
+	public boolean isFlagCommentAluno() {
+		return flagCommentAluno;
 	}
 
-	public void setFlag1(boolean flag1) {
-		this.flag1 = flag1;
+	public void setFlagCommentAluno(boolean flagCommentAluno) {
+		this.flagCommentAluno = flagCommentAluno;
 	}
 
-	public boolean isFlag2() {
-		return flag2;
+	public boolean isFlagCommentResp() {
+		return flagCommentResp;
 	}
 
-	public void setFlag2(boolean flag2) {
-		this.flag2 = flag2;
+	public void setFlagCommentResp(boolean flagCommentResp) {
+		this.flagCommentResp = flagCommentResp;
 	}
 
 	public String getComentarioAluno() {
