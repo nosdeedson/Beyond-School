@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import javax.enterprise.inject.InjectionException;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,6 +30,7 @@ import br.com.edson.repository.ResponsaveisBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.repository.UsuariosBD;
 import br.com.edson.service.CadastraProfessor;
+import br.com.edson.service.GeradorHashSenha;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.ValidaDadosCadastro;
 import br.com.edson.service.VerificaExisteResponsavel;
@@ -42,15 +44,7 @@ public class CadastroMBean implements Serializable {
 		
 	private String nomeCompleto;
 	
-	private String nomeAluno1;
-	
-	private String nomeAluno2;
-	
-	private String nomeAluno3;
-	
-	private String nomeAluno4;
-	
-	private String nomeAluno5;
+	private String[] tutelado = new String[5];
 	
 	private String nascimento;
 
@@ -60,9 +54,7 @@ public class CadastroMBean implements Serializable {
 	
 	private String tipoAcesso;
 	
-	private String nomeResponsavel1;
-	
-	private String nomeResponsavel2;
+	private String[] nomeResponsavel = new String[2];
 	
 	@Inject
 	private Usuario user;
@@ -85,19 +77,13 @@ public class CadastroMBean implements Serializable {
 	private FuncionariosBD adminBD;
 	
 	@Inject
-	private Aluno aluno1;
-	
-	@Inject
-	private Aluno aluno2;
+	private Aluno aluno;
 	
 	@Inject
 	private AlunosBD alunosBD;
 	
 	@Inject
-	private Responsavel responsavel1;
-	
-	@Inject
-	private Responsavel responsavel2;
+	private Responsavel responsavel;
 	
 	private boolean mostraInputParaAlunos[] = new boolean[5];
 	
@@ -121,16 +107,15 @@ public class CadastroMBean implements Serializable {
 	@Inject
 	private TurmasBD turmasBD;
 	
-	
+	private boolean flagCadastrado = true;
 	
 	
 	
 	// métodos
 	public void salvar(){
-		
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();	
-		
+		int cont = 0;
 		try {
 			
 			if( !tipoAcesso.equals("Admin"))
@@ -138,6 +123,11 @@ public class CadastroMBean implements Serializable {
 			
 			validaDados.verificaSenha(user.getSenha(), confirmeSenha);
 			
+			// muda a senha digitada para um hash
+			user.setSenha(GeradorHashSenha.geradorHashPassWord(user.getSenha()));
+			
+			// mudar a criação do nome de usuário tirar o valor buscado no banco
+			// garantir senha unica.
 			String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
 			user.setNomeUsuario(nomeUsuario);
 			
@@ -161,9 +151,27 @@ public class CadastroMBean implements Serializable {
 				userBD.salvarUser(user);
 				
 				et.commit();
-				
+				cont++;
+				flagCadastrado = false;
 				break;
 			case "Aluno":
+				
+				//cont instanciado antes do try
+				if(nomeResponsavel[0].isEmpty())
+					throw new NegocioException("Ao menos um responsável deve ser informado.");
+				do {
+					int primeiroEspaco = 0;
+					if( !nomeResponsavel[cont].isEmpty() )
+						primeiroEspaco = nomeResponsavel[cont].indexOf(" ");
+					if(primeiroEspaco == -1 )
+						throw new NegocioException("Informe o nome e sobrenome do responsável.");
+					if(primeiroEspaco == 1 )
+						throw new NegocioException("Retire o espaço do início do nome.");
+					if( !nomeResponsavel[cont].isEmpty() && nomeResponsavel[cont].endsWith(" "))
+						throw new NegocioException("Por favor não coloque espaço depois do sobrenome.");
+					
+					cont++;
+				} while (cont < nomeResponsavel.length);
 				
 				validaDados.validarCodigo(codigoTurma);
 								
@@ -194,63 +202,68 @@ public class CadastroMBean implements Serializable {
 				
 				user.setPessoa(student);
 				userBD.salvarUser(user);
-				
-				if( !getNomeResponsavel1().equals("")) {
+				cont  = 0; //cont instanciado antes do try
+				do {
 					
-					int primeiroEspaco = getNomeResponsavel1().indexOf(" ");
-					if(primeiroEspaco == -1)
-						throw new NegocioException("Informe o nome e sobrenome do responsável.");
+					responsavel = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel[cont]);
 					
-					responsavel1 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel1);
-					
-					if(responsavel1 == null) {
-						responsavel1 = new Responsavel();
-						responsavel1.setNomeCompleto(nomeResponsavel1);
-						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel1);
-						responsavel1.setIdPessoa(idResponsa);
+					if(responsavel == null) {
+						responsavel = new Responsavel();
+						responsavel.setNomeCompleto(nomeResponsavel[cont]);
+						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel);
+						responsavel.setIdPessoa(idResponsa);
 					}
 					
 					AlunoResponsavel ar = new AlunoResponsavel();
 					
 					ar.setAluno(student);
-					ar.setResponsavel(responsavel1);
+					ar.setResponsavel(responsavel);
 					alunosResponsaveisBD.salvarAlunoResponsavel(ar);
-				}
-				
-				if( !getNomeResponsavel2().equals("")) {
+					responsavel = new Responsavel();
 					
-					int primeiroEspaco = getNomeResponsavel1().indexOf(" ");
-					if(primeiroEspaco == -1)
-						throw new NegocioException("Informe o nome e sobrenome do responsável.");
-					
-					responsavel2 = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel2);
-					
-					if( responsavel2 == null) {
-						responsavel2 = new Responsavel();
-						responsavel2.setNomeCompleto(nomeResponsavel2);
-						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel2);
-						responsavel2.setIdPessoa(idResponsa);
-					}
-					
-					AlunoResponsavel ar2 = new AlunoResponsavel();
-					ar2.setAluno(student);
-					ar2.setResponsavel(responsavel2);
-					alunosResponsaveisBD.salvarAlunoResponsavel(ar2);
-				}
+					if(nomeResponsavel[1].isEmpty())
+						break;
+					cont++;
+				} while (cont < nomeResponsavel.length);
+
 				et.commit();
+				flagCadastrado = false;
 				break;
-			case "Professor":
 				
+				
+			case "Professor":
+				cont++;
 				et.begin();
 					Funcionario f = new Funcionario();
 					f = cadProf.salvarProfessor(codigoTurma, nomeCompleto, nascimento);
 					user.setPessoa(f);
 					userBD.salvarUser(user);
 				et.commit();
+				flagCadastrado = false;
 				break;
 				
+				
+				
 			case "Responsável":
-				// ok não mexer mais, até agora coloquei resp que não exitia
+				//cont instanciado antes do try
+				cont = 0;
+				
+				do {
+					if(tutelado[cont].endsWith(" "))
+						throw new NegocioException("Por favor não coloque espaços depois do sobrenome.");
+					
+					int primeiroEspaço = tutelado[cont].indexOf(" ");
+					
+					if( primeiroEspaço == 1)
+						throw new NegocioException("Retire o espaço antes do nome.");
+					
+					if( primeiroEspaço == -1 || tutelado[cont].isEmpty())
+						throw new NegocioException("Informa o nome completo dos alunos.");
+					
+					cont++;
+				} while (cont < qtdAlunosTutelados);
+				
+				// ok não mexer mais, até agora coloquei resp que não existia
 				 Responsavel existe = verificaResp.buscaResponsavel(nomeCompleto);			 
 				// verifica se o resp já existe
 				
@@ -268,48 +281,35 @@ public class CadastroMBean implements Serializable {
 				
 				user.setPessoa(existe);
 				userBD.salvarUser(user);
-				
-				if( !getNomeAluno1().equals("") ) {
+				cont = 0;
+				do {
 					
-					aluno1 = alunosBD.buscaAlunoPeloNome(nomeAluno1);
+					aluno = alunosBD.buscaAlunoPeloNome(tutelado[cont]);
 				
-					if( aluno1 ==  null) {
-						aluno1 = new Aluno();
-						aluno1.setNomeCompleto(nomeAluno1);
-						Long idAluno1 = alunosBD.salvarAluno(aluno1);
-						aluno1.setIdPessoa(idAluno1);
+					if( aluno ==  null) {
+						aluno = new Aluno();
+						aluno.setNomeCompleto(tutelado[cont]);
+						Long idAluno = alunosBD.salvarAluno(aluno);
+						aluno.setIdPessoa(idAluno);
 					}
 					
 					//salva alunoResponsavel
 					AlunoResponsavel alunoResp = new AlunoResponsavel();
-					alunoResp.setAluno(aluno1);
+					alunoResp.setAluno(aluno);
 					alunoResp.setResponsavel(existe);
 					alunosResponsaveisBD.salvarAlunoResponsavel(alunoResp);
-				}
-				if( !getNomeAluno2().equals("") ) {
+					aluno = new Aluno();
 					
-					aluno2 = alunosBD.buscaAlunoPeloNome(nomeAluno2);
-					
-					if(aluno2 == null) {
-						aluno2 = new Aluno();
-						aluno2.setNomeCompleto(nomeAluno2);
-						Long idAluno2 = alunosBD.salvarAluno(aluno2);
-						aluno2.setIdPessoa(idAluno2);
-					}
-					
-					//salva alunoResponsavel
-					AlunoResponsavel alunoResp = new AlunoResponsavel();
-					alunoResp.setAluno(aluno2);
-					alunoResp.setResponsavel(existe);
-					alunosResponsaveisBD.salvarAlunoResponsavel(alunoResp);
-				}
+					cont++;
+				} while (cont < qtdAlunosTutelados);
+				
 				
 				 et.commit();
+				 flagCadastrado = false;
 				break;
 			}
 
-			
-			
+
 			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
 			
 		} catch ( PersistenceException  | NullPointerException | ParseException | NegocioException | FacesException | InjectionException e) {
@@ -325,10 +325,10 @@ public class CadastroMBean implements Serializable {
 			setConfirmeSenha("");
 			setTipoAcesso("");
 			setNomeCompleto("");
-			setNomeAluno1("");
-			setNomeAluno2("");
-			setNomeResponsavel1("");
-			setNomeResponsavel2("");
+			String[] semNome = { "","","","","" };
+			setTutelado(semNome);
+			String[] respVazio = {" ", " "};
+			setNomeResponsavel(respVazio);
 		}
 		
 	}
@@ -371,24 +371,14 @@ public class CadastroMBean implements Serializable {
 	
 	// getters and setters
 	
-	public Aluno getAluno1() {
-		return aluno1;
+	public Aluno getAluno() {
+		return aluno;
 	}
 
-	public void setAluno1(Aluno aluno1) {
-		this.aluno1 = aluno1;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
-
-
-	public Aluno getAluno2() {
-		return aluno2;
-	}
-
-
-	public void setAluno2(Aluno aluno2) {
-		this.aluno2 = aluno2;
-	}
-
+	
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}
@@ -445,54 +435,6 @@ public class CadastroMBean implements Serializable {
 		this.mostraInputResponsaveis = mostraInputResponsaveis;
 	}
 
-	public Responsavel getResponsavel1() {
-		return responsavel1;
-	}
-
-	public void setResponsavel1(Responsavel responsavel1) {
-		this.responsavel1 = responsavel1;
-	}
-
-	public Responsavel getResponsavel2() {
-		return responsavel2;
-	}
-
-	public void setResponsavel2(Responsavel responsavel2) {
-		this.responsavel2 = responsavel2;
-	}
-
-	public String getNomeAluno1() {
-		return nomeAluno1;
-	}
-
-	public void setNomeAluno1(String nomeAluno1) {
-		this.nomeAluno1 = nomeAluno1;
-	}
-
-	public String getNomeAluno2() {
-		return nomeAluno2;
-	}
-
-	public void setNomeAluno2(String nomeAluno2) {
-		this.nomeAluno2 = nomeAluno2;
-	}
-
-	public String getNomeResponsavel1() {
-		return nomeResponsavel1;
-	}
-
-	public void setNomeResponsavel1(String nomeResponsavel1) {
-		this.nomeResponsavel1 = nomeResponsavel1;
-	}
-
-	public String getNomeResponsavel2() {
-		return nomeResponsavel2;
-	}
-
-	public void setNomeResponsavel2(String nomeResponsavel2) {
-		this.nomeResponsavel2 = nomeResponsavel2;
-	}
-
 	public boolean isMostraPanel1() {
 		return mostraPanel1;
 	}
@@ -525,29 +467,41 @@ public class CadastroMBean implements Serializable {
 		this.mostraInputParaAlunos = mostraInputParaAlunos;
 	}
 
-	public String getNomeAluno3() {
-		return nomeAluno3;
+	public String[] getTutelado() {
+		return tutelado;
 	}
 
-	public void setNomeAluno3(String nomeAluno3) {
-		this.nomeAluno3 = nomeAluno3;
+	public void setTutelado(String[] tutelado) {
+		this.tutelado = tutelado;
 	}
 
-	public String getNomeAluno4() {
-		return nomeAluno4;
+	public String[] getNomeResponsavel() {
+		return nomeResponsavel;
 	}
 
-	public void setNomeAluno4(String nomeAluno4) {
-		this.nomeAluno4 = nomeAluno4;
+	public void setNomeResponsavel(String[] nomeResponsavel) {
+		this.nomeResponsavel = nomeResponsavel;
 	}
 
-	public String getNomeAluno5() {
-		return nomeAluno5;
+	public Responsavel getResponsavel() {
+		return responsavel;
 	}
 
-	public void setNomeAluno5(String nomeAluno5) {
-		this.nomeAluno5 = nomeAluno5;
+	public void setResponsavel(Responsavel responsavel) {
+		this.responsavel = responsavel;
 	}
+
+	public boolean isFlagCadastrado() {
+		return flagCadastrado;
+	}
+
+	public void setFlagCadastrado(boolean flagCadastrado) {
+		this.flagCadastrado = flagCadastrado;
+	}
+
+
+
+
 	
 	
 	
