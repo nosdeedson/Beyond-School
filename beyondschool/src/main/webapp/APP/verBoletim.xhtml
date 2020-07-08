@@ -53,13 +53,13 @@
 			</p:button>
 			
 
-			<p:inputTextarea styleClass="textComent" readonly="true" value="#{verBoletimMBean.avaliacao.getComentarios().get(0).getComentario()}" 
+			<p:inputTextarea styleClass="textComent" rendered="#{verBoletimMBean.flagTemAvaliacao}" readonly="true" value="#{verBoletimMBean.avaliacao.getComentarios().get(0).getComentario()}" 
 				style="font-weight: bold;"  />
 					
-			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flag1}" disabled="true" value="#{verBoletimMBean.comentario[1]}"
+			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flagCommentAluno}" readonly="true" value="#{verBoletimMBean.comentario[0]}"
 				 style="font-weight: bold;"  />
 			
-			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flag2}" disabled="true" value="#{verBoletimMBean.comentario[2]}"
+			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flagCommentPai}" readonly="true" value="#{verBoletimMBean.comentario[1]}"
 				 style="font-weight: bold;" />
 			
 			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}"/> 
@@ -67,9 +67,15 @@
 			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" />
 		<BR/>
 		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" 
-			rendered="#{verBoletimMBean.flagTemAvaliacao}" >
+			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}" >
 			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 		</p:linkButton>
+		
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaAdmin" 
+			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'admin'}" >
+			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
+		</p:linkButton>
+		
 		</p:panelGrid>
 		
 		

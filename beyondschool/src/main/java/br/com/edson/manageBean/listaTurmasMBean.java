@@ -49,7 +49,10 @@ public class listaTurmasMBean implements Serializable {
 	
 	public void buscarTurmas() {
 		user = (Usuario) session.getAttribute("usuario");
-		turmas = turmasBD.turmasProfessor(user.getPessoa().getIdPessoa());
+		if( user.getTipoAcesso().equals("admin"))
+			turmas = turmasBD.todasTurmas();
+		else
+			turmas = turmasBD.turmasProfessor(user.getPessoa().getIdPessoa());
 	}
 	
 	public String avaliar() {
@@ -65,6 +68,15 @@ public class listaTurmasMBean implements Serializable {
 	public void setTurmas(List<Turma> turmas) {
 		this.turmas = turmas;
 	}
+
+	public Usuario getUser() {
+		return user;
+	}
+
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+	
 	
 	
 

@@ -11,12 +11,14 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import org.primefaces.event.DragDropEvent;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Turma;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.service.NegocioException;
@@ -50,8 +52,14 @@ public class TransferirAlunoTurmaMBean implements Serializable {
 	
 	@Inject
 	private EntityManager em;
+	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	
+	@Inject
+	private Usuario user;
 
 	public void buscarAlunos() {
+		user = (Usuario) session.getAttribute("usuario");
 		if( aluno.getNomeCompleto() == null) {
 			alunos = alunosBD.buscaAlunos();
 		}

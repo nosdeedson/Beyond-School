@@ -116,7 +116,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 					avaliacao = new Avaliacao();
 					flagTemAvaliacao = false;
 				}
-				if(avaliacao != null)
+				if(flagTemAvaliacao && avaliacao != null)
 					comentario = avaliacao.getComentarios().get(0).getComentario();
 			} catch ( PersistenceException e) {
 				FacesMessage msg = new FacesMessage(e.getMessage());

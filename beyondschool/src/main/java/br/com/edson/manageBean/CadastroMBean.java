@@ -46,9 +46,15 @@ public class CadastroMBean implements Serializable {
 	
 	private String nomeAluno2;
 	
+	private String nomeAluno3;
+	
+	private String nomeAluno4;
+	
+	private String nomeAluno5;
+	
 	private String nascimento;
 
-	private String codigoTurma;/// = "bs9op84o";
+	private String codigoTurma;
 	
 	private String confirmeSenha;
 	
@@ -93,7 +99,9 @@ public class CadastroMBean implements Serializable {
 	@Inject
 	private Responsavel responsavel2;
 	
-	private boolean mostraInputParaAlunos = false;
+	private boolean mostraInputParaAlunos[] = new boolean[5];
+	
+	private int qtdAlunosTutelados;
 	
 	private boolean mostraInputResponsaveis = false;
 	
@@ -112,6 +120,8 @@ public class CadastroMBean implements Serializable {
 
 	@Inject
 	private TurmasBD turmasBD;
+	
+	
 	
 	
 	
@@ -151,7 +161,6 @@ public class CadastroMBean implements Serializable {
 				userBD.salvarUser(user);
 				
 				et.commit();
-//			return "consultaCampeonato?faces-redirect=true";
 				
 				break;
 			case "Aluno":
@@ -349,7 +358,10 @@ public class CadastroMBean implements Serializable {
 	
 	public void showResponsaveis() {
 		setTipoAcesso("Responsável");
-		mostraInputParaAlunos = true;
+		for (int i = 0; i < qtdAlunosTutelados; i++) {
+			mostraInputParaAlunos[i] = true;
+		}
+		
 		setMostraPanel2(true);
 		setMostraPanel1(false);
 		user.setTipoAcesso("responsavel");
@@ -425,14 +437,6 @@ public class CadastroMBean implements Serializable {
 		this.tipoAcesso = tipoAcesso;
 	}
 
-	public boolean isMostraInputParaAlunos() {
-		return mostraInputParaAlunos;
-	}
-
-	public void setMostraInputParaAlunos(boolean mostraInputParaAlunos) {
-		this.mostraInputParaAlunos = mostraInputParaAlunos;
-	}
-
 	public boolean isMostraInputResponsaveis() {
 		return mostraInputResponsaveis;
 	}
@@ -505,11 +509,46 @@ public class CadastroMBean implements Serializable {
 		this.mostraPanel2 = mostraPanel2;
 	}
 
-	
-	
-	
-	
-	
+	public int getQtdAlunosTutelados() {
+		return qtdAlunosTutelados;
+	}
 
+	public void setQtdAlunosTutelados(int qtdAlunosTutelados) {
+		this.qtdAlunosTutelados = qtdAlunosTutelados;
+	}
+
+	public boolean[] getMostraInputParaAlunos() {
+		return mostraInputParaAlunos;
+	}
+
+	public void setMostraInputParaAlunos(boolean[] mostraInputParaAlunos) {
+		this.mostraInputParaAlunos = mostraInputParaAlunos;
+	}
+
+	public String getNomeAluno3() {
+		return nomeAluno3;
+	}
+
+	public void setNomeAluno3(String nomeAluno3) {
+		this.nomeAluno3 = nomeAluno3;
+	}
+
+	public String getNomeAluno4() {
+		return nomeAluno4;
+	}
+
+	public void setNomeAluno4(String nomeAluno4) {
+		this.nomeAluno4 = nomeAluno4;
+	}
+
+	public String getNomeAluno5() {
+		return nomeAluno5;
+	}
+
+	public void setNomeAluno5(String nomeAluno5) {
+		this.nomeAluno5 = nomeAluno5;
+	}
+	
+	
 	
 }

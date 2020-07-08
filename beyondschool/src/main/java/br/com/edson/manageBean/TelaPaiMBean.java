@@ -77,6 +77,7 @@ public class TelaPaiMBean implements Serializable {
 	
 	@Inject
 	private Comentario objComentario;
+	
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
 	@Inject

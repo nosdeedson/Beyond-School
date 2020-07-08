@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Turma;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.TurmasBD;
 
 
@@ -22,25 +25,24 @@ public class TelaAdminMBean implements Serializable {
 	@Inject
 	private TurmasBD turmasBD;
 	
-	
 	@Inject
 	private Turma turma;
 
 	private Turma turma2 = null;
 	
+	@Inject
+	private Usuario user;
+	
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
-
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	
 	//métodos
 	public void buscarTurmas() {
+		user = (Usuario) session.getAttribute("usuario");
 		turmas = turmasBD.todasTurmas();
 	}
 	
-	public void editarTurma() {
-		
-			JOptionPane.showMessageDialog(null, "turma dois");
-		
-	}
 	//getters and setters
 	public List<Turma> getTurmas() {
 		return turmas;

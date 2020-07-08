@@ -34,15 +34,11 @@ public class AvaliacoesBD implements Serializable {
 	
 	public Avaliacao buscaComentarios(Long idAvaliacao){
 		Avaliacao avaliacao;
-//		use o find
 		try {
 			avaliacao = this.em.find(Avaliacao.class, idAvaliacao);
 		} catch ( PersistenceException e) {
 			return null;
 		}
-		
-		
-		
 		return avaliacao;
 	}
 	
@@ -52,10 +48,12 @@ public class AvaliacoesBD implements Serializable {
 		String sql = "select ava from Avaliacao ava, Aluno a where ava.aluno.idPessoa= :idAluno";
 		try {
 			ava =	this.em.createQuery( sql, Avaliacao.class).setParameter("idAluno", id).getSingleResult();
-			return ava;
+			if(ava != null)
+				return ava;
+			return null;
 		} catch ( PersistenceException | IllegalArgumentException e) {
 			e.printStackTrace();
-			return ava;
+			return null;
 		}
 	}
 

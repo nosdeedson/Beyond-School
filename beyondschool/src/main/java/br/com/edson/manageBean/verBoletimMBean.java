@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
 import br.com.edson.Model.Turma;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AvaliacoesBD;
 import br.com.edson.repository.TurmasBD;
@@ -23,10 +26,7 @@ public class verBoletimMBean implements Serializable {
 	
 	@Inject
 	private Aluno aluno;
-	
-	@Inject
-	private AlunosBD alunnosBD;
-	
+		
 	@Inject
 	private Avaliacao avaliacao;
 	
@@ -37,42 +37,58 @@ public class verBoletimMBean implements Serializable {
 	private Turma turma;
 	
 	@Inject
-	private TurmasBD turmasBD;
+	private Usuario user;
 	
 	private List<String> comentarios = new ArrayList<String>();
 	
-	private String[] comentario = new String[3];
+	private String[] comentario = new String[2];
 	
-	private boolean flag1 = false;
+	private boolean flagCommentAluno = false;
 	
-	private boolean flag2 = false;
+	private boolean flagCommentPai = false;
 	
 	private boolean flagTemAvaliacao = true;
 	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
 	//métodos
 	
 	public void buscarAvaliacao() {
-		avaliacao= avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
+		user = (Usuario) session.getAttribute("usuario");
+		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
 		if(avaliacao == null)
 			flagTemAvaliacao = false;
 	}
 	
 	
-	
 	public void buscarComentarios() {
-		
-		
-		Avaliacao ava = avaliacoesBD.buscaComentarios(avaliacao.getIdAvaliacao());
-		
-		for ( int i = 1; i < comentarios.size(); i++) {
-//			if( ava.getComentarios().get(i) == null);
-//				comentario[i] = ava.getComentarios().get(i).getComentario();
-			if( i ==  1) {
-				flag1 = true;
+		if(  flagTemAvaliacao ) {
+			
+			
+			if( avaliacao.getComentarios().size() > 1 && avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa())  )
+			{	JOptionPane.showMessageDialog(null, "1");
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
 			}
-			if( i ==  2) {
-				flag2 = true;
+			else if ( avaliacao.getComentarios().size() > 1  ){
+				JOptionPane.showMessageDialog(null, "2");
+				flagCommentPai = true;
+				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
+			}
+		}
+		if( flagTemAvaliacao && avaliacao.getComentarios().size() > 2   ) {
+			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
+			{	JOptionPane.showMessageDialog(null, "3");
+				flagCommentPai = true;
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
+				comentario[1] = avaliacao.getComentarios().get(2).getComentario();
+			}
+			else { JOptionPane.showMessageDialog(null, "4");
+				flagCommentPai = true;
+				flagCommentAluno = true;
+				comentario[0] = avaliacao.getComentarios().get(2).getComentario();
+				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
 			}
 		}
 		
@@ -103,22 +119,6 @@ public class verBoletimMBean implements Serializable {
 		this.turma = turma;
 	}
 
-	public boolean isFlag1() {
-		return flag1;
-	}
-
-	public void setFlag1(boolean flag1) {
-		this.flag1 = flag1;
-	}
-
-	public boolean isFlag2() {
-		return flag2;
-	}
-
-	public void setFlag2(boolean flag2) {
-		this.flag2 = flag2;
-	}
-
 	public String[] getComentario() {
 		return comentario;
 	}
@@ -134,8 +134,31 @@ public class verBoletimMBean implements Serializable {
 		this.flagTemAvaliacao = flagTemAvaliacao;
 	}
 	
+	public boolean isFlagCommentAluno() {
+		return flagCommentAluno;
+	}
 	
+	public void setFlagCommentAluno(boolean flagCommentAluno) {
+		this.flagCommentAluno = flagCommentAluno;
+	}
+	
+	public boolean isFlagCommentPai() {
+		return flagCommentPai;
+	}
 
+	public void setFlagCommentPai(boolean flagCommentPai) {
+		this.flagCommentPai = flagCommentPai;
+	}
+
+
+	public Usuario getUser() {
+		return user;
+	}
+
+
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
 	
 	
 	

@@ -11,11 +11,13 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Bimestre;
 import br.com.edson.Model.Turma;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.BimestresBD;
 import br.com.edson.repository.TurmasBD;
@@ -57,8 +59,14 @@ public class EditarTurmaAdminMBean implements Serializable {
 	@Inject
 	private AtualizaBimestre atualizaBimeste;
 	
+	@Inject
+	private Usuario user;
+	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	
 	// metodos
 	public void buscarBimestre() {
+		user = (Usuario) session.getAttribute("usuario");
 		bimestreAtual = bimestesBD.buscarBimestreAtual();
 	}
 	

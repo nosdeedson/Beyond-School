@@ -35,17 +35,16 @@
 			<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario}" />
 			<p:outputLabel value="#{editarTurmaAdminMBean.turma.segundoDiaSemana}" />
 			<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario2}" />
-			<p:outputLabel value="Bimestre atual" />
+			<p:outputLabel value="Início" />
 			
-			<p:column>
-				<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataInicio}" >
-					<f:convertDateTime pattern="dd/MM/yyyy : "/>
-				</p:outputLabel>
-				
-				<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataFim}" >
+			<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataInicio}" >
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
-				</p:outputLabel>
-			</p:column>
+			</p:outputLabel>
+			<p:outputLabel value="Termino" />
+			<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataFim}" >
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+			
 			
 			<p:column>
 			
@@ -97,6 +96,7 @@
 					
 			<p:button title="Ver" icon="ui-icon-arrowthick-1-e" outcome="/APP/verBoletim" >
 				<f:param name="id" value="#{aluno.idPessoa}"/>
+				<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}"/>
 			</p:button>
 			
 			
@@ -105,14 +105,6 @@
 				<f:setPropertyActionListener value="#{aluno}" target="#{editarTurmaAdminMBean.alunoSerExcluido}"></f:setPropertyActionListener>
 				<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/>
 			</p:commandButton>
-			
-<!-- 				botoes para confirmar exclusão -->
-<!-- 			<p:confirmDialog global="false" showEffect="fade" hideEffect="fade" >    -->
-			
-<!-- 				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" /> -->
-<!-- 				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" /> -->
-				
-<!-- 			</p:confirmDialog> -->
 				
 				
 		</p:column>
