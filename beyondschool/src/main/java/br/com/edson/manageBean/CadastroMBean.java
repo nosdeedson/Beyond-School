@@ -50,6 +50,8 @@ public class CadastroMBean implements Serializable {
 
 	private String codigoTurma;
 	
+	private String passWord;
+	
 	private String confirmeSenha;
 	
 	private String tipoAcesso;
@@ -61,9 +63,6 @@ public class CadastroMBean implements Serializable {
 	
 	@Inject
 	private UsuariosBD userBD;
-	
-	@Inject
-	private ValidaDadosCadastro validaDados;
 	
 	@Inject
 	private EntityManager em;
@@ -109,6 +108,9 @@ public class CadastroMBean implements Serializable {
 	
 	private boolean flagCadastrado = true;
 	
+	@Inject
+	private ValidaDadosCadastro validaDados;
+	
 	
 	
 	// métodos
@@ -119,16 +121,25 @@ public class CadastroMBean implements Serializable {
 		try {
 			
 			if( !tipoAcesso.equals("Admin"))
-				validaDados.validarCodigo(getCodigoTurma());
+				 validaDados.validarCodigo(getCodigoTurma());
 			
-			validaDados.verificaSenha(user.getSenha(), confirmeSenha);
+			if(!passWord.equals(confirmeSenha)) {
+				throw new NegocioException("Senhas não conferem!! Digite novamente.");
+			}
 			
 			// muda a senha digitada para um hash
-			user.setSenha(GeradorHashSenha.geradorHashPassWord(user.getSenha()));
 			
-			// mudar a criação do nome de usuário tirar o valor buscado no banco
-			// garantir senha unica.
+			passWord = GeradorHashSenha.geradorHashPassWord(passWord);
+			
+			if (validaDados.verificaSenha(passWord)) 
+				user.setSenha(passWord);
+			
+						
 			String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
+			
+
+			JOptionPane.showMessageDialog(null, nomeUsuario + " " + passWord);
+			
 			user.setNomeUsuario(nomeUsuario);
 			
 			
@@ -312,7 +323,7 @@ public class CadastroMBean implements Serializable {
 
 			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
 			
-		} catch ( PersistenceException  | NullPointerException | ParseException | NegocioException | FacesException | InjectionException e) {
+		} catch ( PersistenceException | ParseException | NullPointerException | NegocioException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -411,14 +422,6 @@ public class CadastroMBean implements Serializable {
 		this.user = user;
 	}
 
-	public String getConfirmeSenha() {
-		return confirmeSenha;
-	}
-
-	public void setConfirmeSenha(String confirmeSenha) {
-		this.confirmeSenha = confirmeSenha;
-	}
-
 	public String getTipoAcesso() {
 		return tipoAcesso;
 	}
@@ -497,6 +500,22 @@ public class CadastroMBean implements Serializable {
 
 	public void setFlagCadastrado(boolean flagCadastrado) {
 		this.flagCadastrado = flagCadastrado;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public String getConfirmeSenha() {
+		return confirmeSenha;
+	}
+
+	public void setConfirmeSenha(String confirmeSenha) {
+		this.confirmeSenha = confirmeSenha;
 	}
 
 

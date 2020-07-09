@@ -123,25 +123,25 @@ public class TelaPaiMBean implements Serializable {
 			
 			
 			if( avaliacao.getComentarios().size() > 1 && avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa())  )
-			{	JOptionPane.showMessageDialog(null, "1");
+			{	
 				flagCommentAluno = true;
 				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
 			}
 			else if ( avaliacao.getComentarios().size() > 1  ){
-				JOptionPane.showMessageDialog(null, "2");
+				
 				flagCommentPai = true;
 				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
 			}
 		}
-		if( avaliacao.getComentarios().size() > 2  && flagTemAvaliacao  ) {
+		if( flagTemAvaliacao && avaliacao.getComentarios().size() > 2   ) {
 			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
-			{	JOptionPane.showMessageDialog(null, "3");
+			{	
 				flagCommentPai = true;
 				flagCommentAluno = true;
 				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
 				comentario[1] = avaliacao.getComentarios().get(2).getComentario();
 			}
-			else { JOptionPane.showMessageDialog(null, "4");
+			else { 
 				flagCommentPai = true;
 				flagCommentAluno = true;
 				comentario[0] = avaliacao.getComentarios().get(2).getComentario();

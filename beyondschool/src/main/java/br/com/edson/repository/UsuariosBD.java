@@ -2,13 +2,17 @@ package br.com.edson.repository;
 
 import java.io.Serializable;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Usuario;
+import br.com.edson.service.NegocioException;
 
 public class UsuariosBD implements Serializable {
 
@@ -29,14 +33,6 @@ public class UsuariosBD implements Serializable {
 		this.em.merge(user);
 	}
 	
-	public Long buncaUltimoUser() {
-		
-		String sql = "select max(idUsuario) from Usuario";
-		
-		Long id = this.em.createQuery(sql, Long.class).getSingleResult();
-		
-		return id;
-	}
 
 	public int excluirUser(Long id) {
 		int t = 0;
@@ -72,6 +68,20 @@ public class UsuariosBD implements Serializable {
 		
 	}
 	
+	public List<String> todasSenhas( ){
+		
+		String sql = "select senha from Usuario";
+		try {
+			TypedQuery<String>	senhas = this.em.createQuery(sql, String.class);
+			return senhas.getResultList();
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			return new ArrayList<String>();
+		}
+		
+		
+		
+	}
 	
 
 }

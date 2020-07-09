@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.UsuariosBD;
+import br.com.edson.service.GeradorHashSenha;
 import br.com.edson.service.NegocioException;
 
 @Named
@@ -34,9 +35,12 @@ public class LoginMBean implements Serializable {
 		
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 		try {
+			
+			senha = GeradorHashSenha.geradorHashPassWord(senha);
+			
 			user = usersBD.ValidaUsuarioLogin( nomeUser, senha);
 			
 			if(user == null)
@@ -73,6 +77,7 @@ public class LoginMBean implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/public/index?faces-redirect=true";
 	}
+	
 	
 	//getters and setters
 	public String getNomeUser() {

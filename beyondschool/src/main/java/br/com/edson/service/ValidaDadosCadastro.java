@@ -1,11 +1,12 @@
 package br.com.edson.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.swing.JOptionPane;
 
-import br.com.edson.Model.Usuario;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.repository.UsuariosBD;
 
@@ -14,13 +15,13 @@ public class ValidaDadosCadastro implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private TurmasBD turmasBD;
+	private  TurmasBD turmasBD;
 	
 	@Inject
 	private UsuariosBD usersBD;
 	
 	@Inject
-	public ValidaDadosCadastro() {}
+	public  ValidaDadosCadastro() {}
 	
 	/**
 	 * verifica se o codigo informado pelo usuário existe
@@ -37,27 +38,12 @@ public class ValidaDadosCadastro implements Serializable {
 	}
 	
 	/**
-	 * verifica se as senhas digitadas são iguais
-	 * @param senha
-	 * @param confirmeSenha
-	 * @throws NegocioException
-	 */
-	public void verificaSenha(String senha, String confirmeSenha)throws NegocioException{
-		
-		if(!senha.equals(confirmeSenha)) {
-			throw new NegocioException("Senhas não conferem!! Digite novamente.");
-		}
-	}
-	
-	/**
 	 * cria o nome de usuário com o primeiro e o sobrenome unidos por ponto
 	 * @param nome
 	 * @return
 	 */
 	public String criaNomeUsuario(String nome) throws NegocioException{
-		
-		Long idUsuario = usersBD.buncaUltimoUser();
-		
+				
 		int primeiroEspaco = nome.indexOf(" ");
 		if(primeiroEspaco == -1)
 			throw new NegocioException("Informe o nome e sobrenome.");
@@ -70,10 +56,21 @@ public class ValidaDadosCadastro implements Serializable {
 		nomeUser += ".";
 		
 		nomeUser += nome.substring(ultimoEspaco+1, tm);
-		
-		nomeUser += (idUsuario+1);
-		
+				
 		return nomeUser;
+	}
+	
+	public boolean verificaSenha( String passWord) throws NegocioException {
+		
+		List<String> senhas = new ArrayList<String>();
+		
+		senhas = usersBD.todasSenhas();
+		for (String string : senhas) {
+			if(string.equals(passWord))
+				throw new NegocioException("Senha existente, digite outra ou altere. ");
+		}
+		
+		return true;
 	}
 
 }

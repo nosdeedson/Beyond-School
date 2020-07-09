@@ -24,6 +24,7 @@ import br.com.edson.Model.PapelEnum;
 import br.com.edson.Model.Responsavel;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
+import br.com.edson.service.GeradorHashSenha;
 
 public class InserirDados {
 	
@@ -45,9 +46,9 @@ public class InserirDados {
 		turma.setProfessor(professor);
 		
 		Usuario uteacher = new Usuario();
-		uteacher.setNomeUsuario("maria.silva1");
+		uteacher.setNomeUsuario("maria.silva");
 		uteacher.setPessoa(professor);
-		uteacher.setSenha("123123123");
+		uteacher.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uteacher.setTipoAcesso("professor");
 		
 		
@@ -58,9 +59,9 @@ public class InserirDados {
 		aluno.setTurma(turma);
 		
 		Usuario ualuno = new Usuario();
-		ualuno.setNomeUsuario("edson.souza2");
+		ualuno.setNomeUsuario("edson.souza");
 		ualuno.setPessoa(aluno);
-		ualuno.setSenha("123123123");
+		ualuno.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		ualuno.setTipoAcesso("aluno");
 		
 		em.persist(professor);
@@ -81,9 +82,9 @@ public class InserirDados {
 		
 		
 		Usuario uadmin = new Usuario();
-		uadmin.setNomeUsuario("jose.souza3");
+		uadmin.setNomeUsuario("jose.souza");
 		uadmin.setPessoa(f);
-		uadmin.setSenha("123123123");
+		uadmin.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uadmin.setTipoAcesso("admin");
 		
 		em.persist(f);
@@ -95,9 +96,9 @@ public class InserirDados {
 		em.persist(r);
 		
 		Usuario uresp = new Usuario();
-		uresp.setNomeUsuario("joao.silva4");
+		uresp.setNomeUsuario("joao.silva");
 		uresp.setPessoa(r);
-		uresp.setSenha("123123123");
+		uresp.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uresp.setTipoAcesso("responsavel");
 		
 		
@@ -163,9 +164,9 @@ public class InserirDados {
 		em.persist(aluno1);
 		
 		Usuario ualuno1 = new Usuario();
-		ualuno1.setNomeUsuario("joao.souza5");
+		ualuno1.setNomeUsuario("joao.souza");
 		ualuno1.setPessoa(aluno1);
-		ualuno1.setSenha("123123123");
+		ualuno1.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		ualuno1.setTipoAcesso("aluno");
 		em.persist(ualuno1);
 		
@@ -175,9 +176,9 @@ public class InserirDados {
 		em.persist(r1);
 		
 		Usuario uresp1 = new Usuario();
-		uresp1.setNomeUsuario("silvana.souza6");
+		uresp1.setNomeUsuario("silvana.souza");
 		uresp1.setPessoa(r1);
-		uresp1.setSenha("123123123");
+		uresp1.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uresp1.setTipoAcesso("responsavel");
 		
 		AlunoResponsavel ar1 = new AlunoResponsavel();
@@ -197,9 +198,9 @@ public class InserirDados {
 		em.persist(aluno2);
 		
 		Usuario ualuno2 = new Usuario();
-		ualuno2.setNomeUsuario("isabela.souza7");
+		ualuno2.setNomeUsuario("isabela.souza");
 		ualuno2.setPessoa(aluno2);
-		ualuno2.setSenha("123123123");
+		ualuno2.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		ualuno2.setTipoAcesso("aluno");
 		em.persist(ualuno2);
 		

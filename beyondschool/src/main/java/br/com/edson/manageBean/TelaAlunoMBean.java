@@ -103,25 +103,25 @@ public class TelaAlunoMBean implements Serializable {
 			
 			
 			if( avaliacao.getComentarios().size() > 1 && avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa())  )
-			{	JOptionPane.showMessageDialog(null, "1");
+			{	
 				flagCommentAluno = true;
 				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
 			}
 			else if ( avaliacao.getComentarios().size() > 1  ){
-				JOptionPane.showMessageDialog(null, "2");
+				
 				flagCommentResp = true;
 				comentario[1] = avaliacao.getComentarios().get(1).getComentario();
 			}
 		}
-		if( avaliacao.getComentarios().size() > 2  && flagTemAvaliacao  ) {
+		if( flagTemAvaliacao && avaliacao.getComentarios().size() > 2  ) {
 			if( avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa()) )
-			{	JOptionPane.showMessageDialog(null, "3");
+			{	
 				flagCommentResp = true;
 				flagCommentAluno = true;
 				comentario[0] = avaliacao.getComentarios().get(1).getComentario();
 				comentario[1] = avaliacao.getComentarios().get(2).getComentario();
 			}
-			else { JOptionPane.showMessageDialog(null, "4");
+			else { 
 				flagCommentResp = true;
 				flagCommentAluno = true;
 				comentario[0] = avaliacao.getComentarios().get(2).getComentario();

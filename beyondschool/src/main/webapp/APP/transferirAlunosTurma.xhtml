@@ -22,22 +22,19 @@
 							</p:column>
 						</p:row>
 					</f:facet>
-					<h:form id="carForm">
-						<p:messages style="width:400px;"/>
-						<p:fieldset id="availableAlunosField" legend="Alunos">
+					<h:form id="alunosForm">
+					
+						<p:messages styleClass="msgTelaTransfer"/>
+						<p:fieldset id="availableAlunosField" legend=" Transferir Alunos">
 						
 							<p:dataTable id="alunos" value="#{transferirAlunoTurmaMBean.alunos}" var="aluno">
-							
-								<p:column width="5%" headerText="Arraste" >
-									<h:outputText value="+" id="dragIcon" styleClass="ui-icon pi pi-plus" />
-									<p:draggable for="dragIcon" revert="true" helper="clone"/>
+
+								<p:column headerText="Segure e arraste o nome" width="10%">
+									<h:outputText value="#{aluno.nomeCompleto}" id="nome" />
+									<p:draggable for="nome" revert="true" helper="clone"/>
 								</p:column>
 
-								<p:column headerText="Aluno" width="15%">
-									<h:outputText value="#{aluno.nomeCompleto}" />
-								</p:column>
-
-								<p:column headerText="Turma atual" width="15%">
+								<p:column headerText="Turma atual" width="10%">
 									<h:outputText value="#{aluno.getTurma().getNomeTurma()}" />
 								</p:column>
 								
@@ -51,7 +48,7 @@
 							<p:outputPanel id="dropArea">
 								<h:outputText value="!!!Arraste aqui!!!" rendered="#{empty transferirAlunoTurmaMBean.dropAlunos}"
 									style="font-size:24px;" />
-								<!--              https://www.primefaces.org/showcase/ui/dnd/dataTable.xhtml referencia -->
+								
 								<p:dataTable id="selectedAlunosTable" var="aluno" value="#{transferirAlunoTurmaMBean.dropAlunos}" rendered="#{not empty transferirAlunoTurmaMBean.dropAlunos}">
 									
 									
