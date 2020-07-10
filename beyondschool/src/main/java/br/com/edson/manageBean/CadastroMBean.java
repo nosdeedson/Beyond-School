@@ -8,6 +8,7 @@ import javax.enterprise.inject.InjectionException;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -111,6 +112,8 @@ public class CadastroMBean implements Serializable {
 	@Inject
 	private ValidaDadosCadastro validaDados;
 	
+	private boolean forget = false;
+		
 	
 	
 	// métodos
@@ -345,6 +348,7 @@ public class CadastroMBean implements Serializable {
 	}
 	
 	public void showAdmin() {
+
 		setTipoAcesso("Admin");
 		setMostraPanel2(true);
 		setMostraPanel1(false);
@@ -516,6 +520,14 @@ public class CadastroMBean implements Serializable {
 
 	public void setConfirmeSenha(String confirmeSenha) {
 		this.confirmeSenha = confirmeSenha;
+	}
+
+	public boolean isForget() {
+		return forget;
+	}
+
+	public void setForget(boolean forget) {
+		this.forget = forget;
 	}
 
 

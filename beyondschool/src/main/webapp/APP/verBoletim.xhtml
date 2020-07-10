@@ -47,7 +47,7 @@
 				<p:outputLabel value="#{verBoletimMBean.avaliacao.homeWork.descricao}" />
 			</p:panelGrid> 
 			
-			<p:button value="Editar avaliação" outcome="/APP/telaAvaliacaoAluno" styleClass="btn-boletim" rendered="#{verBoletimMBean.user.getTipoAcesso() eq professor}">
+			<p:button value="Editar avaliação" outcome="/APP/telaAvaliacaoAluno" styleClass="btn-boletim" rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}">
 				<f:param name="idAluno" value="#{verBoletimMBean.aluno.idPessoa}"></f:param>
 				<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 			</p:button>

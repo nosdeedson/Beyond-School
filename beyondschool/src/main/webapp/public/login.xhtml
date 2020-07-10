@@ -32,7 +32,9 @@
 
 		<h:panelGroup id="links-login">
 			<p:link id="link-esqueceu-senha" styleClass="links-gerais"
-				value="Esqueceu sua senha?" />
+				value="Esqueceu sua senha?" href="cadastro.xhtml">
+				<f:param name="forget" value="#{loginMBean.forget}" ></f:param>
+			</p:link>
 			<BR />
 			<p:link id="criar-acesso" styleClass="links-gerais"
 				outcome="cadastro" value="Criar o seu acesso?" />

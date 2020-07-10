@@ -112,6 +112,12 @@
 		width: 70%;
 		font-size: 12px;
 	}
+	
+	.tm-input{
+		width: 200px;
+		margin-top: 4px;
+	}
+}
 }
 
 @media only screen (min-width: 331px) {
@@ -331,7 +337,7 @@
 	}
 	
 	.posicao-tela-pt{
-		left: 40%;
+		left: 35%;
 		font-size: 18px;
 	}
 	

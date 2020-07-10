@@ -30,19 +30,20 @@ public class LoginMBean implements Serializable {
 	private String nomeUser;
 	
 	private String senha;
+	
+	private boolean forget = true;
 
 	public String login() throws NegocioException {
 		
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 
 		try {
 			
 			senha = GeradorHashSenha.geradorHashPassWord(senha);
 			
 			user = usersBD.ValidaUsuarioLogin( nomeUser, senha);
-			
 			if(user == null)
 				throw new NegocioException("Nome de usuário/senha inválido.");
 			
@@ -94,6 +95,14 @@ public class LoginMBean implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public boolean isForget() {
+		return forget;
+	}
+
+	public void setForget(boolean forget) {
+		this.forget = forget;
 	}
 	
 	

@@ -6,8 +6,11 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<ui:define name="corpo">
+
+<f:metadata>
+	<f:viewParam name="forget" value="#{cadastroMBean.forget}"/>
+</f:metadata>
+<ui:define name="corpo">
 	
 <h:form  >
 			
@@ -48,34 +51,57 @@
 			</f:facet>
 			<p:messages  autoUpdate="true" style="width: 200px;"/>	
 			
-				<p:inputText styleClass="tm-input" placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" />
+				<p:inputText styleClass="tm-input" placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" 
+					label="Nome" style="font-weight: bold;"  />
 								
-				<p:inputMask styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" />
+				<p:inputMask styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" 
+				label="Nascimento" style="font-weight: bold;" />
 				
-				<p:inputText styleClass="tm-input"  placeholder="Código" value="#{cadastroMBean.codigoTurma}" required="true"/>
+				<p:inputText styleClass="tm-input"  placeholder="Código" value="#{cadastroMBean.codigoTurma}" required="true" label="Código" style="font-weight: bold;" />
 				
-				<p:password styleClass="tm-input"  id="senha" placeholder="Senha" value="#{cadastroMBean.passWord}" required="true" feedback="true" />
+				<p:password styleClass="tm-input"  id="senha" placeholder="Senha"  required="true" feedback="true" style="font-weight: bold;" 
+				match="confirme" promptLabel="Digite a senha" weakLabel="Senha fraca" goodLabel="Senha boa" strongLabel="Senha forte" label="Senha" 
+				rendered="#{cadastroMBean.forget eq false}" title="8 caracteres no mínimo" />
 				
-				<p:password styleClass="tm-input"  id="confirme" placeholder="Corfirmar senha" value="#{cadastroMBean.confirmeSenha}" required="true" />
+				<p:password styleClass="tm-input"  id="novaSenha" placeholder="Nova senha"  required="true" feedback="true" style="font-weight: bold;" 
+				match="confirme" promptLabel="Digite a senha" weakLabel="Senha fraca" goodLabel="Senha boa" strongLabel="Senha forte" label="Senha" 
+				rendered="#{cadastroMBean.forget eq true}" title="8 caracteres no mínimo"/>
 				
-<!-- 				inputs para alunos quando responsável -->
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[0]}" value="#{cadastroMBean.tutelado[0]}" />
-					
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[1]}" value="#{cadastroMBean.tutelado[1]}"/>
+				<p:password styleClass="tm-input"  id="confirme" placeholder="Corfirmar senha" required="true" feedback="false" label="Campo necessário"
+				style="font-weight: bold;" title="8 caracteres no mínimo" />
+	
+<!-- 				dados pedidos para nova senha -->
+	
+				<p:inputText styleClass="tm-input"  placeholder="Matrícula" rendered="#{cadastroMBean.forget}" required="true" label="Matrículo" 
+				style="font-weight: bold;" binding="#{cadastroMBean.inputMatricula}"/>
+				
+	
 	
 				
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[2]}" value="#{cadastroMBean.tutelado[2]}"/>
+<!-- 				inputs para alunos quando responsável -->
+				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[0]}" 
+					value="#{cadastroMBean.tutelado[0]}" label="Aluno" style="font-weight: bold;" />
 					
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[3]}" value="#{cadastroMBean.tutelado[3]}"/>
+				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[1]}" 
+					value="#{cadastroMBean.tutelado[1]}" label="Aluno" style="font-weight: bold;" />
+	
 				
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[4]}" value="#{cadastroMBean.tutelado[4]}"/>
+				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[2]}" 
+					value="#{cadastroMBean.tutelado[2]}" label="Aluno" style="font-weight: bold;" />
+					
+				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[3]}" 
+					value="#{cadastroMBean.tutelado[3]}" label="Aluno" style="font-weight: bold;" />
+				
+				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[4]}" 
+					value="#{cadastroMBean.tutelado[4]}" label="Aluno" style="font-weight: bold;" />
 				
 				
 <!-- 				inputs para o responsavel quando alunos -->
 				
-				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="true" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel[0]}" />
+				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="true" rendered="#{cadastroMBean.mostraInputResponsaveis}" 
+				value="#{cadastroMBean.nomeResponsavel[0]}" label="Responsável" />
 					
-				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="false" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel[1]}"/>
+				<p:inputText styleClass="tm-input"  placeholder="Responsável" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel[1]}"/>
 			
 				
 				<p:commandButton styleClass="tm-input"  value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" 

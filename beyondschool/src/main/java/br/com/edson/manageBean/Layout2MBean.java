@@ -15,19 +15,17 @@ import br.com.edson.Model.Usuario;
 public class Layout2MBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Inject
-	private Usuario user;
-	
+
+	private Usuario user = new Usuario();
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
-	public void setaUsuario() {
-		user = (Usuario) session.getAttribute("usuario");
-		JOptionPane.showMessageDialog(null, user.getTipoAcesso());
-	}
+	
 	
 	public String voltar() {
-		JOptionPane.showMessageDialog(null, user.getTipoAcesso());
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		user = (Usuario) session.getAttribute("usuario");
+		
+		JOptionPane.showMessageDialog(null, "teste");
 		switch (user.getTipoAcesso()) {
 		case "admin":
 			return "/APP/telaAdmin?faces-redirect=true";
@@ -42,14 +40,18 @@ public class Layout2MBean implements Serializable {
 		return "/public/telaPai?faces-redirect=true";
 	}
 
+
+
 	public Usuario getUser() {
 		return user;
 	}
 
+
+
 	public void setUser(Usuario user) {
 		this.user = user;
 	}
-	
+
 	
 
 }

@@ -29,7 +29,7 @@ import br.com.edson.service.RegistrarAvaliacao;
 
 @Named
 @javax.faces.view.ViewScoped
-public class listaTurmasMBean implements Serializable {
+public class ListaTurmasMBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
