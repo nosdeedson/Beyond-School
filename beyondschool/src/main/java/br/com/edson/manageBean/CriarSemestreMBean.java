@@ -13,9 +13,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Bimestre;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.BimestresBD;
 
 @Named
@@ -36,14 +38,23 @@ public class CriarSemestreMBean implements Serializable {
 	@Inject
 	private EntityManager em;
 	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	
+	@Inject
+	private Usuario user;
 	
 	//métodos
+	
+	public void setaUser() {
+		user = (Usuario) session.getAttribute("usuario");
+		JOptionPane.showMessageDialog(null, user.getTipoAcesso());
+		
+	}
 	
 	public void salvar() {
 		EntityTransaction et = em.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-		//Calendar d  = Calendar.getInstance();
 		
 		primeiro.setAtual(true);
 		try {

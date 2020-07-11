@@ -15,29 +15,38 @@ import br.com.edson.Model.Usuario;
 public class Layout2MBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private boolean flagBotaoVoltar = false;
 
-	private Usuario user = new Usuario();
+	@Inject
+	private Usuario user;
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
-	
-	
-	public String voltar() {
+	public void mostraVoltar() {
+		
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		user = (Usuario) session.getAttribute("usuario");
+		if(user.getTipoAcesso().equals("admin") || user.getTipoAcesso().equals("professor"))
+			flagBotaoVoltar =true;
+		JOptionPane.showMessageDialog(null, user.getTipoAcesso() + flagBotaoVoltar);
+	}
+	
+	public String voltar() {
 		
-		JOptionPane.showMessageDialog(null, "teste");
 		switch (user.getTipoAcesso()) {
 		case "admin":
+			JOptionPane.showMessageDialog(null, "teset");
 			return "/APP/telaAdmin?faces-redirect=true";
 		case "aluno":
 			return "/APP/telaAluno?faces-redirect=true";
 		case "professor":
+			JOptionPane.showMessageDialog(null, "teset");
 			return "/APP/listaTurmas?faces-redirect=true";
 		case "responsavel":
 			return "/APP/telaPai?faces-redirect=true";
 		}
 		
-		return "/public/telaPai?faces-redirect=true";
+		return "/public/index?faces-redirect=true";
 	}
 
 
@@ -46,12 +55,19 @@ public class Layout2MBean implements Serializable {
 		return user;
 	}
 
-
-
 	public void setUser(Usuario user) {
 		this.user = user;
 	}
 
+	public boolean isFlagBotaoVoltar() {
+		return flagBotaoVoltar;
+	}
+
+	public void setFlagBotaoVoltar(boolean flagBotaoVoltar) {
+		this.flagBotaoVoltar = flagBotaoVoltar;
+	}
+	
+	
 	
 
 }

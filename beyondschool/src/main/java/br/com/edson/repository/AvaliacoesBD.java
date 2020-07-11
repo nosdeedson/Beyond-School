@@ -45,9 +45,9 @@ public class AvaliacoesBD implements Serializable {
 	public Avaliacao buscaPorIdAluno(Long id) {
 		
 		Avaliacao ava = null;
-		String sql = "select ava from Avaliacao ava, Aluno a where ava.aluno.idPessoa= :idAluno";
+		String sql = "select ava from Avaliacao ava, Aluno a where ava.aluno.idPessoa= :idAluno order by ava.idAvaliacao desc";
 		try {
-			ava =	this.em.createQuery( sql, Avaliacao.class).setParameter("idAluno", id).getSingleResult();
+			ava =	this.em.createQuery( sql, Avaliacao.class).setParameter("idAluno", id).setMaxResults(1).getSingleResult();
 			if(ava != null)
 				return ava;
 			return null;

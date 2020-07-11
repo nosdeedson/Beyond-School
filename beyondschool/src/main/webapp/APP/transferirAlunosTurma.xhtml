@@ -11,6 +11,7 @@
 	<f:viewParam name="idAluno" value="#{transferirAlunoTurmaMBean.aluno}"/>
 	<f:viewAction action="#{transferirAlunoTurmaMBean.buscarAlunos}"></f:viewAction>
 	<f:viewAction action="#{transferirAlunoTurmaMBean.buscarTurmas}"></f:viewAction>
+	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 </f:metadata>
 	<ui:define name="corpo2">
 
@@ -23,8 +24,8 @@
 						</p:row>
 					</f:facet>
 					<h:form id="alunosForm">
-					
-						<p:messages styleClass="msgTelaTransfer"/>
+					<p:growl id="growl" showDetail="true" sticky="true" />  
+<!-- 						<p:messages styleClass="msgTelaTransfer"/> -->
 						<p:fieldset id="availableAlunosField" legend=" Transferir Alunos">
 						
 							<p:dataTable id="alunos" value="#{transferirAlunoTurmaMBean.alunos}" var="aluno">

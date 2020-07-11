@@ -12,14 +12,16 @@
 	<f:viewAction action="#{editarTurmaAdminMBean.buscarBimestre}" />
 	<f:viewAction action="#{editarTurmaAdminMBean.buscarAlunos}" />
 	<f:viewAction action="#{editarTurmaAdminMBean.atualizaBimestre}" />
+	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 </f:metadata>
 
 <ui:define name="corpo2">
 
 <h:form>
-
+<p:growl id="growl" showDetail="true" sticky="true" />  
 <p:panelGrid columns="1" styleClass="edtAdmin">
-<p:messages style="width:400px;"/>
+<!-- <p:messages style="width:400px;"/> -->
+
 		<f:facet name="header">
 				<p:row>
 					<p:column>

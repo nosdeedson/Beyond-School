@@ -10,7 +10,7 @@
 <f:viewParam name="id" value="#{verBoletimMBean.aluno}"></f:viewParam>
 <f:viewParam name="idTurma" value="#{verBoletimMBean.turma}"></f:viewParam>
 <f:viewAction action="#{verBoletimMBean.buscarAvaliacao}"></f:viewAction>
-
+<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 <f:viewAction action="#{verBoletimMBean.buscarComentarios}"></f:viewAction>
 </f:metadata>
 <ui:define name="titulo">Boletim</ui:define>

@@ -7,10 +7,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
+<f:metadata>
+ <f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
+ <f:viewAction action="#{criarSemestreMBean.setaUser}"></f:viewAction>
+</f:metadata>
+
 <ui:define name="corpo2">
  <h:form>
- 
-<p:messages/>
+ <p:growl id="growl" showDetail="true" sticky="true" />  
+<!-- <p:messages/> -->
 <div class="row">
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12"> 
  		
@@ -52,7 +57,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 	
 		<p:commandButton value="Salvar" id="btn-salvar" action="#{criarSemestreMBean.salvar}" update="@form" styleClass="tm-botao"/>
 		
-		<p:linkButton value="Voltar" styleClass="btn" outcome="/APP/telaAdmin" />
+<!-- 		<p:linkButton value="Voltar" styleClass="btn" outcome="/APP/telaAdmin" /> -->
 	
 </p:panelGrid>
  

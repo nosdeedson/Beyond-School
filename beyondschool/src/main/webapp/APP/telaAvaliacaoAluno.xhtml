@@ -12,6 +12,7 @@
 <f:viewParam name="idAluno" value="#{telaAvaliacaoAlunoMBean.aluno}"/>
 <f:viewAction action="#{telaAvaliacaoAlunoMBean.buscarAlunos}"/>
 <!-- <f:viewAction action="#{telaAvaliacaoAlunoMBean.avaliados}"/> -->
+<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 <f:viewAction action="#{telaAvaliacaoAlunoMBean.buscarAvaliacao}"/>
 </f:metadata>
 
@@ -19,8 +20,8 @@
 <ui:define name="corpo2">
 
 	<h:form >
-		
-		<p:messages/>
+		<p:growl id="growl" showDetail="true" sticky="true" />  
+<!-- 		<p:messages/> -->
 	<p:panelGrid columns="2" styleClass="posicao-tela-s telaAvaliacao">
 
 	<f:facet name="header">

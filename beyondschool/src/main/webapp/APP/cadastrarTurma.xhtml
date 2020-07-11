@@ -11,6 +11,7 @@
 	<f:viewParam name="idTurma" value="#{cadastrarTurmaMBean.turma}"/>
 	<f:viewParam name="idProfessor" value="#{cadastrarTurmaMBean.professor}"/>
 	<f:viewAction action="#{cadastrarTurmaMBean.buscarProfessor}"/>
+	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 </f:metadata>
 
 <ui:define name="corpo2">
@@ -18,7 +19,8 @@
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">  
 
 					<p:panelGrid columns="1"  id="pg-casdastrar-turma" >
-					  <p:messages autoUpdate="true" style="width:200px;"/>
+<!-- 					  <p:messages autoUpdate="true" style="width:200px;"/> -->
+<p:growl id="growl" showDetail="true" sticky="true" />  
 						<f:facet name="header">
 							<p:row>
 								<p:column>
