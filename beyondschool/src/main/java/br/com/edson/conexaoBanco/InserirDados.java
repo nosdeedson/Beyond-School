@@ -50,6 +50,7 @@ public class InserirDados {
 		uteacher.setPessoa(professor);
 		uteacher.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uteacher.setTipoAcesso("professor");
+		uteacher.setEmail("mariasilva@email.com");
 		
 		
 		Aluno aluno = new Aluno();
@@ -63,6 +64,7 @@ public class InserirDados {
 		ualuno.setPessoa(aluno);
 		ualuno.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		ualuno.setTipoAcesso("aluno");
+		ualuno.setEmail("edsonsouza@email.com");
 		
 		em.persist(professor);
 		em.persist(uteacher);
@@ -86,6 +88,7 @@ public class InserirDados {
 		uadmin.setPessoa(f);
 		uadmin.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uadmin.setTipoAcesso("admin");
+		uadmin.setEmail("josesouza@email.com");
 		
 		em.persist(f);
 		em.persist(uadmin);
@@ -100,7 +103,7 @@ public class InserirDados {
 		uresp.setPessoa(r);
 		uresp.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uresp.setTipoAcesso("responsavel");
-		
+		uresp.setEmail("joaosilva@email.com");
 		
 		em.persist(uresp);
 	
@@ -169,6 +172,7 @@ public class InserirDados {
 		ualuno1.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		ualuno1.setTipoAcesso("aluno");
 		em.persist(ualuno1);
+		ualuno1.setEmail("joaosouza@email.com");
 		
 		Responsavel r1 = new Responsavel();
 		r1.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("18/09/1982"));
@@ -180,6 +184,7 @@ public class InserirDados {
 		uresp1.setPessoa(r1);
 		uresp1.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		uresp1.setTipoAcesso("responsavel");
+		uresp1.setEmail("silvana.souza@email.com");
 		
 		AlunoResponsavel ar1 = new AlunoResponsavel();
 		ar1.setAluno(aluno1);
@@ -203,6 +208,7 @@ public class InserirDados {
 		ualuno2.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
 		ualuno2.setTipoAcesso("aluno");
 		em.persist(ualuno2);
+		ualuno2.setEmail("isabelasouza@email.com");
 		
 		AlunoResponsavel ar2 = new AlunoResponsavel();
 		ar2.setAluno(aluno2);

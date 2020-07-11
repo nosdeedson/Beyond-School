@@ -7,6 +7,9 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
@@ -17,6 +20,8 @@ import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AvaliacoesBD;
 import br.com.edson.repository.TurmasBD;
+import br.com.edson.service.AtualizaBimestre;
+import br.com.edson.service.NegocioException;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -49,10 +54,28 @@ public class verBoletimMBean implements Serializable {
 	
 	private boolean flagTemAvaliacao = true;
 	
+	@Inject
+	private AtualizaBimestre atualizaBimestre;
+	
+	@Inject
+	private EntityManager em;
+	
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
 	//métodos
-	
+	public void atualizaBimestre() throws NegocioException {
+		EntityTransaction et = this.em.getTransaction();
+
+		try {
+			et.begin();
+			atualizaBimestre.atualizaBimestre();
+			et.commit();
+		} catch (PersistenceException |NegocioException e) {
+			et.rollback();
+			throw new NegocioException("Falha ao atualizar o bimestre");
+		}
+		
+	}
 	public void buscarAvaliacao() {
 		user = (Usuario) session.getAttribute("usuario");
 		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());

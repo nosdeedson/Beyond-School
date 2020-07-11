@@ -3,6 +3,7 @@ package br.com.edson.Model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -31,8 +32,6 @@ public class Aluno extends Pessoa implements Serializable {
 	public void setMatricula(Integer matricula) {
 		this.matricula = matricula;
 	}
-
-
 
 	@OneToMany(mappedBy = "aluno")
 	public List<Avaliacao> getAvaliacoes() {

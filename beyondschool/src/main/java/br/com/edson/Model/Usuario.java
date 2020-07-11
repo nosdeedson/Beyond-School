@@ -9,18 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario", uniqueConstraints = { @UniqueConstraint (columnNames = "email" )})
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long idUsuario;
+	private String email;
 	private String nomeUsuario;
 	private Pessoa pessoa;
 	private String senha;
@@ -37,6 +40,15 @@ public class Usuario implements Serializable{
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	@Column(length = 50, nullable = true)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	@NotEmpty
@@ -78,6 +90,7 @@ public class Usuario implements Serializable{
 	public void setTipoAcesso(String tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
 	}
+
 	
 	
 	

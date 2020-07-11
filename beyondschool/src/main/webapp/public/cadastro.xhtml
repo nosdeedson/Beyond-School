@@ -7,16 +7,15 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<f:metadata>
-	<f:viewParam name="forget" value="#{cadastroMBean.forget}"/>
-</f:metadata>
+
 <ui:define name="corpo">
 	
 <h:form  >
-			
+<!-- 			<p:growl showDetail="true"/> -->
+			<p:growl id="growl" showDetail="true" sticky="true" />  
 		<h:panelGroup id="panel1" rendered="#{cadastroMBean.mostraPanel1}" 
 			styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m"   >
-			<p:messages  autoUpdate="true" style="width: 200px;"/>	
+			
 			<p:outputLabel value="Escolha seu tipo de Acesso!!"/>
 			<br/>
 			<p:commandButton styleClass="tm-botao" value="Admin" update="@form"  action="#{cadastroMBean.showAdmin}"  />
@@ -49,7 +48,7 @@
 					</p:column>
 				</p:row>
 			</f:facet>
-			<p:messages  autoUpdate="true" style="width: 200px;"/>	
+<!-- 			<p:messages  autoUpdate="true" style="width: 200px;"/>	 -->
 			
 				<p:inputText styleClass="tm-input" placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" 
 					label="Nome" style="font-weight: bold;"  />
@@ -59,23 +58,17 @@
 				
 				<p:inputText styleClass="tm-input"  placeholder="Código" value="#{cadastroMBean.codigoTurma}" required="true" label="Código" style="font-weight: bold;" />
 				
-				<p:password styleClass="tm-input"  id="senha" placeholder="Senha"  required="true" feedback="true" style="font-weight: bold;" 
+			
+           		<p:inputText placeholder="Email" value="#{cadastroMBean.email}" style="font-weight: bold;"  />
+            	
+					
+				<p:password value="#{cadastroMBean.passWord}" styleClass="tm-input"  id="senha" placeholder="Senha"  required="true" feedback="true" style="font-weight: bold;" 
 				match="confirme" promptLabel="Digite a senha" weakLabel="Senha fraca" goodLabel="Senha boa" strongLabel="Senha forte" label="Senha" 
-				rendered="#{cadastroMBean.forget eq false}" title="8 caracteres no mínimo" />
+				title="8 caracteres no mínimo" />
 				
-				<p:password styleClass="tm-input"  id="novaSenha" placeholder="Nova senha"  required="true" feedback="true" style="font-weight: bold;" 
-				match="confirme" promptLabel="Digite a senha" weakLabel="Senha fraca" goodLabel="Senha boa" strongLabel="Senha forte" label="Senha" 
-				rendered="#{cadastroMBean.forget eq true}" title="8 caracteres no mínimo"/>
 				
-				<p:password styleClass="tm-input"  id="confirme" placeholder="Corfirmar senha" required="true" feedback="false" label="Campo necessário"
+				<p:password value="#{cadastroMBean.confirmeSenha}" styleClass="tm-input"  id="confirme" placeholder="Corfirmar senha" required="true" feedback="false" label="Campo necessário"
 				style="font-weight: bold;" title="8 caracteres no mínimo" />
-	
-<!-- 				dados pedidos para nova senha -->
-	
-				<p:inputText styleClass="tm-input"  placeholder="Matrícula" rendered="#{cadastroMBean.forget}" required="true" label="Matrículo" 
-				style="font-weight: bold;" binding="#{cadastroMBean.inputMatricula}"/>
-				
-	
 	
 				
 <!-- 				inputs para alunos quando responsável -->
@@ -113,14 +106,11 @@
 	</h:form>
 	<h:outputLabel value="bs9op84o"/>
 	
-<script type="text/javascript">
-  function mostra(){
-	  alert(document.getElementById('formulario_cadastro:console').value);
-	  if( document.getElementById('formulario_cadastro:console:a').value == "Aluno" )
-	  document.getElementById('lname').setAttribute("type", "");
 	
-  }
-</script>
+	
+	
+	
+
 
 	</ui:define>
 

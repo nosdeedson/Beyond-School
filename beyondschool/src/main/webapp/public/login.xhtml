@@ -17,7 +17,7 @@
 					<p:outputLabel>Login</p:outputLabel>
 				</p:row>
 			</f:facet>
-			<h:form>
+			<h:form id="fr1">
 				<p:inputText styleClass="entrada-texto" placeholder="nome.sobrenome"  value="#{loginMBean.nomeUser}"/>
 				<br />
 				<br />
@@ -31,13 +31,22 @@
 		<BR />
 
 		<h:panelGroup id="links-login">
-			<p:link id="link-esqueceu-senha" styleClass="links-gerais"
-				value="Esqueceu sua senha?" href="cadastro.xhtml">
-				<f:param name="forget" value="#{loginMBean.forget}" ></f:param>
-			</p:link>
+		<h:form>
+		
+			<p:commandButton value="Esqueceu senha" styleClass="tm-botao" type="button" onclick="PF('dlg2').show();" />
+		
+		<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="120" width="400" >
+    		<h:outputText value="Email?" />
+    		<br/>
+    		<p:inputText  placeholder="email" style="width:350px" required="true"/>
+    		<br/>
+    		<p:commandButton styleClass="tm-botao" value="enviar" update="links-login"  />
+    
+		</p:dialog>   
 			<BR />
 			<p:link id="criar-acesso" styleClass="links-gerais"
 				outcome="cadastro" value="Criar o seu acesso?" />
+			</h:form>	
 		</h:panelGroup>
 
 	</ui:define>

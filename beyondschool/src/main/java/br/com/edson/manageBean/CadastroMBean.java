@@ -34,6 +34,7 @@ import br.com.edson.service.CadastraProfessor;
 import br.com.edson.service.GeradorHashSenha;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.ValidaDadosCadastro;
+import br.com.edson.service.ValidarEmail;
 import br.com.edson.service.VerificaExisteResponsavel;
 
 @Named
@@ -113,6 +114,9 @@ public class CadastroMBean implements Serializable {
 	private ValidaDadosCadastro validaDados;
 	
 	private boolean forget = false;
+	
+	private String email;
+	
 		
 	
 	
@@ -137,13 +141,14 @@ public class CadastroMBean implements Serializable {
 			if (validaDados.verificaSenha(passWord)) 
 				user.setSenha(passWord);
 			
-						
+			
 			String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
 			
-
-			JOptionPane.showMessageDialog(null, nomeUsuario + " " + passWord);
-			
 			user.setNomeUsuario(nomeUsuario);
+			
+			if( !email.isEmpty()  )
+				if(ValidarEmail.isValidEmail( email))
+					user.setEmail(email);
 			
 			
 			switch (tipoAcesso) {
@@ -343,12 +348,12 @@ public class CadastroMBean implements Serializable {
 			setTutelado(semNome);
 			String[] respVazio = {" ", " "};
 			setNomeResponsavel(respVazio);
+			setEmail("");
 		}
 		
 	}
 	
 	public void showAdmin() {
-
 		setTipoAcesso("Admin");
 		setMostraPanel2(true);
 		setMostraPanel1(false);
@@ -530,6 +535,14 @@ public class CadastroMBean implements Serializable {
 		this.forget = forget;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 
 
