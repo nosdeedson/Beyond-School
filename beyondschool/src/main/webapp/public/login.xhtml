@@ -11,7 +11,8 @@
 
 
 		<p:panelGrid columns="1" id="pg-login-user">
-		<p:messages autoUpdate="true"/>
+<!-- 		<p:messages autoUpdate="true"/> -->
+		<p:growl id="growl" showDetail="true" sticky="true" />  
 			<f:facet name="header">
 				<p:row>
 					<p:outputLabel>Login</p:outputLabel>
@@ -38,9 +39,9 @@
 		<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="120" width="400" >
     		<h:outputText value="Email?" />
     		<br/>
-    		<p:inputText  placeholder="email" style="width:350px" required="true"/>
+    		<p:inputText  placeholder="email" style="width:350px" required="true" value="#{esqueceuSenhaMBean.email}"/>
     		<br/>
-    		<p:commandButton styleClass="tm-botao" value="enviar" update="links-login"  />
+    		<p:commandButton update="@form"  action="#{esqueceuSenhaMBean.enviarEmail}"  styleClass="tm-botao" value="enviar"  />
     
 		</p:dialog>   
 			<BR />

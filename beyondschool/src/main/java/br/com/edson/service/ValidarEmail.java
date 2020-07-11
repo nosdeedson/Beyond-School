@@ -8,15 +8,15 @@ public class ValidarEmail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static boolean isValidEmail(String email) throws NegocioException {
+	public static boolean isValidEmail(String email){
 		
 		String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
 		Pattern padrao = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
 		Matcher match = padrao.matcher(email);
-		if(!match.matches()) {
-			throw new NegocioException("Email inválido");
+		if(match.matches()) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 }
