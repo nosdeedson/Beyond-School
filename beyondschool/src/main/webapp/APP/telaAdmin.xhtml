@@ -36,8 +36,8 @@
 							<f:param name="id" value="#{turma.codigoTurma}"/>
 						</p:button>
 					
-					<p:button value="Pais/alunos" >
-						<f:param name="id" />
+					<p:button value="Pais/alunos" outcome="/APP/paisAlunos" >
+						<f:param name="id" value="#{turma.codigoTurma}" />
 					</p:button>
 					</p:column>
 				</p:dataTable>

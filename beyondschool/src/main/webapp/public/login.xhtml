@@ -11,7 +11,7 @@
 
 
 		<p:panelGrid columns="1" id="pg-login-user">
-<!-- 		<p:messages autoUpdate="true"/> -->
+		<p:messages autoUpdate="true"/>
 		<p:growl id="growl" showDetail="true" sticky="true" />  
 			<f:facet name="header">
 				<p:row>
@@ -19,10 +19,10 @@
 				</p:row>
 			</f:facet>
 			<h:form id="fr1">
-				<p:inputText styleClass="entrada-texto" placeholder="nome.sobrenome"  value="#{loginMBean.nomeUser}"/>
+				<p:inputText styleClass="entrada-texto" placeholder="nome.sobrenome"  value="#{loginMBean.nomeUser}" style="font-weight: bold;" />
 				<br />
 				<br />
-				<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" />
+				<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" style="font-weight: bold;"  />
 				<br />
 				<br />
 				<p:commandButton value="Entrar" styleClass="tm-botao" update="pg-login-user" action="#{loginMBean.login}" />
@@ -32,16 +32,24 @@
 		<BR />
 
 		<h:panelGroup id="links-login">
-		<h:form>
+		<h:form id="frm2">
 		
 			<p:commandButton value="Esqueceu senha" styleClass="tm-botao" type="button" onclick="PF('dlg2').show();" />
 		
-		<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="120" width="400" >
+<!-- 		 modal para recuperar senha -->
+		<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="250" width="400" >
     		<h:outputText value="Email?" />
     		<br/>
-    		<p:inputText  placeholder="email" style="width:350px" required="true" value="#{esqueceuSenhaMBean.email}"/>
+    		<p:inputText value="#{esqueceuSenhaMBean.email}"   placeholder="email" style="width:300px; font-weight: bold;" required="true" />
     		<br/>
-    		<p:commandButton update="@form"  action="#{esqueceuSenhaMBean.enviarEmail}"  styleClass="tm-botao" value="enviar"  />
+    		<p:inputText value="#{esqueceuSenhaMBean.nomeCompleto}"   placeholder="Nome completo" style="width:300px; font-weight: bold;" required="true" />
+    		<br/>
+    		<p:inputMask value="#{esqueceuSenhaMBean.nascimento}"  styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" required="true" 
+				label="Nascimento" style="width:300px; font-weight: bold;" />
+				
+    		<p:inputText value="#{esqueceuSenhaMBean.tipoAcesso}"   placeholder="Tipo acesso" style="width:300px; font-weight: bold;" />
+    		<br/>
+    		<p:commandButton update="frm2"  action="#{esqueceuSenhaMBean.enviarEmail}"  styleClass="tm-botao" value="enviar"  />
     
 		</p:dialog>   
 			<BR />

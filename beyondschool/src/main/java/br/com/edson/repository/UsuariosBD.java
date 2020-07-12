@@ -1,8 +1,8 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
-import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -68,6 +68,25 @@ public class UsuariosBD implements Serializable {
 		
 	}
 	
+	public boolean validaUserResetPassWord( String email, String nomeCompleto, Date niver, String tipoAcesso ){
+		
+		Usuario user = null;
+		String sql = "select u from Usuario u where u.email= :email and u.pessoa.nomeCompleto= :nomeCompleto"
+				+ " and u.pessoa.dataNascimento= :dataNascimento and u.tipoAcesso= :tipoAcesso";
+		try {
+			user = this.em.createQuery(sql, Usuario.class).setParameter("email", email).setParameter("nomeCompleto", nomeCompleto)
+					.setParameter("nomeCompleto", nomeCompleto).setParameter("dataNascimento", niver)
+					.setParameter("tipoAcesso", tipoAcesso).getSingleResult();
+			JOptionPane.showMessageDialog(null, user.getNomeUsuario());
+			
+				
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 	public List<String> todasSenhas( ){
 		
 		String sql = "select senha from Usuario";
@@ -78,9 +97,7 @@ public class UsuariosBD implements Serializable {
 			e.printStackTrace();
 			return new ArrayList<String>();
 		}
-		
-		
-		
+	
 	}
 	
 

@@ -193,7 +193,7 @@ public class CadastroMBean implements Serializable {
 				} while (cont < nomeResponsavel.length);
 				
 				validaDados.validarCodigo(codigoTurma);
-								
+				
 				Aluno student = alunosBD.buscaAlunoPeloNome(nomeCompleto);
 				if(student == null) {
 					student = new Aluno();
@@ -211,33 +211,45 @@ public class CadastroMBean implements Serializable {
 				
 				// ok acima 
 				et.begin();
+				
 				student.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
 				student.setNomeCompleto(nomeCompleto);
 				student.setMatricula(mat);
 				student.setTurma(t);
+				
 				Long idStudent = alunosBD.salvarAluno(student);
+				
 				student.setIdPessoa(idStudent);
 				
 				
 				user.setPessoa(student);
+				
 				userBD.salvarUser(user);
 				cont  = 0; //cont instanciado antes do try
 				do {
 					
 					responsavel = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel[cont]);
 					
+					AlunoResponsavel ar = null;
+					
 					if(responsavel == null) {
 						responsavel = new Responsavel();
 						responsavel.setNomeCompleto(nomeResponsavel[cont]);
+						
 						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel);
+						
 						responsavel.setIdPessoa(idResponsa);
+						ar = alunosResponsaveisBD.existeAlunoResponsavel(aluno.getIdPessoa(), responsavel.getIdPessoa());
 					}
 					
-					AlunoResponsavel ar = new AlunoResponsavel();
 					
-					ar.setAluno(student);
-					ar.setResponsavel(responsavel);
-					alunosResponsaveisBD.salvarAlunoResponsavel(ar);
+					if( ar == null) {
+						ar = new AlunoResponsavel();
+						ar.setAluno(student);
+						ar.setResponsavel(responsavel);
+						alunosResponsaveisBD.salvarAlunoResponsavel(ar);
+					}
+					
 					responsavel = new Responsavel();
 					
 					if(nomeResponsavel[1].isEmpty())
@@ -284,25 +296,26 @@ public class CadastroMBean implements Serializable {
 				
 				// ok não mexer mais, até agora coloquei resp que não existia
 				 Responsavel existe = verificaResp.buscaResponsavel(nomeCompleto);			 
-				// verifica se o resp já existe
-				
+				boolean existeResponsavel = true;				
 				et.begin();
-				
-				if (existe == null) {
-					existe = new Responsavel();
+				// verifica se o resp já existe
+				 if (existe == null) {
+						existe = new Responsavel();
+						existeResponsavel = false;
 				}
-				
+				 
 				existe.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
-				existe.setNomeCompleto(nomeCompleto);
+				if( existeResponsavel == false)
+					existe.setNomeCompleto(nomeCompleto);
 				
 				Long idResp = responsaveisBD.salvarResponsavel(existe);
+				
 				existe.setIdPessoa(idResp);
 				
 				user.setPessoa(existe);
 				userBD.salvarUser(user);
 				cont = 0;
 				do {
-					
 					aluno = alunosBD.buscaAlunoPeloNome(tutelado[cont]);
 				
 					if( aluno ==  null) {
@@ -313,10 +326,16 @@ public class CadastroMBean implements Serializable {
 					}
 					
 					//salva alunoResponsavel
-					AlunoResponsavel alunoResp = new AlunoResponsavel();
-					alunoResp.setAluno(aluno);
-					alunoResp.setResponsavel(existe);
-					alunosResponsaveisBD.salvarAlunoResponsavel(alunoResp);
+					
+					AlunoResponsavel alunoResp = alunosResponsaveisBD.existeAlunoResponsavel(aluno.getIdPessoa(), existe.getIdPessoa());
+					
+					if( alunoResp == null) {
+						alunoResp = new AlunoResponsavel();
+						alunoResp.setAluno(aluno);
+						alunoResp.setResponsavel(existe);
+						alunosResponsaveisBD.salvarAlunoResponsavel(alunoResp);
+					}
+					
 					aluno = new Aluno();
 					
 					cont++;

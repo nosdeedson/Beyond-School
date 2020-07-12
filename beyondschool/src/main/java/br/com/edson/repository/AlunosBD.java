@@ -39,7 +39,8 @@ public class AlunosBD implements Serializable {
 		
 		try { 
 								  
-			String sql = " select distinct a from Aluno a, Turma t where a.turma.codigoTurma= :codigoTurma and a.deletado = false";  	
+			String sql = " select distinct a from Aluno a, Turma t where a.turma.codigoTurma= :codigoTurma "
+					+ " and a.deletado = false order by a.idPessoa";  	
 			
 			TypedQuery<Aluno> alunos = this.em.createQuery(sql, Aluno.class)
 					.setParameter("codigoTurma", codigoTurma);

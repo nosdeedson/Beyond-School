@@ -42,6 +42,7 @@ public class InserirDados {
 		Funcionario professor = new Funcionario();
 		professor.setNomeCompleto("maria da silva");
 		professor.setTipoAcesso(PapelEnum.PROFESSOR);
+		professor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("25/06/1985"));
 		
 		turma.setProfessor(professor);
 		
