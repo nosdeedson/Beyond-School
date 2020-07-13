@@ -46,18 +46,9 @@ public class ResponsaveisBD implements Serializable {
 		this.em.remove(resp);		
 	}
 	
-	public Long salvarResponsavel( Responsavel responsavel) {
-		this.em.merge(responsavel);
-		String sql = "select max(idPessoa) from Responsavel";
-		
-		Long idResp = this.em.createQuery(sql, Long.class).getSingleResult();
-		return idResp;
-	}
 	
-	public void salvarResponsavelCadastro(Responsavel responsavel) {
-		
-		this.em.merge(responsavel);		
-		
+	public void salvarResponsavelCadastro(Responsavel responsavel) throws PersistenceException {
+		this.em.persist(responsavel);		
 	}
 
 	public Responsavel porId(Long idPessoa) {

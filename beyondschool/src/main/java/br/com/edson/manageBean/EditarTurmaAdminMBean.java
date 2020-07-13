@@ -98,6 +98,7 @@ public class EditarTurmaAdminMBean implements Serializable {
 				alunosBD.excluirAluno(getAlunoSerExcluido());
 			et.commit();
 			context.addMessage(null, new FacesMessage("Aluno Excluido."));
+			buscarAlunos();
 		} catch (PersistenceException | NegocioException e) {
 			et.rollback();
 			FacesMessage msg= new FacesMessage(e.getMessage());
@@ -124,13 +125,15 @@ public class EditarTurmaAdminMBean implements Serializable {
 			
 			
 			context.addMessage(null, new FacesMessage("Turma Excluida."));
-		} catch ( PersistenceException |NegocioException e) {
+		} catch ( PersistenceException | NegocioException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 			context.addMessage(null, msg);
 		}
-		return "/APP/telaAdmin?faces-redirect=true";
+		if(alunos.size() == 0)
+			return "/APP/telaAdmin?faces-redirect=true";
+		return "";
 	}
 	
 	// getters and setters

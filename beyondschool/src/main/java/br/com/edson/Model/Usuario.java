@@ -2,6 +2,7 @@ package br.com.edson.Model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name = "usuario", uniqueConstraints = { @UniqueConstraint (columnNames = "email" )})
+@Table(name = "usuario")
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;

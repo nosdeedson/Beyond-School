@@ -143,7 +143,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 					et.begin();
 					
 					objComentario.setComentario(comentario);
-					registra.salvarAvaliacao(avaliacao);		
+					avaliacoesBD.atualiza(avaliacao);		
 					
 					comentariosBD.salvarComentario(objComentario);
 					
@@ -173,8 +173,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 								
 				et.begin();
 	
-				Long idAvaliacao = registra.salvarAvaliacao(avaliacao);
-				avaliacao.setIdAvaliacao(idAvaliacao);
+				registra.salvarAvaliacao(avaliacao);
 				
 				objComentario.setAvaliacao(avaliacao);
 				comentariosBD.salvarComentario(objComentario);		

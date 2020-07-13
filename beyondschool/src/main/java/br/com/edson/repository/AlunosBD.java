@@ -118,16 +118,8 @@ public class AlunosBD implements Serializable {
 		
 	}
 	
-	public Long salvarAluno(Aluno aluno) {
-		this.em.merge(aluno);
-		
-		String sql = "select a.idPessoa from Aluno a where nomeCompleto = :nomeCompleto";
-		
-		String nome = aluno.getNomeCompleto();
-		
-		Long idAluno = this.em.createQuery(sql, Long.class).setParameter("nomeCompleto", nome).getSingleResult();
-		
-		return idAluno;
+	public void salvarAluno(Aluno aluno) throws NegocioException, PersistenceException {
+		this.em.persist(aluno);
 	}
 	
 	/**

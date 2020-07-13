@@ -30,7 +30,9 @@
 		<p:dialog header="Informe os alunos!!" widgetVar="dlg2" modal="true" height="100" >
     		<h:outputText value="Quantos?" />
     		<br/>
-    		<p:inputNumber value="#{cadastroMBean.qtdAlunosTutelados}" placeholder="0" style="width:10px" required="true"/>
+    		<p:inputNumber value="#{cadastroMBean.qtdAlunosTutelados}" placeholder="0" style="width:10px" >
+    		
+    		</p:inputNumber>
     		<br/>
     		<p:commandButton styleClass="tm-botao" value="enviar" update="@form" action="#{cadastroMBean.showResponsaveis}" />
     

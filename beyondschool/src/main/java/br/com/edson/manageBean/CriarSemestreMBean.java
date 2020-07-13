@@ -55,8 +55,10 @@ public class CriarSemestreMBean implements Serializable {
 		EntityTransaction et = em.getTransaction();
 		FacesContext context = FacesContext.getCurrentInstance();
 		
+		Bimestre existeBimestreAtual = bimestresBD.buscarBimestreAtual();
 		
-		primeiro.setAtual(true);
+		if(existeBimestreAtual == null)
+			primeiro.setAtual(true);
 		try {
 			
 			et.begin();

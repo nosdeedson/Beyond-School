@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.NonUniqueResultException;
 
 import br.com.edson.Model.Funcionario;
+import br.com.edson.service.NegocioException;
 
 public class FuncionariosBD implements Serializable {
 
@@ -55,21 +56,15 @@ public class FuncionariosBD implements Serializable {
 	 * @param funcionario
 	 * @return
 	 */
-	public Long salvarFuncionario( Funcionario funcionario) {
-		this.em.merge(funcionario);
-		
-		String sql = "select idPessoa from Funcionario f where f.nomeCompleto = :nomeCompleto";
-		
-		Long query = this.em.createQuery(sql, Long.class).setParameter("nomeCompleto", funcionario.getNomeCompleto()).getSingleResult();
-		
-		return query;
+	public void salvarFuncionario( Funcionario funcionario) throws PersistenceException, NegocioException {
+		this.em.persist(funcionario);
 	}
 	
 	/**
 	 * usado para atualizar o cadastro do professor usado na hora de cadastrar turma 
 	 * @param funcionario
 	 */
-	public void salvarFuncionarioCadastro( Funcionario funcionario) {
+	public void atualizaFuncionario( Funcionario funcionario) {
 		this.em.merge(funcionario);
 	}
 

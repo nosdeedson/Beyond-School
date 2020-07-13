@@ -30,7 +30,7 @@ public class TurmasBD implements Serializable {
 	 * @param codigo
 	 * @return
 	 */
-	public Long buscaIdProfessor( String codigo) {
+	public Funcionario buscaIdProfessor( String codigo) {
 		Turma t = new Turma();
 		try {
 			t = em.createQuery(" from Turma t where t.codigoTurma = :codigoTurma", Turma.class)
@@ -39,7 +39,7 @@ public class TurmasBD implements Serializable {
 			return null;
 		}
 		
-		return t.getProfessor().getIdPessoa();
+		return t.getProfessor();
 	}
 	
 	/**

@@ -51,8 +51,8 @@ public class RegistrarAvaliacao implements Serializable {
 		return alunos;
 	}
 	
-	public Long salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {
-		Long idAvaliacao;
+	public void salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {
+		
 		try {
 			bimestre = bimestresBD.buscarBimestreAtual();
 			if (bimestre == null) {
@@ -60,11 +60,11 @@ public class RegistrarAvaliacao implements Serializable {
 			}
 			
 			avaliacao.setBimestre(bimestre);
-			idAvaliacao = avaliacoesBD.salvarAvaliacao(avaliacao);
+			avaliacoesBD.salvarAvaliacao(avaliacao);
 		} catch ( PersistenceException | NegocioException e) {
 			throw new NegocioException("Falha ao registrar avaliação. Tente novamente.");
 		}	
-		return idAvaliacao;
+		
 	}
 	
 

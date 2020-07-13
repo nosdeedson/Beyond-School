@@ -61,7 +61,7 @@ public class AlunosResponsaveisBD implements Serializable {
 		this.em.remove(ar);
 	}
 	
-	public void salvarAlunoResponsavel( AlunoResponsavel alunoResponsavel) {
+	public void salvarAlunoResponsavel( AlunoResponsavel alunoResponsavel) throws PersistenceException {
 		this.em.merge(alunoResponsavel);
 	}	
 

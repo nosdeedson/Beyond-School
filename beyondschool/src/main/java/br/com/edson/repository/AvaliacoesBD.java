@@ -25,6 +25,10 @@ public class AvaliacoesBD implements Serializable {
 	@Inject
 	public AvaliacoesBD() {	}
 
+	public void atualiza( Avaliacao ava) {
+		this.em.merge(ava);
+	}
+	
 	public List<Avaliacao> buscarAvaliacoes() {
 		TypedQuery<Avaliacao> avaliacoes = this.em.createQuery("select a from Avaliacao a "
 				+ ", Bimestre b where a.bimestre= b.idBimestre and b.atual=true", Avaliacao.class);
@@ -57,18 +61,14 @@ public class AvaliacoesBD implements Serializable {
 		}
 	}
 
-	public Long salvarAvaliacao( Avaliacao avaliacao) throws NegocioException {
+	public void salvarAvaliacao( Avaliacao avaliacao) throws NegocioException {
 		
-		Long idAvaliacao;
 		try {
-			this.em.merge(avaliacao);
-			String sql = "select max(idAvaliacao) from Avaliacao";
-			idAvaliacao= this.em.createQuery(sql, Long.class).getSingleResult();
+			this.em.persist(avaliacao);
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new NegocioException("Falha ao salvar o comentario");
 		}
-		return idAvaliacao;
 		
 		
 	}

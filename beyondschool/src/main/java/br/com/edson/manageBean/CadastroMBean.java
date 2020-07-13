@@ -163,9 +163,8 @@ public class CadastroMBean implements Serializable {
 				admin.setNomeCompleto(nomeCompleto);
 				admin.setTipoAcesso(PapelEnum.ADMIN);
 				
-				Long idAdmin = adminBD.salvarFuncionario(admin);
-				admin.setIdPessoa(idAdmin);
-
+				adminBD.salvarFuncionario(admin);
+			
 				user.setPessoa(admin);
 				userBD.salvarUser(user);
 				
@@ -173,6 +172,8 @@ public class CadastroMBean implements Serializable {
 				cont++;
 				flagCadastrado = false;
 				break;
+				
+				
 			case "Aluno":
 				
 				//cont instanciado antes do try
@@ -193,10 +194,11 @@ public class CadastroMBean implements Serializable {
 				} while (cont < nomeResponsavel.length);
 				
 				validaDados.validarCodigo(codigoTurma);
-				
+				boolean flagAluno = true;
 				Aluno student = alunosBD.buscaAlunoPeloNome(nomeCompleto);
 				if(student == null) {
 					student = new Aluno();
+					flagAluno = false;
 				}
 					
 				Turma t = turmasBD.buscaTurma(codigoTurma);
@@ -217,10 +219,7 @@ public class CadastroMBean implements Serializable {
 				student.setMatricula(mat);
 				student.setTurma(t);
 				
-				Long idStudent = alunosBD.salvarAluno(student);
-				
-				student.setIdPessoa(idStudent);
-				
+				alunosBD.salvarAluno(student);				
 				
 				user.setPessoa(student);
 				
@@ -228,30 +227,27 @@ public class CadastroMBean implements Serializable {
 				cont  = 0; //cont instanciado antes do try
 				do {
 					
+//					copie do txt
+					boolean flagResponsavel = true;
 					responsavel = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel[cont]);
 					
-					AlunoResponsavel ar = null;
-					
 					if(responsavel == null) {
+						flagResponsavel = false;
 						responsavel = new Responsavel();
 						responsavel.setNomeCompleto(nomeResponsavel[cont]);
-						
-						Long idResponsa = responsaveisBD.salvarResponsavel(responsavel);
-						
-						responsavel.setIdPessoa(idResponsa);
-						ar = alunosResponsaveisBD.existeAlunoResponsavel(aluno.getIdPessoa(), responsavel.getIdPessoa());
+						responsaveisBD.salvarResponsavelCadastro(responsavel);
 					}
 					
-					
-					if( ar == null) {
-						ar = new AlunoResponsavel();
+					if( !flagAluno) {
+						AlunoResponsavel ar = new AlunoResponsavel();
 						ar.setAluno(student);
 						ar.setResponsavel(responsavel);
-						alunosResponsaveisBD.salvarAlunoResponsavel(ar);
+						alunosResponsaveisBD.salvarAlunoResponsavel(ar);				
 					}
 					
-					responsavel = new Responsavel();
+						
 					
+					responsavel = new Responsavel();
 					if(nomeResponsavel[1].isEmpty())
 						break;
 					cont++;
@@ -295,46 +291,48 @@ public class CadastroMBean implements Serializable {
 				} while (cont < qtdAlunosTutelados);
 				
 				// ok não mexer mais, até agora coloquei resp que não existia
-				 Responsavel existe = verificaResp.buscaResponsavel(nomeCompleto);			 
-				boolean existeResponsavel = true;				
+				
+				
+				Responsavel existeResp = verificaResp.buscaResponsavel(nomeCompleto);			 
+					
 				et.begin();
+				boolean flagResponsavel = true;
 				// verifica se o resp já existe
-				 if (existe == null) {
-						existe = new Responsavel();
-						existeResponsavel = false;
+				 if (existeResp == null) {
+					 existeResp = new Responsavel();
+					 flagResponsavel = false;
 				}
 				 
-				existe.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
-				if( existeResponsavel == false)
-					existe.setNomeCompleto(nomeCompleto);
+				existeResp.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
+				existeResp.setNomeCompleto(nomeCompleto);
 				
-				Long idResp = responsaveisBD.salvarResponsavel(existe);
+				responsaveisBD.salvarResponsavelCadastro(existeResp);
 				
-				existe.setIdPessoa(idResp);
-				
-				user.setPessoa(existe);
+				user.setPessoa(existeResp);
 				userBD.salvarUser(user);
+				
 				cont = 0;
 				do {
 					aluno = alunosBD.buscaAlunoPeloNome(tutelado[cont]);
-				
+					boolean flagStudent = true;
 					if( aluno ==  null) {
 						aluno = new Aluno();
 						aluno.setNomeCompleto(tutelado[cont]);
-						Long idAluno = alunosBD.salvarAluno(aluno);
-						aluno.setIdPessoa(idAluno);
+						alunosBD.salvarAluno(aluno);
+						flagStudent = false;
 					}
 					
 					//salva alunoResponsavel
 					
-					AlunoResponsavel alunoResp = alunosResponsaveisBD.existeAlunoResponsavel(aluno.getIdPessoa(), existe.getIdPessoa());
-					
-					if( alunoResp == null) {
+					if( !flagStudent || !flagResponsavel) {
+						AlunoResponsavel alunoResp = new AlunoResponsavel();
+	
 						alunoResp = new AlunoResponsavel();
 						alunoResp.setAluno(aluno);
-						alunoResp.setResponsavel(existe);
+						alunoResp.setResponsavel(existeResp);
 						alunosResponsaveisBD.salvarAlunoResponsavel(alunoResp);
 					}
+					
 					
 					aluno = new Aluno();
 					
@@ -355,6 +353,7 @@ public class CadastroMBean implements Serializable {
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
+			flagCadastrado = false;
 		} finally {
 			setCodigoTurma("");
 			setNascimento("");

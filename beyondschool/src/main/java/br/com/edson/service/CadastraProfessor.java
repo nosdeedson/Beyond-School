@@ -10,8 +10,10 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.PapelEnum;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.TurmasBD;
+import br.com.edson.repository.UsuariosBD;
 
 public class CadastraProfessor implements Serializable {
 
@@ -25,30 +27,33 @@ public class CadastraProfessor implements Serializable {
 
 	@Inject
 	private Funcionario funcionario;
-
+	
+	
+	
 	public CadastraProfessor() {
 	}
 
 	public Funcionario salvarProfessor(String codigo, String nomeCompleto, String nascimento) throws ParseException, NegocioException {
 		
 		
-		Long idProf = turmasBD.buscaIdProfessor(codigo);
+		Funcionario prof = turmasBD.buscaIdProfessor(codigo);
 		
-		if( idProf == null ) {
+		if( prof == null ) {
 			throw new NegocioException("Código inexistente");
 		}
 		
-		funcionario.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
-
-		funcionario.setIdPessoa(idProf);
-		funcionario.setNomeCompleto(nomeCompleto);
-
-		funcionario.setTipoAcesso(PapelEnum.PROFESSOR);
-
-		funcBD.salvarFuncionarioCadastro(funcionario);
 		
 		
-		return funcionario;
+		prof = funcBD.porId(prof.getIdPessoa());
+		prof.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
+
+		prof.setNomeCompleto(nomeCompleto);
+
+		prof.setTipoAcesso(PapelEnum.PROFESSOR);
+
+		funcBD.atualizaFuncionario(prof);
+		
+		return prof;
 	}
 
 }

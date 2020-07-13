@@ -20,7 +20,6 @@ public class BimestresBD implements Serializable {
 	public BimestresBD() {}
 	
 	public void salvarBimestre(Bimestre bimestre) {
-		
 		this.em.merge(bimestre);
 	}
 

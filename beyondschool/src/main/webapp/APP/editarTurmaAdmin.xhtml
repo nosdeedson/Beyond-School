@@ -53,6 +53,7 @@
 			
 				<p:commandButton title="Excluir turma" icon="ui-icon-trash"  styleClass="btn btn-danger" 
 							update="@form"	action="#{editarTurmaAdminMBean.excluirTurma}">
+							
 					<f:setPropertyActionListener value="#{editarTurmaAdminMBean.turma}" target="#{editarTurmaAdminMBean.turmaSerExcluida}"></f:setPropertyActionListener>
 					
 					<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/>

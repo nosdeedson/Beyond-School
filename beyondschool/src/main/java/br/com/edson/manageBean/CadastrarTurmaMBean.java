@@ -92,8 +92,7 @@ public class CadastrarTurmaMBean implements Serializable {
 			}
 			
 			if(flag) {
-				Long idPessoa = funcionariosBD.salvarFuncionario(professor);
-				professor.setIdPessoa(idPessoa);
+				funcionariosBD.salvarFuncionario(professor);
 			}
 			///no caso de edição de turma tenho que manter o mesmo codigo e nome do professor
 			if( codigo != null)
@@ -110,7 +109,7 @@ public class CadastrarTurmaMBean implements Serializable {
 			et.commit();
 			context.addMessage(null, new FacesMessage("Turma criada com sucesso!! Codigo da turma: " + turma.getCodigoTurma()));
 				
-		} catch ( PersistenceException | NullPointerException | FacesException | InjectionException e) {
+		} catch ( PersistenceException | NegocioException | NullPointerException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			e.printStackTrace();
