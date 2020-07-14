@@ -18,6 +18,7 @@ import br.com.edson.repository.BimestresBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.service.AtualizaBimestre;
 import br.com.edson.service.NegocioException;
+import br.com.edson.service.RegistrarAvaliacao;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -44,6 +45,9 @@ public class EditarTurmaProfessorMBean implements Serializable {
 	
 	@Inject
 	private EntityManager em;
+	
+	@Inject
+	private RegistrarAvaliacao r;
 
 	//métodos bs9op84o
 	public void buscarAlunos() {
@@ -67,9 +71,7 @@ public class EditarTurmaProfessorMBean implements Serializable {
 	public void buscarBimestre() {
 		bimestreAtual = bimestresBD.buscarBimestreAtual();
 	}
-	
-	
-	
+		
 	//getters and setters
 	public Turma getTurma() {
 		return turma;

@@ -1,14 +1,11 @@
 package br.com.edson.manageBean;
 
-import java.awt.color.CMMException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.enterprise.inject.New;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,7 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
@@ -24,7 +20,6 @@ import br.com.edson.Model.Comentario;
 import br.com.edson.Model.ConceitoEnum;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
-import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AvaliacoesBD;
 import br.com.edson.repository.ComentariosBD;
 import br.com.edson.service.NegocioException;

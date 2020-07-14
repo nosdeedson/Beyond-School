@@ -43,11 +43,10 @@ public class UsuariosBD implements Serializable {
 		} catch ( PersistenceException e) {
 			return 0;
 		}
-		
-		
-		
 	}
-
+	
+	
+	
 	/**
 	 * valida o usuário informado no login
 	 * @param nomeUser
@@ -98,6 +97,10 @@ public class UsuariosBD implements Serializable {
 			return new ArrayList<String>();
 		}
 	
+	}
+	
+	public Usuario porID( Long idPessoa) {
+		return this.em.find(Usuario.class, idPessoa);
 	}
 	
 

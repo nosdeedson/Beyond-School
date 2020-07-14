@@ -1,6 +1,7 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -35,6 +36,24 @@ public class BimestresBD implements Serializable {
 			return null;
 		}
 	}
+	
+	public Bimestre nextBimestre(Date date) {
+		
+		String sql = "select b from Bimestre b where b.dataInicio > :data order by b.dataInicio asc";
+		Bimestre b = null;
+		
+		try {
+			b = this.em.createQuery(sql, Bimestre.class).setParameter("data", date)
+					.setMaxResults(1).getSingleResult();
+			return b;
+		}catch (PersistenceException e) {
+			e.printStackTrace();
+			return b;
+		}
+		
+		
+	}
+	
 	
 	public Bimestre porId( Long id) {
 		try {

@@ -116,14 +116,14 @@ public class InserirDados {
 		em.persist(ar);
 		
 		Bimestre b = new Bimestre();
-		b.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("15/07/2020"));
+		b.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("15/04/2020"));
 		b.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2020"));
-		b.setAtual(true);
+		b.setAtual(false);
 		
 		Bimestre b2 = new Bimestre();
-		b2.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("10/12/2020"));
-		b2.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("03/08/2020"));
-		b2.setAtual(false);		
+		b2.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("15/07/2020"));
+		b2.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("16/04/2020"));
+		b2.setAtual(true);		
 		
 		
 		Avaliacao a = new Avaliacao();

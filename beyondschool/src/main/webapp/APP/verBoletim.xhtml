@@ -29,8 +29,8 @@
 			<p:panelGrid columns="2" rendered="#{verBoletimMBean.flagTemAvaliacao}" >
 				<p:outputLabel value="#{verBoletimMBean.turma.nomeTurma}"/>
 				<p:outputLabel value="#{verBoletimMBean.turma.nomeLivro}"/>
-				<p:outputLabel value="Habilidade" />
-				<p:outputLabel value="Desempenho" />
+				<p:outputLabel value="Habilidade" style="font-weight: bold;"/>
+				<p:outputLabel value="Desempenho" style="font-weight: bold;" />
 				<p:outputLabel value="Vocabulary" />
 				<p:outputLabel value="#{verBoletimMBean.avaliacao.vocabulario.descricao}" />
 				<p:outputLabel value="Reading" />
@@ -55,12 +55,21 @@
 
 			<p:inputTextarea styleClass="textComent" rendered="#{verBoletimMBean.flagTemAvaliacao}" readonly="true" value="#{verBoletimMBean.avaliacao.getComentarios().get(0).getComentario()}" 
 				style="font-weight: bold;"  />
-					
-			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flagCommentAluno}" readonly="true" value="#{verBoletimMBean.comentario[0]}"
-				 style="font-weight: bold;"  />
 			
-			<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flagCommentPai}" readonly="true" value="#{verBoletimMBean.comentario[1]}"
+			<p:column>
+				<p:outputLabel value="Comentário aluno:" rendered="#{verBoletimMBean.flagCommentAluno}"/>
+				<BR/>
+				<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flagCommentAluno}" readonly="true" value="#{verBoletimMBean.comentario[0]}"
+				 style="font-weight: bold;"  />
+			</p:column>
+			
+			
+			<p:column>
+				<p:outputLabel rendered="#{verBoletimMBean.flagCommentPai}" value="Comentário responsável"/>
+				<BR/>
+				<p:inputTextarea  styleClass="textComent" rendered="#{verBoletimMBean.flagCommentPai}" readonly="true" value="#{verBoletimMBean.comentario[1]}"
 				 style="font-weight: bold;" />
+			</p:column>
 			
 			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}"/> 
 			

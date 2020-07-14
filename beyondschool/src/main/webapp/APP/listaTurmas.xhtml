@@ -31,15 +31,23 @@
 				</p:column>
 				
 				<p:column headerText="Dia/Horario" width="7%" > 
-					<p:menuButton value="#{turma.primeiroDiaSemana}">
-        				<p:menuitem value="#{turma.horario}" />
-       				</p:menuButton>
+<!-- 					<p:menuButton value="#{turma.primeiroDiaSemana}"> -->
+<!--         				<p:menuitem value="#{turma.horario}" /> -->
+<!--        				</p:menuButton> -->
+       				<p:outputLabel value="#{turma.primeiroDiaSemana} às " />
+					<p:outputLabel value="#{turma.horario}" >
+						<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+					</p:outputLabel>
 				</p:column>
 				
 				<p:column headerText="Dia/Horario" width="7%" > 
-					<p:menuButton value="#{turma.segundoDiaSemana}" >
-        				<p:menuitem value="#{turma.horario2}" />
-       				</p:menuButton>
+<!-- 					<p:menuButton value="#{turma.segundoDiaSemana}" title="Click"> -->
+<!--         				<p:menuitem value="#{turma.horario2}" /> -->
+<!--        				</p:menuButton> -->
+					<p:outputLabel value="#{turma.segundoDiaSemana} às " />
+					<p:outputLabel value="#{turma.horario2}" >
+						<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+					</p:outputLabel>
 				</p:column>
 				
 				<p:column headerText="Ações" width="6%" > 

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Responsavel;
+import br.com.edson.Model.Usuario;
 import br.com.edson.service.NegocioException;
 
 public class ResponsaveisBD implements Serializable {
@@ -20,6 +21,12 @@ public class ResponsaveisBD implements Serializable {
 	@Inject
 	private EntityManager em;
 
+	@Inject
+	private Usuario user;
+	
+	@Inject
+	private UsuariosBD usersBD;
+	
 	@Inject
 	public ResponsaveisBD() {
 	}
@@ -43,7 +50,8 @@ public class ResponsaveisBD implements Serializable {
 	
 	public void excluirResponsavel( Long idResponsavelSerExcluido) throws NegocioException, Exception {
 		Responsavel resp = this.em.find(Responsavel.class, idResponsavelSerExcluido);
-		this.em.remove(resp);		
+		usersBD.excluirUser(resp.getIdPessoa());
+		this.em.remove(resp);
 	}
 	
 	

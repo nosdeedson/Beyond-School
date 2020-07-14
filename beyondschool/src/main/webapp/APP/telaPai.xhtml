@@ -28,7 +28,7 @@
 						</p:column>
 					</p:row>
 				</f:facet>
-					<p:panelGrid columns="2" style="width:355px;" >
+					<p:panelGrid columns="2" style="width:345px;" >
 						<p:outputLabel value="#{telaPaiMBean.turma.nomeTurma}" />
 						<p:outputLabel value="#{telaPaiMBean.turma.nomeLivro}" />
 						<p:outputLabel value="Dia: " />
@@ -36,28 +36,36 @@
 						<p:outputLabel value="Dia: " />
 						<p:outputLabel value="#{telaPaiMBean.turma.segundoDiaSemana}" />
 						<p:outputLabel value="Horario: " />
-						<p:outputLabel value="#{telaPaiMBean.turma.horario}"  />
+						<p:outputLabel value="#{telaPaiMBean.turma.horario}" >
+							<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+						</p:outputLabel>
 						<p:outputLabel value="Horario: " />
-						<p:outputLabel value="#{telaPaiMBean.turma.horario2}"  />
+						<p:outputLabel value="#{telaPaiMBean.turma.horario2}">
+							<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+						</p:outputLabel>
 					</p:panelGrid>
 
 					<p:panelGrid columns="2" rendered="#{telaPaiMBean.flagTemAvaliacao}">
-						<p:outputLabel value="Habilidade" />
-						<p:outputLabel value="Desempenho" />
+						<p:outputLabel value="Data Avaliação:"/>
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.getComentarios().get(0).getDataComentario()}">
+							<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+						</p:outputLabel>
+						<p:outputLabel value="Habilidade" style="font-weight: bold;"  />
+						<p:outputLabel value="Desempenho" style="font-weight: bold;"  />
 						<p:outputLabel value="Vocabulário" />
-						<p:outputLabel value="#{telaPaiMBean.avaliacao.vocabulario.descricao}" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.vocabulario.descricao}" style="font-weight: bold;"/>
 						<p:outputLabel value="Leitura" />
-						<p:outputLabel value="#{telaPaiMBean.avaliacao.leitura.descricao}" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.leitura.descricao}" style="font-weight: bold;" />
 						<p:outputLabel value="Escrevendo" />
-						<p:outputLabel value="#{telaPaiMBean.avaliacao.escrevendo.descricao}" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.escrevendo.descricao}" style="font-weight: bold;"/>
 						<p:outputLabel value="Escutando" />
-						<p:outputLabel value="#{telaPaiMBean.avaliacao.escutando.descricao}" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.escutando.descricao}" style="font-weight: bold;"/>
 						<p:outputLabel value="Falando" />
-						<p:outputLabel value="#{telaPaiMBean.avaliacao.falando.descricao}" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.falando.descricao}" style="font-weight: bold;"/>
 						<p:outputLabel value="Gramática" />
-						<p:outputLabel value="#{telaPaiMBean.avaliacao.gramatica.descricao}" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.gramatica.descricao}" style="font-weight: bold;"/>
 						<p:outputLabel value="Lição de casa" />
-						<p:outputLabel value="#{telaPaiMBean.avaliacao.homeWork.descricao}" />
+						<p:outputLabel value="#{telaPaiMBean.avaliacao.homeWork.descricao}" style="font-weight: bold;"/>
 						
 						<p:commandButton styleClass="tm-botao" value="Avaliações" />
 						
@@ -68,14 +76,15 @@
 					</p:panelGrid>
 
 				<h:panelGroup rendered="#{telaPaiMBean.flagTemAvaliacao}">
-				<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(0).getComentario()}"  style="font-weight: 900;" readonly="true"    />
+				
+				<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(0).getComentario()}"  style="font-weight: 900; width: 300px;" readonly="true"    />
 				
 				
 				<p:column rendered="#{telaPaiMBean.flagCommentAluno}">
 				<br />
 					<h:outputLabel value="Comentário aluno: "  />
 					<br />
-					<p:inputTextarea value="#{telaPaiMBean.comentario[0]}"    style="font-weight: 900;" readonly="true"  />
+					<p:inputTextarea value="#{telaPaiMBean.comentario[0]}"    style="font-weight: 900; width: 300px;" readonly="true"  />
 					
 				</p:column>
 				
@@ -83,16 +92,16 @@
 					<br />
 					<h:outputLabel value="Comentário responsável: "  />
 					<br />
-					<p:inputTextarea value="#{telaPaiMBean.comentario[1]}"    style="font-weight: 900;" readonly="true"  />
+					<p:inputTextarea value="#{telaPaiMBean.comentario[1]}"    style="font-weight: 900; width: 300px;"  readonly="true"  />
 					
 				</p:column>
 				
 					
-				<h:panelGroup id="comment-teacher" rendered="#{telaPaiMBean.flagCommentAluno eq false or telaPaiMBean.flagCommentPai eq false}"  >
+				<h:panelGroup id="comment-teacher" rendered="#{telaPaiMBean.flagCommentPai eq false}"  >
 					<br />
 					<p:inputTextarea value="#{telaPaiMBean.comentarioResponsavel}" styleClass="textComent" placeholder="Deixe seu comentário" />
 					<br />
-					<p:commandButton value="Enviar" action="#{telaPaiMBean.salvarComentarioAluno}" update="@form" styleClass="tm-botao" />
+					<p:commandButton value="Enviar" action="#{telaPaiMBean.salvarComentarioResponsavel}" update="@form" styleClass="tm-botao" />
 				
 				</h:panelGroup>
 				

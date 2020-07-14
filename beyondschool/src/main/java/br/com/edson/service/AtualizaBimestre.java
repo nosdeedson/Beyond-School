@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Bimestre;
@@ -23,21 +25,24 @@ public class AtualizaBimestre implements Serializable {
 	
 	@Inject
 	private BimestresBD bimestresBD;
-
+	
 	@Inject
 	public AtualizaBimestre() {}
+	
+	
 	
 	public void atualizaBimestre() throws NegocioException {
 		
 	    Date date = new Date();
 	    try {
+	    	
 	    	bimestre = bimestresBD.buscarBimestreAtual();
+	    	next = bimestresBD.nextBimestre(bimestre.getDataInicio());
 		    
 		    if( bimestre == null || next == null)
 		    	throw new NegocioException("Falha ao atualizar o bimestre");
 		    
 		    if( date.after(bimestre.getDataFim())){
-		    	next = bimestresBD.porId(bimestre.getIdBimestre()  + 1);
 		    	bimestre.setAtual(false);
 		    	next.setAtual(true);
 		    	bimestresBD.salvarBimestre(bimestre);

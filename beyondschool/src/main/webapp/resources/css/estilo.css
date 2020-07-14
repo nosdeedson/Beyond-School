@@ -61,7 +61,7 @@
 		position: relative;
 	}
 	
-	#pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-listar-turmas, #pg-login-user,
+	#pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-listar-turmas,
 	#link-esqueceu-senha, #criar-acesso, #pg-tela-aluno, #text-area-coment-avaliacao-prof, #pg-tela-pai, 
 	#pg-ver-boletim{
 		font-size: 14px;
@@ -71,9 +71,7 @@
 		font-size: 12px;
 	}
 	
-	#links-login{
-		left: 20%;
-	}
+	
 	
 	#pg-comment-aluno, #pg-comentario-teacher, #comment-teacher{
 		left: 4%;
@@ -117,10 +115,13 @@
 		width: 200px;
 		margin-top: 4px;
 	}
-}
+	
+	.pgLogin, .pgForgotPass{
+		left: 10%;
+	}
 }
 
-@media only screen (min-width: 331px) {
+@media (min-width: 331px)  {
   .col-sp-1 {width: 8.33%;}
   .col-sp-2 {width: 16.66%;}
   .col-sp-3 {width: 25%;}
@@ -136,7 +137,7 @@
   
 	#link-cadastro-header, #link-voltar{
 		font-size: 15px;
-		top: 30px;
+		top: 0px;
 	}
 	
 	#link-login-header, #link-sair{
@@ -160,13 +161,6 @@
 		left: 3%;
 	}
 	
-	#pg-login-user{
-		left: 20%;
-	}
-	
-	#links-login{
-		left: 25%;
-	}
 	
 	#pg-tela-admin, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher{
 		left: 15%;
@@ -209,6 +203,10 @@
 		width: 70%;
 		font-size: 12px;
 	}
+	
+	.pgLogin, .pgForgotPass{
+		left: 18%;
+	}
 }
 
 @media (min-width: 400px) {
@@ -234,7 +232,7 @@
   		left: 35%;
   	}
   	
-  	#copy-right, #pg-login-user{
+  	#copy-right{
 		color: white;
 		left: 30%;
 	}
@@ -242,11 +240,6 @@
 	#pg-casdastrar-turma, #pg-cadastro-user, #pg-ver-boletim, #pg-criar-semestre{
 		left: 10%;
 	}
-	
-	#links-login{
-		left: 35%;
-	}
-	
 	#pg-tela-aluno{
 		left: 20%;
 	}
@@ -286,6 +279,10 @@
 		font-size: 15px;
 		left: 45%;
 		position: relative;
+	}
+	
+	.pgLogin, .pgForgotPass{
+		left: 25%;
 	}
 }
 
@@ -366,6 +363,10 @@
 		left: 45%;
 		position: relative;
 	}
+	
+	.pgLogin, .pgForgotPass{
+		left: 30%;
+	}
 
 }
 
@@ -413,11 +414,7 @@
 		left: 20%;
 	}
 	
-	#pg-login-user,#links-login{
-		font-size: 20px;
-		left: 40%;
-	}
-	
+		
 	#pg-comment-aluno, #comment-teacher{
 		left: 35%;
 	}
@@ -476,6 +473,10 @@
 		font-size: 18px;
 		left: 45%;
 		position: relative;
+	}
+	
+	.pgLogin, .pgForgotPass{
+		left: 35%;
 	}
 }
 
@@ -678,11 +679,11 @@
 }
 
 #pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-editar-turma-prof, #pg-listar-turmas,
-#pg-login-user, #pg-tela-admin, #pg-tela-aluno, #pg-tela-avaliar-aluno, #pg-tela-pai, #cabecalho, #rodape,
+#pg-tela-admin, #pg-tela-aluno, #pg-tela-avaliar-aluno, #pg-tela-pai, #cabecalho, #rodape,
 #pg-ver-boletim, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher, #pg-comment-aluno,
-.botao-cancelar-avaliacao, #pg-criar-semestre, #pg-login-user,#links-login, #link-cadastro-header, #link-voltar,
+.botao-cancelar-avaliacao, #pg-criar-semestre, #link-cadastro-header, #link-voltar,
 #link-login-header, #link-sair, .link-pe, #copy-rigth, #link-cadastro-header, #link-voltar, #link-login-header, #link-sair, 
-#criar-acesso, #logo-img{
+#criar-acesso, #logo-img, .pgLogin, .pgForgotPass{
 	position: relative;
 }
 
@@ -718,5 +719,8 @@
 	min-height: 500px;
 	background-color: green;
 }
+
+
+
 
 

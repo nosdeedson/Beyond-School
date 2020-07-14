@@ -76,8 +76,6 @@ public class EditarTurmaAdminMBean implements Serializable {
 	
 	public void atualizaBimestre() throws NegocioException {
 		EntityTransaction et = this.em.getTransaction();
-
-			
 		try {
 			et.begin();
 			atualizaBimeste.atualizaBimestre();

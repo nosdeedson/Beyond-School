@@ -104,10 +104,11 @@ public class TelaPaiMBean implements Serializable {
 	}
 	
 	public void proximoAluno() {
+		flagCommentAluno = false;
+		flagCommentPai = false;
 		alunos.remove(aluno);
-		aluno = alunos.get(0);
 		buscarTurma();
-		
+		buscarComentarios();
 		if( flagTemAvaliacao) {
 			if( avaliacao.getComentarios().size() == 1) {
 				flagCommentAluno = false;
@@ -151,7 +152,7 @@ public class TelaPaiMBean implements Serializable {
 			
 	}
 	
-	public void salvarComentarioAluno() throws NegocioException {
+	public void salvarComentarioResponsavel() throws NegocioException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = this.em.getTransaction();
 		

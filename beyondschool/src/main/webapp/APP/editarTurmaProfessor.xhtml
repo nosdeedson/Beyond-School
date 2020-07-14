@@ -37,9 +37,16 @@ xmlns="http://www.w3.org/1999/xhtml"
 			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeTurma}" />
 			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeLivro}" />
 			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.primeiroDiaSemana}" />
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario}" />
+			
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario}" >
+				<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+			</p:outputLabel>
+			
 			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.segundoDiaSemana}" />
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario2}" />
+			
+			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario2}" >
+				<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+			</p:outputLabel>
 			<p:outputLabel value="Início Bimestre" />
 			
 				<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataInicio}" >
@@ -77,7 +84,6 @@ xmlns="http://www.w3.org/1999/xhtml"
 			
 		</p:dataTable>
 	
-		
 </p:panelGrid> 
 
 </h:form>

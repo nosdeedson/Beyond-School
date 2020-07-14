@@ -7,58 +7,61 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="corpo">
+<ui:define name="corpo">
 
-
-		<p:panelGrid columns="1" id="pg-login-user">
-		<p:messages autoUpdate="true"/>
-		<p:growl id="growl" showDetail="true" sticky="true" />  
-			<f:facet name="header">
-				<p:row>
-					<p:outputLabel>Login</p:outputLabel>
-				</p:row>
-			</f:facet>
-			<h:form id="fr1">
-				<p:inputText styleClass="entrada-texto" placeholder="nome.sobrenome"  value="#{loginMBean.nomeUser}" style="font-weight: bold;" />
-				<br />
-				<br />
-				<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" style="font-weight: bold;"  />
-				<br />
-				<br />
-				<p:commandButton value="Entrar" styleClass="tm-botao" update="pg-login-user" action="#{loginMBean.login}" />
-			</h:form>
-
-		</p:panelGrid>
-		<BR />
-
-		<h:panelGroup id="links-login">
-		<h:form id="frm2">
 		
-			<p:commandButton value="Esqueceu senha" styleClass="tm-botao" type="button" onclick="PF('dlg2').show();" />
+		<h:form id="fr1">
+				<p:panelGrid columns="1" id="pg-login-user" styleClass="pgLogin">
+				<p:growl id="growl" showDetail="true" sticky="true" />  
+					<f:facet name="header">
+						<p:row>
+							<p:outputLabel>Login</p:outputLabel>
+						</p:row>
+					</f:facet>
+					
+						<p:inputText styleClass="entrada-texto" placeholder="nome.sobrenome"  value="#{loginMBean.nomeUser}" style="font-weight: bold;" />
+						
+						<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" style="font-weight: bold;"  />
+						
+						<p:commandButton value="Entrar" styleClass="tm-botao" update="pg-login-user" action="#{loginMBean.login}" />
+					
 		
-<!-- 		 modal para recuperar senha -->
-		<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="250" width="400" >
-    		<h:outputText value="Email?" />
-    		<br/>
-    		<p:inputText value="#{esqueceuSenhaMBean.email}"   placeholder="email" style="width:300px; font-weight: bold;" required="true" />
-    		<br/>
-    		<p:inputText value="#{esqueceuSenhaMBean.nomeCompleto}"   placeholder="Nome completo" style="width:300px; font-weight: bold;" required="true" />
-    		<br/>
-    		<p:inputMask value="#{esqueceuSenhaMBean.nascimento}"  styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" required="true" 
-				label="Nascimento" style="width:300px; font-weight: bold;" />
+				</p:panelGrid>
+				</h:form>
+				<BR />
+		
+				<h:panelGrid styleClass="pgForgotPass">
 				
-    		<p:inputText value="#{esqueceuSenhaMBean.tipoAcesso}"   placeholder="Tipo acesso" style="width:300px; font-weight: bold;" />
-    		<br/>
-    		<p:commandButton update="frm2"  action="#{esqueceuSenhaMBean.enviarEmail}"  styleClass="tm-botao" value="enviar"  />
-    
-		</p:dialog>   
-			<BR />
-			<p:link id="criar-acesso" styleClass="links-gerais"
-				outcome="cadastro" value="Criar o seu acesso?" />
-			</h:form>	
-		</h:panelGroup>
+				<h:form id="frm2">
+				
+					<p:commandButton value="Esqueceu senha" styleClass="esqueceuSenha" type="button" onclick="PF('dlg2').show();" />
+				
+		<!-- 		 modal para recuperar senha  -->
+				<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="250" width="400" >
+		    		<h:outputText value="Email?" />
+		    		<br/>
+		    		<p:inputText value="#{esqueceuSenhaMBean.email}"   placeholder="email" style="width:300px; font-weight: bold;" required="true" />
+		    		<br/>
+		    		<p:inputText value="#{esqueceuSenhaMBean.nomeCompleto}"   placeholder="Nome completo" style="width:300px; font-weight: bold;" required="true" />
+		    		<br/>
+		    		<p:inputMask value="#{esqueceuSenhaMBean.nascimento}"  styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" required="true" 
+						label="Nascimento" style="width:300px; font-weight: bold;" />
+						
+		    		<p:inputText value="#{esqueceuSenhaMBean.tipoAcesso}"   placeholder="Tipo acesso" style="width:300px; font-weight: bold;" />
+		    		<br/>
+		    		<p:commandButton update="frm2"  action="#{esqueceuSenhaMBean.enviarEmail}"  styleClass="tm-botao" value="enviar"  />
+		    
+				</p:dialog>   
+					<BR />
+					<p:link id="criar-acesso" styleClass="links-gerais"
+						outcome="cadastro" value="Criar o seu acesso?" />
+					</h:form>	
+				</h:panelGrid>
+	
+	
 
-	</ui:define>
+
+</ui:define>
 
 
 </ui:composition>

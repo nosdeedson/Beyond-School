@@ -28,19 +28,16 @@ public class Layout2MBean implements Serializable {
 		user = (Usuario) session.getAttribute("usuario");
 		if(user.getTipoAcesso().equals("admin") || user.getTipoAcesso().equals("professor"))
 			flagBotaoVoltar =true;
-		JOptionPane.showMessageDialog(null, user.getTipoAcesso() + flagBotaoVoltar);
 	}
 	
 	public String voltar() {
 		
 		switch (user.getTipoAcesso()) {
 		case "admin":
-			JOptionPane.showMessageDialog(null, "teset");
 			return "/APP/telaAdmin?faces-redirect=true";
 		case "aluno":
 			return "/APP/telaAluno?faces-redirect=true";
 		case "professor":
-			JOptionPane.showMessageDialog(null, "teset");
 			return "/APP/listaTurmas?faces-redirect=true";
 		case "responsavel":
 			return "/APP/telaPai?faces-redirect=true";

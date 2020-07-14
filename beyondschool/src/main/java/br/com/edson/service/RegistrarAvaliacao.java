@@ -35,20 +35,21 @@ public class RegistrarAvaliacao implements Serializable {
 	public RegistrarAvaliacao() { 	}
 	
 	
-	public List<Aluno> buscarAlunosSemAvaliacao(String codigoTurma) {
-		List<Avaliacao> avaliacoes = avaliacoesBD.buscarAvaliacoes();
+	public List<Aluno> buscarAlunosSemAvaliacao(String codigoTurma) throws NegocioException {
+		
 		List<Aluno> alunos = alunosBD.buscaAlunosTurma(codigoTurma);
-		for (int i = 0; i < avaliacoes.size(); i++) {
-			for (int j = 0; j < alunos.size(); j++) {
-				if(alunos.get(j).getIdPessoa() == avaliacoes.get(i).getAluno().getIdPessoa()) {
-					alunos.remove(j);
-					j=0;
-				}
+		List<Aluno> retornar = new ArrayList<Aluno>();
+		Avaliacao ava = new Avaliacao();
+		for (int i = 0; i < alunos.size(); i++) {
+			ava = avaliacoesBD.buscaPorIdAluno(alunos.get(i).getIdPessoa());
+			if( ava == null) {
+				retornar.add(alunos.get(i));
 			}
 		}
-		if(alunos.size() == 0)
-			return alunos = new ArrayList<Aluno>();
-		return alunos;
+		
+		if(retornar.size() == 0)
+			return retornar = new ArrayList<Aluno>();
+		return retornar;
 	}
 	
 	public void salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {

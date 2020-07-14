@@ -29,11 +29,14 @@ public class AvaliacoesBD implements Serializable {
 		this.em.merge(ava);
 	}
 	
+	
+	// talvez não esteja mais usando
 	public List<Avaliacao> buscarAvaliacoes() {
 		TypedQuery<Avaliacao> avaliacoes = this.em.createQuery("select a from Avaliacao a "
 				+ ", Bimestre b where a.bimestre= b.idBimestre and b.atual=true", Avaliacao.class);
 		return avaliacoes.getResultList();
 	}
+	
 	
 	
 	public Avaliacao buscaComentarios(Long idAvaliacao){

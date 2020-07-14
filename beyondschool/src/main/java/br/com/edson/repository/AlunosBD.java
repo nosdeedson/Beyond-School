@@ -50,8 +50,7 @@ public class AlunosBD implements Serializable {
 			return null;
 		}		
 	}
-	
-	
+		
 	
 	/**
 	 * retorna todos os alunos

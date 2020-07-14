@@ -20,6 +20,7 @@ import br.com.edson.Model.Turma;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AlunosResponsaveisBD;
 import br.com.edson.repository.ResponsaveisBD;
+import br.com.edson.service.AcoesAlunoResponsavel;
 import br.com.edson.service.NegocioException;
 
 @Named
@@ -54,11 +55,14 @@ public class PaisAlunosMBean implements Serializable {
 	@Inject
 	private EntityManager em;
 	
+	@Inject
+	private AcoesAlunoResponsavel acoesAR;
+	
 	public void buscarAlunosResponsaveis() {
 		alunosResponsaveis = alunosRespBD.buscarAlunoResponsaveis(turma.getCodigoTurma());
 	}
 	
-	public void excluirResponsavel() throws Exception {
+	public void excluirAlunoResponsavel() throws Exception {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
@@ -66,26 +70,16 @@ public class PaisAlunosMBean implements Serializable {
 		 
 		try {
 			et.begin();
-				alunosRespBD.excluirAlunoResponsavel(alunoResponsavelSerExcluido.getId_aluno_responsavel());
-				responsaveisBD.excluirResponsavel(responsavelSerExcluido.getIdPessoa());
+				
 			et.commit();
 			context.addMessage(null, new FacesMessage("Excluído com sucesso"));
-		} catch (PersistenceException | NegocioException e) {
+		} catch (PersistenceException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage("Falha na exclusão");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
 		}
 		
-	}
-	
-	public void excluirAluno() {
-		JOptionPane.showMessageDialog(null, alunoSerExcluido.getNomeCompleto());
-	}
-	
-	public void ambos() {
-		JOptionPane.showMessageDialog(null, responsavelSerExcluido.getNomeCompleto());
-		JOptionPane.showMessageDialog(null, alunoSerExcluido.getNomeCompleto());
 	}
 	
 	// getters and setters

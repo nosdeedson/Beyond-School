@@ -57,8 +57,8 @@ public class AlunosResponsaveisBD implements Serializable {
 	}
 	
 	public void excluirAlunoResponsavel( Long idAlunoResponsavel) throws NegocioException, Exception {
-		AlunoResponsavel ar = this.em.find(AlunoResponsavel.class, idAlunoResponsavel);
-		this.em.remove(ar);
+		String sql = "delete from AlunoResponsavel ar where ar.responsavel.idPessoa= :idPessoa";
+		this.em.createQuery(sql).setParameter("idPessoa", idAlunoResponsavel).executeUpdate();
 	}
 	
 	public void salvarAlunoResponsavel( AlunoResponsavel alunoResponsavel) throws PersistenceException {
