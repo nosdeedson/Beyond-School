@@ -15,11 +15,11 @@
 </f:metadata>
 
 <ui:define name="corpo2">
-<div class="row" id="corpo">
+<div class="row" >
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">  
 
 					<p:panelGrid columns="1"  id="pg-casdastrar-turma" >
-<!-- 					  <p:messages autoUpdate="true" style="width:200px;"/> -->
+
 <p:growl id="growl" showDetail="true" sticky="true" />  
 						<f:facet name="header">
 							<p:row>
@@ -59,9 +59,9 @@
 							<br/>
 							<p:inputMask id="horario2" value="#{cadastrarTurmaMBean.hora2}" mask="99:99" placeholder="Horario de início" required="true" styleClass="tm-input" />
 							<br/>
-							<p:commandButton value="Salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma" styleClass="tm-botao"/> 
+							<p:commandButton value="Salvar" action="#{cadastrarTurmaMBean.salvar}" update="pg-casdastrar-turma" styleClass="btn"/> 
 							<br/>
-							<p:button value="Cancelar" styleClass="btn btn-danger " outcome="/APP/telaAdmin" />
+							<p:button value="Voltar" styleClass="btn btn-danger " outcome="/APP/telaAdmin" />
 						</h:form>
 				
 					</p:panelGrid>

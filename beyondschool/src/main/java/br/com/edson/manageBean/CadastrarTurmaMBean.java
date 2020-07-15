@@ -13,10 +13,12 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.Turma;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.FuncionariosBD;
 import br.com.edson.repository.TurmasBD;
 import br.com.edson.service.GeradorCodigo;
@@ -58,9 +60,15 @@ public class CadastrarTurmaMBean implements Serializable {
 	
 	private boolean flag = true;
 	
+	@Inject
+	private Usuario user;
+	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	
 	//métodos
 	
 	public void buscarProfessor() {
+		user = (Usuario) session.getAttribute("usuario");
 		if(turma.getCodigoTurma() != null) {
 			this.hora = turma.getHorario().toString();
 			this.hora2 = turma.getHorario2().toString();

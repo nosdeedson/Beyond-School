@@ -8,18 +8,18 @@ xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
- <f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
+ <f:viewAction action="#{layout2MBean.mostraVoltar}"/>
  <f:viewAction action="#{criarSemestreMBean.setaUser}"></f:viewAction>
 </f:metadata>
 
 <ui:define name="corpo2">
  <h:form>
  <p:growl id="growl" showDetail="true" sticky="true" />  
-<!-- <p:messages/> -->
+
 <div class="row">
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12"> 
  		
-<p:panelGrid columns="1" id="pg-criar-semestre" styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt posicao-tela-t">
+<p:panelGrid columns="1" id="pg-criar-semestre" styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt">
 	
 	<f:facet name="header">
 		<p:row>
@@ -57,7 +57,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 	
 		<p:commandButton value="Salvar" id="btn-salvar" action="#{criarSemestreMBean.salvar}" update="@form" styleClass="tm-botao"/>
 		
-<!-- 		<p:linkButton value="Voltar" styleClass="btn" outcome="/APP/telaAdmin" /> -->
+		<p:button value="Voltar" styleClass="btn btn-danger " outcome="/APP/telaAdmin" />
 	
 </p:panelGrid>
  

@@ -24,10 +24,10 @@
 <h:body>
 
 	<header id="cabecalho">
-
+			
 		<div class="row">
-			<div
-				class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12  ">
+		
+			<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12  ">
 				<p:link id="link-home">
 					<h:graphicImage library="images" name="logomedio.png" id="logo-img" />
 				</p:link>
@@ -35,18 +35,19 @@
 				<p:commandButton action="#{layout2MBean.voltar()}"  value="Voltar" id="link-voltar" 
 				rendered="#{layout2MBean.flagBotaoVoltar}" />
 				
-				
 				<p:commandButton id="link-sair" styleClass="btn-danger" value="Sair" action="#{loginMBean.logOut}"  />
-
+				
 			</div>
+			
 		</div>
-
+		
+	<p:outputLabel styleClass="nome-user" value="#{layout2MBean.user.pessoa.getNomeCompleto()}"/>
 	</header>
 
 	
 		<ui:insert name="corpo2" >
-		<div class="row teste" id="corpo">
-		<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-6col-x-6">  
+		<div class="row" >
+		<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-6 col-x-6">  
 		</div>
 		</div>
 		</ui:insert>

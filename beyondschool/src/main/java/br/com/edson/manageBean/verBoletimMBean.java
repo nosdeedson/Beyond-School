@@ -78,6 +78,7 @@ public class verBoletimMBean implements Serializable {
 	}
 	public void buscarAvaliacao() {
 		user = (Usuario) session.getAttribute("usuario");
+		JOptionPane.showMessageDialog(null, user.getTipoAcesso());
 		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
 		if(avaliacao == null)
 			flagTemAvaliacao = false;

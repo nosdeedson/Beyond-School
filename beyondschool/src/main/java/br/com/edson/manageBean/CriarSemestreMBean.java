@@ -46,9 +46,7 @@ public class CriarSemestreMBean implements Serializable {
 	//métodos
 	
 	public void setaUser() {
-		user = (Usuario) session.getAttribute("usuario");
-		JOptionPane.showMessageDialog(null, user.getTipoAcesso());
-		
+		user = (Usuario) session.getAttribute("usuario");	
 	}
 	
 	public void salvar() {

@@ -17,18 +17,21 @@ public class Layout2MBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private boolean flagBotaoVoltar = false;
+	
 
 	@Inject
 	private Usuario user;
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
 	public void mostraVoltar() {
-		
+	
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		user = (Usuario) session.getAttribute("usuario");
 		if(user.getTipoAcesso().equals("admin") || user.getTipoAcesso().equals("professor"))
 			flagBotaoVoltar =true;
+		
 	}
+	
 	
 	public String voltar() {
 		

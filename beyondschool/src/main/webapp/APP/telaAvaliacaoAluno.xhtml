@@ -96,14 +96,14 @@
 			itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 	
-	<p:inputTextarea style="width: 150px;" value="#{telaAvaliacaoAlunoMBean.comentario}" required="true" placeholder="Deixe seu comentário sobre o aluno" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" />
+	<p:inputTextarea styleClass="inputCommentAva" value="#{telaAvaliacaoAlunoMBean.comentario}" required="true" placeholder="Deixe seu comentário sobre o aluno" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" />
 	 
 	 
 	<p:column>
 		<p:commandButton id="btn-next-aluno" value="Next student" rendered="#{telaAvaliacaoAlunoMBean.flagAvaliar}"
 			action="#{telaAvaliacaoAlunoMBean.avaliar()}" update="@form" />
 		<br/>
-		<p:commandButton  value="Buscar aluno" 
+		<p:commandButton  value="Buscar aluno" styleClass="btn_ava"
 			action="#{telaAvaliacaoAlunoMBean.buscarAlunos()}" update="@form" rendered="#{telaAvaliacaoAlunoMBean.flagBuscar}"/>
 		<br/>
 		

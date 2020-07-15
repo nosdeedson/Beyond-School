@@ -55,6 +55,7 @@ public class TransferirAlunoTurmaMBean implements Serializable {
 	
 	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 	
+	
 	@Inject
 	private Usuario user;
 

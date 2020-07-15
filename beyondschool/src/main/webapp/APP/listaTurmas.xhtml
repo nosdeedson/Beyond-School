@@ -14,7 +14,7 @@
 
 <ui:define name="titulo">Turmas</ui:define>
 	<ui:define name="corpo2">
-
+<div style="min-height: 200px;">
 		<h:form >
 			<p:outputLabel value="Suas Turmas" styleClass="listaTurma"/>
 			<br/>
@@ -31,9 +31,7 @@
 				</p:column>
 				
 				<p:column headerText="Dia/Horario" width="7%" > 
-<!-- 					<p:menuButton value="#{turma.primeiroDiaSemana}"> -->
-<!--         				<p:menuitem value="#{turma.horario}" /> -->
-<!--        				</p:menuButton> -->
+
        				<p:outputLabel value="#{turma.primeiroDiaSemana} às " />
 					<p:outputLabel value="#{turma.horario}" >
 						<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
@@ -41,9 +39,7 @@
 				</p:column>
 				
 				<p:column headerText="Dia/Horario" width="7%" > 
-<!-- 					<p:menuButton value="#{turma.segundoDiaSemana}" title="Click"> -->
-<!--         				<p:menuitem value="#{turma.horario2}" /> -->
-<!--        				</p:menuButton> -->
+
 					<p:outputLabel value="#{turma.segundoDiaSemana} às " />
 					<p:outputLabel value="#{turma.horario2}" >
 						<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
@@ -72,6 +68,7 @@
 			</p:dataTable>
 			
 		</h:form>
+		</div>
 	</ui:define>
 
 

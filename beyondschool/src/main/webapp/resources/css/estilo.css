@@ -22,6 +22,7 @@
   width: 100%;
 }
 
+
 /* Extra small devices (phones, 300px and down) */
 @media only screen and (max-width: 330px) {
   .col-s-1 {width: 8.33%;}
@@ -119,6 +120,11 @@
 	.pgLogin, .pgForgotPass{
 		left: 10%;
 	}
+	
+	.inputCommentAva{
+		width: 80px;
+	}
+	
 }
 
 @media (min-width: 331px)  {
@@ -206,6 +212,9 @@
 	
 	.pgLogin, .pgForgotPass{
 		left: 18%;
+	}
+	.inputCommentAva{
+		width: 170px;
 	}
 }
 
@@ -367,7 +376,7 @@
 	.pgLogin, .pgForgotPass{
 		left: 30%;
 	}
-
+	
 }
 
 @media (min-width: 600px) {
@@ -477,6 +486,9 @@
 	
 	.pgLogin, .pgForgotPass{
 		left: 35%;
+	}
+	.inputCommentAva{
+		width: 220px;
 	}
 }
 
@@ -687,6 +699,12 @@
 	position: relative;
 }
 
+.nome-user{
+	position: absolute;
+	right: 10% ;
+	top: 2%;
+}
+
 #cabecalho{
   background-color: #3CB371;
   margin-bottom: 2%;
@@ -719,7 +737,6 @@
 	min-height: 500px;
 	background-color: green;
 }
-
 
 
 

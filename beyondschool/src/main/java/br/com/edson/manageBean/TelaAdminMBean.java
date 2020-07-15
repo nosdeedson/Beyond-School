@@ -35,7 +35,7 @@ public class TelaAdminMBean implements Serializable {
 	
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
-	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 	
 	//métodos
 	public void buscarTurmas() {
