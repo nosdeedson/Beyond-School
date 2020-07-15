@@ -11,12 +11,14 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;
 import br.com.edson.Model.Responsavel;
 import br.com.edson.Model.Turma;
+import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
 import br.com.edson.repository.AlunosResponsaveisBD;
 import br.com.edson.repository.ResponsaveisBD;
@@ -58,11 +60,18 @@ public class PaisAlunosMBean implements Serializable {
 	@Inject
 	private AcoesAlunoResponsavel acoesAR;
 	
+	@Inject
+	private Usuario user;
+	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+
+	
 	public void buscarAlunosResponsaveis() {
+		user = (Usuario) session.getAttribute("usuario");
 		alunosResponsaveis = alunosRespBD.buscarAlunoResponsaveis(turma.getCodigoTurma());
 	}
 	
-	public void excluirAlunoResponsavel() throws Exception {
+	public void excluirResponsavel() throws Exception {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
@@ -70,12 +79,34 @@ public class PaisAlunosMBean implements Serializable {
 		 
 		try {
 			et.begin();
-				
+				acoesAR.excluiResponsavel(responsavelSerExcluido);
 			et.commit();
+			buscarAlunosResponsaveis();
 			context.addMessage(null, new FacesMessage("Excluído com sucesso"));
-		} catch (PersistenceException e) {
+		} catch (PersistenceException | NegocioException e) {
 			et.rollback();
-			FacesMessage msg = new FacesMessage("Falha na exclusão");
+			FacesMessage msg = new FacesMessage(e.getMessage());
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, msg);
+		}
+		
+	}
+	
+	public void excluirAluno() throws Exception {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		EntityTransaction et = this.em.getTransaction();
+		 
+		try {
+			et.begin();
+				acoesAR.excluirAluno(alunoSerExcluido);
+			et.commit();
+			buscarAlunosResponsaveis();
+			context.addMessage(null, new FacesMessage("Excluído com sucesso"));
+		} catch (PersistenceException | NegocioException e) {
+			et.rollback();
+			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
 		}

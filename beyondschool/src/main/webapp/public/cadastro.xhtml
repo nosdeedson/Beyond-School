@@ -99,11 +99,9 @@
 				<p:inputText styleClass="tm-input"  placeholder="Responsável" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel[1]}"/>
 			
 				
-				<p:commandButton styleClass="tm-input"  value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" 
-				rendered="#{cadastroMBean.flagCadastrado}"/>
+				<p:commandButton styleClass="tm-input"  value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" />
 				
-				<p:outputLabel value="Recarregue a página." rendered="#{cadastroMBean.flagCadastrado eq false}"></p:outputLabel>
-				<p:outputLabel value=" Ou Clique em entrar." rendered="#{cadastroMBean.flagCadastrado eq false}"></p:outputLabel>
+				
 		</p:panelGrid>
 	</h:form>
 	<h:outputLabel value="bs9op84o"/>

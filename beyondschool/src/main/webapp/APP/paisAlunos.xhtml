@@ -8,15 +8,16 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <f:metadata >
-	<f:viewParam name="id" value="#{paisAlunosMBean.turma}"></f:viewParam>
- <f:viewAction action="#{paisAlunosMBean.buscarAlunosResponsaveis}" />
- <f:viewAction action="#"></f:viewAction>
+	<f:viewParam name="id" value="#{paisAlunosMBean.turma}"/>
+	<f:viewAction action="#{paisAlunosMBean.buscarAlunosResponsaveis}" />
+ 	<f:viewAction action="#{layout2MBean.mostraVoltar}"/>
 </f:metadata>
 
 <ui:define name="titulo">Pais Alunos</ui:define>
 	<ui:define name="corpo2">
 
 		<h:form >
+		<p:growl id="growl" showDetail="true" sticky="true" />  
 			<p:outputLabel value="#{paisAlunosMBean.turma.nomeTurma}" styleClass="listaTurma"/>
 			<br/>
 				<!-- 				janela de confirmação de exclusão -->
@@ -36,21 +37,22 @@
 				</p:column>
 				
 <!-- 				excluir pai -->
-				<p:column headerText="Açoes"  width="6%"> 
+				<p:column headerText="Açoes"  width="6%" > 
 				
 					<p:commandButton title="Excluir pai" icon="ui-icon-trash"  styleClass="btn btn-danger" 
-							update="@form"	action="#{paisAlunosMBean.excluirResponsavel}">
-					<f:setPropertyActionListener value="#{alunoResponsavel}" target="#{paisAlunosMBean.alunoResponsavelSerExcluido}" />
+							update="@form"	action="#{paisAlunosMBean.excluirResponsavel}" rendered="#{alunoResponsavel.responsavel.deletado eq false}" >
 					<f:setPropertyActionListener value="#{alunoResponsavel.responsavel}" target="#{paisAlunosMBean.responsavelSerExcluido}" />
-					<f:setPropertyActionListener value="#{alunoResponsavel.aluno}" target="#{paisAlunosMBean.alunoSerExcluido}" />
 					<p:confirm header="Confirmação" message="Você realmente quer excluir este pai?" icon="pi pi-exclamation-triangle"/>
 					
 				</p:commandButton>
 				
-				<p:commandButton title="Editar" icon=" ui-icon-pencil"  styleClass="btn btn-danger" 
+				<p:commandButton title="Editar" icon=" ui-icon-pencil"  styleClass="btn btn-danger"  rendered="#{alunoResponsavel.responsavel.deletado eq false}" 
 							update="@form"	action="#">
 <!-- 					<f:param id="#{alunoResponsavel.responsavel.idPessoa}" name="idPessoa"/>				 -->
 				</p:commandButton>
+				
+				 <p:outputLabel value="Deletado" rendered="#{alunoResponsavel.responsavel.deletado}" />
+				
 				</p:column>
 				
 <!-- 				nome alunos -->
@@ -62,7 +64,7 @@
 <!-- 				excluir aluno -->
 				<p:column headerText="Ações"  width="6%"> 
 					
-					<p:commandButton title="Excluir aluno" icon="ui-icon-trash"  styleClass="btn btn-danger" 
+					<p:commandButton title="Excluir aluno" icon="ui-icon-trash"  styleClass="btn btn-danger" rendered="#{alunoResponsavel.aluno.deletado eq false}"
 							update="@form"	action="#{paisAlunosMBean.excluirAluno}">
 						<f:setPropertyActionListener value="#{alunoResponsavel.aluno}" target="#{paisAlunosMBean.alunoSerExcluido}" />
 					
@@ -70,20 +72,18 @@
 					
 					</p:commandButton>
 				
-				<p:commandButton title="Editar" icon=" ui-icon-pencil"  styleClass="btn btn-danger" 
+				<p:commandButton title="Editar" icon=" ui-icon-pencil"  styleClass="btn btn-danger" rendered="#{alunoResponsavel.aluno.deletado eq false}"
 							update="@form"	action="#">
-							<!-- 					<f:param id="#{alunoResponsavel.responsavel.idPessoa}" name="idPessoa"/>				 -->
+	<!-- 					<f:param id="#{alunoResponsavel.responsavel.idPessoa}" name="idPessoa"/>				 -->
 				</p:commandButton>
-					
+					<p:outputLabel value="Deletado" rendered="#{alunoResponsavel.aluno.deletado}" />
 				</p:column>
 				
 <!-- 				excluir ambos -->
 				
-				<p:column headerText="Ambos" width="5%"> 
+				<p:column headerText="Ambos" width="5%">				
 					
-					
-					<p:commandButton title="Excluir ambos" icon="ui-icon-trash"  styleClass="btn btn-danger" 
-							update="@form"	action="#{paisAlunosMBean.ambos}">
+					<p:commandButton update="@form"	action="#{paisAlunosMBean.ambos}" title="Excluir ambos" icon="ui-icon-trash"  styleClass="btn btn-danger" >
 					<f:setPropertyActionListener value="#{alunoResponsavel.responsavel}" target="#{paisAlunosMBean.responsavelSerExcluido}" />
 					<f:setPropertyActionListener value="#{alunoResponsavel.aluno}" target="#{paisAlunosMBean.alunoSerExcluido}" />
 					

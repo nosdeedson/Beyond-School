@@ -47,11 +47,35 @@ public class ResponsaveisBD implements Serializable {
 		return resp;
 	}
 	
-	
-	public void excluirResponsavel( Long idResponsavelSerExcluido) throws NegocioException, Exception {
+	/**
+	 * deleta do banco de dados
+	 * @param idResponsavelSerExcluido
+	 * @throws NegocioException
+	 * @throws Exception
+	 */
+	public void removeResponsavel( Long idResponsavelSerExcluido) throws NegocioException, Exception {
 		Responsavel resp = this.em.find(Responsavel.class, idResponsavelSerExcluido);
 		usersBD.excluirUser(resp.getIdPessoa());
 		this.em.remove(resp);
+	}
+	
+	/**
+	 * update do responsavel, o atributo deletado passa para true
+	 * @param idResponsavelSerExcluido
+	 * @throws NegocioException
+	 * @throws Exception
+	 */
+	public void excluirResponsavel( Long idResponsavelSerExcluido) throws NegocioException, Exception {
+		Responsavel resp = this.em.find(Responsavel.class, idResponsavelSerExcluido);
+		resp.setDeletado(true);
+		try {
+			this.em.merge(resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new NegocioException("Falha ao excluir responsável");
+		}
+		
+		
 	}
 	
 	

@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 
 import javax.enterprise.inject.InjectionException;
 import javax.faces.FacesException;
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIViewRoot;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
@@ -16,6 +18,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
+
+import javax.faces.application.ViewHandler;
+
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;
@@ -341,19 +346,18 @@ public class CadastroMBean implements Serializable {
 				
 				
 				 et.commit();
-				 flagCadastrado = false;
 				break;
 			}
 
-
-			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
 			
+			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
+			refreshPage(context);
 		} catch ( PersistenceException | ParseException | NullPointerException | NegocioException | FacesException | InjectionException e) {
 			et.rollback();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
-			flagCadastrado = false;
+			refreshPage(context);
 		} finally {
 			setCodigoTurma("");
 			setNascimento("");
@@ -368,6 +372,16 @@ public class CadastroMBean implements Serializable {
 			setNomeResponsavel(respVazio);
 			setEmail("");
 		}
+		
+	}
+	
+	public void refreshPage(FacesContext context ) {
+		//does the refresh of the page
+		Application application = context.getApplication();
+		ViewHandler view = application.getViewHandler();
+		UIViewRoot root = view.createView(context, context.getViewRoot().getViewId());
+		context.setViewRoot(root);
+		context.getRenderResponse();
 		
 	}
 	
