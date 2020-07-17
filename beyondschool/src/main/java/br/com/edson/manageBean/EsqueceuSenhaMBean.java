@@ -44,38 +44,46 @@ public class EsqueceuSenhaMBean implements Serializable {
     
     @Inject
     private EntityManager em;
-
+    
+    private Integer progresso = 0;
+    
     //métodos
+ 
+    
     public void enviarEmail() throws NegocioException {
     	FacesContext context = FacesContext.getCurrentInstance();
-    	
-    	
-    	if(!ValidarEmail.isValidEmail(email)) {
-    		context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "));
-    		throw new NegocioException("Email inválido");
-    	}
+    	EntityTransaction et = this.em.getTransaction();
     	
     	try {
+    		if(!ValidarEmail.isValidEmail(email)) {
+        		throw new NegocioException("Email inválido");
+        	}
     	
     		setDate(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
-    
-    		resetSenha.resetPassWord(email, nomeCompleto, date, tipoAcesso); 
-    		
+    		// verifica o usuario
+    		et.begin();
+    			resetSenha.resetPassWord(email, nomeCompleto, date, tipoAcesso); 
+    		et.commit();
+    		context.addMessage(null, new FacesMessage("Mandamos uma nova senha no seu email."));
+    		CadastroMBean cad = new CadastroMBean();
+    		cad.refreshPage(context);
 		} catch (PersistenceException | ParseException | NegocioException e) {
-		
+			et.rollback();
+			FacesMessage msg = new FacesMessage(e.getMessage());
 			e.printStackTrace();
-			FacesMessage msg = new FacesMessage("Usuário não encontrado. Verifique os dados informados.");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
+			CadastroMBean cad = new CadastroMBean();
+    		cad.refreshPage(context);
 		}
     	finally {
     		setEmail("");
     		setNascimento("");
     		setNomeCompleto("");
-    		date = new Date();
-    		setTipoAcesso("");
+    		date = null;
+    		setTipoAcesso("");	
 		}
-    	context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "));
+    	
     	
     }
     
@@ -127,6 +135,17 @@ public class EsqueceuSenhaMBean implements Serializable {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
+	public Integer getProgresso() {
+		return progresso;
+	}
+
+
+	public void setProgresso(Integer progresso) {
+		this.progresso = progresso;
+	}
+
     
     
     

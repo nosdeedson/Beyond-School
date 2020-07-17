@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
+<f:viewAction action="#{redefinirSenhaMBean.setaUser}"/>
+</f:metadata>
+
+<ui:define name="corpo2">
+
+		
+	<h:form id="fr1">
+		<p:panelGrid columns="1" id="pg-login-user" styleClass="pgLogin">
+		<p:growl id="growl" showDetail="true" sticky="true" />  
+		<f:facet name="header">
+			<p:row>
+				<p:outputLabel>Redefinir senha</p:outputLabel>
+			</p:row>
+		</f:facet>
+					
+		<p:password value="#{redefinirSenhaMBean.user.senha}" styleClass="tm-redefinirSenha"  id="senha" placeholder="Senha"  required="true" feedback="true" 
+		style="font-weight: bold;" match="confirme" promptLabel="Digite a senha" weakLabel="Senha fraca" goodLabel="Senha boa" strongLabel="Senha forte" 
+		label="Senha" title="8 caracteres no mínimo"  />
+				
+		<p:password value="#{redefinirSenhaMBean.confirmeSenha}" styleClass="tm-redefinirSenha"  id="confirme" placeholder="Corfirmar senha" required="true" 
+		feedback="false" label="Campo necessário" style="font-weight: bold;" title="8 caracteres no mínimo" />
+						
+		<p:commandButton action="#{redefinirSenhaMBean.redefinirSenha}" value="Enviar" styleClass="tm-botao" update="pg-login-user" />
+					
+		
+		</p:panelGrid>
+				
+	</h:form>	
+</ui:define>
+
+
+</ui:composition>

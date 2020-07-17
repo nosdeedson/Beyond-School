@@ -57,7 +57,7 @@ public class AcoesAlunoResponsavel implements Serializable {
 	public void excluirAluno(Aluno alunoSerExcluido) throws Exception {
 		List<AlunoResponsavel> responsaveisPorAluno = alunosRespsBD.buscaResponsavelPorAluno(alunoSerExcluido.getIdPessoa());
 		
-		
+		JOptionPane.showMessageDialog(null, "aluno");
 		for (int i = 0; i < responsaveisPorAluno.size(); i++) {
 			
 			List<AlunoResponsavel> alunosDoResp = alunosRespsBD.buscaAlunosPorResponsavel(responsaveisPorAluno.get(i).getResponsavel().getIdPessoa());

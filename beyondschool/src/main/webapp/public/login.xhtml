@@ -19,21 +19,23 @@
 						</p:row>
 					</f:facet>
 					
-						<p:inputText styleClass="entrada-texto" placeholder="nome.sobrenome"  value="#{loginMBean.nomeUser}" style="font-weight: bold;" />
+						<p:inputText styleClass="entrada-texto" placeholder="nome.sobrenome"  value="#{loginMBean.nomeUser}" style="font-weight: bold;"  label="nome.sobreNome"/>
 						
-						<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" style="font-weight: bold;"  />
+						<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" style="font-weight: bold;" label="senha" />
 						
 						<p:commandButton value="Entrar" styleClass="tm-botao" update="pg-login-user" action="#{loginMBean.login}" />
 					
 		
 				</p:panelGrid>
+				
+				
 				</h:form>
 				<BR />
 		
 				<h:panelGrid styleClass="pgForgotPass">
 				
 				<h:form id="frm2">
-				
+				<p:growl id="growl" showDetail="true" sticky="true" />  
 					<p:commandButton value="Esqueceu senha" styleClass="esqueceuSenha" type="button" onclick="PF('dlg2').show();" />
 				
 		<!-- 		 modal para recuperar senha  -->
@@ -46,17 +48,38 @@
 		    		<br/>
 		    		<p:inputMask value="#{esqueceuSenhaMBean.nascimento}"  styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" required="true" 
 						label="Nascimento" style="width:300px; font-weight: bold;" />
-						
-		    		<p:inputText value="#{esqueceuSenhaMBean.tipoAcesso}"   placeholder="Tipo acesso" style="width:300px; font-weight: bold;" />
+					
+					<p:selectOneMenu id="console1"   value="#{esqueceuSenhaMBean.tipoAcesso}"  required="true" style="width: 290px;"  >
+								<f:selectItem itemLabel="Selecione " itemValue=""  noSelectionOption="true" />
+								<f:selectItem itemLabel="Admin" itemValue="admin" />
+								<f:selectItem itemLabel="Aluno" itemValue="aluno" />
+								<f:selectItem itemLabel="Professor" itemValue="professor" />
+								<f:selectItem itemLabel="Responsável" itemValue="responsavel" />
+					</p:selectOneMenu>
 		    		<br/>
-		    		<p:commandButton update="frm2"  action="#{esqueceuSenhaMBean.enviarEmail}"  styleClass="tm-botao" value="enviar"  />
-		    
+		    		
+		    		
+		    		<p:commandButton update="frm2" action="#{esqueceuSenhaMBean.enviarEmail}"   
+		    		styleClass="tm-botao" value="enviar"  onclick="start()" />
+		    		<p:progressBar widgetVar="pb" value="#{esqueceuSenhaMBean.progresso}" labelTemplate="{value}%"/>
+		    		
 				</p:dialog>   
+				 
+				
 					<BR />
 					<p:link id="criar-acesso" styleClass="links-gerais"
 						outcome="cadastro" value="Criar o seu acesso?" />
 					</h:form>	
 				</h:panelGrid>
+<script type="text/javascript">
+    function start() {
+    this.progressInterval = setInterval(function(){
+        PF('pb').setValue(PF('pb').getValue() + 10);
+    }, 2000);
+}
+</script>			
+				
+
 	
 </ui:define>
 

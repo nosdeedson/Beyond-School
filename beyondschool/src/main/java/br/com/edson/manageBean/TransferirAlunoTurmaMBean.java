@@ -41,7 +41,6 @@ public class TransferirAlunoTurmaMBean implements Serializable {
 	
 	private List<Turma> turmas = new ArrayList<Turma>();
 	
-
 	@Inject
 	private TurmasBD turmasBD;
 	

@@ -35,11 +35,12 @@ public class UsuariosBD implements Serializable {
 	
 
 	public int excluirUser(Long id) {
-		int t = 0;
-		String sql = "delete from Usuario u where u.pessoa.idPessoa= :idPessoa";
+		JOptionPane.showMessageDialog(null, "exluindo user resp");
+		Usuario user = this.em.find(Usuario.class, id);
+		
 		try {
-			t = this.em.createQuery(sql).setParameter("idPessoa", id).executeUpdate();
-			return t;
+			this.em.remove(user);
+			return 1;
 		} catch ( PersistenceException e) {
 			return 0;
 		}
@@ -67,7 +68,7 @@ public class UsuariosBD implements Serializable {
 		
 	}
 	
-	public boolean validaUserResetPassWord( String email, String nomeCompleto, Date niver, String tipoAcesso ){
+	public Usuario validaUserResetPassWord( String email, String nomeCompleto, Date niver, String tipoAcesso ){
 		
 		Usuario user = null;
 		String sql = "select u from Usuario u where u.email= :email and u.pessoa.nomeCompleto= :nomeCompleto"
@@ -76,14 +77,12 @@ public class UsuariosBD implements Serializable {
 			user = this.em.createQuery(sql, Usuario.class).setParameter("email", email).setParameter("nomeCompleto", nomeCompleto)
 					.setParameter("nomeCompleto", nomeCompleto).setParameter("dataNascimento", niver)
 					.setParameter("tipoAcesso", tipoAcesso).getSingleResult();
-			JOptionPane.showMessageDialog(null, user.getNomeUsuario());
-			
-				
+							
 		} catch (PersistenceException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
-		return true;
+		return user;
 	}
 	
 	public List<String> todasSenhas( ){

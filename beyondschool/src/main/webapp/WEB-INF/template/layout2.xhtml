@@ -31,12 +31,14 @@
 				<p:link id="link-home">
 					<h:graphicImage library="images" name="logomedio.png" id="logo-img" />
 				</p:link>
-				
-				<p:commandButton action="#{layout2MBean.voltar()}"  value="Voltar" id="link-voltar" 
-				rendered="#{layout2MBean.flagBotaoVoltar}" />
-				
-				<p:commandButton id="link-sair" styleClass="btn-danger" value="Sair" action="#{loginMBean.logOut}"  />
-				
+				<h:form>
+				<p:menuButton value="Menu" styleClass="menuHeader">
+			        <p:menuitem value="Voltar" action="#{layout2MBean.voltar()}" />
+			        <p:menuitem value="Redefinir senha" action="redefinirSenha" url="redefinirSenha.xhtml" />
+			        <p:menuitem value="Sair" action="#{loginMBean.logOut}" />
+			    </p:menuButton>
+				</h:form>
+
 			</div>
 			
 		</div>

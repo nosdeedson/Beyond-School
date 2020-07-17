@@ -42,11 +42,11 @@
 		position: relative;
 		left: 2 px;
 	}
-	#link-cadastro-header, #link-voltar{
+	#link-cadastro-header{
 		font-size: 15px;
 	}
 	
-	#link-login-header, #link-sair{
+	#link-login-header{
 		font-size: 15px;
 		left: 1%;
 	}
@@ -125,6 +125,10 @@
 		width: 80px;
 	}
 	
+	.menuHeader{
+		left: 25%;
+	}
+	
 }
 
 @media (min-width: 331px)  {
@@ -141,12 +145,12 @@
   .col-sp-11 {width: 91.66%;}
   .col-sp-12 {width: 100%;}
   
-	#link-cadastro-header, #link-voltar{
+	#link-cadastro-header{
 		font-size: 15px;
 		top: 0px;
 	}
 	
-	#link-login-header, #link-sair{
+	#link-login-header{
 		font-size: 15px;
 		left: 1%;
 	}
@@ -216,6 +220,10 @@
 	.inputCommentAva{
 		width: 170px;
 	}
+	.menuHeader{
+		left: 68%;
+		top: -50px;
+	}
 }
 
 @media (min-width: 400px) {
@@ -232,7 +240,7 @@
 	.col-m-11 {width: 91.66%;}
 	.col-m-12 {width: 100%;}
 	
-	#link-cadastro-header, #link-voltar{
+	#link-cadastro-header{
 		font-size: 15px;
 		top: 0px;
 	}
@@ -394,12 +402,12 @@
   .col-t-11 {width: 91.66%;}
   .col-t-12 {width: 100%;}
   	
- 	#link-cadastro-header, #link-voltar{
+ 	#link-cadastro-header{
 		left: 30%;
 		top: 0px;
 	}
 	
-	#link-login-header, #link-sair{
+	#link-login-header{
 		left: 30%;
 	} 
    
@@ -507,7 +515,7 @@
   .col-11 {width: 91.66%;}
   .col-12 {width: 100%;}
   
-   #link-cadastro-header, #copy-right, #link-login-header, #link-voltar, #link-sair{
+   #link-cadastro-header, #copy-right, #link-login-header{
 		font-size: 20px;
 	}
 	
@@ -693,9 +701,9 @@
 #pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-editar-turma-prof, #pg-listar-turmas,
 #pg-tela-admin, #pg-tela-aluno, #pg-tela-avaliar-aluno, #pg-tela-pai, #cabecalho, #rodape,
 #pg-ver-boletim, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher, #pg-comment-aluno,
-.botao-cancelar-avaliacao, #pg-criar-semestre, #link-cadastro-header, #link-voltar,
-#link-login-header, #link-sair, .link-pe, #copy-rigth, #link-cadastro-header, #link-voltar, #link-login-header, #link-sair, 
-#criar-acesso, #logo-img, .pgLogin, .pgForgotPass{
+.botao-cancelar-avaliacao, #pg-criar-semestre, #link-cadastro-header,
+#link-login-header, .link-pe, #copy-rigth, #link-cadastro-header, #link-login-header, 
+#criar-acesso, #logo-img, .pgLogin, .pgForgotPass, .menuHeader{
 	position: relative;
 }
 
