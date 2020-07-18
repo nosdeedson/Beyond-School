@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
@@ -93,7 +94,6 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 				flagAvaliar = false;
 				flagBuscar = true;
 			}
-	
 	}
 
 	
@@ -132,6 +132,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 		// usado quando edita avaliação
 		if(alunos.size() == 0  && aluno != null) {
 			try {
+					
 					objComentario = avaliacao.getComentarios().get(0);
 					//objComentario.setComentario(comentario);
 					//avaliacao.getComentarios().get(0).setComentario(comentario);
@@ -159,7 +160,7 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 			int cont = 0;
 			
 			try {
-									
+						
 				objComentario.setComentario(comentario);
 				objComentario.setDataComentario(new Date());
 				objComentario.setIdPessoaQueFez(usuario.getPessoa().getIdPessoa());
@@ -195,6 +196,19 @@ public class TelaAvaliacaoAlunoMBean implements Serializable {
 		
 	}
 	
+	public void retiraAlunoAvaliado() {
+		if(alunos.size() > 0) {
+			aluno = alunos.get(0);
+			flagAvaliar = true;
+			flagBuscar = false;
+		}
+		else  {
+			flag = false;
+			flag1 = true;
+			flagAvaliar = false;
+			flagBuscar = true;
+		}
+	}
 	
 	/**
 	 * método que pego os valores dos enums

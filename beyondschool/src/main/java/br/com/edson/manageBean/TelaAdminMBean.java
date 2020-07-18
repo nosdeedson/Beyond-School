@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.TurmasBD;
+import br.com.edson.service.NegocioException;
+import br.com.edson.service.RegistrarAvaliacao;
 
 
 @Named
@@ -42,7 +44,7 @@ public class TelaAdminMBean implements Serializable {
 		user = (Usuario) session.getAttribute("usuario");
 		turmas = turmasBD.todasTurmas();
 	}
-	
+
 	//getters and setters
 	public List<Turma> getTurmas() {
 		return turmas;

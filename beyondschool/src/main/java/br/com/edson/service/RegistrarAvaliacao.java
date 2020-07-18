@@ -37,11 +37,13 @@ public class RegistrarAvaliacao implements Serializable {
 	
 	public List<Aluno> buscarAlunosSemAvaliacao(String codigoTurma) throws NegocioException {
 		
+		bimestre = bimestresBD.buscarBimestreAtual();
 		List<Aluno> alunos = alunosBD.buscaAlunosTurma(codigoTurma);
 		List<Aluno> retornar = new ArrayList<Aluno>();
 		Avaliacao ava = new Avaliacao();
+		
 		for (int i = 0; i < alunos.size(); i++) {
-			ava = avaliacoesBD.buscaPorIdAluno(alunos.get(i).getIdPessoa());
+			ava = avaliacoesBD.buscarAvaliacoesSemestreCorrente(bimestre.getIdBimestre(), alunos.get(i).getIdPessoa());
 			if( ava == null) {
 				retornar.add(alunos.get(i));
 			}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
+import br.com.edson.Model.Comentario;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
@@ -35,6 +37,8 @@ public class verBoletimMBean implements Serializable {
 	@Inject
 	private Avaliacao avaliacao;
 	
+	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+	
 	@Inject
 	private AvaliacoesBD avaliacoesBD;
 
@@ -44,7 +48,7 @@ public class verBoletimMBean implements Serializable {
 	@Inject
 	private Usuario user;
 	
-	private List<String> comentarios = new ArrayList<String>();
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
 	private String[] comentario = new String[2];
 	
@@ -60,7 +64,9 @@ public class verBoletimMBean implements Serializable {
 	@Inject
 	private EntityManager em;
 	
-	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	private boolean nextAva = false;
+	
+	HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 	
 	//métodos
 	public void atualizaBimestre() throws NegocioException {
@@ -78,7 +84,6 @@ public class verBoletimMBean implements Serializable {
 	}
 	public void buscarAvaliacao() {
 		user = (Usuario) session.getAttribute("usuario");
-		JOptionPane.showMessageDialog(null, user.getTipoAcesso());
 		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
 		if(avaliacao == null)
 			flagTemAvaliacao = false;
@@ -88,7 +93,7 @@ public class verBoletimMBean implements Serializable {
 	public void buscarComentarios() {
 		if(  flagTemAvaliacao ) {
 			
-			
+			//ver ser entra aqui
 			if( avaliacao.getComentarios().size() > 1 && avaliacao.getComentarios().get(1).getIdPessoaQueFez().equals(aluno.getIdPessoa())  )
 			{	
 				flagCommentAluno = true;
@@ -116,6 +121,36 @@ public class verBoletimMBean implements Serializable {
 			}
 		}
 		
+	}
+	
+	public void todasAvaliacoes() throws NegocioException {
+		
+		avaliacoes = avaliacoesBD.todasAvaliacoesAluno(aluno.getIdPessoa());
+		
+		if (avaliacoes == null) {
+			throw new NegocioException("Falha ao buscar avaliações.");
+		}
+		nextAva = true;
+		avaliacao = avaliacoes.get(0);
+		buscarComentarios();
+		
+	}
+	
+	public void next() throws NegocioException {
+		avaliacoes.remove(0);
+		if(avaliacoes.size() == 1) {
+			nextAva = false;
+			avaliacao = avaliacoes.get(0);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Esta é a ultima avaliação a ser exibida."));
+		}
+		else {
+			EntityTransaction et = this.em.getTransaction();
+			avaliacao = avaliacoes.get(0);
+			buscarComentarios();
+			et.commit();
+		}
+			
 	}
 	
 	//getters and setters
@@ -182,6 +217,12 @@ public class verBoletimMBean implements Serializable {
 
 	public void setUser(Usuario user) {
 		this.user = user;
+	}
+	public boolean isNextAva() {
+		return nextAva;
+	}
+	public void setNextAva(boolean nextAva) {
+		this.nextAva = nextAva;
 	}
 	
 	

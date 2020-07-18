@@ -104,7 +104,7 @@
 			action="#{telaAvaliacaoAlunoMBean.avaliar()}" update="@form" />
 		<br/>
 		<p:commandButton  value="Buscar aluno" styleClass="btn_ava"
-			action="#{telaAvaliacaoAlunoMBean.buscarAlunos()}" update="@form" rendered="#{telaAvaliacaoAlunoMBean.flagBuscar}"/>
+			action="#{telaAvaliacaoAlunoMBean.retiraAlunoAvaliado()}" update="@form" rendered="#{telaAvaliacaoAlunoMBean.flagBuscar}"/>
 		<br/>
 		
 		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao eq false}" >

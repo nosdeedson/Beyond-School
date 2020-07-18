@@ -3,6 +3,7 @@ package br.com.edson.repository;
 import java.io.Serializable;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
+import br.com.edson.Model.Bimestre;
 import br.com.edson.service.NegocioException;
 
 public class AvaliacoesBD implements Serializable {
@@ -21,6 +23,7 @@ public class AvaliacoesBD implements Serializable {
 	
 	@Inject
 	private EntityManager em;
+	
 
 	@Inject
 	public AvaliacoesBD() {	}
@@ -31,12 +34,27 @@ public class AvaliacoesBD implements Serializable {
 	
 	
 	// talvez não esteja mais usando
-	public List<Avaliacao> buscarAvaliacoes() {
+	public List<Avaliacao> buscarAvaliacoes( ) {
 		TypedQuery<Avaliacao> avaliacoes = this.em.createQuery("select a from Avaliacao a "
 				+ ", Bimestre b where a.bimestre= b.idBimestre and b.atual=true", Avaliacao.class);
 		return avaliacoes.getResultList();
 	}
 	
+//	faça uma busca cruzando com o bimestre atual
+	
+	public Avaliacao buscarAvaliacoesSemestreCorrente( Long idBimestre, Long idAluno){
+		
+		Avaliacao ava = null;
+		String sql = "select a from Avaliacao a where a.aluno.idPessoa= :idPessoa"
+				+ " and a.bimestre.idBimestre= :idBimestre";
+		try {
+			ava = this.em.createQuery(sql, Avaliacao.class).setParameter("idPessoa", idAluno).setParameter("idBimestre", idBimestre).getSingleResult();
+			return ava;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	
 	public Avaliacao buscaComentarios(Long idAvaliacao){
@@ -72,7 +90,18 @@ public class AvaliacoesBD implements Serializable {
 			e.printStackTrace();
 			throw new NegocioException("Falha ao salvar o comentario");
 		}
-		
-		
 	}
-}
+
+	public List<Avaliacao> todasAvaliacoesAluno(Long idAluno) {
+		String sql = "select a from Avaliacao a where a.aluno.idPessoa= :idPessoa order by a.idAvaliacao asc";
+		
+		try {
+			TypedQuery<Avaliacao> avaliacoes = this.em.createQuery(sql, Avaliacao.class).setParameter("idPessoa", idAluno);
+			return avaliacoes.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+}//fim classe
