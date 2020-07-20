@@ -75,14 +75,17 @@ public class EditarTurmaAdminMBean implements Serializable {
 	}
 	
 	public void atualizaBimestre() throws NegocioException {
+		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = this.em.getTransaction();
 		try {
 			et.begin();
 			atualizaBimeste.atualizaBimestre();
 			et.commit();
-		} catch (PersistenceException |NegocioException e) {
+		} catch (PersistenceException | NegocioException e) {
 			et.rollback();
-			throw new NegocioException("Falha ao atualizar o bimestre");
+			FacesMessage msg= new FacesMessage(e.getMessage());
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, msg);
 		}
 		
 	}

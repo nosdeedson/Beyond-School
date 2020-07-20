@@ -40,7 +40,7 @@ public class AtualizaBimestre implements Serializable {
 	    	next = bimestresBD.nextBimestre(bimestre.getDataInicio());
 		    
 		    if( bimestre == null || next == null)
-		    	throw new NegocioException("Falha ao atualizar o bimestre");
+		    	throw new NegocioException("\n Você não criou o semestre corrente.");
 		    
 		    if( date.after(bimestre.getDataFim())){
 		    	bimestre.setAtual(false);
@@ -49,7 +49,7 @@ public class AtualizaBimestre implements Serializable {
 		    	bimestresBD.salvarBimestre(next);
 		    }
 		} catch (Exception e) {
-			throw new NegocioException("Falha ao atualizar o bimestre");
+			throw new NegocioException("Falha ao atualizar o bimestre. " + e.getMessage());
 		}    
 	    
 	}

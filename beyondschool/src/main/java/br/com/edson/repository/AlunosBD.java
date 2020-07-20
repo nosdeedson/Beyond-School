@@ -1,6 +1,7 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
+import br.com.edson.Model.Usuario;
 import br.com.edson.service.NegocioException;
 
 public class AlunosBD implements Serializable {
@@ -58,7 +60,7 @@ public class AlunosBD implements Serializable {
 	 */
 	public List<Aluno> buscaAlunos(){
 		try {
-			TypedQuery<Aluno> alunos = this.em.createQuery("from Aluno a where a.deletado= 0", Aluno.class);
+			TypedQuery<Aluno> alunos = this.em.createQuery("from Aluno a where a.deletado= 0 order by a.nomeCompleto", Aluno.class);
 			return alunos.getResultList();
 		} catch (PersistenceException e) {
 			return null;
@@ -74,7 +76,7 @@ public class AlunosBD implements Serializable {
 	 * @return
 	 */
 	public Aluno buscaAlunoPeloNome( String nome) {
-		Aluno aluno;
+		Aluno aluno = null;
 		try {
 			String sql = "select a from Aluno a where nomeCompleto = :nomeCompleto";
 			aluno = this.em.createQuery(sql, Aluno.class).setParameter("nomeCompleto", nome).getSingleResult();
@@ -106,7 +108,7 @@ public class AlunosBD implements Serializable {
 	public Integer buscaMatricula() {
 		
 		String sql = " select max(a.matricula) from Aluno a";
-		Integer mat = new Integer(100);
+		Integer mat = new Integer(1);
 		
 		try {
 			mat = this.em.createQuery(sql, Integer.class).getSingleResult();
@@ -146,13 +148,19 @@ public class AlunosBD implements Serializable {
 	 */
 	public void excluirAluno(Aluno alunoSerExcluido) throws NegocioException{
 			try {
+				
+				alunoSerExcluido = this.em.find(Aluno.class, alunoSerExcluido.getIdPessoa());
+				
+				
 				int res = usersBD.excluirUser(alunoSerExcluido.getIdPessoa());
+				
 				if(res == 0) {
 					throw new NegocioException("Falha ao excluir o aluno. Tente novamente.");
 				}
 				alunoSerExcluido.setDeletado(true);
 				this.em.merge(alunoSerExcluido);
 			} catch (PersistenceException e) {
+				e.printStackTrace();
 				throw new NegocioException("Falha ao excluir aluno. Tente novamente.");
 			}
 			

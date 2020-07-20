@@ -63,16 +63,14 @@
 	}
 	
 	#pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-listar-turmas,
-	#link-esqueceu-senha, #criar-acesso, #pg-tela-aluno, #text-area-coment-avaliacao-prof, #pg-tela-pai, 
-	#pg-ver-boletim{
+	#link-esqueceu-senha, #criar-acesso, #pg-tela-aluno, #text-area-coment-avaliacao-prof, #pg-tela-pai
+	{
 		font-size: 14px;
 	}
-	
+		
 	#pg-tela-pai, #pg-criar-semestre{
 		font-size: 12px;
 	}
-	
-	
 	
 	#pg-comment-aluno, #pg-comentario-teacher, #comment-teacher{
 		left: 4%;
@@ -129,6 +127,16 @@
 		left: 25%;
 	}
 	
+	.boletim{
+		font-size: 15px;
+	}
+	
+	
+	.outPutSemAvaliacao{
+		font-size: 20px;
+		margin-bottom: 10px;
+	}
+	
 }
 
 @media (min-width: 331px)  {
@@ -167,10 +175,9 @@
 		position: relative;
 	}
 	
-	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno, #pg-ver-boletim{
+	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno{
 		left: 3%;
 	}
-	
 	
 	#pg-tela-admin, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher{
 		left: 15%;
@@ -224,6 +231,10 @@
 		left: 68%;
 		top: -50px;
 	}
+	
+	.boletim{
+		left: 10%;
+	}
 }
 
 @media (min-width: 400px) {
@@ -254,7 +265,7 @@
 		left: 30%;
 	}
 	
-	#pg-casdastrar-turma, #pg-cadastro-user, #pg-ver-boletim, #pg-criar-semestre{
+	#pg-casdastrar-turma, #pg-cadastro-user, #pg-criar-semestre{
 		left: 10%;
 	}
 	#pg-tela-aluno{
@@ -301,6 +312,10 @@
 	.pgLogin, .pgForgotPass{
 		left: 25%;
 	}
+	
+	.boletim{
+		left: 20%;
+	}
 }
 
 @media  (min-width: 500px) {
@@ -330,7 +345,7 @@
 		position: relative;
 	}
   
-  	#pg-casdastrar-turma, #pg-cadastro-user, #pg-ver-boletim, #pg-criar-semestre	{
+  	#pg-casdastrar-turma, #pg-cadastro-user, #pg-criar-semestre	{
 		left: 20%;
 	}
 	
@@ -385,6 +400,12 @@
 		left: 30%;
 	}
 	
+	.boletim{
+		left: 25%;
+	}
+	.semBoletim{
+		left: 3%;
+	}
 }
 
 @media (min-width: 600px) {
@@ -418,7 +439,7 @@
 		position: relative;
 	}
   	
-  	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno, #pg-ver-boletim, #pg-criar-semestre{
+  	#pg-casdastrar-turma, #pg-cadastro-user, #pg-tela-aluno, #pg-criar-semestre{
 		left: 30%;
 		position: relative;
 	}
@@ -498,6 +519,14 @@
 	.inputCommentAva{
 		width: 220px;
 	}
+	
+	.boletim{
+		left: 30%;
+	}
+	
+	.semBoletim{
+		left: 10%;
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -538,7 +567,7 @@
 		left: 20%;
 	}
 	
-	#pg-tela-admin, #pg-ver-boletim, #pg-criar-semestre{
+	#pg-tela-admin, #pg-criar-semestre{
 		left: 35%;
 	}
 	
@@ -604,6 +633,13 @@
 		left: 45%;
 		position: relative;
 	}
+	.boletim{
+		left: 35%;
+	}
+	
+	.semBoletim{
+		left: 20%;
+	}
 }
 
 @media (min-width: 900px) {
@@ -653,7 +689,9 @@
 		position:relative;
 		width: 800px;
 	}
-	
+	.semBoletim{
+		left: 30%;
+	}
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -700,10 +738,10 @@
 
 #pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-editar-turma-prof, #pg-listar-turmas,
 #pg-tela-admin, #pg-tela-aluno, #pg-tela-avaliar-aluno, #pg-tela-pai, #cabecalho, #rodape,
-#pg-ver-boletim, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher, #pg-comment-aluno,
+.boletim, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher, #pg-comment-aluno,
 .botao-cancelar-avaliacao, #pg-criar-semestre, #link-cadastro-header,
 #link-login-header, .link-pe, #copy-rigth, #link-cadastro-header, #link-login-header, 
-#criar-acesso, #logo-img, .pgLogin, .pgForgotPass, .menuHeader{
+#criar-acesso, #logo-img, .pgLogin, .pgForgotPass, .menuHeader, .semBoletim{
 	position: relative;
 }
 
@@ -747,6 +785,8 @@
 	background-color: green;
 }
 
-
+.conteudo{
+	min-height: 170px;
+}
 
 

@@ -94,7 +94,7 @@ public class AvaliacoesBD implements Serializable {
 
 	public List<Avaliacao> todasAvaliacoesAluno(Long idAluno) {
 		String sql = "select a from Avaliacao a where a.aluno.idPessoa= :idPessoa order by a.idAvaliacao asc";
-		
+	
 		try {
 			TypedQuery<Avaliacao> avaliacoes = this.em.createQuery(sql, Avaliacao.class).setParameter("idPessoa", idAluno);
 			return avaliacoes.getResultList();

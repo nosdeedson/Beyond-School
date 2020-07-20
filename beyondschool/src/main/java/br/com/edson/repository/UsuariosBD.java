@@ -11,6 +11,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
+import br.com.edson.Model.Pessoa;
 import br.com.edson.Model.Usuario;
 import br.com.edson.service.NegocioException;
 
@@ -24,24 +25,16 @@ public class UsuariosBD implements Serializable {
 	@Inject
 	public UsuariosBD() {	}
 	
-	
-	/**
-	 * salva usuario
-	 * @param user
-	 */
-	public void salvarUser( Usuario user) {
-		this.em.merge(user);
-	}
-	
 
-	public int excluirUser(Long id) {
-		JOptionPane.showMessageDialog(null, "exluindo user resp");
-		Usuario user = this.em.find(Usuario.class, id);
-		
+	public int excluirUser( Long idPessoa ) {
+		Usuario user = porIdPessoa(idPessoa);
+		if( user.getPessoa() == null)
+			return 1;
 		try {
 			this.em.remove(user);
 			return 1;
 		} catch ( PersistenceException e) {
+			e.printStackTrace();
 			return 0;
 		}
 	}
@@ -101,6 +94,28 @@ public class UsuariosBD implements Serializable {
 	public Usuario porID( Long idPessoa) {
 		return this.em.find(Usuario.class, idPessoa);
 	}
+	
+	public Usuario porIdPessoa( Long id) {
+		String sql = "select u from Usuario u where u.pessoa.idPessoa= :id";
+		Usuario u = null;
+		try {
+			u = (Usuario) this.em.createQuery(sql, Usuario.class).setParameter("id", id).getSingleResult();
+			return u;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Usuario();
+		}
+	}
+	
+
+	/**
+	 * salva usuario
+	 * @param user
+	 */
+	public void salvarUser( Usuario user) {
+		this.em.merge(user);
+	}
+	
 	
 
 }

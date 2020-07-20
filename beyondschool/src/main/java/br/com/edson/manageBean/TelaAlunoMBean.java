@@ -48,6 +48,8 @@ public class TelaAlunoMBean implements Serializable {
 	@Inject
 	private Avaliacao avaliacao;
 	
+	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+	
 	@Inject
 	private AvaliacoesBD avaliacoesBD;
 	
@@ -74,6 +76,10 @@ public class TelaAlunoMBean implements Serializable {
 	
 	@Inject
 	private ComentariosBD comentariosBD;
+	
+	private List<Comentario> comments = new ArrayList<Comentario>();
+	
+	private boolean nextAva = false;
 	
 	@Inject
 	private EntityManager em;
@@ -159,6 +165,48 @@ public class TelaAlunoMBean implements Serializable {
 			context.addMessage(null, msg);
 		}
 	}
+	public void todasAvaliacoes() throws NegocioException {
+		
+		avaliacoes = avaliacoesBD.todasAvaliacoesAluno(aluno.getIdPessoa());
+		
+		if (avaliacoes == null) {
+			throw new NegocioException("Falha ao buscar avaliações.");
+		}
+		if( avaliacoes.size() == 1) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Esta é a única avaliação"));
+		}
+		else {
+			nextAva = true;
+			avaliacao = avaliacoes.get(0);
+		}
+	}
+
+	/**
+	 * faz o reload do form para exibir a próxima avaliação até a mais recente
+	 */
+	public void next()  {
+		avaliacoes.remove(0);
+		
+		if(avaliacoes.size() == 1 ) {
+			nextAva = false;
+			flagTemAvaliacao = true;
+			comments = comentariosBD.porIdAvaliacao(avaliacoes.get(0).getIdAvaliacao());
+			avaliacoes.get(0).setComentarios(comments);
+			
+			avaliacao = avaliacoes.get(0);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Esta é a última avaliação"));
+		}
+		else if( avaliacoes.size() > 1) {
+			nextAva = false;
+			flagTemAvaliacao = true;
+			comments = comentariosBD.porIdAvaliacao(avaliacoes.get(0).getIdAvaliacao());
+			avaliacoes.get(0).setComentarios(comments);
+			avaliacao = avaliacoes.get(0);
+		}
+					
+	}
 	
 	// getters and setters
 	public Turma getTurma() {
@@ -232,6 +280,15 @@ public class TelaAlunoMBean implements Serializable {
 	public void setFlagTemAvaliacao(boolean flagTemAvaliacao) {
 		this.flagTemAvaliacao = flagTemAvaliacao;
 	}
+
+	public boolean isNextAva() {
+		return nextAva;
+	}
+
+	public void setNextAva(boolean nextAva) {
+		this.nextAva = nextAva;
+	}
+	
 	
 	
 	

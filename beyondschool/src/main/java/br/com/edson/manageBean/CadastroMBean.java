@@ -3,6 +3,7 @@ package br.com.edson.manageBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.enterprise.inject.InjectionException;
 import javax.faces.FacesException;
@@ -18,6 +19,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
+
+import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.CalendarConversion;
 
 import javax.faces.application.ViewHandler;
 
@@ -95,7 +98,9 @@ public class CadastroMBean implements Serializable {
 	
 	private int qtdAlunosTutelados;
 	
-	private boolean mostraInputResponsaveis = false;
+	private boolean flagResponsavel[] = new boolean[2];
+	
+	private int qtdResponsaveis;
 	
 	private boolean mostraPanel1 = true;
 	
@@ -122,19 +127,26 @@ public class CadastroMBean implements Serializable {
 	
 	private String email;
 	
+	private String qtdRep;
+	
+	private String qtdAluno;
 		
 	
 	
 	// métodos
-	public void salvar(){
+	public void salvar() throws Exception{
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();	
 		int cont = 0;
 		try {
 			
+			String nome[] = {nomeCompleto};
+			verificaNomesDigitados(nome, 1);
+			
 			if( !tipoAcesso.equals("Admin"))
 				 validaDados.validarCodigo(getCodigoTurma());
-			
+			if(passWord.length()< 8)
+				throw new NegocioException("Senha deve ter ao menos 8 caracteres.");
 			if(!passWord.equals(confirmeSenha)) {
 				throw new NegocioException("Senhas não conferem!! Digite novamente.");
 			}
@@ -184,79 +196,73 @@ public class CadastroMBean implements Serializable {
 				//cont instanciado antes do try
 				if(nomeResponsavel[0].isEmpty())
 					throw new NegocioException("Ao menos um responsável deve ser informado.");
-				do {
-					int primeiroEspaco = 0;
-					if( !nomeResponsavel[cont].isEmpty() )
-						primeiroEspaco = nomeResponsavel[cont].indexOf(" ");
-					if(primeiroEspaco == -1 )
-						throw new NegocioException("Informe o nome e sobrenome do responsável.");
-					if(primeiroEspaco == 1 )
-						throw new NegocioException("Retire o espaço do início do nome.");
-					if( !nomeResponsavel[cont].isEmpty() && nomeResponsavel[cont].endsWith(" "))
-						throw new NegocioException("Por favor não coloque espaço depois do sobrenome.");
-					
-					cont++;
-				} while (cont < nomeResponsavel.length);
+				
+				verificaNomesDigitados(nomeResponsavel, qtdResponsaveis);
 				
 				validaDados.validarCodigo(codigoTurma);
 				boolean flagAluno = true;
+				
 				Aluno student = alunosBD.buscaAlunoPeloNome(nomeCompleto);
 				if(student == null) {
 					student = new Aluno();
 					flagAluno = false;
 				}
+				else if(student.isDeletado()) {
+					student.setDeletado(false);
+				}
 					
 				Turma t = turmasBD.buscaTurma(codigoTurma);
-				
+								
 				Integer mat = alunosBD.buscaMatricula();
+
 				
 				if( mat == null)
-					mat = 100;
+					mat = new Integer(100);
 				else
 					mat++;
-				
-				
+			
 				// ok acima 
-				et.begin();
+				et.begin();	
 				
 				student.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
 				student.setNomeCompleto(nomeCompleto);
 				student.setMatricula(mat);
 				student.setTurma(t);
-				
+		
 				alunosBD.salvarAluno(student);				
 				
 				user.setPessoa(student);
 				
 				userBD.salvarUser(user);
-				cont  = 0; //cont instanciado antes do try
+				
+				cont = 0;  //cont instanciado antes do try
 				do {
-					
-//					copie do txt
+
 					boolean flagResponsavel = true;
 					responsavel = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel[cont]);
 					
 					if(responsavel == null) {
+						
 						flagResponsavel = false;
 						responsavel = new Responsavel();
 						responsavel.setNomeCompleto(nomeResponsavel[cont]);
+						
 						responsaveisBD.salvarResponsavelCadastro(responsavel);
+						
 					}
 					
-					if( !flagAluno) {
+					if( !flagAluno || !flagResponsavel) {
+						
 						AlunoResponsavel ar = new AlunoResponsavel();
 						ar.setAluno(student);
 						ar.setResponsavel(responsavel);
 						alunosResponsaveisBD.salvarAlunoResponsavel(ar);				
 					}
 					
-						
-					
 					responsavel = new Responsavel();
-					if(nomeResponsavel[1].isEmpty())
-						break;
+					
 					cont++;
-				} while (cont < nomeResponsavel.length);
+				} while (cont < qtdResponsaveis);
 
 				et.commit();
 				flagCadastrado = false;
@@ -273,33 +279,13 @@ public class CadastroMBean implements Serializable {
 				et.commit();
 				flagCadastrado = false;
 				break;
-				
-				
-				
+			
 			case "Responsável":
-				//cont instanciado antes do try
-				cont = 0;
-				
-				do {
-					if(tutelado[cont].endsWith(" "))
-						throw new NegocioException("Por favor não coloque espaços depois do sobrenome.");
-					
-					int primeiroEspaço = tutelado[cont].indexOf(" ");
-					
-					if( primeiroEspaço == 1)
-						throw new NegocioException("Retire o espaço antes do nome.");
-					
-					if( primeiroEspaço == -1 || tutelado[cont].isEmpty())
-						throw new NegocioException("Informa o nome completo dos alunos.");
-					
-					cont++;
-				} while (cont < qtdAlunosTutelados);
-				
-				// ok não mexer mais, até agora coloquei resp que não existia
-				
+	
+				verificaNomesDigitados(tutelado, qtdAlunosTutelados);
 				
 				Responsavel existeResp = verificaResp.buscaResponsavel(nomeCompleto);			 
-					
+				
 				et.begin();
 				boolean flagResponsavel = true;
 				// verifica se o resp já existe
@@ -318,8 +304,15 @@ public class CadastroMBean implements Serializable {
 				
 				cont = 0;
 				do {
+					
 					aluno = alunosBD.buscaAlunoPeloNome(tutelado[cont]);
+					if(aluno != null) {
+						if(aluno.isDeletado())
+							aluno.setDeletado(false);
+					}
+						
 					boolean flagStudent = true;
+					
 					if( aluno ==  null) {
 						aluno = new Aluno();
 						aluno.setNomeCompleto(tutelado[cont]);
@@ -350,10 +343,11 @@ public class CadastroMBean implements Serializable {
 			}
 
 			
-			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!!\n Seu nome de usuario: "+nomeUsuario));
+			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!! Seu nome de usuario: "+nomeUsuario));
 			refreshPage(context);
 		} catch ( PersistenceException | ParseException | NullPointerException | NegocioException | FacesException | InjectionException e) {
 			et.rollback();
+			e.printStackTrace();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
@@ -375,6 +369,22 @@ public class CadastroMBean implements Serializable {
 		
 	}
 	
+	private void verificaNomesDigitados(String nomes[], int tm) throws NegocioException {
+		int cont = 0;
+		do {
+			
+			if(nomes[cont].endsWith(" "))
+				throw new NegocioException("Por favor não coloque espaços depois do sobrenome.");
+			int primeiroEspaco = nomes[cont].indexOf(" ");
+			if( primeiroEspaco == 1)
+				throw new NegocioException("Retire o espaço antes do nome.");
+			if( primeiroEspaco == -1 || nomes[cont].isEmpty())
+				throw new NegocioException("Informa o nome completo dos alunos.");
+				
+			cont++;			
+		} while (cont < tm);
+	}
+	
 	public void refreshPage(FacesContext context ) {
 		//does the refresh of the page
 		Application application = context.getApplication();
@@ -393,8 +403,19 @@ public class CadastroMBean implements Serializable {
 	}
 	
 	public void showAluno() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		if(qtdRep.matches("[1,2]*")) {
+			qtdResponsaveis = Integer.parseInt(qtdRep);
+		}
+		else {
+			context.addMessage(null, new FacesMessage("Você só pode informar 1 ou 2 responsáveis."));
+			refreshPage(context);
+		}
+
 		setTipoAcesso("Aluno");
-		mostraInputResponsaveis = true;
+		for (int i = 0; i < qtdResponsaveis; i++) {
+			flagResponsavel[i] = true;
+		}
 		setMostraPanel2(true);
 		setMostraPanel1(false);
 		user.setTipoAcesso("aluno");
@@ -409,6 +430,15 @@ public class CadastroMBean implements Serializable {
 	}
 	
 	public void showResponsaveis() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		if(qtdAluno.matches("[1,5]*")) {
+			qtdAlunosTutelados = Integer.parseInt(qtdAluno);
+		}
+		else {
+			context.addMessage(null, new FacesMessage("Você só pode informar 5 alunos."));
+			refreshPage(context);
+		}
+
 		setTipoAcesso("Responsável");
 		for (int i = 0; i < qtdAlunosTutelados; i++) {
 			mostraInputParaAlunos[i] = true;
@@ -469,14 +499,6 @@ public class CadastroMBean implements Serializable {
 
 	public void setTipoAcesso(String tipoAcesso) {
 		this.tipoAcesso = tipoAcesso;
-	}
-
-	public boolean isMostraInputResponsaveis() {
-		return mostraInputResponsaveis;
-	}
-
-	public void setMostraInputResponsaveis(boolean mostraInputResponsaveis) {
-		this.mostraInputResponsaveis = mostraInputResponsaveis;
 	}
 
 	public boolean isMostraPanel1() {
@@ -576,6 +598,39 @@ public class CadastroMBean implements Serializable {
 	}
 	
 
+	public boolean[] getFlagResponsavel() {
+		return flagResponsavel;
+	}
+
+	public void setFlagResponsavel(boolean[] flagResponsavel) {
+		this.flagResponsavel = flagResponsavel;
+	}
+
+	public int getQtdResponsaveis() {
+		return qtdResponsaveis;
+	}
+
+	public void setQtdResponsaveis(int qtdResponsaveis) {
+		this.qtdResponsaveis = qtdResponsaveis;
+	}
+
+	public String getQtdRep() {
+		return qtdRep;
+	}
+
+	public void setQtdRep(String qtdRep) {
+		this.qtdRep = qtdRep;
+	}
+
+	public String getQtdAluno() {
+		return qtdAluno;
+	}
+
+	public void setQtdAluno(String qtdAluno) {
+		this.qtdAluno = qtdAluno;
+	}
+	
+	
 
 
 	

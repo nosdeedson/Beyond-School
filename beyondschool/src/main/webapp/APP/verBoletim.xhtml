@@ -10,15 +10,16 @@
 <f:viewParam name="id" value="#{verBoletimMBean.aluno}"></f:viewParam>
 <f:viewParam name="idTurma" value="#{verBoletimMBean.turma}"></f:viewParam>
 <f:viewAction action="#{verBoletimMBean.buscarAvaliacao}"></f:viewAction>
-<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 <f:viewAction action="#{verBoletimMBean.buscarComentarios}"></f:viewAction>
+<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 </f:metadata>
 
 <ui:define name="titulo">Boletim</ui:define>
 	<ui:define name="corpo2">
-	
+<div class="conteudo">
 <h:form>
-		<p:panelGrid columns="1" id="pg-ver-boletim" style="margin: left: 200px;"  >
+<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:panelGrid columns="1" id="pg-ver-boletim" styleClass="boletim" rendered="#{verBoletimMBean.flagTemAvaliacao}" >
 
 			<f:facet name="header">
 				<p:row>
@@ -62,7 +63,7 @@
 			</p:column>
 			
 
-			<p:inputTextarea styleClass="textComent" rendered="#{verBoletimMBean.flagTemAvaliacao}" readonly="true" value="#{verBoletimMBean.avaliacao.getComentarios().get(0).getComentario()}" 
+			<p:inputTextarea rendered="#{verBoletimMBean.flagTemAvaliacao}" readonly="true" value="#{verBoletimMBean.avaliacao.getComentarios().get(0).getComentario()}" 
 				style="font-weight: bold;"  />
 			
 			<p:column>
@@ -84,19 +85,34 @@
 			
 			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" />
 		<BR/>
-		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" 
-			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}" >
-			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
-		</p:linkButton>
+		
 		
 		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaAdmin" 
-			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'admin'}" >
+			rendered="#{verBoletimMBean.user.getTipoAcesso() eq admin}" >
 			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 		</p:linkButton>
 		
+		</p:panelGrid >
+		
+		
+		<p:panelGrid columns="1" styleClass="semBoletim" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" >
+		
+			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." styleClass="outPutSemAvaliacao"
+			rendered="#{verBoletimMBean.user.getTipoAcesso() == 'professor'}" />
+			
+			
+			<p:linkButton styleClass="btn btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" 
+			rendered="#{verBoletimMBean.flagUser}" >
+				<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
+			</p:linkButton>
+			<br/>
+			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaAdmin" 
+			rendered="#{verBoletimMBean.user.getTipoAcesso() == 'admin'}" >
+			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"/>
+			</p:linkButton>
 		</p:panelGrid>
 		</h:form>
-		
+	</div>
 	</ui:define>
 
 

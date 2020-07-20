@@ -31,6 +31,23 @@ public class ResponsaveisBD implements Serializable {
 	public ResponsaveisBD() {
 	}
 	
+	/**
+	 * atualiza faz um merge
+	 * @param responsavel
+	 * @throws NegocioException
+	 * @throws Exception
+	 */
+	public void atualizaResponsavel(Responsavel responsavel) throws NegocioException, Exception{
+		
+		try {
+			this.em.merge(responsavel);	
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw new PersistenceException(e.getMessage());
+		}
+			
+	}
+	
 	public List<Responsavel> buscaTodos(){
 		TypedQuery<Responsavel> responsaveis = em.createQuery("from Responsavel ", Responsavel.class);
 		return responsaveis.getResultList();
@@ -39,7 +56,7 @@ public class ResponsaveisBD implements Serializable {
 	public Responsavel buscaResponsavelPeloNome(String nome) {
 		Responsavel resp;
 		try {
-			String sql = "select r from Responsavel r where nomeCompleto = :nomeCompleto";
+			String sql = "select r from Responsavel r where nomeCompleto= :nomeCompleto";
 			resp = this.em.createQuery(sql, Responsavel.class).setParameter("nomeCompleto", nome).getSingleResult();
 		} catch (PersistenceException e) {
 			return null;
@@ -54,9 +71,20 @@ public class ResponsaveisBD implements Serializable {
 	 * @throws Exception
 	 */
 	public void removeResponsavel( Long idResponsavelSerExcluido) throws NegocioException, Exception {
-		Responsavel resp = this.em.find(Responsavel.class, idResponsavelSerExcluido);
-		usersBD.excluirUser(resp.getIdPessoa());
-		this.em.remove(resp);
+		try {
+			int res = 2;
+			Responsavel resp = this.em.find(Responsavel.class, idResponsavelSerExcluido);
+			if(resp.getDataNascimento() != null)
+				res = usersBD.excluirUser(resp.getIdPessoa());
+			if( res == 0)
+				throw new NegocioException("Falha ao excluir.");
+			
+			this.em.remove(resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new NegocioException("Falha ao excluir.");
+		}
+		
 	}
 	
 	/**
@@ -79,8 +107,15 @@ public class ResponsaveisBD implements Serializable {
 	}
 	
 	
-	public void salvarResponsavelCadastro(Responsavel responsavel) throws PersistenceException {
-		this.em.persist(responsavel);		
+	public void salvarResponsavelCadastro(Responsavel responsavel) throws NegocioException, Exception{
+		
+		try {
+			this.em.persist(responsavel);	
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw new PersistenceException(e.getMessage());
+		}
+			
 	}
 
 	public Responsavel porId(Long idPessoa) {

@@ -79,7 +79,7 @@ public class PaisAlunosMBean implements Serializable {
 		 
 		try {
 			et.begin();
-				acoesAR.excluiResponsavel(responsavelSerExcluido);
+				acoesAR.excluiResponsavel(responsavelSerExcluido, alunoResponsavelSerExcluido);
 			et.commit();
 			buscarAlunosResponsaveis();
 			context.addMessage(null, new FacesMessage("Excluído com sucesso"));
@@ -97,8 +97,7 @@ public class PaisAlunosMBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		EntityTransaction et = this.em.getTransaction();
-		 
-		try {
+		try {	
 			et.begin();
 				acoesAR.excluirAluno(alunoSerExcluido);
 			et.commit();
@@ -111,6 +110,24 @@ public class PaisAlunosMBean implements Serializable {
 			context.addMessage(null, msg);
 		}
 		
+	}
+	
+	public void excluirAmbosAlunoResponsavel() throws Exception {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		EntityTransaction et = this.em.getTransaction();
+		try {	
+			et.begin();
+				acoesAR.excluirAlunoResponsavel(alunoSerExcluido, responsavelSerExcluido, alunoResponsavelSerExcluido);
+			et.commit();
+			buscarAlunosResponsaveis();
+			context.addMessage(null, new FacesMessage("Excluído com sucesso"));
+		} catch (PersistenceException | NegocioException e) {
+			et.rollback();
+			FacesMessage msg = new FacesMessage(e.getMessage());
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			context.addMessage(null, msg);
+		}
 	}
 	
 	// getters and setters

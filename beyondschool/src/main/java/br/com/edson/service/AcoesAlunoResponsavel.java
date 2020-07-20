@@ -1,6 +1,7 @@
 package br.com.edson.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,57 +35,64 @@ public class AcoesAlunoResponsavel implements Serializable {
 	public AcoesAlunoResponsavel() {	}
 
 
-	public void excluiResponsavel( Responsavel responsavel) throws NegocioException, Exception {
-				
-		List<AlunoResponsavel> alunosDoResponsavel = alunosRespsBD.buscaAlunosPorResponsavel(responsavel.getIdPessoa());
+	public void excluirAluno(Aluno alunoSerExcluido) throws Exception {
 		
-		for (int i = 0; i < alunosDoResponsavel.size(); i++) {
-			List<AlunoResponsavel> responsaveisDoAluno = alunosRespsBD.buscaResponsavelPorAluno(alunosDoResponsavel.get(i).getAluno().getIdPessoa());
-			if( responsaveisDoAluno.size() == 1)
-				throw new NegocioException("O aluno deve ter ao menos um responsável. Caso vá excluir o aluno, exclua este primeiro ou click em ambos.");
-			if (alunosDoResponsavel.get(i).getAluno().isDeletado()) {
-				respBD.removeResponsavel(responsavel.getIdPessoa());
-				alunosRespsBD.excluirAlunoResponsavel(alunosDoResponsavel.get(i).getResponsavel().getIdPessoa());
+		alunosBD.excluirAluno(alunoSerExcluido);
+		
+	}
+	
+	public void excluiResponsavel( Responsavel responsavel, AlunoResponsavel ar) throws NegocioException, Exception {
+		// excluir responsavel sem aluno
+		List<AlunoResponsavel> alunosDoResponsavel = alunosRespsBD.buscaAlunosPorResponsavel(responsavel.getIdPessoa());
+				
+		if( alunosDoResponsavel.size() == 0) {
+			respBD.removeResponsavel(responsavel.getIdPessoa());
+			alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+		}
+		else if( alunosDoResponsavel.size() > 0 ) {
+			List<AlunoResponsavel> responsaveisDosAluno = alunosRespsBD.buscaResponsavelPorAluno(alunosDoResponsavel.get(0).getAluno().getIdPessoa());
+			if(responsaveisDosAluno.size() == 1) {
+				throw new NegocioException("Você não pode excluir todos os responsaveis do: "+ ar.getAluno().getNomeCompleto());
 			}
 			else {
-				respBD.excluirResponsavel(responsavel.getIdPessoa());
+				respBD.removeResponsavel(responsavel.getIdPessoa());
+				alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
 			}
 		}
 		
 	}
-
-
-	public void excluirAluno(Aluno alunoSerExcluido) throws Exception {
-		List<AlunoResponsavel> responsaveisPorAluno = alunosRespsBD.buscaResponsavelPorAluno(alunoSerExcluido.getIdPessoa());
-		
-		JOptionPane.showMessageDialog(null, "aluno");
-		for (int i = 0; i < responsaveisPorAluno.size(); i++) {
-			
-			List<AlunoResponsavel> alunosDoResp = alunosRespsBD.buscaAlunosPorResponsavel(responsaveisPorAluno.get(i).getResponsavel().getIdPessoa());
-			
-			if (responsaveisPorAluno.get(i).getResponsavel().isDeletado() && alunosDoResp.size() == 1 ) {
-				alunosBD.excluirAluno(alunoSerExcluido);
-				respBD.removeResponsavel(responsaveisPorAluno.get(i).getResponsavel().getIdPessoa());
-				alunosRespsBD.excluirAlunoResponsavel(responsaveisPorAluno.get(i).getResponsavel().getIdPessoa());
-			}
-			else if( responsaveisPorAluno.get(i).getResponsavel().isDeletado() == false && alunosDoResp.size() == 1 ) {
+	
+	public void excluirAlunoResponsavel( Aluno aluno, Responsavel responsavel, AlunoResponsavel ar) throws NegocioException, Exception{
 				
-				alunosBD.excluirAluno(alunoSerExcluido);
-				respBD.removeResponsavel(responsaveisPorAluno.get(i).getResponsavel().getIdPessoa());
-				alunosRespsBD.excluirAlunoResponsavel(responsaveisPorAluno.get(i).getResponsavel().getIdPessoa());
-				
-			}
-			else if( responsaveisPorAluno.get(i).getResponsavel().isDeletado() && alunosDoResp.size() > 1 ) {
-				alunosBD.excluirAluno(alunoSerExcluido);
-			}
-			else if( responsaveisPorAluno.get(i).getResponsavel().isDeletado() == false && alunosDoResp.size() > 1 ) {
-				alunosBD.excluirAluno(alunoSerExcluido);
-				respBD.excluirResponsavel(responsaveisPorAluno.get(i).getResponsavel().getIdPessoa());
-			}
-			
-			
-		}// fim for
+		List<AlunoResponsavel> alunosDoResponsavel = alunosRespsBD.buscaAlunosPorResponsavel(responsavel.getIdPessoa());
 		
+		List<AlunoResponsavel> responsaveisDosAlunos = null;
+		
+		if(alunosDoResponsavel.size() == 0) {
+			respBD.removeResponsavel(responsavel.getIdPessoa());
+			alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+		}
+		else if(alunosDoResponsavel.size() == 1 ) {
+			respBD.removeResponsavel(responsavel.getIdPessoa());
+			alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+			excluirAluno(aluno);
+				
+		}
+		else if( alunosDoResponsavel.size() > 1) {
+			responsaveisDosAlunos = alunosRespsBD.buscaResponsavelPorAluno(alunosDoResponsavel.get(0).getAluno().getIdPessoa());
+			if( responsaveisDosAlunos.size() == 0 ) {
+				excluirAluno(aluno);
+			}
+			else if( responsaveisDosAlunos.size() == 1) {
+				throw new NegocioException("Você não pode excluir este responsável: "+ responsavel.getNomeCompleto() + " ele tem outro aluno matriculado.");
+			}
+			else {
+				respBD.removeResponsavel(responsavel.getIdPessoa());
+				alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+				excluirAluno(aluno);
+			}
+		}
+
 	}
 
 }

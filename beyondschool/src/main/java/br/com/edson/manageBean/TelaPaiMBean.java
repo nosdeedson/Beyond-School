@@ -48,6 +48,8 @@ public class TelaPaiMBean implements Serializable {
 	@Inject
 	private Avaliacao avaliacao;
 	
+	private List<Avaliacao> avaliacoes = new ArrayList<Avaliacao>();
+	
 	@Inject
 	private AvaliacoesBD avaliacoesBD;
 	
@@ -72,6 +74,7 @@ public class TelaPaiMBean implements Serializable {
 	private boolean flagTemAvaliacao = true;
 	
 	
+	
 	@Inject
 	private BuscaDadosResponsavel buscaResp;
 	
@@ -85,13 +88,21 @@ public class TelaPaiMBean implements Serializable {
 	
 	@Inject
 	private ComentariosBD comentariosBD;
+	
+	private boolean nextAva = false;
+	
+	private List<Comentario> comments = new ArrayList<Comentario>();
+	
+	@Inject
+	private ComentariosBD commentsBD;
 
 	//métodos
 	// fazer lógica para exibir os comentarios
 	
 	public void buscarAlunos() throws NegocioException {
 		user = (Usuario) session.getAttribute("usuario");
-		alunos = buscaResp.buscaAlunosDoResponsavel(user.getPessoa().getIdPessoa());	
+		alunos = buscaResp.buscaAlunosDoResponsavel(user.getPessoa().getIdPessoa());
+		
 	}
 	
 	public void buscarTurma() {
@@ -178,6 +189,46 @@ public class TelaPaiMBean implements Serializable {
 			FacesMessage msg = new FacesMessage("Falha ao salvar comentário");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
+		}
+	}
+	
+	public void next()  {
+		avaliacoes.remove(0);
+		
+		if(avaliacoes.size() == 1 ) {
+			nextAva = false;
+			flagTemAvaliacao = true;
+			comments = commentsBD.porIdAvaliacao(avaliacoes.get(0).getIdAvaliacao());
+			avaliacoes.get(0).setComentarios(comments);
+		
+			avaliacao = avaliacoes.get(0);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Esta é a última avaliação"));
+		}
+		else if( avaliacoes.size() > 1) {
+			nextAva = true;
+			flagTemAvaliacao = true;
+			comments = commentsBD.porIdAvaliacao(avaliacoes.get(0).getIdAvaliacao());
+			avaliacoes.get(0).setComentarios(comments);
+			avaliacao = avaliacoes.get(0);
+		}
+					
+	}
+	
+	public void todasAvaliacoes() throws NegocioException {
+		
+		avaliacoes = avaliacoesBD.todasAvaliacoesAluno(aluno.getIdPessoa());
+		
+		if (avaliacoes == null) {
+			throw new NegocioException("Falha ao buscar avaliações.");
+		}
+		if( avaliacoes.size() == 1) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Esta é a única avaliação"));
+		}
+		else {
+			nextAva = true;
+			avaliacao = avaliacoes.get(0);
 		}
 	}
 	
@@ -269,7 +320,15 @@ public class TelaPaiMBean implements Serializable {
 	public void setFlagTemAvaliacao(boolean flagTemAvaliacao) {
 		this.flagTemAvaliacao = flagTemAvaliacao;
 	}
-	
+
+	public boolean isNextAva() {
+		return nextAva;
+	}
+
+	public void setNextAva(boolean nextAva) {
+		this.nextAva = nextAva;
+	}
+
 	
 	
 	

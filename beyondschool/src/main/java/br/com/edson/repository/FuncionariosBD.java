@@ -27,6 +27,14 @@ public class FuncionariosBD implements Serializable {
 	public FuncionariosBD() {
 	}
 
+	
+	/**
+	 * usado para atualizar o cadastro do professor usado na hora de cadastrar turma 
+	 * @param funcionario
+	 */
+	public void atualizaFuncionario( Funcionario funcionario) {
+		this.em.merge(funcionario);
+	}
 	public Funcionario buscaFuncionarioPeloNome(String nome) {
 		
 		Funcionario func = new Funcionario();
@@ -59,14 +67,7 @@ public class FuncionariosBD implements Serializable {
 	public void salvarFuncionario( Funcionario funcionario) throws PersistenceException, NegocioException {
 		this.em.persist(funcionario);
 	}
-	
-	/**
-	 * usado para atualizar o cadastro do professor usado na hora de cadastrar turma 
-	 * @param funcionario
-	 */
-	public void atualizaFuncionario( Funcionario funcionario) {
-		this.em.merge(funcionario);
-	}
+
 
 	public Funcionario porId(Long idPessoa) {
 		try {

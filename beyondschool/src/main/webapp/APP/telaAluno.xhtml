@@ -47,23 +47,26 @@
 				</p:panelGrid>
 
 				<p:panelGrid columns="2" rendered="#{telaAlunoMBean.flagTemAvaliacao}" >
-					
-					<p:outputLabel value="Habilidade" />
-					<p:outputLabel value="Desempenho" />
+					<p:outputLabel value="Data Avaliação:"/>
+						<p:outputLabel value="#{telaAlunoMBean.avaliacao.getComentarios().get(0).getDataComentario()}">
+							<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+						</p:outputLabel>
+					<p:outputLabel value="Habilidade" style="font-weight: bold;"  />
+					<p:outputLabel value="Desempenho" style="font-weight: bold;"  />
 					<p:outputLabel value="Vocabulary" />
-					<p:outputLabel value="#{telaAlunoMBean.avaliacao.vocabulario.descricao}" />
-					<p:outputLabel value="Reading" />
-					<p:outputLabel value="#{telaAlunoMBean.avaliacao.leitura.descricao}" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.vocabulario.descricao}" style="font-weight: bold;"  />
+					<p:outputLabel value="Reading"  />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.leitura.descricao}" style="font-weight: bold;"  />
 					<p:outputLabel value="Writing" />
-					<p:outputLabel value="#{telaAlunoMBean.avaliacao.escrevendo.descricao}" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.escrevendo.descricao}" style="font-weight: bold;"  />
 					<p:outputLabel value="Listening" />
-					<p:outputLabel value="#{telaAlunoMBean.avaliacao.escutando.descricao}" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.escutando.descricao}" style="font-weight: bold;" />
 					<p:outputLabel value="Speaking" />
-					<p:outputLabel value="#{telaAlunoMBean.avaliacao.falando.descricao}" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.falando.descricao}" style="font-weight: bold;" />
 					<p:outputLabel value="Grammar" />
-					<p:outputLabel value="#{telaAlunoMBean.avaliacao.gramatica.descricao}" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.gramatica.descricao}" style="font-weight: bold;" />
 					<p:outputLabel value="HomeWork" />
-					<p:outputLabel value="#{telaAlunoMBean.avaliacao.homeWork.descricao}" />
+					<p:outputLabel value="#{telaAlunoMBean.avaliacao.homeWork.descricao}" style="font-weight: bold;" />
 
 				</p:panelGrid>
 				
@@ -72,7 +75,12 @@
 				<p:inputTextarea id="text-area-coment-prof" styleClass="textComent" value="#{telaAlunoMBean.avaliacao.getComentarios().get(0).getComentario()}"
 				readonly="true" style="font-weight: bold;" />
 				<BR/>
-				<p:commandButton value="Avaliações" styleClass="tm-botao" id="btn-ver-todas-avaliacoes" />
+				<p:column>
+					<p:commandButton value="Todas" action="#{telaAlunoMBean.todasAvaliacoes}" update="@form"
+						styleClass="tm-botao" id="btn-ver-todas-avaliacoes" rendered="#{telaAlunoMBean.nextAva eq false}" />
+					<p:commandButton value="Next" action="#{telaAlunoMBean.next}" update="@form"
+						styleClass="tm-botao" rendered="#{telaAlunoMBean.nextAva}"  />
+				</p:column>
 				<BR/>
 				<h:panelGroup id="pg-comment-aluno" >
 				

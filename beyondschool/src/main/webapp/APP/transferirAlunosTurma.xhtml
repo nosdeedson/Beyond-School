@@ -34,9 +34,10 @@
 									<h:outputText value="#{aluno.nomeCompleto}" id="nome" />
 									<p:draggable for="nome" revert="true" helper="clone"/>
 								</p:column>
-
+<!-- 									informar aluno não casdatrado quando o nome for null -->
 								<p:column headerText="Turma atual" width="10%">
-									<h:outputText value="#{aluno.getTurma().getNomeTurma()}" />
+									<h:outputText value="#{aluno.getTurma().getNomeTurma()}" rendered="#{aluno.getTurma().getNomeTurma() != null}" />
+									<h:outputText value="Aluno sem cadastro. Responsável cadastrado." rendered="#{aluno.getTurma().getNomeTurma() == null}" />
 								</p:column>
 								
 								

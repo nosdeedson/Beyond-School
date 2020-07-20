@@ -1,6 +1,7 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;
@@ -50,14 +52,15 @@ public class AlunosResponsaveisBD implements Serializable {
 	 */
 	public List<AlunoResponsavel> buscaAlunosPorResponsavel( Long idResponsavel){
 		
-		String sql = "select ar from AlunoResponsavel ar where ar.responsavel.idPessoa= :idPessoa";
+		String sql = "select ar from AlunoResponsavel ar where ar.responsavel.idPessoa= :idPessoa "
+				+ "and ar.aluno.deletado= 0";
 		try {
 			TypedQuery<AlunoResponsavel> alunos = this.em.createQuery(sql, AlunoResponsavel.class)
 					.setParameter("idPessoa", idResponsavel);
 			return alunos.getResultList();
 		} catch (PersistenceException e) {
 			e.printStackTrace();
-			return new ArrayList<AlunoResponsavel>();
+			return null;
 		}
 	}
 	
@@ -109,8 +112,15 @@ public class AlunosResponsaveisBD implements Serializable {
 		
 	}
 	
-	public void salvarAlunoResponsavel( AlunoResponsavel alunoResponsavel) throws PersistenceException {
-		this.em.merge(alunoResponsavel);
+	public void salvarAlunoResponsavel( AlunoResponsavel alunoResponsavel) throws PersistenceException, NegocioException {
+		
+		try {
+			this.em.persist(alunoResponsavel);
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw new NegocioException(e.getMessage());
+		}
+		
 	}
 
 		

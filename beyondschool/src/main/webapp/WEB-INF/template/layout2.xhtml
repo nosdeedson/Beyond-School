@@ -32,10 +32,11 @@
 					<h:graphicImage library="images" name="logomedio.png" id="logo-img" />
 				</p:link>
 				<h:form>
-				<p:menuButton value="Menu" styleClass="menuHeader">
-			        <p:menuitem value="Voltar" action="#{layout2MBean.voltar()}" />
+				<p:menuButton value="Menu" styleClass="menuHeader"  >
+					<p:menuitem value="Editar perfil" action="editarPerfil" url="editarPerfil.xhtml" />
 			        <p:menuitem value="Redefinir senha" action="redefinirSenha" url="redefinirSenha.xhtml" />
-			        <p:menuitem value="Sair" action="#{loginMBean.logOut}" />
+			        <p:menuitem value="Voltar" action="#{layout2MBean.voltar()}" />			        
+			        <p:menuitem value="Sair" action="#{loginMBean.logOut}" styleClass="btn-danger1" style="width: 210px;"  />
 			    </p:menuButton>
 				</h:form>
 

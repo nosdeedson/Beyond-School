@@ -3,9 +3,17 @@
 .btn-danger:hover{
 	color: yellow;
 	background-color: red;
+	margin-top: 3px;
 	transform: scaleY(1.5);	
+	text-transform: uppercase;
 }
-
+.btn-danger1:hover{
+	color: yellow;
+	background-color: red;
+	transform: scaleY(1.5);	
+	text-transform: uppercase;
+	width: 180px;
+}
 .btn{
 	width: 160px;
 	font-size: 14px;
@@ -80,5 +88,6 @@
 .tm-redefinirSenha{
 	width: 150px;
 }
+
 
 

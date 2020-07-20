@@ -9,31 +9,44 @@
 
 
 <ui:define name="corpo">
-	
-<h:form  >
-<!-- 			<p:growl showDetail="true"/> -->
+<div class="conteudo">
+
+
+<h:form>
+
 			<p:growl id="growl" showDetail="true" sticky="true" />  
 		<h:panelGroup id="panel1" rendered="#{cadastroMBean.mostraPanel1}" 
-			styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m"   >
+			styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m" >
 			
 			<p:outputLabel value="Escolha seu tipo de Acesso!!"/>
 			<br/>
 			<p:commandButton styleClass="tm-botao" value="Admin" update="@form"  action="#{cadastroMBean.showAdmin}"  />
 			<br/>
-			<p:commandButton styleClass="tm-botao" value="Aluno" update="@form" action="#{cadastroMBean.showAluno}"  />
+<!-- 			aluno -->
+			<p:commandButton value="Aluno" styleClass="tm-botao" type="button" onclick="PF('dlg3').show();" />
+			
+			<p:dialog header="Informe os responsáves!!" widgetVar="dlg3" modal="true" height="100">
+				<h:outputLabel value="Quantos?"/>
+				<br/>
+				<p:inputNumber value="#{cadastroMBean.qtdRep}" placeholder="Somente número" style="width:150px" maxlength="2"
+				title="Não aperte enter use o mouse para enviar" />
+				<br/>
+				<p:commandButton styleClass="tm-botao" value="Enviar" update="@form" action="#{cadastroMBean.showAluno}"  />
+			</p:dialog>
+			
 			<br/>
+<!-- 			professor -->
 			<p:commandButton styleClass="tm-botao" value="Professor" update="@form" action="#{cadastroMBean.showProfessor}"  />
 			<br/>			
-
+<!-- 				responsavel -->
 			<p:commandButton value="Responsável" styleClass="tm-botao" type="button" onclick="PF('dlg2').show();" />
 		
-		<p:dialog header="Informe os alunos!!" widgetVar="dlg2" modal="true" height="100" >
-    		<h:outputText value="Quantos?" />
-    		<br/>
-    		<p:inputNumber value="#{cadastroMBean.qtdAlunosTutelados}" placeholder="0" style="width:10px" >
-    		
-    		</p:inputNumber>
-    		<br/>
+			<p:dialog header="Informe os alunos!!" widgetVar="dlg2" modal="true" height="100" >
+    			<h:outputText value="Quantos?" />
+    			<br/>
+    			<p:inputNumber value="#{cadastroMBean.qtdAluno}" placeholder="Somente número" style="width:30px"/>
+    			<br/>
+    			
     		<p:commandButton styleClass="tm-botao" value="enviar" update="@form" action="#{cadastroMBean.showResponsaveis}" />
     
 		</p:dialog>  
@@ -50,7 +63,6 @@
 					</p:column>
 				</p:row>
 			</f:facet>
-<!-- 			<p:messages  autoUpdate="true" style="width: 200px;"/>	 -->
 			
 				<p:inputText styleClass="tm-input" placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" 
 					label="Nome" style="font-weight: bold;"  />
@@ -93,10 +105,11 @@
 				
 <!-- 				inputs para o responsavel quando alunos -->
 				
-				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="true" rendered="#{cadastroMBean.mostraInputResponsaveis}" 
-				value="#{cadastroMBean.nomeResponsavel[0]}" label="Responsável" />
+				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="true" rendered="#{cadastroMBean.flagResponsavel[0]}" 
+				value="#{cadastroMBean.nomeResponsavel[0]}" label="Responsável" style="font-weight: bold;"  />
 					
-				<p:inputText styleClass="tm-input"  placeholder="Responsável" rendered="#{cadastroMBean.mostraInputResponsaveis}" value="#{cadastroMBean.nomeResponsavel[1]}"/>
+				<p:inputText styleClass="tm-input"  placeholder="Responsável" rendered="#{cadastroMBean.flagResponsavel[1]}" 
+				value="#{cadastroMBean.nomeResponsavel[1]}" label="Responsável" required="#{cadastroMBean.flagResponsavel[1]}" style="font-weight: bold;" />
 			
 				
 				<p:commandButton styleClass="tm-input"  value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" />
@@ -104,14 +117,8 @@
 				
 		</p:panelGrid>
 	</h:form>
-	<h:outputLabel value="bs9op84o"/>
-	
-	
-	
-	
-	
-
-
+<!-- 	<h:outputLabel value="bs9op84o"/> -->
+</div>
 	</ui:define>
 
 

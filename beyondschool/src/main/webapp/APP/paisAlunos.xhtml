@@ -15,7 +15,7 @@
 
 <ui:define name="titulo">Pais Alunos</ui:define>
 	<ui:define name="corpo2">
-
+<div class="conteudo">
 		<h:form >
 		<p:growl id="growl" showDetail="true" sticky="true" />  
 			<p:outputLabel value="#{paisAlunosMBean.turma.nomeTurma}" styleClass="listaTurma"/>
@@ -32,23 +32,19 @@
 			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
 			
 <!-- 								nome dos pais -->
-				<p:column headerText="Pais" sortBy="#{alunoResponsavel.responsavel.NomeCompleto}" width="12%" > 
+				<p:column headerText="Pais" sortBy="#{alunoResponsavel.responsavel.nomeCompleto}" width="10%" > 
 					<p:outputLabel value="#{alunoResponsavel.responsavel.nomeCompleto}" />
 				</p:column>
 				
 <!-- 				excluir pai -->
-				<p:column headerText="Açoes"  width="6%" > 
+				<p:column headerText="Açoes"  width="3%" > 
 				
 					<p:commandButton title="Excluir pai" icon="ui-icon-trash"  styleClass="btn btn-danger" 
 							update="@form"	action="#{paisAlunosMBean.excluirResponsavel}" rendered="#{alunoResponsavel.responsavel.deletado eq false}" >
 					<f:setPropertyActionListener value="#{alunoResponsavel.responsavel}" target="#{paisAlunosMBean.responsavelSerExcluido}" />
+					<f:setPropertyActionListener value="#{alunoResponsavel}" target="#{paisAlunosMBean.alunoResponsavelSerExcluido}" />
 					<p:confirm header="Confirmação" message="Você realmente quer excluir este pai?" icon="pi pi-exclamation-triangle"/>
 					
-				</p:commandButton>
-				
-				<p:commandButton title="Editar" icon=" ui-icon-pencil"  styleClass="btn btn-danger"  rendered="#{alunoResponsavel.responsavel.deletado eq false}" 
-							update="@form"	action="#">
-<!-- 					<f:param id="#{alunoResponsavel.responsavel.idPessoa}" name="idPessoa"/>				 -->
 				</p:commandButton>
 				
 				 <p:outputLabel value="Deletado" rendered="#{alunoResponsavel.responsavel.deletado}" />
@@ -56,48 +52,44 @@
 				</p:column>
 				
 <!-- 				nome alunos -->
-				<p:column headerText="Alunos" sortBy="#{alunoResponsavel.aluno.NomeCompleto}"  width="12%" > 
+				<p:column headerText="Alunos" sortBy="#{alunoResponsavel.aluno.nomeCompleto}"  width="10%" > 
 					<p:outputLabel value="#{alunoResponsavel.aluno.nomeCompleto}"  />
 				</p:column>
 				
 				
 <!-- 				excluir aluno -->
-				<p:column headerText="Ações"  width="6%"> 
+				<p:column headerText="Ações"  width="3%"> 
 					
 					<p:commandButton title="Excluir aluno" icon="ui-icon-trash"  styleClass="btn btn-danger" rendered="#{alunoResponsavel.aluno.deletado eq false}"
 							update="@form"	action="#{paisAlunosMBean.excluirAluno}">
 						<f:setPropertyActionListener value="#{alunoResponsavel.aluno}" target="#{paisAlunosMBean.alunoSerExcluido}" />
-					
+						<f:setPropertyActionListener value="#{alunoResponsavel}" target="#{paisAlunosMBean.alunoResponsavelSerExcluido}"/>
 					<p:confirm header="Confirmação" message="Você realmente quer excluir aluno?" icon="pi pi-exclamation-triangle"/>
 					
 					</p:commandButton>
-				
-				<p:commandButton title="Editar" icon=" ui-icon-pencil"  styleClass="btn btn-danger" rendered="#{alunoResponsavel.aluno.deletado eq false}"
-							update="@form"	action="#">
-	<!-- 					<f:param id="#{alunoResponsavel.responsavel.idPessoa}" name="idPessoa"/>				 -->
-				</p:commandButton>
 					<p:outputLabel value="Deletado" rendered="#{alunoResponsavel.aluno.deletado}" />
 				</p:column>
 				
 <!-- 				excluir ambos -->
 				
-				<p:column headerText="Ambos" width="5%">				
+				<p:column headerText="Ambos" width="3%">				
 					
-					<p:commandButton update="@form"	action="#{paisAlunosMBean.ambos}" title="Excluir ambos" icon="ui-icon-trash"  styleClass="btn btn-danger" >
+					<p:commandButton update="@form"	action="#{paisAlunosMBean.excluirAmbosAlunoResponsavel}" rendered="#{alunoResponsavel.aluno.deletado eq false}"
+						title="Excluir ambos" icon="ui-icon-trash"  styleClass="btn btn-danger" >
 					<f:setPropertyActionListener value="#{alunoResponsavel.responsavel}" target="#{paisAlunosMBean.responsavelSerExcluido}" />
 					<f:setPropertyActionListener value="#{alunoResponsavel.aluno}" target="#{paisAlunosMBean.alunoSerExcluido}" />
-					
+					<f:setPropertyActionListener value="#{alunoResponsavel}" target="#{paisAlunosMBean.alunoResponsavelSerExcluido}" />
 					<p:confirm header="Confirmação" message="Você realmente quer exclui-los?" icon="pi pi-exclamation-triangle"/>
 					
 					</p:commandButton>
-
-					
+					<p:commandButton title="Indisponível" icon="ui-icon-closethick" rendered="#{alunoResponsavel.aluno.deletado}"  />
 				</p:column>
 				
 		
 				
 			</p:dataTable>
 		</h:form>
+		</div>
 	</ui:define>
 
 
