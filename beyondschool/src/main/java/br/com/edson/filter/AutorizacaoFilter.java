@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.edson.Model.Usuario;
 
-//@WebFilter( filterName = "AutoricacaoFilter", urlPatterns = "/APP/*")
+@WebFilter( filterName = "AutoricacaoFilter", urlPatterns = "/APP/*")
 public class AutorizacaoFilter implements Filter {
 
 	@Inject
@@ -24,18 +24,18 @@ public class AutorizacaoFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-//		HttpServletResponse response = ( HttpServletResponse ) res;
-//		HttpServletRequest request = ( HttpServletRequest ) req;
-//		HttpSession session = request.getSession();
-//		
-//		Usuario user = (Usuario) session.getAttribute("usuario");
-//		
-//		if (user == null) {
-//			response.sendRedirect(request.getContextPath() + "/public/login.xhtml");
-//		}
-//		else {
-//			chain.doFilter(req, res);	
-//		}
+		HttpServletResponse response = ( HttpServletResponse ) res;
+		HttpServletRequest request = ( HttpServletRequest ) req;
+		HttpSession session = request.getSession();
+		
+		Usuario user = (Usuario) session.getAttribute("usuario");
+		
+		if (user == null) {
+			response.sendRedirect(request.getContextPath() + "/public/login.xhtml");
+		}
+		else {
+			chain.doFilter(req, res);	
+		}
 
 		
 	}

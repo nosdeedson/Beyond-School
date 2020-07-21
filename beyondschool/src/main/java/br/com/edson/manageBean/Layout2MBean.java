@@ -27,14 +27,11 @@ public class Layout2MBean implements Serializable {
 	
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		user = (Usuario) session.getAttribute("usuario");
-		if(user.getTipoAcesso().equals("admin") || user.getTipoAcesso().equals("professor"))
-			flagBotaoVoltar =true;
-		
+	
 	}
 	
 	
 	public String voltar() {
-		
 		switch (user.getTipoAcesso()) {
 		case "admin":
 			return "/APP/telaAdmin?faces-redirect=true";
@@ -44,9 +41,10 @@ public class Layout2MBean implements Serializable {
 			return "/APP/listaTurmas?faces-redirect=true";
 		case "responsavel":
 			return "/APP/telaPai?faces-redirect=true";
+		default:
+			return "/public/login.xhtml?faces-redirect=true";
 		}
-		
-		return "/public/index?faces-redirect=true";
+
 	}
 
 

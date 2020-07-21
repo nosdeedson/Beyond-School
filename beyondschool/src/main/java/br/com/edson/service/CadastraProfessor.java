@@ -17,16 +17,17 @@ import br.com.edson.repository.UsuariosBD;
 
 public class CadastraProfessor implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private final long serialVersionUID = 1L;
+	
+	
+	@Inject
+	private  FuncionariosBD funcBD;
 
 	@Inject
-	private FuncionariosBD funcBD;
+	private  TurmasBD turmasBD;
 
 	@Inject
-	private TurmasBD turmasBD;
-
-	@Inject
-	private Funcionario funcionario;
+	private  Funcionario funcionario;
 	
 	
 	
@@ -36,15 +37,12 @@ public class CadastraProfessor implements Serializable {
 	public Funcionario salvarProfessor(String codigo, String nomeCompleto, String nascimento) throws ParseException, NegocioException {
 		
 		
-		Funcionario prof = turmasBD.buscaIdProfessor(codigo);
+		Long codigoProf= turmasBD.buscaIdProfessor(codigo);
 		
-		if( prof == null ) {
+		if( codigoProf == null ) {
 			throw new NegocioException("Código inexistente");
 		}
-		
-		
-		
-		prof = funcBD.porId(prof.getIdPessoa());
+		Funcionario prof = funcBD.porId(codigoProf);
 		prof.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
 
 		prof.setNomeCompleto(nomeCompleto);

@@ -30,16 +30,16 @@ public class TurmasBD implements Serializable {
 	 * @param codigo
 	 * @return
 	 */
-	public Funcionario buscaIdProfessor( String codigo) {
-		Turma t = new Turma();
+	public Long buscaIdProfessor( String codigo) {
+		String sql = "select t.professor.idPessoa from Turma t where t.codigoTurma= :codigoTurma";
 		try {
-			t = em.createQuery(" from Turma t where t.codigoTurma = :codigoTurma", Turma.class)
+			Long codigoProf = this.em.createQuery(sql, Long.class)
 					.setParameter("codigoTurma", codigo).getSingleResult();
+			return codigoProf;
 		} catch ( PersistenceException e) {
 			return null;
 		}
 		
-		return t.getProfessor();
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class TurmasBD implements Serializable {
 	 */
 	public List<Turma> turmasProfessor( Long idProfessor) {
 		
-		String sql = " select t from Turma t, Funcionario f  where f.idPessoa= :idPessoa";
+		String sql = " select t from Turma t where t.professor.idPessoa= :idPessoa";
 		
 		try {
 			TypedQuery<Turma> turmas = this.em.createQuery(sql, Turma.class)

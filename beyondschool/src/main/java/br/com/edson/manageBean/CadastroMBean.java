@@ -3,7 +3,9 @@ package br.com.edson.manageBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.enterprise.inject.InjectionException;
 import javax.faces.FacesException;
@@ -20,7 +22,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.lang3.builder.StandardToStringStyle;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.CalendarConversion;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.DateConversion;
 
 import javax.faces.application.ViewHandler;
 
@@ -42,6 +46,7 @@ import br.com.edson.service.CadastraProfessor;
 import br.com.edson.service.GeradorHashSenha;
 import br.com.edson.service.NegocioException;
 import br.com.edson.service.ValidaDadosCadastro;
+import br.com.edson.service.ValidarData;
 import br.com.edson.service.ValidarEmail;
 import br.com.edson.service.VerificaExisteResponsavel;
 
@@ -118,6 +123,9 @@ public class CadastroMBean implements Serializable {
 	@Inject
 	private TurmasBD turmasBD;
 	
+	@Inject
+	private FuncionariosBD workersBD;
+	
 	private boolean flagCadastrado = true;
 	
 	@Inject
@@ -145,6 +153,13 @@ public class CadastroMBean implements Serializable {
 			
 			if( !tipoAcesso.equals("Admin"))
 				 validaDados.validarCodigo(getCodigoTurma());
+			
+			ValidarData.validarData(nascimento);
+			
+			
+			if(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento).after(new Date()))
+				throw new NegocioException("Data de aniversário inválida.");
+			
 			if(passWord.length()< 8)
 				throw new NegocioException("Senha deve ter ao menos 8 caracteres.");
 			if(!passWord.equals(confirmeSenha)) {
@@ -152,7 +167,6 @@ public class CadastroMBean implements Serializable {
 			}
 			
 			// muda a senha digitada para um hash
-			
 			passWord = GeradorHashSenha.geradorHashPassWord(passWord);
 			
 			if (validaDados.verificaSenha(passWord)) 
@@ -175,7 +189,11 @@ public class CadastroMBean implements Serializable {
 					throw new NegocioException("Código Inválido");
 				et.begin();
 				
-				Funcionario admin = new Funcionario();
+				
+				Funcionario admin = workersBD.buscaFuncionarioPeloNomeTipoAcesso(nomeCompleto, PapelEnum.ADMIN);
+				if( admin == null)
+					admin = new Funcionario();
+				
 				admin.setDataNascimento( new SimpleDateFormat("dd/MM/yyyy").parse(nascimento));
 				admin.setNomeCompleto(nomeCompleto);
 				admin.setTipoAcesso(PapelEnum.ADMIN);
@@ -379,7 +397,7 @@ public class CadastroMBean implements Serializable {
 			if( primeiroEspaco == 1)
 				throw new NegocioException("Retire o espaço antes do nome.");
 			if( primeiroEspaco == -1 || nomes[cont].isEmpty())
-				throw new NegocioException("Informa o nome completo dos alunos.");
+				throw new NegocioException("Informa o nome completo.");
 				
 			cont++;			
 		} while (cont < tm);

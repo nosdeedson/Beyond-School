@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Funcionario;
+import br.com.edson.Model.PapelEnum;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.FuncionariosBD;
@@ -81,18 +82,15 @@ public class CadastrarTurmaMBean implements Serializable {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();
-		
-		
-		
+	
 		try {
 			
 			if(turma.getCodigoTurma() == null )
 				codigo = gerardorCodigo.gerarCodigoTurma();
 			
-			
 			et.begin();
 			
-			Funcionario existe = funcionariosBD.buscaFuncionarioPeloNome(professor.getNomeCompleto());		
+			Funcionario existe = funcionariosBD.buscaFuncionarioPeloNomeTipoAcesso(professor.getNomeCompleto(), PapelEnum.PROFESSOR);		
 			
 			if(existe != null) {
 				professor = existe;

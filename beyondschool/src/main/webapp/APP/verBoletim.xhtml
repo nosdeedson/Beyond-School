@@ -98,11 +98,11 @@
 		<p:panelGrid columns="1" styleClass="semBoletim" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" >
 		
 			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." styleClass="outPutSemAvaliacao"
-			rendered="#{verBoletimMBean.user.getTipoAcesso() == 'professor'}" />
+			/>
 			
 			
 			<p:linkButton styleClass="btn btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" 
-			rendered="#{verBoletimMBean.flagUser}" >
+			rendered="#{verBoletimMBean.user.getTipoAcesso() == 'professor'}"  >
 				<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 			</p:linkButton>
 			<br/>
