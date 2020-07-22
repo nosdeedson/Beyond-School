@@ -145,12 +145,6 @@ public class CadastroMBean implements Serializable {
 	
 	// métodos
 	
-	public List<String> pesquisaNomes(String nome) {
-		List<String> nomes = new ArrayList<String>();
-		nomes = userBD.pegaNomes(nome);
-		return nomes;
-	}
-	
 	public void salvar() throws Exception{
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();	
@@ -457,7 +451,7 @@ public class CadastroMBean implements Serializable {
 	
 	public void showResponsaveis() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		if(qtdAluno.matches("[1,5]*")) {
+		if(qtdAluno.matches("[1,2,3,4,5]*")) {
 			qtdAlunosTutelados = Integer.parseInt(qtdAluno);
 		}
 		else {

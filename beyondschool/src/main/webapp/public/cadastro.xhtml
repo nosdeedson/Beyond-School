@@ -64,8 +64,8 @@
 				</p:row>
 			</f:facet>
 					
-				<p:autoComplete id="nomeCompleto" value="#{cadastroMBean.nomeCompleto}"  minQueryLength="3" styleClass="completa"
-				completeMethod="#{cadastroMBean.pesquisaNomes(nomeCompleto)}" required="true"  placeholder="Nome Completo" label="Nome" style="font-weight: bold;"  />
+				<p:inputText id="nomeCompleto" value="#{cadastroMBean.nomeCompleto}"  styleClass="tm-input"
+				required="true"  placeholder="Nome Completo" label="Nome" style="font-weight: bold;"  />
 								
 				<p:inputMask styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" 
 				label="Nascimento" style="font-weight: bold;" />
@@ -115,11 +115,20 @@
 				<p:commandButton styleClass="tm-input"  value="Cadastrar" id="btn-cadastrar" update="@form" action="#{cadastroMBean.salvar}" />
 				
 				
+				
 		</p:panelGrid>
+	
+		
 	</h:form>
+<br/>
+		<p:outputLabel styleClass="perguntas" >Por favor <a href="https://forms.gle/sAG73xbYXSvpw4mSA" target="_blank">Clique aqui</a> e responda leva 2 minutos. </p:outputLabel>
+		
 <!-- 	<h:outputLabel value="bs9op84o"/> -->
 </div>
-	</ui:define>
+
+
+
+</ui:define>
 
 
 </ui:composition>

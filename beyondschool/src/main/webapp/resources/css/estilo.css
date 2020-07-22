@@ -406,6 +406,12 @@
 	.semBoletim{
 		left: 3%;
 	}
+	
+	.perguntas{
+		position: relative;
+		left: 10%;
+	}
+	
 }
 
 @media (min-width: 600px) {
@@ -527,6 +533,11 @@
 	.semBoletim{
 		left: 10%;
 	}
+	
+	.perguntas{
+		position: relative;
+		left: 25%;
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -639,6 +650,11 @@
 	
 	.semBoletim{
 		left: 20%;
+	}
+	
+	.perguntas{
+		position: relative;
+		left: 30%;
 	}
 }
 

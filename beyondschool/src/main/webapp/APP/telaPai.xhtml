@@ -80,6 +80,8 @@
 
 				<h:panelGroup rendered="#{telaPaiMBean.flagTemAvaliacao}">
 				
+				<h:outputLabel value="Comentário professor(a): "  />
+					<br />
 				<p:inputTextarea value="#{telaPaiMBean.avaliacao.getComentarios().get(0).getComentario()}"  style="font-weight: 900; width: 300px;" readonly="true"    />
 				
 				
@@ -116,6 +118,8 @@
 			</p:panelGrid>
 			
 		</h:form>
+		<br/>
+		<p:outputLabel styleClass="perguntas" >Por favor <a href="https://forms.gle/sAG73xbYXSvpw4mSA" target="_blank">Clique aqui</a> e responda leva 2 minutos. </p:outputLabel>
 	</ui:define>
 
 

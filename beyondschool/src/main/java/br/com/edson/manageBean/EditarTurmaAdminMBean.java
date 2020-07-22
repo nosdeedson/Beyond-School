@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Bimestre;
+import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.Turma;
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.AlunosBD;
@@ -58,6 +59,9 @@ public class EditarTurmaAdminMBean implements Serializable {
 	
 	@Inject
 	private AtualizaBimestre atualizaBimeste;
+	
+	@Inject
+	private Funcionario funcionarioSerExcluido;
 	
 	@Inject
 	private Usuario user;
@@ -136,6 +140,11 @@ public class EditarTurmaAdminMBean implements Serializable {
 			return "/APP/telaAdmin?faces-redirect=true";
 		return "";
 	}
+	
+	public void excluirProfessor() {
+		FacesContext context = FacesContext.getCurrentInstance();
+	}
+	
 	
 	// getters and setters
 	public Turma getTurma() {
