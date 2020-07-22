@@ -3,9 +3,11 @@ package br.com.edson.manageBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.enterprise.inject.InjectionException;
 import javax.faces.FacesException;
@@ -142,6 +144,13 @@ public class CadastroMBean implements Serializable {
 	
 	
 	// métodos
+	
+	public List<String> pesquisaNomes(String nome) {
+		List<String> nomes = new ArrayList<String>();
+		nomes = userBD.pegaNomes(nome);
+		return nomes;
+	}
+	
 	public void salvar() throws Exception{
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();	
@@ -152,10 +161,7 @@ public class CadastroMBean implements Serializable {
 			verificaNomesDigitados(nome, 1);
 			
 			if( !tipoAcesso.equals("Admin"))
-				 validaDados.validarCodigo(getCodigoTurma());
-			
-			ValidarData.validarData(nascimento);
-			
+				 validaDados.validarCodigo(getCodigoTurma());		
 			
 			if(new SimpleDateFormat("dd/MM/yyyy").parse(nascimento).after(new Date()))
 				throw new NegocioException("Data de aniversário inválida.");
@@ -172,7 +178,6 @@ public class CadastroMBean implements Serializable {
 			if (validaDados.verificaSenha(passWord)) 
 				user.setSenha(passWord);
 			
-			
 			String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
 			
 			user.setNomeUsuario(nomeUsuario);
@@ -184,11 +189,10 @@ public class CadastroMBean implements Serializable {
 			
 			switch (tipoAcesso) {
 			case "Admin":
-				
+				ValidarData.validarMaiorIdade(nascimento);
 				if(!codigoTurma.equals("semcodigo"))
 					throw new NegocioException("Código Inválido");
 				et.begin();
-				
 				
 				Funcionario admin = workersBD.buscaFuncionarioPeloNomeTipoAcesso(nomeCompleto, PapelEnum.ADMIN);
 				if( admin == null)
@@ -208,10 +212,17 @@ public class CadastroMBean implements Serializable {
 				flagCadastrado = false;
 				break;
 				
-				
 			case "Aluno":
+				boolean deMaior = false;
+				if(nomeCompleto.equals(nomeResponsavel[0]) || nomeCompleto.equals(nomeResponsavel[1]) ) {
+					ValidarData.validarMaiorIdade(nascimento);
+					deMaior = ValidarData.validarMaiorIdade(nascimento);	
+				}
+				else {
+					ValidarData.validarMaiorDeSeteAnos(nascimento);
+				}
+								
 				
-				//cont instanciado antes do try
 				if(nomeResponsavel[0].isEmpty())
 					throw new NegocioException("Ao menos um responsável deve ser informado.");
 				
@@ -232,7 +243,6 @@ public class CadastroMBean implements Serializable {
 				Turma t = turmasBD.buscaTurma(codigoTurma);
 								
 				Integer mat = alunosBD.buscaMatricula();
-
 				
 				if( mat == null)
 					mat = new Integer(100);
@@ -254,38 +264,37 @@ public class CadastroMBean implements Serializable {
 				userBD.salvarUser(user);
 				
 				cont = 0;  //cont instanciado antes do try
+				if(!deMaior) {
 				do {
-
-					boolean flagResponsavel = true;
-					responsavel = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel[cont]);
-					
-					if(responsavel == null) {
+						boolean flagResponsavel = true;
+						responsavel = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel[cont]);
 						
-						flagResponsavel = false;
+						if(responsavel == null) {
+							
+							flagResponsavel = false;
+							responsavel = new Responsavel();
+							responsavel.setNomeCompleto(nomeResponsavel[cont]);
+							
+							responsaveisBD.salvarResponsavelCadastro(responsavel);
+							
+						}
+						
+						if( !flagAluno || !flagResponsavel) {
+							
+							AlunoResponsavel ar = new AlunoResponsavel();
+							ar.setAluno(student);
+							ar.setResponsavel(responsavel);
+							alunosResponsaveisBD.salvarAlunoResponsavel(ar);				
+						}
+						
 						responsavel = new Responsavel();
-						responsavel.setNomeCompleto(nomeResponsavel[cont]);
 						
-						responsaveisBD.salvarResponsavelCadastro(responsavel);
-						
-					}
-					
-					if( !flagAluno || !flagResponsavel) {
-						
-						AlunoResponsavel ar = new AlunoResponsavel();
-						ar.setAluno(student);
-						ar.setResponsavel(responsavel);
-						alunosResponsaveisBD.salvarAlunoResponsavel(ar);				
-					}
-					
-					responsavel = new Responsavel();
-					
-					cont++;
-				} while (cont < qtdResponsaveis);
-
+						cont++;
+					} while (cont < qtdResponsaveis);
+				}
 				et.commit();
 				flagCadastrado = false;
 				break;
-				
 				
 			case "Professor":
 				cont++;
@@ -348,7 +357,6 @@ public class CadastroMBean implements Serializable {
 						alunoResp.setResponsavel(existeResp);
 						alunosResponsaveisBD.salvarAlunoResponsavel(alunoResp);
 					}
-					
 					
 					aluno = new Aluno();
 					

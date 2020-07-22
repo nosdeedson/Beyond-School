@@ -39,6 +39,22 @@ public class UsuariosBD implements Serializable {
 		}
 	}
 	
+	public List<String> pegaNomes( String nome){
+			
+		String sql = "select distinct u.pessoa.nomeCompleto from Usuario u "
+				+ "where upper(u.pessoa.nomeCompleto) like upper(:nome)";
+		
+		try {
+			TypedQuery<String> nomes = this.em.createQuery(sql, String.class)
+					.setParameter("nome", "%"+nome+"%");
+			return nomes.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+	}
 	
 	
 	/**

@@ -63,9 +63,9 @@
 					</p:column>
 				</p:row>
 			</f:facet>
-			
-				<p:inputText styleClass="tm-input" placeholder="Nome completo" value="#{cadastroMBean.nomeCompleto}" required="true" 
-					label="Nome" style="font-weight: bold;"  />
+					
+				<p:autoComplete id="nomeCompleto" value="#{cadastroMBean.nomeCompleto}"  minQueryLength="3" styleClass="completa"
+				completeMethod="#{cadastroMBean.pesquisaNomes(nomeCompleto)}" required="true"  placeholder="Nome Completo" label="Nome" style="font-weight: bold;"  />
 								
 				<p:inputMask styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" 
 				label="Nascimento" style="font-weight: bold;" />
