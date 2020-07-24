@@ -804,5 +804,14 @@
 .conteudo{
 	min-height: 170px;
 }
+.inicio{
+	font-size: 20px;
+	left: 10%;
+	min-height: 170px;
+	position: relative;
+	text-align: justify;
+	width: 80%;
+}
+
 
 

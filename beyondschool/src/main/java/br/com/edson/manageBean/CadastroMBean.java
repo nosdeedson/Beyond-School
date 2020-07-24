@@ -184,7 +184,7 @@ public class CadastroMBean implements Serializable {
 			switch (tipoAcesso) {
 			case "Admin":
 				ValidarData.validarMaiorIdade(nascimento);
-				if(!codigoTurma.equals("semcodigo"))
+				if(!codigoTurma.equals("Kw6Qu8Ah5"))
 					throw new NegocioException("Código Inválido");
 				et.begin();
 				
