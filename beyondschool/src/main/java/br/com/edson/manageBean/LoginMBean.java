@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Usuario;
 import br.com.edson.repository.UsuariosBD;

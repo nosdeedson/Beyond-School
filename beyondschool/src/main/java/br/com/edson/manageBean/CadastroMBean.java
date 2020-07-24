@@ -3,33 +3,20 @@ package br.com.edson.manageBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.enterprise.inject.InjectionException;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
-import javax.swing.JOptionPane;
-
-import org.apache.commons.lang3.builder.StandardToStringStyle;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.CalendarConversion;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.DateConversion;
-
-import javax.faces.application.ViewHandler;
-
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;

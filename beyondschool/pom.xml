@@ -84,48 +84,24 @@
 			<version>2.7.5</version>
 			<scope>compile</scope>
 		</dependency>
-		
-<!-- 		abaixo tentativa do email --> 
-<!-- java mail -->
-	<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api --> 
-<!-- 		<dependency> -->
-<!-- 			<groupId>javax.mail</groupId> -->
-<!-- 			<artifactId>javax.mail-api</artifactId> -->
-<!-- 			<version>1.6.0</version> -->
-<!-- 		</dependency> -->
 
-<!-- commons lybary apache random password -->
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-lang3</artifactId>
-    <version>3.8.1</version>
-</dependency>
-
-<!-- https://mvnrepository.com/artifact/javax.activation/javax.activation-api -->
-<dependency>
-    <groupId>javax.activation</groupId>
-    <artifactId>javax.activation-api</artifactId>
-    <version>1.2.0</version>
-</dependency>
-
-<!-- simpleJavaMail -->
-	<dependency>
-		<groupId>org.simplejavamail</groupId>
-		<artifactId>simple-java-mail</artifactId>
-		<version>6.3.2</version>
-	</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/javax.activation/javax.activation-api -->
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>javax.activation-api</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+	
+		<!-- simpleJavaMail -->
+		<dependency>
+			<groupId>org.simplejavamail</groupId>
+			<artifactId>simple-java-mail</artifactId>
+			<version>6.3.2</version>
+		</dependency>
 
 	</dependencies>
 
-	<repositories>
-		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
-		</dependency>
-
-	</repositories>
 
 
 </project>
