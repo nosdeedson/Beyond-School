@@ -11,6 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -85,14 +86,14 @@
 			<scope>compile</scope>
 		</dependency>
 
-	
+
 		<!-- https://mvnrepository.com/artifact/javax.activation/javax.activation-api -->
 		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>javax.activation-api</artifactId>
 			<version>1.2.0</version>
 		</dependency>
-	
+
 		<!-- simpleJavaMail -->
 		<dependency>
 			<groupId>org.simplejavamail</groupId>
@@ -100,6 +101,16 @@
 			<version>6.3.2</version>
 		</dependency>
 
+	
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+	
 	</dependencies>
 
 
