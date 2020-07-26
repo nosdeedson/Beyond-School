@@ -50,13 +50,16 @@ public class AcoesAlunoResponsavel implements Serializable {
 			alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
 		}
 		else if( alunosDoResponsavel.size() > 0 ) {
+			
 			List<AlunoResponsavel> responsaveisDosAluno = alunosRespsBD.buscaResponsavelPorAluno(alunosDoResponsavel.get(0).getAluno().getIdPessoa());
+			//JOptionPane.showMessageDialog(null, "mais de um aluno." + responsaveisDosAluno.size());
 			if(responsaveisDosAluno.size() == 1) {
-				throw new NegocioException("Você não pode excluir todos os responsaveis do: "+ ar.getAluno().getNomeCompleto());
+				throw new NegocioException("Você não pode excluir todos os responsaveis de: "+ ar.getAluno().getNomeCompleto());
 			}
 			else {
-				respBD.removeResponsavel(responsavel.getIdPessoa());
 				alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+				respBD.removeResponsavel(responsavel.getIdPessoa());
+				
 			}
 		}
 		
@@ -69,12 +72,12 @@ public class AcoesAlunoResponsavel implements Serializable {
 		List<AlunoResponsavel> responsaveisDosAlunos = null;
 		
 		if(alunosDoResponsavel.size() == 0) {
-			respBD.removeResponsavel(responsavel.getIdPessoa());
 			alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+			respBD.removeResponsavel(responsavel.getIdPessoa());
 		}
 		else if(alunosDoResponsavel.size() == 1 ) {
-			respBD.removeResponsavel(responsavel.getIdPessoa());
 			alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+			respBD.removeResponsavel(responsavel.getIdPessoa());
 			excluirAluno(aluno);
 				
 		}
@@ -87,8 +90,8 @@ public class AcoesAlunoResponsavel implements Serializable {
 				throw new NegocioException("Você não pode excluir este responsável: "+ responsavel.getNomeCompleto() + " ele tem outro aluno matriculado.");
 			}
 			else {
-				respBD.removeResponsavel(responsavel.getIdPessoa());
 				alunosRespsBD.excluirAlunoResponsavel(ar.getId_aluno_responsavel());
+				respBD.removeResponsavel(responsavel.getIdPessoa());
 				excluirAluno(aluno);
 			}
 		}

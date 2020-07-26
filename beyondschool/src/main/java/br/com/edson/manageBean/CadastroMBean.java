@@ -38,6 +38,7 @@ import br.com.edson.service.ValidaDadosCadastro;
 import br.com.edson.service.ValidarData;
 import br.com.edson.service.ValidarEmail;
 import br.com.edson.service.VerificaExisteResponsavel;
+import br.com.edson.service.VerificaNomeCompleto;
 
 @Named
 @javax.faces.view.ViewScoped
@@ -127,12 +128,18 @@ public class CadastroMBean implements Serializable {
 	private String qtdRep;
 	
 	private String qtdAluno;
+	
+	private int progresso = 0;
 		
 	
 	
 	// métodos
 	
-	public void salvar() throws Exception{
+	public void teste() {
+		VerificaNomeCompleto.verficaNome(nomeCompleto);
+	}
+	
+	public String salvar() throws Exception{
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();	
 		int cont = 0;
@@ -140,6 +147,7 @@ public class CadastroMBean implements Serializable {
 			
 			String nome[] = {nomeCompleto};
 			verificaNomesDigitados(nome, 1);
+			
 			
 			if( !tipoAcesso.equals("Admin"))
 				 validaDados.validarCodigo(getCodigoTurma());		
@@ -158,10 +166,7 @@ public class CadastroMBean implements Serializable {
 			
 			if (validaDados.verificaSenha(passWord)) 
 				user.setSenha(passWord);
-			
-			String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
-			
-			user.setNomeUsuario(nomeUsuario);
+		
 			
 			if( !email.isEmpty()  )
 				if(ValidarEmail.isValidEmail( email))
@@ -169,9 +174,13 @@ public class CadastroMBean implements Serializable {
 			
 			
 			switch (tipoAcesso) {
-			case "Admin":
+			case "Admin":{
+				nomeCompleto = VerificaNomeCompleto.verficaNome(nomeCompleto);
+				String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
+				user.setNomeUsuario(nomeUsuario);
+				
 				ValidarData.validarMaiorIdade(nascimento);
-				if(!codigoTurma.equals("Kw6Qu8Ah5"))
+				if(!codigoTurma.equals("AzuosEsojNosde3006"))
 					throw new NegocioException("Código Inválido");
 				et.begin();
 				
@@ -192,8 +201,8 @@ public class CadastroMBean implements Serializable {
 				cont++;
 				flagCadastrado = false;
 				break;
-				
-			case "Aluno":
+			}
+			case "Aluno":{
 				boolean deMaior = false;
 				if(nomeCompleto.equals(nomeResponsavel[0]) || nomeCompleto.equals(nomeResponsavel[1]) ) {
 					ValidarData.validarMaiorIdade(nascimento);
@@ -211,6 +220,10 @@ public class CadastroMBean implements Serializable {
 				
 				validaDados.validarCodigo(codigoTurma);
 				boolean flagAluno = true;
+				
+				nomeCompleto = VerificaNomeCompleto.verficaNome(nomeCompleto);
+				String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
+				user.setNomeUsuario(nomeUsuario);
 				
 				Aluno student = alunosBD.buscaAlunoPeloNome(nomeCompleto);
 				if(student == null) {
@@ -248,12 +261,14 @@ public class CadastroMBean implements Serializable {
 				if(!deMaior) {
 				do {
 						boolean flagResponsavel = true;
+						nomeResponsavel[cont] = VerificaNomeCompleto.verficaNome(nomeResponsavel[cont]);
 						responsavel = responsaveisBD.buscaResponsavelPeloNome(nomeResponsavel[cont]);
 						
 						if(responsavel == null) {
 							
 							flagResponsavel = false;
 							responsavel = new Responsavel();
+							
 							responsavel.setNomeCompleto(nomeResponsavel[cont]);
 							
 							responsaveisBD.salvarResponsavelCadastro(responsavel);
@@ -276,9 +291,12 @@ public class CadastroMBean implements Serializable {
 				et.commit();
 				flagCadastrado = false;
 				break;
-				
-			case "Professor":
+			}
+			case "Professor":{
 				cont++;
+				nomeCompleto = VerificaNomeCompleto.verficaNome(nomeCompleto);
+				String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
+				user.setNomeUsuario(nomeUsuario);
 				et.begin();
 					Funcionario f = new Funcionario();
 					f = cadProf.salvarProfessor(codigoTurma, nomeCompleto, nascimento);
@@ -287,9 +305,11 @@ public class CadastroMBean implements Serializable {
 				et.commit();
 				flagCadastrado = false;
 				break;
-			
-			case "Responsável":
-	
+			}
+			case "Responsável":{
+				nomeCompleto = VerificaNomeCompleto.verficaNome(nomeCompleto);
+				String nomeUsuario = validaDados.criaNomeUsuario(nomeCompleto);
+				user.setNomeUsuario(nomeUsuario);
 				verificaNomesDigitados(tutelado, qtdAlunosTutelados);
 				
 				Responsavel existeResp = verificaResp.buscaResponsavel(nomeCompleto);			 
@@ -312,7 +332,7 @@ public class CadastroMBean implements Serializable {
 				
 				cont = 0;
 				do {
-					
+					tutelado[cont] = VerificaNomeCompleto.verficaNome(tutelado[cont]);
 					aluno = alunosBD.buscaAlunoPeloNome(tutelado[cont]);
 					if(aluno != null) {
 						if(aluno.isDeletado())
@@ -323,6 +343,7 @@ public class CadastroMBean implements Serializable {
 					
 					if( aluno ==  null) {
 						aluno = new Aluno();
+						
 						aluno.setNomeCompleto(tutelado[cont]);
 						alunosBD.salvarAluno(aluno);
 						flagStudent = false;
@@ -347,18 +368,24 @@ public class CadastroMBean implements Serializable {
 				
 				 et.commit();
 				break;
+				}
 			}
 
 			
-			context.addMessage(null, new FacesMessage("Cadastrado com sucesso!! Seu nome de usuario: "+nomeUsuario));
-			refreshPage(context);
+			//context.addMessage(null, new FacesMessage("Cadastrado com sucesso!! Seu nome de usuario: "+user.getNomeUsuario()));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cadastrado com sucesso!! Seu nome de usuario: "+user.getNomeUsuario()));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+			return "/public/login?faces-redirect=true";
+			//refreshPage(context);
 		} catch ( PersistenceException | ParseException | NullPointerException | NegocioException | FacesException | InjectionException e) {
 			et.rollback();
 			e.printStackTrace();
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
-			refreshPage(context);
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+			return "/public/cadastro?faces-redirect=true";
+			//refreshPage(context);
 		} finally {
 			setCodigoTurma("");
 			setNascimento("");
@@ -372,6 +399,7 @@ public class CadastroMBean implements Serializable {
 			String[] respVazio = {" ", " "};
 			setNomeResponsavel(respVazio);
 			setEmail("");
+			progresso = 100;
 		}
 		
 	}
@@ -635,6 +663,14 @@ public class CadastroMBean implements Serializable {
 
 	public void setQtdAluno(String qtdAluno) {
 		this.qtdAluno = qtdAluno;
+	}
+
+	public int getProgresso() {
+		return progresso;
+	}
+
+	public void setProgresso(int progresso) {
+		this.progresso = progresso;
 	}
 	
 	

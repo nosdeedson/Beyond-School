@@ -9,6 +9,7 @@
 
 <ui:define name="corpo">
 
+<div class="altura">
 		
 		<h:form id="fr1">
 				<p:panelGrid columns="1" id="pg-login-user" styleClass="pgLogin">
@@ -71,11 +72,12 @@
 						outcome="cadastro" value="Criar o seu acesso?" />
 					</h:form>	
 				</h:panelGrid>
+	</div>			
 <script type="text/javascript">
     function start() {
     this.progressInterval = setInterval(function(){
         PF('pb').setValue(PF('pb').getValue() + 10);
-    }, 2000);
+    }, 1000);
 }
 </script>			
 				

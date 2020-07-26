@@ -15,7 +15,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 </f:metadata>
 <ui:define name="corpo2">
-
+<div class="altura">
 <h:form>
 <p:growl id="growl" showDetail="true" sticky="true" />  
 <p:panelGrid columns="1" styleClass="edtProf">
@@ -61,7 +61,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 
 		<p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/>
 		
-		<p:dataTable value="#{editarTurmaProfessorMBean.alunos}" var="aluno" border="1" style="width: 400px;"
+		<p:dataTable value="#{editarTurmaProfessorMBean.alunos}" var="aluno" border="1" styleClass="tableEdtProf"
 			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
 			
 		<p:column headerText="Nome"  width="65%" > 
@@ -87,7 +87,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 </p:panelGrid> 
 
 </h:form>
-
+</div>
 
 </ui:define>
 

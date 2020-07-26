@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import javax.validation.ConstraintViolationException;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;
@@ -32,7 +33,7 @@ public class AlunosResponsaveisBD implements Serializable {
 	 */
 	public List<AlunoResponsavel> buscarAlunoResponsaveis( String codigoTurma ) {
 		
-		String sql = "select ar from AlunoResponsavel ar where ar.aluno.turma.codigoTurma= :codigoTurma and ar.aluno.deletado = false or ar.responsavel.deletado = false"
+		String sql = "select ar from AlunoResponsavel ar where ar.aluno.turma.codigoTurma= :codigoTurma and ar.aluno.deletado =0"
 				+ " order by ar.responsavel.nomeCompleto";
 		
 		try {
@@ -70,7 +71,7 @@ public class AlunosResponsaveisBD implements Serializable {
 	 * @return
 	 */
 	public List<AlunoResponsavel> buscaResponsavelPorAluno(Long idAluno) {
-		String sql = "select ar from AlunoResponsavel ar where ar.aluno.idPessoa= :idPessoa";
+		String sql = "select ar from AlunoResponsavel ar where ar.aluno.idPessoa= :idPessoa and ar.aluno.deletado= false";
 		try {
 			TypedQuery<AlunoResponsavel> alunos = this.em.createQuery(sql, AlunoResponsavel.class)
 					.setParameter("idPessoa", idAluno);
@@ -104,9 +105,11 @@ public class AlunosResponsaveisBD implements Serializable {
 	 */
 	public void excluirAlunoResponsavel( Long idAlunoResponsavel) throws NegocioException, Exception {
 		AlunoResponsavel ar = this.em.find(AlunoResponsavel.class,idAlunoResponsavel);
+		
 		try {
 			this.em.remove(ar);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new NegocioException("Falha ao excluir responsável");
 		}
 		
@@ -116,7 +119,7 @@ public class AlunosResponsaveisBD implements Serializable {
 		
 		try {
 			this.em.persist(alunoResponsavel);
-		} catch (PersistenceException e) {
+		} catch (PersistenceException | ConstraintViolationException e) {
 			e.printStackTrace();
 			throw new NegocioException(e.getMessage());
 		}

@@ -10,7 +10,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
+
 <!-- 	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.min.css"/> -->
 <!-- 	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.grid.css"/> -->
 	<h:outputScript library="js" name="init.js" target="head"/>
@@ -18,7 +18,10 @@
 	<h:outputStylesheet library="css" name="reset.css"/> 
 	<h:outputStylesheet library="css" name="estilo.css"/> 
 	<h:outputStylesheet library="css" name="estilos-genericos.css"/> 
-	
+	<link rel="icon" href="favicon.ico" type="image/x-ico"></link>
+	<link rel="icon" href="public/favicon.ico" type="image/x-ico"></link>
+	<link rel="icon" href="favicon.png" type="image/x-png"></link>
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon"></link>
 	<title>Beyond School</title>
 </h:head>
 
@@ -30,7 +33,7 @@
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12 "> 
 
 		<p:link outcome="index" id="link-home"> <h:graphicImage library="images" name="logomedio.png" id="logo-img" /> </p:link>
-		<p:linkButton outcome="cadastro" value="Cadastrar" id="link-cadastro-header" />
+		<p:linkButton outcome="cadastro" value="Cadastrar" styleClass="link-cadastro-header" />
 		<p:linkButton outcome="login" value="Entrar" id="link-login-header" />
  
 </div>
@@ -42,12 +45,13 @@
 <ui:insert name="corpo" >
 <div class="row" id="corpo">
 <div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">  
+
+
 </div>
 </div>
 </ui:insert>
 
 		
-
 
 	<footer id="rodape">
  

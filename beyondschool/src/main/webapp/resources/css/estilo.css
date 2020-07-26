@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+html{
+	height: 100%;
+}
+
+body{
+	height: 100%;
+}
 * {
   box-sizing: border-box;
 }
@@ -42,7 +49,7 @@
 		position: relative;
 		left: 2 px;
 	}
-	#link-cadastro-header{
+	.link-cadastro-header{
 		font-size: 15px;
 	}
 	
@@ -131,10 +138,13 @@
 		font-size: 15px;
 	}
 	
-	
 	.outPutSemAvaliacao{
 		font-size: 20px;
 		margin-bottom: 10px;
+	}
+	
+	.edtProf{
+		font-size: 14px;
 	}
 	
 }
@@ -153,9 +163,9 @@
   .col-sp-11 {width: 91.66%;}
   .col-sp-12 {width: 100%;}
   
-	#link-cadastro-header{
+	.link-cadastro-header{
 		font-size: 15px;
-		top: 0px;
+		top: 30px;
 	}
 	
 	#link-login-header{
@@ -235,6 +245,10 @@
 	.boletim{
 		left: 10%;
 	}
+	
+	.edtProf{
+		font-size: 14px;
+	}
 }
 
 @media (min-width: 400px) {
@@ -251,7 +265,7 @@
 	.col-m-11 {width: 91.66%;}
 	.col-m-12 {width: 100%;}
 	
-	#link-cadastro-header{
+	.link-cadastro-header{
 		font-size: 15px;
 		top: 0px;
 	}
@@ -315,6 +329,13 @@
 	
 	.boletim{
 		left: 20%;
+	}
+	
+	.edtProf{
+		font-size: 16px;
+	}
+	.tableEdtProf{
+		width: 380px;
 	}
 }
 
@@ -411,7 +432,14 @@
 		position: relative;
 		left: 10%;
 	}
+	.edtProf{
+		font-size: 17px;
+		left: 8%;
+	}
 	
+	.tableEdtProf{
+		width: 400px;
+	}
 }
 
 @media (min-width: 600px) {
@@ -429,7 +457,7 @@
   .col-t-11 {width: 91.66%;}
   .col-t-12 {width: 100%;}
   	
- 	#link-cadastro-header{
+ 	.link-cadastro-header{
 		left: 30%;
 		top: 0px;
 	}
@@ -469,11 +497,7 @@
 	.posicao-tela-t{
 		left: 50%;
 	}
-	
-	.edtProf{
-		left: 10%;
-	}
-	
+		
 	.listaTurma{
 		left: 20%;
 	}
@@ -538,6 +562,13 @@
 		position: relative;
 		left: 25%;
 	}
+	.edtProf{
+		font-size: 16px;
+		left: 15%;
+	}
+	.tableEdtProf{
+		width: 400px;
+	}
 }
 
 @media only screen and (min-width: 768px) {
@@ -555,7 +586,7 @@
   .col-11 {width: 91.66%;}
   .col-12 {width: 100%;}
   
-   #link-cadastro-header, #copy-right, #link-login-header{
+   .link-cadastro-header, #copy-right, #link-login-header{
 		font-size: 20px;
 	}
 	
@@ -598,10 +629,6 @@
 	
 	.edtTurma{
 		left: 5%;
-	}
-	
-	.edtProf{
-		left: 15%;
 	}
 	
 	.listaTurma{
@@ -656,6 +683,14 @@
 		position: relative;
 		left: 30%;
 	}
+	.edtProf{
+		font-size: 18px;
+		left: 25%;
+	}
+
+	.tableEdtProf{
+		width: 450px;
+	}
 }
 
 @media (min-width: 900px) {
@@ -671,10 +706,6 @@
 	
 	.edtTurma{
 		left: 15%;
-	}
-	
-	.edtProf{
-		left: 25%;
 	}
 	
 	.telaAvaliacao{
@@ -707,6 +738,13 @@
 	}
 	.semBoletim{
 		left: 30%;
+	}
+	.edtProf{
+		font-size: 19px;
+		left: 25%;
+	}
+	.tableEdtProf{
+		width: 650px;
 	}
 }
 
@@ -755,9 +793,9 @@
 #pg-casdastrar-turma, #pg-cadastro-user, #pg-editar-turma-admin, #pg-editar-turma-prof, #pg-listar-turmas,
 #pg-tela-admin, #pg-tela-aluno, #pg-tela-avaliar-aluno, #pg-tela-pai, #cabecalho, #rodape,
 .boletim, #pg-comment-aluno, #pg-comentario-teacher, #comment-teacher, #pg-comment-aluno,
-.botao-cancelar-avaliacao, #pg-criar-semestre, #link-cadastro-header,
-#link-login-header, .link-pe, #copy-rigth, #link-cadastro-header, #link-login-header, 
-#criar-acesso, #logo-img, .pgLogin, .pgForgotPass, .menuHeader, .semBoletim{
+.botao-cancelar-avaliacao, #pg-criar-semestre, .link-cadastro-header,
+#link-login-header, .link-pe, #copy-rigth, #link-login-header, 
+#criar-acesso, #logo-img, .pgLogin, .pgForgotPass, .menuHeader, .semBoletim, .edtProf{
 	position: relative;
 }
 
@@ -802,16 +840,20 @@
 }
 
 .conteudo{
-	min-height: 170px;
+	height: 100vh;
 }
+
 .inicio{
 	font-size: 20px;
 	left: 10%;
-	min-height: 170px;
+	height: 100vh;
 	position: relative;
 	text-align: justify;
 	width: 80%;
 }
 
+.altura{
+	height: 100vh;
+}
 
 

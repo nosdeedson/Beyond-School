@@ -78,7 +78,6 @@ public class ResponsaveisBD implements Serializable {
 				res = usersBD.excluirUser(resp.getIdPessoa());
 			if( res == 0)
 				throw new NegocioException("Falha ao excluir.");
-			
 			this.em.remove(resp);
 		} catch (Exception e) {
 			e.printStackTrace();
