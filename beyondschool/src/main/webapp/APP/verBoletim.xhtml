@@ -54,7 +54,7 @@
 			</p:panelGrid> 
 			
 			<p:column>
-			<p:button value="Editar" outcome="/APP/telaAvaliacaoAluno" styleClass="btn-boletim" rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}">
+			<p:button value="Editar" outcome="telaAvaliacaoAluno" styleClass="btn-boletim" rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}" >
 				<f:param name="idAluno" value="#{verBoletimMBean.aluno.idPessoa}"></f:param>
 				<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 			</p:button>
@@ -81,14 +81,14 @@
 				 style="font-weight: bold;" />
 			</p:column>
 			
-			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}"/> 
+			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="listaTurmas" rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}"/> 
 			
 			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" />
 		<BR/>
 		
 		
-		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaAdmin" 
-			rendered="#{verBoletimMBean.user.getTipoAcesso() eq admin}" >
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="editarTurmaAdmin" 
+			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'admin'}" >
 			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 		</p:linkButton>
 		
@@ -97,16 +97,15 @@
 		
 		<p:panelGrid columns="1" styleClass="semBoletim" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" >
 		
-			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." styleClass="outPutSemAvaliacao"
-			/>
+			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." styleClass="outPutSemAvaliacao" 	/>
 			
 			
-			<p:linkButton styleClass="btn btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" 
-			rendered="#{verBoletimMBean.user.getTipoAcesso() == 'professor'}"  >
+			<p:linkButton styleClass="btn btn-danger " value="Voltar" outcome="editarTurmaProfessor" 
+			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}"  >
 				<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
 			</p:linkButton>
 			<br/>
-			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaAdmin" 
+			<p:linkButton styleClass="btn-danger " value="Voltar" outcome="editarTurmaAdmin" 
 			rendered="#{verBoletimMBean.user.getTipoAcesso() == 'admin'}" >
 			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"/>
 			</p:linkButton>

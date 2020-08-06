@@ -29,7 +29,8 @@
 					<p:column>
 						<p:outputLabel value="#{telaAvaliacaoAlunoMBean.turma.nomeTurma}"  />
 						<BR/>
-						<h:outputLabel value="O aluno(a): #{telaAvaliacaoAlunoMBean.aluno.nomeCompleto} não foi avaliado(a) ainda." rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao eq false}"/>
+						<h:outputLabel value="O aluno(a): #{telaAvaliacaoAlunoMBean.aluno.nomeCompleto} não foi avaliado(a) ainda." 
+						rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao eq false}"/>
 						
 					</p:column>
 				</p:row>
@@ -107,10 +108,10 @@
 			action="#{telaAvaliacaoAlunoMBean.retiraAlunoAvaliado()}" update="@form" rendered="#{telaAvaliacaoAlunoMBean.flagBuscar}"/>
 		<br/>
 		
-		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/listaTurmas" rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao eq false}" >
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="listaTurmas" rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao eq false}" >
 			<f:param name="id" value="#{telaAvaliacaoAlunoMBean.turma.codigoTurma}"></f:param>
 		</p:linkButton>
-		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="/APP/editarTurmaProfessor" rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao}" >
+		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="editarTurmaProfessor" rendered="#{telaAvaliacaoAlunoMBean.flagTemAvaliacao}" >
 			<f:param name="id" value="#{telaAvaliacaoAlunoMBean.turma.codigoTurma}"></f:param>
 		</p:linkButton>
 	</p:column>	

@@ -17,13 +17,13 @@
 			<p:panelGrid columns="1"  styleClass="pgTelaAdmin" >
 			
 				<h:panelGroup>
-					<p:linkButton outcome="/APP/criarSemestre" value="Criar Semestre" styleClass="btnAdmin" />
+					<p:linkButton outcome="criarSemestre" value="Criar Semestre" styleClass="btnAdmin" />
 					
-					<p:linkButton outcome="/APP/cadastrarTurma" value="Cadastrar turma" styleClass="btnAdmin"  />
+					<p:linkButton outcome="cadastrarTurma" value="Cadastrar turma" styleClass="btnAdmin"  />
 				
-					<p:linkButton outcome="/APP/transferirAlunosTurma" value="Transferir alunos" styleClass="btnAdmin"  />
+					<p:linkButton outcome="transferirAlunosTurma" value="Transferir alunos" styleClass="btnAdmin"  />
 					
-					<p:linkButton outcome="/APP/listaTurmas" value="Ver turmas" styleClass="btnAdmin"  />
+					<p:linkButton outcome="listaTurmas" value="Ver turmas" styleClass="btnAdmin"  />
 					
 				</h:panelGroup>
 <!-- 								refazer css -->
@@ -34,11 +34,11 @@
 						<p:outputLabel value="#{turma.nomeTurma}"></p:outputLabel>
 					</p:column>
 					<p:column headerText="Ações" width="20%"  >
-						<p:button  value="Ver" outcome="/APP/editarTurmaAdmin">
+						<p:button  value="Ver" outcome="editarTurmaAdmin">
 							<f:param name="id" value="#{turma.codigoTurma}"/>
 						</p:button>
 					
-					<p:button value="Pais/alunos" outcome="/APP/paisAlunos" >
+					<p:button value="Pais/alunos" outcome="paisAlunos" >
 						<f:param name="id" value="#{turma.codigoTurma}" />
 					</p:button>
 					</p:column>

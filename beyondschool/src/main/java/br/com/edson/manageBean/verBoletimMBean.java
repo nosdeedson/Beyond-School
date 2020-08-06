@@ -65,6 +65,8 @@ public class verBoletimMBean implements Serializable {
 	
 	private boolean flagTemAvaliacao = true;
 	
+	private boolean tipoUserAcesso = true; // true professor false admin
+	
 	@Inject
 	private AtualizaBimestre atualizaBimestre;
 	
@@ -96,7 +98,7 @@ public class verBoletimMBean implements Serializable {
 	}
 	public void buscarAvaliacao() {
 		user = (Usuario) session.getAttribute("usuario");
-		
+			
 		avaliacao = avaliacoesBD.buscaPorIdAluno(aluno.getIdPessoa());
 		if(avaliacao == null)
 			flagTemAvaliacao = false;
@@ -249,6 +251,12 @@ public class verBoletimMBean implements Serializable {
 	}
 	public void setNextAva(boolean nextAva) {
 		this.nextAva = nextAva;
+	}
+	public boolean isTipoUserAcesso() {
+		return tipoUserAcesso;
+	}
+	public void setTipoUserAcesso(boolean tipoUserAcesso) {
+		this.tipoUserAcesso = tipoUserAcesso;
 	}
 
 	

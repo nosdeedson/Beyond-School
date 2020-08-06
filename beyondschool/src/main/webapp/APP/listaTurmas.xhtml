@@ -50,16 +50,16 @@
 				<p:column headerText="Ações" width="6%" > 
 							
 				    <p:menuButton value="Click" rendered="#{listaTurmasMBean.user.getTipoAcesso() eq 'professor'}" >
-				        <p:menuitem value="Avaliar" icon="pi pi-save" outcome="/APP/telaAvaliacaoAluno" >
+				        <p:menuitem value="Avaliar" icon="pi pi-save" outcome="telaAvaliacaoAluno" >
 				        	<f:param name="id" value="#{turma.codigoTurma}"/>
 				        </p:menuitem>
-				        <p:menuitem value="Ver" action="#{menuView.update}" icon="pi pi-refresh" outcome="/APP/editarTurmaProfessor"> 
+				        <p:menuitem value="Ver" action="#{menuView.update}" icon="pi pi-refresh" outcome="editarTurmaProfessor"> 
 				       		<f:param name="id" value="#{turma.codigoTurma}"/>
 				        </p:menuitem>
 				        
 				    </p:menuButton>
 				    
-				    <p:linkButton value="Ver" outcome="/APP/editarTurmaAdmin" rendered="#{listaTurmasMBean.user.getTipoAcesso() eq 'admin'}" >
+				    <p:linkButton value="Ver" outcome="editarTurmaAdmin" rendered="#{listaTurmasMBean.user.getTipoAcesso() eq 'admin'}" >
 				    	<f:param name="id" value="#{turma.codigoTurma}"/>
 				    </p:linkButton>
 				
