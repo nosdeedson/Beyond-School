@@ -17,6 +17,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;
@@ -144,6 +145,10 @@ public class CadastroMBean implements Serializable {
 		EntityTransaction et = em.getTransaction();	
 		int cont = 0;
 		try {
+			
+			if(nomeCompleto.endsWith(" ")) {
+				nomeCompleto = nomeCompleto.substring(0, nomeCompleto.length() - 1);
+			}
 			
 			String nome[] = {nomeCompleto};
 			verificaNomesDigitados(nome, 1);
@@ -408,13 +413,17 @@ public class CadastroMBean implements Serializable {
 		int cont = 0;
 		do {
 			
-			if(nomes[cont].endsWith(" "))
-				throw new NegocioException("Por favor não coloque espaços depois do sobrenome.");
+			if(nomes[cont].endsWith("x")) {
+				//throw new NegocioException("Por favor não coloque espaços depois do sobrenome.");
+				nomes[cont] = nomes[cont].substring(0, nomes.length -1);
+				JOptionPane.showMessageDialog(null, nomes[cont]);
+			}
+				
 			int primeiroEspaco = nomes[cont].indexOf(" ");
 			if( primeiroEspaco == 1)
 				throw new NegocioException("Retire o espaço antes do nome.");
 			if( primeiroEspaco == -1 || nomes[cont].isEmpty())
-				throw new NegocioException("Informa o nome completo.");
+				throw new NegocioException("Informar o nome completo.");
 				
 			cont++;			
 		} while (cont < tm);
