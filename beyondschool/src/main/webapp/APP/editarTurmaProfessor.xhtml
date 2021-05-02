@@ -1,95 +1,102 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/template/layout2.xhtml"
-xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">>
+<ui:composition template="/WEB-INF/template/layout2.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">>
 
-<f:metadata>
-	<f:viewParam name="id" value="#{editarTurmaProfessorMBean.turma}"/>
-	<f:viewAction action="#{editarTurmaProfessorMBean.buscarAlunos}" />
-	<f:viewAction action="#{editarTurmaProfessorMBean.atualizaBimestre}" />
-	<f:viewAction action="#{editarTurmaProfessorMBean.buscarBimestre}" />
-	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
-</f:metadata>
-<ui:define name="corpo2">
-<div class="altura">
-<h:form>
-<p:growl id="growl" showDetail="true" sticky="true" />  
-<p:panelGrid columns="1" styleClass="edtProf">
-<!-- 	<p:messages/> -->
-		<f:facet name="header">
-				<p:row>
-					<p:column>
-						<h3>Editar turma</h3>
-					</p:column>
-				</p:row>
-		</f:facet>
-		<p:row> 
-			<p:button value="Avaliar turma" outcome="telaAvaliacaoAluno" id="btn-avaliar-turma" styleClass="tm-botao">
-				<f:param name="id" value="#{editarTurmaProfessorMBean.turma.codigoTurma}"/>
-			</p:button>
-		</p:row>
-		
-		<p:panelGrid columns="2" id="pg-unidades-livro-prof">
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeTurma}" />
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeLivro}" />
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.primeiroDiaSemana}" />
-			
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario}" >
-				<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
-			</p:outputLabel>
-			
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.segundoDiaSemana}" />
-			
-			<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario2}" >
-				<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
-			</p:outputLabel>
-			<p:outputLabel value="Início Bimestre" />
-			
-				<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataInicio}" >
-					<f:convertDateTime pattern="dd/MM/yyyy"/>
-				</p:outputLabel>
-			<p:outputLabel value="Registrar avaliação até: " />
-				<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataFim}" >
-					<f:convertDateTime pattern="dd/MM/yyyy"/>
-				</p:outputLabel>
-		
-		</p:panelGrid>
+	<f:metadata>
+		<f:viewParam name="id" value="#{editarTurmaProfessorMBean.turma}" />
+		<f:viewAction action="#{editarTurmaProfessorMBean.buscarAlunos}" />
+		<f:viewAction action="#{editarTurmaProfessorMBean.atualizaBimestre}" />
+		<f:viewAction action="#{editarTurmaProfessorMBean.buscarBimestre}" />
+		<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
+	</f:metadata>
+	<ui:define name="corpo2">
 
-		<p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/>
-		
-		<p:dataTable value="#{editarTurmaProfessorMBean.alunos}" var="aluno" border="1" styleClass="tableEdtProf"
-			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
-			
-		<p:column headerText="Nome"  width="65%" > 
-			<p:outputLabel  style="text-align: center;" value="#{aluno.nomeCompleto}"/>
-		</p:column>
-				
-		<p:column headerText="Ações" width="25%" > 
-					
-			<p:button title="Editar Avaliação" icon="ui-icon-pencil" outcome="telaAvaliacaoAluno" >
-				<f:param name="idAluno" value="#{aluno.idPessoa}"/>
-				<f:param name="id" value="#{editarTurmaProfessorMBean.turma.codigoTurma}"/>
-			</p:button>
-					
-			<p:button title="Ver avaliação" icon="ui-icon-arrowthick-1-e" outcome="verBoletim" >
-				<f:param name="id" value="#{aluno.idPessoa}"/>
-				<f:param name="idTurma" value="#{editarTurmaProfessorMBean.turma.codigoTurma}"/>
-			</p:button>
-				
-		</p:column>
-			
-		</p:dataTable>
-	
-</p:panelGrid> 
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
 
-</h:form>
-</div>
+			<!-- 	<p:messages/> -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-6 col-lg-6 col-md-6 d-flex justify-content-center mb-3">
+						<p:panelGrid columns="2" styleClass="text-center">
+							<f:facet name="header">
+								<p:row>
+									<p:column>
+										<h3>Turma</h3>
+									</p:column>
+								</p:row>
+							</f:facet>
+							
+							
+							<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeTurma}" />
+							
+							<p:outputLabel value="#{editarTurmaProfessorMBean.turma.nomeLivro}" />
+							<p:outputLabel value="#{editarTurmaProfessorMBean.turma.primeiroDiaSemana}" />
 
-</ui:define>
+							<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario}">
+								<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="GMT-3" />
+							</p:outputLabel>
+
+							<p:outputLabel value="#{editarTurmaProfessorMBean.turma.segundoDiaSemana}" />
+
+							<p:outputLabel value="#{editarTurmaProfessorMBean.turma.horario2}">
+								<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="GMT-3" />
+							</p:outputLabel>
+							<p:outputLabel value="Início Bimestre" />
+
+							<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataInicio}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</p:outputLabel>
+							<p:outputLabel value="Registrar avaliação até: " />
+							<p:outputLabel value="#{editarTurmaProfessorMBean.bimestreAtual.dataFim}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</p:outputLabel>
+
+							<p:button value="Avaliar" outcome="telaAvaliacaoAluno" id="btn-avaliar-turma"
+								styleClass="tm-botao">
+								<f:param name="id" value="#{editarTurmaProfessorMBean.turma.codigoTurma}" />
+							</p:button>
+							<p:button value="Voltar" outcome="listaTurmas"></p:button>
+
+						</p:panelGrid>
+					</div>
+					<!-- <p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/> -->
+
+					<div class="col-xl-6 col-lg-6 col-md-6 d-flex justify-content-center">
+						<p:dataTable value="#{editarTurmaProfessorMBean.alunos}" var="aluno" border="1" cellspacing="0"
+							cellpading="2" paginator="true" rows="5" paginatorPosition="bottom"
+							emptyMessage="Lista vazia!!" styleClass="table table-responsive-sm" rowHover="true"
+							style="max-width: 100%;">
+
+							<p:column headerText="Nome" styleClass="text-center" width="65%">
+								<p:outputLabel style="text-align: center;" value="#{aluno.nomeCompleto}" />
+							</p:column>
+
+							<p:column headerText="Ações" width="25%" styleClass="text-center">
+
+								<p:button title="Editar Avaliação" icon="ui-icon-pencil" outcome="telaAvaliacaoAluno">
+									<f:param name="idAluno" value="#{aluno.idPessoa}" />
+									<f:param name="id" value="#{editarTurmaProfessorMBean.turma.codigoTurma}" />
+								</p:button>
+
+								<p:button title="Ver avaliação" icon="ui-icon-arrowthick-1-e" outcome="verBoletim">
+									<f:param name="id" value="#{aluno.idPessoa}" />
+									<f:param name="idTurma" value="#{editarTurmaProfessorMBean.turma.codigoTurma}" />
+								</p:button>
+
+							</p:column>
+
+						</p:dataTable>
+					</div>
+				</div>
+			</div>
+
+		</h:form>
+
+
+	</ui:define>
 
 
 </ui:composition>

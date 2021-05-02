@@ -55,16 +55,16 @@ public class EditarTurmaProfessorMBean implements Serializable {
 	}
 	
 	public void atualizaBimestre() throws NegocioException {
-		EntityTransaction et = this.em.getTransaction();
-
-		try {
-			et.begin();
-			atualizaBimestre.atualizaBimestre();
-			et.commit();
-		} catch (PersistenceException |NegocioException e) {
-			et.rollback();
-			throw new NegocioException("Falha ao atualizar o bimestre");
-		}
+//		EntityTransaction et = this.em.getTransaction();
+//
+//		try {
+//			et.begin();
+//			atualizaBimestre.atualizaBimestre();
+//			et.commit();
+//		} catch (PersistenceException |NegocioException e) {
+//			et.rollback();
+//			throw new NegocioException("Falha ao atualizar o bimestre");
+//		}
 		
 	}
 	

@@ -14,7 +14,9 @@
 
 <ui:define name="corpo2">
 
-		
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 d-flex justify-content-center">
 	<h:form id="fr1">
 		<p:panelGrid columns="1" id="pg-login-user" styleClass="pgLogin">
 		<p:growl id="growl" showDetail="true" sticky="true" />  
@@ -31,12 +33,15 @@
 		<p:password value="#{redefinirSenhaMBean.confirmeSenha}" styleClass="tm-redefinirSenha"  id="confirme" placeholder="Corfirmar senha" required="true" 
 		feedback="false" label="Campo necessário" style="font-weight: bold;" title="8 caracteres no mínimo" />
 						
-		<p:commandButton action="#{redefinirSenhaMBean.redefinirSenha}" value="Enviar" styleClass="tm-botao" update="pg-login-user" />
+		<p:commandButton action="#{redefinirSenhaMBean.redefinirSenha}" value="Enviar" styleClass="float-right" update="pg-login-user" />
 					
 		
 		</p:panelGrid>
 				
 	</h:form>	
+</div>
+</div>
+</div>
 </ui:define>
 
 

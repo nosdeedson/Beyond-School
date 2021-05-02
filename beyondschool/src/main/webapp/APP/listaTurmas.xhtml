@@ -1,77 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/template/layout2.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-	
-<f:metadata >
- <f:viewAction action="#{listaTurmasMBean.buscarTurmas()}" />
- <f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
-</f:metadata>
+<ui:composition template="/WEB-INF/template/layout2.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="titulo">Turmas</ui:define>
+	<f:metadata>
+		<f:viewAction action="#{listaTurmasMBean.buscarTurmas()}" />
+		<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
+	</f:metadata>
+
+	<ui:define name="titulo">Turmas</ui:define>
 	<ui:define name="corpo2">
+		<h:form>
 
-<div class="conteudo">
-		<h:form >
-			<p:outputLabel value="Suas Turmas" styleClass="listaTurma"/>
-			<br/>
-			
-			<p:dataTable value="#{listaTurmasMBean.turmas}" var="turma" border="1" styleClass="tabelaTurma"
-			cellspacing="0"	cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
-			
-				<p:column headerText="Código" sortBy="#{turma.codigoTurma}" width="6%" > 
+			<p:dataTable value="#{listaTurmasMBean.turmas}" var="turma"
+				border="1" styleClass="m-4 table.responsive" cellspacing="0"
+				cellpading="2" paginator="true" rows="5" paginatorPosition="bottom"
+				emptyMessage="Lista vazia!!" rowHover="true" reflow="true" >
+
+				<p:column styleClass="text-center" headerText="Código"
+					sortBy="#{turma.codigoTurma}" width="6%">
 					<p:outputLabel value="#{turma.codigoTurma}" />
 				</p:column>
-				
-				<p:column headerText="Nome" sortBy="#{turma.nomeTurma}" width="8%"> 
-					<p:outputLabel value="#{turma.nomeTurma}" style="text-align: center;"/>
-				</p:column>
-				
-				<p:column headerText="Dia/Horario" width="7%" > 
 
-       				<p:outputLabel value="#{turma.primeiroDiaSemana} às " />
-					<p:outputLabel value="#{turma.horario}" >
-						<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+				<p:column styleClass="text-center" headerText="Nome"
+					sortBy="#{turma.nomeTurma}" width="8%">
+					<p:outputLabel value="#{turma.nomeTurma}"
+						style="text-align: center;" />
+				</p:column>
+
+				<p:column styleClass="text-center" headerText="Dia/Horario"
+					width="7%">
+
+					<p:outputLabel value="#{turma.primeiroDiaSemana} às " />
+					<p:outputLabel value="#{turma.horario}">
+						<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="GMT-3" />
 					</p:outputLabel>
 				</p:column>
-				
-				<p:column headerText="Dia/Horario" width="7%" > 
+
+				<p:column styleClass="text-center" headerText="Dia/Horario"
+					width="7%">
 
 					<p:outputLabel value="#{turma.segundoDiaSemana} às " />
-					<p:outputLabel value="#{turma.horario2}" >
-						<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
+					<p:outputLabel value="#{turma.horario2}">
+						<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="GMT-3" />
 					</p:outputLabel>
 				</p:column>
-				
-				<p:column headerText="Ações" width="6%" > 
-							
-				    <p:menuButton value="Click" rendered="#{listaTurmasMBean.user.getTipoAcesso() eq 'professor'}" >
-				        <p:menuitem value="Avaliar" icon="pi pi-save" outcome="telaAvaliacaoAluno" >
-				        	<f:param name="id" value="#{turma.codigoTurma}"/>
-				        </p:menuitem>
-				        <p:menuitem value="Ver" action="#{menuView.update}" icon="pi pi-refresh" outcome="editarTurmaProfessor"> 
-				       		<f:param name="id" value="#{turma.codigoTurma}"/>
-				        </p:menuitem>
-				        
-				    </p:menuButton>
-				    
-				    <p:linkButton value="Ver" outcome="editarTurmaAdmin" rendered="#{listaTurmasMBean.user.getTipoAcesso() eq 'admin'}" >
-				    	<f:param name="id" value="#{turma.codigoTurma}"/>
-				    </p:linkButton>
-				
-				</p:column>
-				
-			</p:dataTable>
-			
-		</h:form>
-		<br/>
-		<p:outputLabel styleClass="perguntas" >Por favor <a href="https://forms.gle/sAG73xbYXSvpw4mSA" target="_blank">Clique aqui</a> e responda leva 2 minutos. </p:outputLabel>
-		</div>
-	</ui:define>
 
+				<p:column styleClass="text-center" headerText="Ações" width="6%">
+
+					<p:menuButton value="Click"
+						rendered="#{listaTurmasMBean.user.getTipoAcesso() eq 'professor'}">
+						<p:menuitem value="Avaliar" icon="pi pi-save"
+							outcome="telaAvaliacaoAluno">
+							<f:param name="id" value="#{turma.codigoTurma}" />
+						</p:menuitem>
+						<p:menuitem value="Ver" action="#{menuView.update}"
+							icon="pi pi-refresh" outcome="editarTurmaProfessor">
+							<f:param name="id" value="#{turma.codigoTurma}" />
+						</p:menuitem>
+
+					</p:menuButton>
+
+					<p:linkButton value="Ver" outcome="editarTurmaAdmin"
+						rendered="#{listaTurmasMBean.user.getTipoAcesso() eq 'admin'}">
+						<f:param name="id" value="#{turma.codigoTurma}" />
+					</p:linkButton>
+
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
 
 </ui:composition>

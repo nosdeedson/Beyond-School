@@ -13,12 +13,11 @@ xmlns="http://www.w3.org/1999/xhtml"
 </f:metadata>
 
 <ui:define name="corpo2">
-
+<div class="container-fluid">
+	<div class="row mt-1">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex justify-content-center">
  <h:form>
  <p:growl id="growl" showDetail="true" sticky="true" />  
-
-<div class="row altura">
-<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12"> 
  		
 <p:panelGrid columns="1" id="pg-criar-semestre" styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m posicao-tela-pt">
 	
@@ -55,17 +54,21 @@ xmlns="http://www.w3.org/1999/xhtml"
 			<p:calendar id="mask2" navigator="true" value="#{criarSemestreMBean.segundo.dataInicio}" pattern="dd-MM-yyyy" mask="true"  placeholder="Inicio"/>
 			<p:calendar id="mask3" navigator="true" value="#{criarSemestreMBean.segundo.dataFim}" pattern="dd-MM-yyyy" mask="true" placeholder="Fim"/>
 		</p:panelGrid>
-	
-		<p:commandButton value="Salvar" id="btn-salvar" action="#{criarSemestreMBean.salvar}" update="@form" styleClass="tm-botao"/>
 		
-		<p:button value="Voltar" styleClass="btn btn-danger " outcome="telaAdmin" />
+			<p:row styleClass="d-flex justify-content-center">
+				<p:column>
+					<p:commandButton value="Salvar" action="#{criarSemestreMBean.salvar}" update="@form"/>
+					<p:button value="Voltar" outcome="telaAdmin" styleClass="float-right" />
+				</p:column>
+			</p:row>
 	
 </p:panelGrid>
- 
-</div>
-</div>
+
 
 </h:form>
+</div>
+</div>
+</div>
 </ui:define>
 
 

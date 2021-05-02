@@ -12,137 +12,143 @@
 	<f:viewAction action="#{editarTurmaAdminMBean.buscarBimestre}" />
 	<f:viewAction action="#{editarTurmaAdminMBean.buscarAlunos}" />
 	<f:viewAction action="#{editarTurmaAdminMBean.atualizaBimestre}" />
-	<f:viewAction action="#{layout2MBean.mostraVoltar()}"/>
+	<f:viewAction action="#{layout2MBean.mostraVoltar}"/>
 </f:metadata>
 
 <ui:define name="corpo2">
-<div class="altura">
+
 <h:form>
-<p:growl id="growl" showDetail="true" sticky="true" />  
-<p:panelGrid columns="1" styleClass="edtAdmin">
-<!-- <p:messages style="width:400px;"/> -->
+	<p:growl id="growl" showDetail="true" sticky="true" />
+	<!-- <p:messages style="width:400px;"/> -->
+	<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-6 col-lg-6 col-md-6 d-flex justify-content-center mb-3">
+	<p:panelGrid columns="2" >
+					<f:facet name="header">
+						<p:row>
+							<p:column>
+								Editar turma
+							</p:column>
+						</p:row>
+					</f:facet>
+					<p:outputLabel value="Professor(a)" />
+					<p:outputLabel value="#{editarTurmaAdminMBean.turma.professor.getNomeCompleto()}" />
+					<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeTurma}" />
+					<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeLivro}" />
+					<p:outputLabel value="#{editarTurmaAdminMBean.turma.primeiroDiaSemana}" />
+					<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario}">
+						<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="GMT-3" />
+					</p:outputLabel>
+					<p:outputLabel value="#{editarTurmaAdminMBean.turma.segundoDiaSemana}" />
+					<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario2}">
+						<f:convertDateTime pattern="HH:mm" locale="pt_BR" timeZone="GMT-3" />
+					</p:outputLabel>
+					<p:outputLabel value="Início" />
 
-		<f:facet name="header">
-				<p:row>
+					<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:outputLabel>
+					<p:outputLabel value="Termino" />
+					<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataFim}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:outputLabel>
+
+					<p:outputLabel value="Ações turma" />
 					<p:column>
-						<h3>Editar turma</h3>
+
+						<p:button title="Editar turma" icon="ui-icon-pencil" outcome="cadastrarTurma">
+							<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
+							<f:param name="idProfessor" value="#{editarTurmaAdminMBean.turma.professor.idPessoa}" />
+						</p:button>
+
+						<p:commandButton title="Excluir turma" icon="ui-icon-trash" update="@form" styleClass="btn-danger"
+							action="#{editarTurmaAdminMBean.excluirTurma}">
+
+							<f:setPropertyActionListener value="#{editarTurmaAdminMBean.turma}"
+								target="#{editarTurmaAdminMBean.turmaSerExcluida}"></f:setPropertyActionListener>
+
+							<p:confirm header="Confirmação" message="Você realmente quer excluir?"
+								icon="pi pi-exclamation-triangle" />
+
+						</p:commandButton>
+
+						<!-- 				janela de confirmação de exclusão -->
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+
+							<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+								icon="pi pi-check" />
+							<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"
+								icon="pi pi-times" />
+
+						</p:confirmDialog>
+
 					</p:column>
-				</p:row>
-		</f:facet>		
-		
-		<p:panelGrid columns="2" id="pg-unidades-livro-prof">
-			<p:outputLabel value="Professor(a)"/>
-			<p:outputLabel value="#{editarTurmaAdminMBean.turma.professor.getNomeCompleto()}"/>
-			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeTurma}" />
-			<p:outputLabel value="#{editarTurmaAdminMBean.turma.nomeLivro}" />
-			<p:outputLabel value="#{editarTurmaAdminMBean.turma.primeiroDiaSemana}" />
-			<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario}">
-				<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
-			</p:outputLabel>
-			<p:outputLabel value="#{editarTurmaAdminMBean.turma.segundoDiaSemana}"/>
-			<p:outputLabel value="#{editarTurmaAdminMBean.turma.horario2}">
-				<f:convertDateTime  pattern="HH:mm" locale="pt_BR" timeZone="GMT-3"/>
-			</p:outputLabel>
-			<p:outputLabel value="Início" />
-			
-			<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataInicio}" >
-					<f:convertDateTime pattern="dd/MM/yyyy"/>
-			</p:outputLabel>
-			<p:outputLabel value="Termino" />
-			<p:outputLabel value="#{editarTurmaAdminMBean.bimestreAtual.dataFim}" >
-				<f:convertDateTime pattern="dd/MM/yyyy"/>
-			</p:outputLabel>
-			
-			<p:outputLabel value="Ações turma"/>
-			<p:column>
-				
-				<p:button  title="Editar turma" icon="ui-icon-pencil" outcome="cadastrarTurma" >
-					<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
-					<f:param name="idProfessor" value="#{editarTurmaAdminMBean.turma.professor.idPessoa}" />
-				</p:button>
-			
-				<p:commandButton title="Excluir turma" icon="ui-icon-trash"  styleClass="btn btn-danger" 
-							update="@form"	action="#{editarTurmaAdminMBean.excluirTurma}">
-							
-					<f:setPropertyActionListener value="#{editarTurmaAdminMBean.turma}" target="#{editarTurmaAdminMBean.turmaSerExcluida}"></f:setPropertyActionListener>
-					
-					<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/>
-					
-				</p:commandButton>
-		
-<!-- 				janela de confirmação de exclusão -->
-				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				
-					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-					
-				</p:confirmDialog>
-				
-			</p:column>
-			
-			<p:outputLabel value="Ações proferssor"/>
-			<p:column>			
-				<p:button title="Novo professor" icon="ui-icon-pencil" outcome="cadastrarTurma" styleClass="btnProfAdmin"  >
-					<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
-				</p:button>
-				
-				
-<!-- 				<p:commandButton title="Excluir professor" icon="ui-icon-trash"  styleClass="btn btn-danger"  -->
-<!-- 							update="@form"	> -->
-							
-<!-- 					<f:setPropertyActionListener value="#{editarTurmaAdminMBean.turma}" target="#{editarTurmaAdminMBean.turmaSerExcluida}"></f:setPropertyActionListener> -->
-					
-<!-- 					<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/> -->
-					
-<!-- 				</p:commandButton> -->
-		
-<!-- 				janela de confirmação de exclusão -->
-<!-- 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"> -->
-				
-<!-- 					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" /> -->
-<!-- 					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" /> -->
-					
-<!-- 				</p:confirmDialog> -->
-			</p:column>
-			
-		</p:panelGrid>
 
-		<p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/>
-		
-		<p:dataTable value="#{editarTurmaAdminMBean.alunos}" var="aluno" border="1"
-			cellspacing="0"	cellpading="2" paginator="true" rows="8" paginatorPosition="bottom" emptyMessage="Lista vazia!!">
-			
-		<p:column headerText="Nome"  width="40%" > 
-			<p:outputLabel  style="text-align: center;" value="#{aluno.nomeCompleto}"/>
+					<p:outputLabel value="Ações professor" />
+					<p:column>
+						<p:button title="Novo professor" icon="ui-icon-pencil" outcome="cadastrarTurma">
+							<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
+						</p:button>
+
+
+						<!-- 				<p:commandButton title="Excluir professor" icon="ui-icon-trash"  styleClass="btn btn-danger"  -->
+						<!-- 							update="@form"	> -->
+
+						<!-- 					<f:setPropertyActionListener value="#{editarTurmaAdminMBean.turma}" target="#{editarTurmaAdminMBean.turmaSerExcluida}"></f:setPropertyActionListener> -->
+
+						<!-- 					<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/> -->
+
+						<!-- 				</p:commandButton> -->
+
+						<!-- 				janela de confirmação de exclusão -->
+						<!-- 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"> -->
+
+						<!-- 					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" /> -->
+						<!-- 					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" /> -->
+
+						<!-- 				</p:confirmDialog> -->
+					</p:column>
+
+	</p:panelGrid>
+		</div>
+	<!-- <p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/> -->
+	
+	<div class="col-xl-6 col-lg-6 col-md-6 d-flex justify-content-center mb-3">
+	<p:dataTable value="#{editarTurmaAdminMBean.alunos}" var="aluno" border="1" 
+	cellspacing="0" cellpading="2" paginator="true" rows="8" paginatorPosition="bottom" 
+	emptyMessage="Lista vazia!!" styleClass="table table-responsive-sm" rowHover="true" style="max-width: 100%;">
+
+		<p:column headerText="Nome Aluno" width="40%" styleClass="text-center">
+			<p:outputLabel  value="#{aluno.nomeCompleto}" />
 		</p:column>
-				
-		<p:column headerText="Ações" width="30%" > 
-					
-			<p:button  title="Transferir" icon="ui-icon-transfer-e-w" outcome="transferirAlunosTurma">
-				<f:param name="idAluno" value="#{aluno.idPessoa}"/>
+
+		<p:column headerText="Ações" width="30%" styleClass="text-center">
+
+			<p:button title="Transferir" icon="ui-icon-transfer-e-w" outcome="transferirAlunosTurma">
+				<f:param name="idAluno" value="#{aluno.idPessoa}" />
 			</p:button>
-					
-			<p:button title="Ver" icon="ui-icon-arrowthick-1-e" outcome="verBoletim" >
-				<f:param name="id" value="#{aluno.idPessoa}"/>
-				<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}"/>
+
+			<p:button title="Ver" icon="ui-icon-arrowthick-1-e" outcome="verBoletim">
+				<f:param name="id" value="#{aluno.idPessoa}" />
+				<f:param name="idTurma" value="#{editarTurmaAdminMBean.turma.codigoTurma}" />
 			</p:button>
-			
-			
-			<p:commandButton title="Excluir" icon="ui-icon-trash" styleClass="btn btn-danger" action="#{editarTurmaAdminMBean.excluirAluno}" 
-			 update="@form">
-				<f:setPropertyActionListener value="#{aluno}" target="#{editarTurmaAdminMBean.alunoSerExcluido}"></f:setPropertyActionListener>
-				<p:confirm header="Confirmação" message="Você realmente quer excluir?" icon="pi pi-exclamation-triangle"/>
+
+			<p:commandButton title="Excluir" icon="ui-icon-trash" styleClass="btn-danger"
+				action="#{editarTurmaAdminMBean.excluirAluno}" update="@form">
+				<f:setPropertyActionListener value="#{aluno}" target="#{editarTurmaAdminMBean.alunoSerExcluido}">
+				</f:setPropertyActionListener>
+				<p:confirm header="Confirmação" message="Você realmente quer excluir?"
+					icon="pi pi-exclamation-triangle" />
 			</p:commandButton>
-				
-				
-		</p:column>
-			
-		</p:dataTable>
-		
-</p:panelGrid> 
 
-</h:form>
+		</p:column>
+
+	</p:dataTable>
+	</div>
 </div>
+</div>
+</h:form>
+
 </ui:define>
 
 

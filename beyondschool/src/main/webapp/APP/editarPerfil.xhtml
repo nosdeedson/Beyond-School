@@ -9,40 +9,43 @@
 
 <f:metadata>
 	<f:viewAction action="#{editarPerfil.setaUser}"></f:viewAction>
-	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
+	<f:viewAction action="#{layout2MBean.mostraVoltar}"></f:viewAction>
 </f:metadata>
-
 <ui:define name="corpo2">
-	<div class="altura">
-<h:form  >
 
-		<p:growl id="growl" showDetail="true" sticky="true" />  
-		<p:panelGrid columns="1" id="panel2" 
-			styleClass="posicao-tela-s posicao-tela-sp posicao-tela-m">
-			
-			<f:facet name="header">
-				<p:row>
-					<p:column>
-						<h3>Edite perfil</h3>
-					</p:column>
-				</p:row>
-			</f:facet>
-			
-				<p:inputText value="#{editarPerfil.name}" styleClass="tm-input" placeholder="Nome completo" label="Nome" style="font-weight: bold;"  />
-								
-				<p:inputMask value="#{editarPerfil.nascimento}" styleClass="tm-input" mask="99/99/9999"   placeholder="Nascimento"  required="true" 
-				label="Nascimento" style="font-weight: bold;" >
-				</p:inputMask>
-			
-           		<p:inputText value="#{editarPerfil.email}" placeholder="Email" styleClass="tm-input" style="font-weight: bold;"  />
-       
-       			<p:inputText value="#{editarPerfil.nomeUser}" placeholder="Nome de usuário" styleClass="tm-input"  style="font-weight: bold;"  />
-				
-				<p:commandButton action="#{editarPerfil.editar}" styleClass="tm-input"  value="Enviar" id="btn-cadastrar" update="@form" />
-				
-				
-		</p:panelGrid>
-	</h:form>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lx-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex justify-content-center">
+				<h:form>
+					<p:growl id="growl" showDetail="true" sticky="true" />
+					<p:panelGrid columns="1" id="panel2" styleClass="posicao-tela-s posicao-tela-sp posicao-tela-m">
+
+						<f:facet name="header">
+							<p:row>
+								<p:column>
+									<h3>Edite perfil</h3>
+								</p:column>
+							</p:row>
+						</f:facet>
+
+						<p:inputText value="#{editarPerfil.name}" styleClass="tm-input" placeholder="Nome completo"
+							label="Nome" style="font-weight: bold;" />
+
+						<p:inputMask value="#{editarPerfil.nascimento}" styleClass="tm-input" mask="99/99/9999"
+							placeholder="Nascimento" required="true" label="Nascimento" style="font-weight: bold;">
+						</p:inputMask>
+
+						<p:inputText value="#{editarPerfil.email}" placeholder="Email" styleClass="tm-input"
+							style="font-weight: bold;" />
+
+						<p:inputText value="#{editarPerfil.nomeUser}" placeholder="Nome de usuário"
+							styleClass="tm-input" style="font-weight: bold;" />
+
+						<p:commandButton styleClass="float-right" action="#{editarPerfil.editar}" value="Enviar" update="@form" />
+					</p:panelGrid>
+				</h:form>
+			</div>
+		</div>
 	</div>
 </ui:define>
 

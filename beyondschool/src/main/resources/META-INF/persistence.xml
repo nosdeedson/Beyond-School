@@ -6,11 +6,16 @@
 	<persistence-unit name="beyondschoolPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-169-92-231.compute-1.amazonaws.com/df54c024pnavrd" />
-			<property name="javax.persistence.jdbc.user" value="nkuqnofgbxoshx" />
-			<property name="javax.persistence.jdbc.password" value="761da434a946429274c397b2ebf5cbe5e97cdbb955d70bc70eb2d2c51397642f" />
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost/escola_idioma" />
+			<property name="javax.persistence.jdbc.user"
+				value="root" />
+			<property name="javax.persistence.jdbc.password"
+				value="root" />
+			<property name="javax.persistence.jdbc.driver"
+				value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />

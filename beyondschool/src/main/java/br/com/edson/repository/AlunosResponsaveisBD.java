@@ -10,7 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
-import javax.validation.ConstraintViolationException;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.AlunoResponsavel;
@@ -119,13 +120,12 @@ public class AlunosResponsaveisBD implements Serializable {
 		
 		try {
 			this.em.persist(alunoResponsavel);
-		} catch (PersistenceException | ConstraintViolationException e) {
+		} catch (PersistenceException  e) {
 			e.printStackTrace();
 			throw new NegocioException(e.getMessage());
 		}
 		
 	}
-
 		
 
 }

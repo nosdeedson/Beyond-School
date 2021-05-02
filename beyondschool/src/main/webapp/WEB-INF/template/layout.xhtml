@@ -10,61 +10,57 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	 integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"></link>
 
-<!-- 	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.min.css"/> -->
-<!-- 	<h:outputStylesheet library="css" name="bootstrap/css/bootstrap.grid.css"/> -->
 	<h:outputScript library="js" name="init.js" target="head"/>
-	
 	<h:outputStylesheet library="css" name="reset.css"/> 
-	<h:outputStylesheet library="css" name="estilo.css"/> 
-	<h:outputStylesheet library="css" name="estilos-genericos.css"/> 
+	<h:outputStylesheet library="css" name="estilo.css"/>
 
 	<title>Beyond School</title>
 </h:head>
 
 <h:body>
-
-<header id="cabecalho">
-	
-<div class="row">
-<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12 "> 
-
-		<p:link outcome="index" id="link-home"> <h:graphicImage library="images" name="logomedio.png" id="logo-img" /> </p:link>
-		<p:linkButton outcome="cadastro" value="Cadastrar" styleClass="link-cadastro-header" />
-		<p:linkButton outcome="login" value="Entrar" id="link-login-header" />
- 
-</div>
-</div>
-
-</header>
-
-
-<ui:insert name="corpo" >
-<div class="row" id="corpo">
-<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-1 col-12 col-x-12">  
-
-
-</div>
-</div>
-</ui:insert>
-
-		
-
-	<footer id="rodape">
- 
-	<div class="row">
-		<div class="col-s-12 col-sp-12 col-m-12 col-pt-12 col-t-12 col-12 col-x-12 ">  
-		<a class="link-pe" href="https://www.facebook.com/" target="_blank">
-			<h:graphicImage library="images" name="facebook.png" class="img-social" /></a> 
-		<a class="link-pe" href="https://www.instagram.com/?hl=pt-br" target="_blank">
-			<h:graphicImage library="images" name="instagram.png" /></a>  
+<header style="height: 20%;"  >
+		<div class="container-fluid bg-success">
+			<div class="row">
+				<div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+					<p:link outcome="index" id="link-home">
+						<h:graphicImage styleClass="m-2" style="height:100px; border-radius: 50%;"  library="images" name="logo.png" id="logo-img" />
+					</p:link>
+				</div>
+				<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 mt-5">
+					<p:linkButton outcome="cadastro" value="Cadastrar" />
+				</div>
+				<div class="col-sm-3 col-md-3 col-lg-3 col-sl-3 mt-5">
+					<p:linkButton  outcome="login" value="Entrar" id="link-login-header" />
+				</div>
+			</div>
 		</div>
-			
-		<span id="copy-right"> &#169; Copyright Beyond School</span>	
-	
+</header>
+<ui:insert name="corpo" >
+</ui:insert>
+<footer id="rodape" style="height: 10%;">
+	<div class="container-fluid bg-dark">
+		<div class="row">
+			<div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 mt-2" >
+				<span id="copy-right" class="text-white"> &#169; Copyright Beyond School</span>
+			</div>
+			<div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+			<div class="d-flex justify-content-end">
+				<a href="https://www.facebook.com/" target="_blank">
+					<h:graphicImage library="images" name="facebook.png" class="img-social" />
+				</a>
+				<a href="https://www.instagram.com/?hl=pt-br" target="_blank">
+					<h:graphicImage library="images" name="instagram.png" />
+				</a>
+			</div>
+			</div>
+		</div>
 	</div>
-
-	</footer>
-
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 </h:body>
 </html>

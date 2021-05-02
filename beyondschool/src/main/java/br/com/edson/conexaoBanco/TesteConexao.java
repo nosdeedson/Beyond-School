@@ -13,10 +13,10 @@ public class TesteConexao {
 		EntityManager em = null;
 		// senha surfando user nosde
 		try {
-//			Persistence.createEntityManagerFactory("beyondschoolPU");
+			Persistence.createEntityManagerFactory("beyondschoolPU");
 			 emf = Persistence.createEntityManagerFactory("beyondschoolPU");
 			em = emf.createEntityManager();
-//			EntityTransaction et = em.getTransaction();
+			EntityTransaction et = em.getTransaction();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,89 +1,109 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/template/layout.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/template/layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="corpo">
+	<ui:define name="corpo">
 
-<div class="altura">
-		
-		<h:form id="fr1">
-				<p:panelGrid columns="1" id="pg-login-user" styleClass="pgLogin">
-				<p:growl id="growl" showDetail="true" sticky="true" />  
-					<f:facet name="header">
-						<p:row>
-							<p:outputLabel>Login</p:outputLabel>
-						</p:row>
-					</f:facet>
-					
-						<p:inputText styleClass="entrada-texto" placeholder="Nome.Sobrenome"  value="#{loginMBean.nomeUser}" style="font-weight: bold;"  label="Nome.SobreNome"/>
-						
-						<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}" style="font-weight: bold;" label="senha" />
-						
-						<p:commandButton value="Entrar" styleClass="tm-botao" update="pg-login-user" action="#{loginMBean.login}" />
-					
-		
-				</p:panelGrid>
-				
-				
-				</h:form>
-				<BR />
-		
-				<h:panelGrid styleClass="pgForgotPass">
-				
-				<h:form id="frm2">
-				<p:growl id="growl" showDetail="true" sticky="true" />  
-					<p:commandButton value="Esqueceu senha" styleClass="esqueceuSenha" type="button" onclick="PF('dlg2').show();" />
-				
-		<!-- 		 modal para recuperar senha  -->
-				<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="250" width="400" >
-		    		<h:outputText value="Email?" />
-		    		<br/>
-		    		<p:inputText value="#{esqueceuSenhaMBean.email}"   placeholder="email" style="width:300px; font-weight: bold;" required="true" />
-		    		<br/>
-		    		<p:inputText value="#{esqueceuSenhaMBean.nomeCompleto}"   placeholder="Nome completo" style="width:300px; font-weight: bold;" required="true" />
-		    		<br/>
-		    		<p:inputMask value="#{esqueceuSenhaMBean.nascimento}"  styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" required="true" 
-						label="Nascimento" style="width:300px; font-weight: bold;" />
-					
-					<p:selectOneMenu id="console1"   value="#{esqueceuSenhaMBean.tipoAcesso}"  required="true" style="width: 290px;"  >
-								<f:selectItem itemLabel="Selecione " itemValue=""  noSelectionOption="true" />
-								<f:selectItem itemLabel="Admin" itemValue="admin" />
-								<f:selectItem itemLabel="Aluno" itemValue="aluno" />
-								<f:selectItem itemLabel="Professor" itemValue="professor" />
-								<f:selectItem itemLabel="Responsável" itemValue="responsavel" />
-					</p:selectOneMenu>
-		    		<br/>
-		    		
-		    		
-		    		<p:commandButton update="frm2" action="#{esqueceuSenhaMBean.enviarEmail}"   
-		    		styleClass="tm-botao" value="enviar"  onclick="start()" />
-		    		<p:progressBar widgetVar="pb" value="#{esqueceuSenhaMBean.progresso}" labelTemplate="{value}%"/>
-		    		
-				</p:dialog>   
-				 
-				
+		<div class="container-fluid">
+			<div class="row mt-1">
+				<div class="col-lx-12 col-lg-12 col-lm-12 col-ls-12 col-12 d-flex justify-content-center">
+
+
+
+					<h:form id="fr1">
+
+						<p:panelGrid columns="1" id="pg-login-user" styleClass="pgLogin">
+							<p:growl id="growl" showDetail="true" sticky="true" />
+							<f:facet name="header">
+								<p:row>
+									<p:outputLabel>Login</p:outputLabel>
+								</p:row>
+							</f:facet>
+
+							<p:inputText styleClass="entrada-texto" placeholder="Nome.Sobrenome"
+								value="#{loginMBean.nomeUser}" style="font-weight: bold;" label="Nome.SobreNome" />
+
+							<p:password styleClass="entrada-texto" placeholder="Senha" value="#{loginMBean.senha}"
+								style="font-weight: bold;" label="senha" />
+
+								<p:commandButton value="Entrar" styleClass="float-right" update="pg-login-user"
+								action="#{loginMBean.login}" />
+							
+						</p:panelGrid>
+
+
+					</h:form>
 					<BR />
-					<p:link id="criar-acesso" styleClass="links-gerais"
-						outcome="cadastro" value="Criar o seu acesso?" />
-					</h:form>	
-				</h:panelGrid>
-	</div>			
-<script type="text/javascript">
-    function start() {
-    this.progressInterval = setInterval(function(){
-        PF('pb').setValue(PF('pb').getValue() + 10);
-    }, 1000);
-}
-</script>			
-				
+				</div>
+			</div>
+		</div>
 
-	
-</ui:define>
+		<div class="container-fluid">
+			<div class="row mt-1">
+				<div class="col-lx-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex justify-content-center">
+
+					<h:panelGrid>
+
+						<h:form id="frm2">
+							<p:growl id="growl" showDetail="true" sticky="true" />
+							<p:commandButton value="Esqueceu senha" styleClass="esqueceuSenha" type="button"
+								onclick="PF('dlg2').show();" />
+
+							<!-- 		 modal para recuperar senha  -->
+							<p:dialog header="Use email cadastrado!!" widgetVar="dlg2" modal="true" height="250"
+								width="400">
+								<h:outputText value="Email?" />
+								<br />
+								<p:inputText value="#{esqueceuSenhaMBean.email}" placeholder="email"
+									style="width:300px; font-weight: bold;" required="true" />
+								<br />
+								<p:inputText value="#{esqueceuSenhaMBean.nomeCompleto}" placeholder="Nome completo"
+									style="width:300px; font-weight: bold;" required="true" />
+								<br />
+								<p:inputMask value="#{esqueceuSenhaMBean.nascimento}" styleClass="tm-input"
+									mask="99/99/9999" placeholder="Nascimento" required="true" label="Nascimento"
+									style="width:300px; font-weight: bold;" />
+
+								<p:selectOneMenu id="console1" value="#{esqueceuSenhaMBean.tipoAcesso}" required="true"
+									style="width: 290px;">
+									<f:selectItem itemLabel="Selecione " itemValue="" noSelectionOption="true" />
+									<f:selectItem itemLabel="Admin" itemValue="admin" />
+									<f:selectItem itemLabel="Aluno" itemValue="aluno" />
+									<f:selectItem itemLabel="Professor" itemValue="professor" />
+									<f:selectItem itemLabel="Responsável" itemValue="responsavel" />
+								</p:selectOneMenu>
+								<br />
+
+
+								<p:commandButton update="frm2" action="#{esqueceuSenhaMBean.enviarEmail}"
+									styleClass="tm-botao" value="enviar" onclick="start()" />
+								<p:progressBar widgetVar="pb" value="#{esqueceuSenhaMBean.progresso}"
+									labelTemplate="{value}%" />
+
+							</p:dialog>
+
+
+							<BR />
+							<p:link id="criar-acesso" styleClass="links-gerais" outcome="cadastro"
+								value="Criar o seu acesso?" />
+						</h:form>
+					</h:panelGrid>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function start() {
+				this.progressInterval = setInterval(function () {
+					PF('pb').setValue(PF('pb').getValue() + 10);
+				}, 1000);
+			}
+		</script>
+
+
+
+	</ui:define>
 
 
 </ui:composition>

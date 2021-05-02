@@ -2,7 +2,6 @@ package br.com.edson.Model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,11 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 
 @Entity
@@ -52,7 +49,7 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 	
-	@NotEmpty
+	@NotBlank
 	@Column(name = "nome_usuario", nullable = false)
 	public String getNomeUsuario() {
 		return nomeUsuario;
@@ -62,7 +59,7 @@ public class Usuario implements Serializable{
 		this.nomeUsuario = nomeUsuario;
 	}
 
-	@NotEmpty
+	@NotBlank
 	@Size(min = 8)
 	@Column(name = "senha", nullable = false)
 	public String getSenha() {

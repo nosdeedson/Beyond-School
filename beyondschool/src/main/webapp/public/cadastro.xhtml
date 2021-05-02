@@ -1,140 +1,155 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/template/layout.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/template/layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 
-<ui:define name="corpo">
-<div class="conteudo">
+	<ui:define name="corpo">
+		<div class="container-fluid">
+		<div class="row mt-1">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex justify-content-center">
 
 
-<h:form>
+			<h:form>
 
-			<p:growl id="growl" showDetail="true" sticky="true" />  
-		<h:panelGroup id="panel1" rendered="#{cadastroMBean.mostraPanel1}" 
-			styleClass="posicao-tela-s posicao-tela-sp  posicao-tela-m" >
-			
-			<p:outputLabel value="Escolha seu tipo de Acesso!!"/>
-			<br/>
-			<p:commandButton styleClass="tm-botao" value="Admin" update="@form"  action="#{cadastroMBean.showAdmin}"  />
-			<br/>
-<!-- 			aluno -->
-			<p:commandButton value="Aluno" styleClass="tm-botao" type="button" onclick="PF('dlg3').show();" />
-			
-			<p:dialog header="Informe os responsáveis!!" widgetVar="dlg3" modal="true" height="100">
-				<h:outputLabel value="Quantos?"/>
-				<br/>
-				<p:inputNumber value="#{cadastroMBean.qtdRep}" placeholder="Somente número" style="width:150px" maxlength="2"
-				title="Não aperte enter use o mouse para enviar" />
-				<br/>
-				<p:commandButton styleClass="tm-botao" value="Enviar" update="@form" action="#{cadastroMBean.showAluno}"  />
-			</p:dialog>
-			
-			<br/>
-<!-- 			professor -->
-			<p:commandButton styleClass="tm-botao" value="Professor" update="@form" action="#{cadastroMBean.showProfessor}"  />
-			<br/>			
-<!-- 				responsavel -->
-			<p:commandButton value="Responsável" styleClass="tm-botao" type="button" onclick="PF('dlg2').show();" />
-		
-			<p:dialog header="Informe os alunos!!" widgetVar="dlg2" modal="true" height="100" >
-    			<h:outputText value="Quantos?" />
-    			<br/>
-    			<p:inputNumber value="#{cadastroMBean.qtdAluno}" placeholder="Somente número" style="width:30px"/>
-    			<br/>
-    			
-    		<p:commandButton styleClass="tm-botao" value="enviar" update="@form" action="#{cadastroMBean.showResponsaveis}" />
-    
-		</p:dialog>  
-			
-		</h:panelGroup>
-		
-		<p:panelGrid columns="1" id="panel2" rendered="#{cadastroMBean.mostraPanel2}" 
-			styleClass="posicao-tela-s posicao-tela-sp posicao-tela-m">
-			
-			<f:facet name="header">
-				<p:row>
-					<p:column>
-						<h3>Cadastre-se</h3>
-					</p:column>
-				</p:row>
-			</f:facet>
-					
-				<p:inputText id="nomeCompleto" value="#{cadastroMBean.nomeCompleto}"  styleClass="tm-input"
-				required="true"  placeholder="Nome Completo" label="Nome" style="font-weight: bold;"  />
-								
-				<p:inputMask styleClass="tm-input"  mask="99/99/9999" placeholder="Nascimento" value="#{cadastroMBean.nascimento}" required="true" 
-				label="Nascimento" style="font-weight: bold;" />
-				
-				<p:inputText styleClass="tm-input"  placeholder="Código" value="#{cadastroMBean.codigoTurma}" required="true" label="Código" style="font-weight: bold;" />
-				
-			
-           		<p:inputText placeholder="Email" value="#{cadastroMBean.email}" style="font-weight: bold;"  />
-            	
-					
-				<p:password value="#{cadastroMBean.passWord}" styleClass="tm-input"  id="senha" placeholder="Senha"  required="true" feedback="true" style="font-weight: bold;" 
-				match="confirme" promptLabel="Digite a senha" weakLabel="Senha fraca" goodLabel="Senha boa" strongLabel="Senha forte" label="Senha" 
-				title="8 caracteres no mínimo" />
-				
-				
-				<p:password value="#{cadastroMBean.confirmeSenha}" styleClass="tm-input"  id="confirme" placeholder="Corfirmar senha" required="true" feedback="false" label="Campo necessário"
-				style="font-weight: bold;" title="8 caracteres no mínimo" />
-	
-				
-<!-- 				inputs para alunos quando responsável -->
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[0]}" 
-					value="#{cadastroMBean.tutelado[0]}" label="Aluno" style="font-weight: bold;" />
-					
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[1]}" 
-					value="#{cadastroMBean.tutelado[1]}" label="Aluno" style="font-weight: bold;" />
-	
-				
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[2]}" 
-					value="#{cadastroMBean.tutelado[2]}" label="Aluno" style="font-weight: bold;" />
-					
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[3]}" 
-					value="#{cadastroMBean.tutelado[3]}" label="Aluno" style="font-weight: bold;" />
-				
-				<p:inputText styleClass="tm-input"  placeholder="Aluno" required="true" rendered="#{cadastroMBean.mostraInputParaAlunos[4]}" 
-					value="#{cadastroMBean.tutelado[4]}" label="Aluno" style="font-weight: bold;" />
-				
-				
-<!-- 				inputs para o responsavel quando alunos -->
-				
-				<p:inputText styleClass="tm-input"  placeholder="Responsável" required="true" rendered="#{cadastroMBean.flagResponsavel[0]}" 
-				value="#{cadastroMBean.nomeResponsavel[0]}" label="Responsável" style="font-weight: bold;"  />
-					
-				<p:inputText styleClass="tm-input"  placeholder="Responsável" rendered="#{cadastroMBean.flagResponsavel[1]}" 
-				value="#{cadastroMBean.nomeResponsavel[1]}" label="Responsável" required="#{cadastroMBean.flagResponsavel[1]}" style="font-weight: bold;" />
-			
-				
-				<p:commandButton styleClass="tm-input"  value="Cadastrar" id="btn-cadastrar" update="@form" 
-					action="#{cadastroMBean.salvar}" onclick="start()" />
-				
-				<p:progressBar widgetVar="pb" value="#{cadastroMBean.progresso}" labelTemplate="{value}%"/>
-				
-		</p:panelGrid>
-		
-	</h:form>
-<br/>
-		
-		
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				<h:panelGroup id="panel1" rendered="#{cadastroMBean.mostraPanel1}">
 
-</div>
-<script type="text/javascript">
-	
-    function start() {
-    this.progressInterval = setInterval(function(){
-        PF('pb').setValue(PF('pb').getValue() + 10);
-    }, 1000);
-}
-</script>	
+					<p:outputLabel value="Escolha seu tipo de Acesso!!" />
+					<br />
+					<p:commandButton styleClass="mb-1" value="Admin" update="@form"
+						action="#{cadastroMBean.showAdmin}" />
+					<br />
+					<!-- 			aluno -->
+					<p:commandButton value="Aluno" styleClass="mb-1" type="button" onclick="PF('dlg3').show();" />
 
-</ui:define>
+					<p:dialog header="Informe os responsáveis!!" widgetVar="dlg3" modal="true" height="100">
+						<h:outputLabel value="Quantos?" />
+						<br />
+						<p:inputNumber value="#{cadastroMBean.qtdRep}" placeholder="Somente número" style="width:150px"
+							maxlength="2" title="Não aperte enter use o mouse para enviar" />
+						<br />
+						<p:commandButton styleClass="" value="Enviar" update="@form"
+							action="#{cadastroMBean.showAluno}" />
+					</p:dialog>
+
+					<br />
+					<!-- 			professor -->
+					<p:commandButton styleClass="mb-1" value="Professor" update="@form"
+						action="#{cadastroMBean.showProfessor}" />
+					<br />
+					<!-- 				responsavel -->
+					<p:commandButton value="Responsável" styleClass="" type="button"
+						onclick="PF('dlg2').show();" />
+
+					<p:dialog header="Informe os alunos!!" widgetVar="dlg2" modal="true" height="100">
+						<h:outputText value="Quantos?" />
+						<br />
+						<p:inputNumber value="#{cadastroMBean.qtdAluno}" placeholder="Somente número"
+							style="width:30px" />
+						<br />
+
+						<p:commandButton styleClass="" value="enviar" update="@form"
+							action="#{cadastroMBean.showResponsaveis}" />
+
+					</p:dialog>
+
+				</h:panelGroup>
+
+				<p:panelGrid columns="1" id="panel2" rendered="#{cadastroMBean.mostraPanel2}"
+					styleClass="posicao-tela-s posicao-tela-sp posicao-tela-m">
+
+					<f:facet name="header">
+						<p:row>
+							<p:column>
+								<h3>Cadastre-se</h3>
+							</p:column>
+						</p:row>
+					</f:facet>
+
+					<p:inputText id="nomeCompleto" value="#{cadastroMBean.nomeCompleto}" styleClass="tm-input"
+						required="true" placeholder="Nome Completo" label="Nome" style="font-weight: bold;" />
+
+					<p:inputMask styleClass="tm-input" mask="99/99/9999" placeholder="Nascimento"
+						value="#{cadastroMBean.nascimento}" required="true" label="Nascimento"
+						style="font-weight: bold;" />
+
+					<p:inputText styleClass="tm-input" placeholder="Código" value="#{cadastroMBean.codigoTurma}"
+						required="true" label="Código" style="font-weight: bold;" />
+
+
+					<p:inputText placeholder="Email" value="#{cadastroMBean.email}" style="font-weight: bold;" />
+
+
+					<p:password value="#{cadastroMBean.passWord}" styleClass="tm-input" id="senha" placeholder="Senha"
+						required="true" feedback="true" style="font-weight: bold;" match="confirme"
+						promptLabel="Digite a senha" weakLabel="Senha fraca" goodLabel="Senha boa"
+						strongLabel="Senha forte" label="Senha" title="8 caracteres no mínimo" />
+
+
+					<p:password value="#{cadastroMBean.confirmeSenha}" styleClass="tm-input" id="confirme"
+						placeholder="Corfirmar senha" required="true" feedback="false" label="Campo necessário"
+						style="font-weight: bold;" title="8 caracteres no mínimo" />
+
+
+					<!-- 				inputs para alunos quando responsável -->
+					<p:inputText styleClass="tm-input" placeholder="Aluno" required="true"
+						rendered="#{cadastroMBean.mostraInputParaAlunos[0]}" value="#{cadastroMBean.tutelado[0]}"
+						label="Aluno" style="font-weight: bold;" />
+
+					<p:inputText styleClass="tm-input" placeholder="Aluno" required="true"
+						rendered="#{cadastroMBean.mostraInputParaAlunos[1]}" value="#{cadastroMBean.tutelado[1]}"
+						label="Aluno" style="font-weight: bold;" />
+
+
+					<p:inputText styleClass="tm-input" placeholder="Aluno" required="true"
+						rendered="#{cadastroMBean.mostraInputParaAlunos[2]}" value="#{cadastroMBean.tutelado[2]}"
+						label="Aluno" style="font-weight: bold;" />
+
+					<p:inputText styleClass="tm-input" placeholder="Aluno" required="true"
+						rendered="#{cadastroMBean.mostraInputParaAlunos[3]}" value="#{cadastroMBean.tutelado[3]}"
+						label="Aluno" style="font-weight: bold;" />
+
+					<p:inputText styleClass="tm-input" placeholder="Aluno" required="true"
+						rendered="#{cadastroMBean.mostraInputParaAlunos[4]}" value="#{cadastroMBean.tutelado[4]}"
+						label="Aluno" style="font-weight: bold;" />
+
+
+					<!-- 				inputs para o responsavel quando alunos -->
+
+					<p:inputText styleClass="tm-input" placeholder="Responsável" required="true"
+						rendered="#{cadastroMBean.flagResponsavel[0]}" value="#{cadastroMBean.nomeResponsavel[0]}"
+						label="Responsável" style="font-weight: bold;" />
+
+					<p:inputText styleClass="tm-input" placeholder="Responsável"
+						rendered="#{cadastroMBean.flagResponsavel[1]}" value="#{cadastroMBean.nomeResponsavel[1]}"
+						label="Responsável" required="#{cadastroMBean.flagResponsavel[1]}" style="font-weight: bold;" />
+
+
+					<p:commandButton styleClass="tm-input" value="Cadastrar" id="btn-cadastrar" update="@form"
+						action="#{cadastroMBean.salvar}" onclick="start()" />
+
+					<p:progressBar widgetVar="pb" value="#{cadastroMBean.progresso}" labelTemplate="{value}%" />
+
+				</p:panelGrid>
+
+			</h:form>
+		</div>
+		</div>
+	</div>
+			<br />
+
+		<script type="text/javascript">
+
+			function start() {
+				this.progressInterval = setInterval(function () {
+					PF('pb').setValue(PF('pb').getValue() + 10);
+				}, 1000);
+			}
+		</script>
+
+	</ui:define>
 
 
 </ui:composition>
