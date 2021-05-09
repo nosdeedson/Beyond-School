@@ -13,88 +13,90 @@
 	<f:viewAction action="#{transferirAlunoTurmaMBean.buscarTurmas}"></f:viewAction>
 	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 </f:metadata>
-	<ui:define name="corpo2">
-<div class="altura">
-				<p:panelGrid columns="1" styleClass="telaTransfer">
-					<f:facet name="header">
-						<p:row>
-							<p:column>
-								<p:outputLabel value="Transferir alunos"></p:outputLabel>
-							</p:column>
-						</p:row>
-					</f:facet>
-					<h:form id="alunosForm">
-					<p:growl id="growl" showDetail="true" sticky="true" />  
-<!-- 						<p:messages styleClass="msgTelaTransfer"/> -->
-						<p:fieldset id="availableAlunosField" legend=" Transferir Alunos">
-						
-							<p:dataTable id="alunos" value="#{transferirAlunoTurmaMBean.alunos}" var="aluno">
+<ui:define name="corpo2">
+	<h:form id="alunosForm" styleClass="h-75">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<!-- 						<p:messages styleClass="msgTelaTransfer"/> -->
+		<p:fieldset id="availableAlunosField" legend=" Transferir Alunos" styleClass="mb-3 mx-3">
 
-								<p:column headerText="Segure e arraste o nome" width="10%">
-									<h:outputText value="#{aluno.nomeCompleto}" id="nome" />
-									<p:draggable for="nome" revert="true" helper="clone"/>
-								</p:column>
-<!-- 									informar aluno não casdatrado quando o nome for null -->
-								<p:column headerText="Turma atual" width="10%">
-									<h:outputText value="#{aluno.getTurma().getNomeTurma()}" rendered="#{aluno.getTurma().getNomeTurma() != null}" />
-									<h:outputText value="Aluno sem cadastro. Responsável cadastrado." rendered="#{aluno.getTurma().getNomeTurma() == null}" />
-								</p:column>
-								
-								
-								
-							</p:dataTable>
-						</p:fieldset>
+			<p:dataTable id="alunos"
+				value="#{transferirAlunoTurmaMBean.alunos}" var="aluno">
+
+				<p:column styleClass="text-center" headerText="Segure e arraste o nome" width="10%">
+					<h:outputText value="#{aluno.nomeCompleto}" id="nome" />
+					<p:draggable for="nome" revert="true" helper="clone" />
+				</p:column>
+				<!-- 									informar aluno não casdatrado quando o nome for null -->
+				<p:column styleClass="text-center" headerText="Turma atual" width="10%">
+					<h:outputText value="#{aluno.getTurma().getNomeTurma()}"
+						rendered="#{aluno.getTurma().getNomeTurma() != null}" />
+					<h:outputText value="Aluno sem cadastro. Responsável cadastrado."
+						rendered="#{aluno.getTurma().getNomeTurma() == null}" />
+				</p:column>
 
 
-						<p:fieldset id="selecionadosAlunos" legend="Transferir aluno" style="margin-top:20px">
-							<p:outputPanel id="dropArea">
-								<h:outputText value="!!!Arraste aqui!!!" rendered="#{empty transferirAlunoTurmaMBean.dropAlunos}"
-									style="font-size:24px;" />
-								
-								<p:dataTable id="selectedAlunosTable" var="aluno" value="#{transferirAlunoTurmaMBean.dropAlunos}" rendered="#{not empty transferirAlunoTurmaMBean.dropAlunos}">
-									
-									
-									<p:column headerText="Nome" width="15%" >
-										<h:outputText value="#{aluno.nomeCompleto}" />
-									</p:column>
-									
-									<p:column headerText="Turma atual" width="15%">
-										<h:outputText value="#{aluno.getTurma().getNomeTurma()}" />
-									</p:column>
-									
-									<p:column headerText="Turma destino" width="15%" >
-									
-									<p:selectOneMenu required="true" id="console" styleClass="menu" value="#{transferirAlunoTurmaMBean.codigoTurma}"  >
-										<f:selectItem itemLabel="Selecione" itemValue="Selecione" noSelectionOption="true" /> 
-										
-										<f:selectItems value="#{transferirAlunoTurmaMBean.turmas}" var="turma" itemLabel="#{turma.nomeTurma}" itemValue="#{turma.codigoTurma}" />
-											<p:ajax listener="#{transferirAlunoTurmaMBean.transferir(aluno)}" update="@form" />
-									</p:selectOneMenu>
-									
-									</p:column>
-									
-								</p:dataTable>
-								
-							</p:outputPanel>
-							
-						</p:fieldset>
-					<p:droppable for="selecionadosAlunos" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="alunos" onDrop="handleDrop">
-        				<p:ajax listener="#{transferirAlunoTurmaMBean.onAlunosDrop}" update="dropArea alunos" />
-    				</p:droppable>
 
-					</h:form>
-<script type="text/javascript">
-    function handleDrop(event, ui) {
-        var droppedCar = ui.draggable;
- 
-        droppedCar.fadeOut('fast');
-    }
-</script>
-				</p:panelGrid>
+			</p:dataTable>
+		</p:fieldset>
 
-</div>
 
-	</ui:define>
+		<p:fieldset id="selecionadosAlunos" legend="Transferir aluno" styleClass="mx-3" >
+			<p:outputPanel id="dropArea">
+				<h:outputText value="!!!Arraste aqui!!!"
+					rendered="#{empty transferirAlunoTurmaMBean.dropAlunos}"
+					style="font-size:24px;" />
+
+				<p:dataTable id="selectedAlunosTable" var="aluno"
+					value="#{transferirAlunoTurmaMBean.dropAlunos}"
+					rendered="#{not empty transferirAlunoTurmaMBean.dropAlunos}">
+
+
+					<p:column headerText="Nome" width="15%" styleClass="text-center">
+						<h:outputText value="#{aluno.nomeCompleto}" />
+					</p:column>
+
+					<p:column headerText="Turma atual" width="15%" styleClass="text-center">
+						<h:outputText value="#{aluno.getTurma().getNomeTurma()}" />
+					</p:column>
+
+					<p:column headerText="Turma destino" width="15%" styleClass="text-center">
+
+						<p:selectOneMenu required="true" id="console" styleClass="menu"
+							value="#{transferirAlunoTurmaMBean.codigoTurma}">
+							<f:selectItem itemLabel="Selecione" itemValue="Selecione"
+								noSelectionOption="true" />
+
+							<f:selectItems value="#{transferirAlunoTurmaMBean.turmas}"
+								var="turma" itemLabel="#{turma.nomeTurma}"
+								itemValue="#{turma.codigoTurma}" />
+							<p:ajax
+								listener="#{transferirAlunoTurmaMBean.transferir(aluno)}"
+								update="@form" />
+						</p:selectOneMenu>
+
+					</p:column>
+
+				</p:dataTable>
+
+			</p:outputPanel>
+
+		</p:fieldset>
+		<p:droppable for="selecionadosAlunos" tolerance="touch"
+			activeStyleClass="ui-state-highlight" datasource="alunos"
+			onDrop="handleDrop">
+			<p:ajax listener="#{transferirAlunoTurmaMBean.onAlunosDrop}"
+				update="dropArea alunos" />
+		</p:droppable>
+
+	</h:form>
+	<script type="text/javascript">
+		function handleDrop(event, ui) {
+			var droppedCar = ui.draggable;
+
+			droppedCar.fadeOut('fast');
+		}
+	</script>
+</ui:define>
 
 
 </ui:composition>

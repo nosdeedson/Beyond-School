@@ -17,13 +17,13 @@
 
 <ui:define name="corpo2">
 
+<div class="container-fluid h-100">
 <h:form>
 	<p:growl id="growl" showDetail="true" sticky="true" />
 	<!-- <p:messages style="width:400px;"/> -->
-	<div class="container-fluid">
 	<div class="row">
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex justify-content-center mb-3">
-	<p:panelGrid columns="2" >
+	<div class="col-xl-6 col-lg-6 d-flex justify-content-center mb-3">
+		<p:panelGrid columns="2" >
 					<f:facet name="header">
 						<p:row>
 							<p:column>
@@ -109,11 +109,10 @@
 						<!-- 				</p:confirmDialog> -->
 					</p:column>
 
-	</p:panelGrid>
-		</div>
+		</p:panelGrid>
+	</div>
 	<!-- <p:outputLabel value="Alunos" id="titulo-alunos-editar-turma-prof"/> -->
-	
-	<div class="col-xl-6 col-lg-6 col-md-6 d-flex justify-content-center mb-3">
+	<div class="col-xl-6 col-lg-6 d-flex justify-content-center">
 	<p:dataTable value="#{editarTurmaAdminMBean.alunos}" var="aluno" border="1" 
 	cellspacing="0" cellpading="2" paginator="true" rows="8" paginatorPosition="bottom" 
 	emptyMessage="Lista vazia!!" styleClass="table table-responsive-sm" rowHover="true" style="max-width: 100%;">
@@ -145,9 +144,9 @@
 
 	</p:dataTable>
 	</div>
-</div>
-</div>
+	</div>
 </h:form>
+</div>
 
 </ui:define>
 

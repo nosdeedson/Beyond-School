@@ -18,11 +18,13 @@
 
 <ui:define name="titulo">Avaliar</ui:define>
 <ui:define name="corpo2">
-<div class="altura">
-	<h:form >
+
+	<div class="container-fluid h-100">
+		<div class="row d-flex justify-content-center">
+			<h:form >
 		<p:growl id="growl" showDetail="true" sticky="true" />  
-<!-- 		<p:messages/> -->
-	<p:panelGrid columns="2" styleClass="posicao-tela-s telaAvaliacao">
+		<!-- <p:messages/> -->
+	<p:panelGrid columns="2" styleClass="text-center">
 
 	<f:facet name="header">
 				<p:row>
@@ -49,7 +51,8 @@
 	
 	
 	<p:outputLabel value="Vocabulary" />
-	<p:selectOneMenu styleClass="seletor-conceito" id="console" value="#{telaAvaliacaoAlunoMBean.avaliacao.vocabulario}" required="true" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" >
+	<p:selectOneMenu styleClass="seletor-conceito" id="console" value="#{telaAvaliacaoAlunoMBean.avaliacao.vocabulario}" required="true"
+	 >
 		<f:selectItem itemLabel="Selecione" itemValue="Conceito" noSelectionOption="true" />
 		<f:selectItems value="#{telaAvaliacaoAlunoMBean.getConceitos()}" var="conceito" itemValue="#{conceito}"
 		 itemLabel="#{conceito.descricao}" />
@@ -97,7 +100,7 @@
 			itemLabel="#{conceito.descricao}" />
 	</p:selectOneMenu>
 	
-	<p:inputTextarea styleClass="inputCommentAva" value="#{telaAvaliacaoAlunoMBean.comentario}" required="true" placeholder="Deixe seu comentário sobre o aluno" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" />
+	<p:inputTextarea value="#{telaAvaliacaoAlunoMBean.comentario}" required="true" placeholder="Deixe seu comentário sobre o aluno" disabled="#{telaAvaliacaoAlunoMBean.flagBuscar}" />
 	 
 	 
 	<p:column>
@@ -118,14 +121,10 @@
 	
 	</p:panelGrid>
 	
-	</h:form>
-	<br/>
-		<p:outputLabel styleClass="perguntas" >Por favor <a href="https://forms.gle/sAG73xbYXSvpw4mSA" target="_blank">Clique aqui</a> e responda leva 2 minutos. </p:outputLabel>
+			</h:form>
+		</div>
 	</div>
-	
-	
-	
-	</ui:define>
 
+	</ui:define>
 
 </ui:composition>

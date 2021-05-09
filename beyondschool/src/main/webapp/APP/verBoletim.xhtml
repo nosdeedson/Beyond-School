@@ -15,11 +15,13 @@
 </f:metadata>
 
 <ui:define name="titulo">Boletim</ui:define>
-	<ui:define name="corpo2">
-<div class="conteudo">
-<h:form>
-<p:growl id="growl" showDetail="true" sticky="true" />
-		<p:panelGrid columns="1" id="pg-ver-boletim" styleClass="boletim" rendered="#{verBoletimMBean.flagTemAvaliacao}" >
+
+<ui:define name="corpo2">
+
+	<div class="row justify-content-center">
+	<h:form>
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:panelGrid columns="1" id="pg-ver-boletim" rendered="#{verBoletimMBean.flagTemAvaliacao}" >
 
 			<f:facet name="header">
 				<p:row>
@@ -85,8 +87,7 @@
 			
 			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" />
 		<BR/>
-		
-		
+	
 		<p:linkButton styleClass="btn-danger " value="Voltar" outcome="editarTurmaAdmin" 
 			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'admin'}" >
 			<f:param name="id" value="#{verBoletimMBean.turma.codigoTurma}"></f:param>
@@ -94,11 +95,9 @@
 		
 		</p:panelGrid >
 		
-		
 		<p:panelGrid columns="1" styleClass="semBoletim" rendered="#{verBoletimMBean.flagTemAvaliacao eq false}" >
 		
 			<h:outputLabel value="#{verBoletimMBean.aluno.nomeCompleto} não tem avaliação neste bimestre." styleClass="outPutSemAvaliacao" 	/>
-			
 			
 			<p:linkButton styleClass="btn btn-danger " value="Voltar" outcome="editarTurmaProfessor" 
 			rendered="#{verBoletimMBean.user.getTipoAcesso() eq 'professor'}"  >
@@ -112,7 +111,7 @@
 		</p:panelGrid>
 		</h:form>
 	</div>
-	</ui:define>
+</ui:define>
 
 
 </ui:composition>

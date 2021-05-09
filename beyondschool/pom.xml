@@ -76,10 +76,10 @@
 		</dependency>
 		<!-- PrimeFaces -->
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
-		</dependency>
+		    <groupId>org.primefaces</groupId>
+		    <artifactId>primefaces</artifactId>
+		    <version>7.0</version>
+		</dependency>		
 		<!-- Weld -->
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
