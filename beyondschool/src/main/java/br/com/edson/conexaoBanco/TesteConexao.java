@@ -11,7 +11,7 @@ public class TesteConexao {
 	public static void main(String[] args) {
 		EntityManagerFactory emf = null;
 		EntityManager em = null;
-		// senha surfando user nosde
+	
 		try {
 			Persistence.createEntityManagerFactory("beyondschoolPU");
 			 emf = Persistence.createEntityManagerFactory("beyondschoolPU");
