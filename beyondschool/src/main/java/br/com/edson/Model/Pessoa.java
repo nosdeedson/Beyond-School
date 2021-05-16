@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -13,7 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -31,8 +31,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "inc")
-	@GenericGenerator( name = "inc", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "id_pessoa")
 	public Long getIdPessoa() {
 		return idPessoa;

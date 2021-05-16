@@ -131,8 +131,6 @@ public class CadastroMBean implements Serializable {
 	private String qtdAluno;
 	
 	private int progresso = 0;
-		
-	
 	
 	// métodos
 	
@@ -144,6 +142,7 @@ public class CadastroMBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = em.getTransaction();	
 		int cont = 0;
+		progresso = 0;
 		try {
 			
 			if(nomeCompleto.endsWith(" ")) {
@@ -176,7 +175,6 @@ public class CadastroMBean implements Serializable {
 			if( !email.isEmpty()  )
 				if(ValidarEmail.isValidEmail( email))
 					user.setEmail(email);
-			
 			
 			switch (tipoAcesso) {
 			case "Admin":{
@@ -244,7 +242,7 @@ public class CadastroMBean implements Serializable {
 				Integer mat = alunosBD.buscaMatricula();
 				
 				if( mat == null)
-					mat = new Integer(100);
+					mat = 100;
 				else
 					mat++;
 			
@@ -383,28 +381,38 @@ public class CadastroMBean implements Serializable {
 			return "/public/login?faces-redirect=true";
 			//refreshPage(context);
 		} catch ( PersistenceException | ParseException | NullPointerException | NegocioException | FacesException | InjectionException e) {
-			et.rollback();
-			e.printStackTrace();
+			
+			if ( et.isActive() ) {				
+				et.rollback();
+				e.printStackTrace();
+			}
 			FacesMessage msg = new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			return "/public/cadastro?faces-redirect=true";
+			if ( et.isActive()) {
+				return "/public/cadastro?faces-redirect=true";
+			}else {
+				progresso = 100;
+				return "";
+			}
 			//refreshPage(context);
 		} finally {
-			setCodigoTurma("");
-			setNascimento("");
-			setConfirmeSenha("");
-			setCodigoTurma("");
-			setConfirmeSenha("");
-			setTipoAcesso("");
-			setNomeCompleto("");
-			String[] semNome = { "","","","","" };
-			setTutelado(semNome);
-			String[] respVazio = {" ", " "};
-			setNomeResponsavel(respVazio);
-			setEmail("");
-			progresso = 100;
+			if ( et.isActive()) {
+				setCodigoTurma("");
+				setNascimento("");
+				setConfirmeSenha("");
+				setCodigoTurma("");
+				setConfirmeSenha("");
+				setTipoAcesso("");
+				setNomeCompleto("");
+				String[] semNome = { "","","","","" };
+				setTutelado(semNome);
+				String[] respVazio = {" ", " "};
+				setNomeResponsavel(respVazio);
+				setEmail("");
+				progresso = 100;
+			}
 		}
 		
 	}
@@ -681,11 +689,5 @@ public class CadastroMBean implements Serializable {
 	public void setProgresso(int progresso) {
 		this.progresso = progresso;
 	}
-	
-	
-
-
-	
-	
-	
+		
 }
