@@ -1,16 +1,14 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-import javax.swing.JOptionPane;
 
-import br.com.edson.Model.Funcionario;
 import br.com.edson.Model.Turma;
 import br.com.edson.service.NegocioException;
 
@@ -81,8 +79,12 @@ public class TurmasBD implements Serializable {
 	}
 	
 	public List<Turma> todasTurmas(){
-		TypedQuery<Turma> turmas = this.em.createQuery("from Turma", Turma.class);
-		return turmas.getResultList();
+		try {			
+			TypedQuery<Turma> turmas = this.em.createQuery("from Turma", Turma.class);
+			return turmas.getResultList();
+		} catch (PersistenceException e) {
+			return new ArrayList<Turma>();
+		}
 	}
 	
 	/**

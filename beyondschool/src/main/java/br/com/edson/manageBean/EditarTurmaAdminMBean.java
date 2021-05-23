@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Bimestre;
@@ -78,18 +77,20 @@ public class EditarTurmaAdminMBean implements Serializable {
 		alunos = alunosBD.buscaAlunosTurma(turma.getCodigoTurma());
 	}
 	
-	public void atualizaBimestre() throws NegocioException {
+	public String atualizaBimestre() throws NegocioException {
 		FacesContext context = FacesContext.getCurrentInstance();
 		EntityTransaction et = this.em.getTransaction();
 		try {
 			et.begin();
 			atualizaBimeste.atualizaBimestre();
 			et.commit();
+			return "";
 		} catch (PersistenceException | NegocioException e) {
 			et.rollback();
 			FacesMessage msg= new FacesMessage(e.getMessage());
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			context.addMessage(null, msg);
+			return "/APP/criarSemestre?faces-redirect=true";
 		}
 		
 	}

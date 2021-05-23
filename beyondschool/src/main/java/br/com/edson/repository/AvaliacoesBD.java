@@ -1,20 +1,14 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-import javax.swing.JOptionPane;
 
-import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
-import br.com.edson.Model.Bimestre;
 import br.com.edson.service.NegocioException;
 
 public class AvaliacoesBD implements Serializable {
@@ -48,7 +42,8 @@ public class AvaliacoesBD implements Serializable {
 		String sql = "select a from Avaliacao a where a.aluno.idPessoa= :idPessoa"
 				+ " and a.bimestre.idBimestre= :idBimestre";
 		try {
-			ava = this.em.createQuery(sql, Avaliacao.class).setParameter("idPessoa", idAluno).setParameter("idBimestre", idBimestre).getSingleResult();
+			ava = this.em.createQuery(sql, Avaliacao.class).setParameter("idPessoa", idAluno)
+					.setParameter("idBimestre", idBimestre).getSingleResult();
 			return ava;
 		} catch (Exception e) {
 			e.printStackTrace();

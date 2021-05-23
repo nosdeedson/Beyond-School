@@ -1,6 +1,9 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -39,12 +42,21 @@ public class BimestresBD implements Serializable {
 	
 	public Bimestre nextBimestre(Date date) {
 		
-		String sql = "select b from Bimestre b where b.dataInicio > :data order by b.dataInicio asc";
+		LocalDateTime fimAno = Instant.ofEpochMilli(date.getTime())
+				.atZone(ZoneId.systemDefault())
+				.toLocalDateTime().plusMonths(4L);
+		
+		Date fimSemestre = java.sql.Timestamp.valueOf(fimAno);
+		
+		String sql = "select b from Bimestre b where b.dataInicio between :data and :fimSemestre";
 		Bimestre b = null;
 		
 		try {
-			b = this.em.createQuery(sql, Bimestre.class).setParameter("data", date)
-					.setMaxResults(1).getSingleResult();
+			b = this.em.createQuery(sql, Bimestre.class)
+					.setParameter("data", date)
+					.setParameter("fimSemestre", fimSemestre)
+					.setMaxResults(1)
+					.getSingleResult();
 			return b;
 		}catch (PersistenceException e) {
 			e.printStackTrace();

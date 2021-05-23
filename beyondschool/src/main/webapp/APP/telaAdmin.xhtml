@@ -11,41 +11,38 @@
 	<f:viewAction action="#{layout2MBean.mostraVoltar()}"></f:viewAction>
 </f:metadata>
 	<ui:define name="corpo2">
-
-		<div class="container-fluid h-75">
+				
+		<div class="container-fluid h-75 mt-5 ">
 		<h:form>
 		<p:growl id="growl" showDetail="true" sticky="true" />  
-		
-		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-3 mb-1 d-flex justify-content-center">
-			<p:linkButton outcome="criarSemestre" value="Criar Semestre" />
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-3 mb-1 d-flex justify-content-center">
-			<p:linkButton outcome="cadastrarTurma" value="Cadastrar turma" />
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-3 mb-1 d-flex justify-content-center">
-			<p:linkButton outcome="transferirAlunosTurma" value="Transferir alunos" />
-			</div>
-			<div class="col-lg-3 col-md-3 col-sm-3 mb-1 d-flex justify-content-center">
-			<p:linkButton outcome="listaTurmas" value="Ver turmas" />
-			</div>
-		</div>
+	
+		<p:menubar >
+			<p:menuitem styleClass="px-5" outcome="criarSemestre"
+				value="Criar Semestre" icon="ui-icon-clock" />
+			<p:menuitem />
+			<p:menuitem styleClass="px-5" outcome="cadastrarTurma"
+				value="Cadastrar turma" icon="ui-icon-plus" />
+			<p:menuitem styleClass="px-5" outcome="transferirAlunosTurma"
+				value="Transferir alunos" icon=" ui-icon-transferthick-e-w" />
+			<p:menuitem styleClass="px-5" outcome="listaTurmas"
+				icon="ui-icon-grip-solid-horizontal" value="Listar turma" />
+		</p:menubar>
 
 <!-- 								refazer css -->
-		<p:dataTable value="#{telaAdminMBean.turmas}" var="turma" border="1" cellspacing="0"
+		<p:dataTable value="#{telaAdminMBean.turmas}" var="t" border="1" cellspacing="0"
 			cellpading="2" paginator="true" rows="5" paginatorPosition="bottom" 
 			emptyMessage="Lista vazia!!" styleClass="table table-responsive-sm"  >
 			
 			<p:column headerText="Turma" width="15%" styleClass="text-center" >
-				<p:outputLabel value="#{turma.nomeTurma}"></p:outputLabel>
+				<p:outputLabel value="#{t.nomeTurma}"></p:outputLabel>
 			</p:column>
 			<p:column headerText="Ações" width="20%" styleClass="text-center"  >
-				<p:button  value="Ver" outcome="editarTurmaAdmin">
-					<f:param name="id" value="#{turma.codigoTurma}"/>
+				<p:button  value="Ver"  outcome="editarTurmaAdmin">
+					<f:param name="id" value="#{t.codigoTurma}"/>
 				</p:button>
 			
 			<p:button value="Pais/alunos" outcome="paisAlunos" styleClass="text-center" style="font-size: 15px" >
-				<f:param name="id" value="#{turma.codigoTurma}" />
+				<f:param name="id" value="#{t.codigoTurma}" />
 			</p:button>
 			</p:column>
 		</p:dataTable>

@@ -1,12 +1,10 @@
 package br.com.edson.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
-import javax.swing.JOptionPane;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
@@ -39,19 +37,8 @@ public class RegistrarAvaliacao implements Serializable {
 		
 		bimestre = bimestresBD.buscarBimestreAtual();
 		List<Aluno> alunos = alunosBD.buscaAlunosTurma(codigoTurma);
-		List<Aluno> retornar = new ArrayList<Aluno>();
-		Avaliacao ava = new Avaliacao();
-		
-		for (int i = 0; i < alunos.size(); i++) {
-			ava = avaliacoesBD.buscarAvaliacoesSemestreCorrente(bimestre.getIdBimestre(), alunos.get(i).getIdPessoa());
-			if( ava == null) {
-				retornar.add(alunos.get(i));
-			}
-		}
-		
-		if(retornar.size() == 0)
-			return retornar = new ArrayList<Aluno>();
-		return retornar;
+		return alunos;
+
 	}
 	
 	public void salvarAvaliacao(Avaliacao avaliacao) throws NegocioException {

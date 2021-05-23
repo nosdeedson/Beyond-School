@@ -12,7 +12,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
-import javax.swing.JOptionPane;
 
 import br.com.edson.repository.UsuariosBD;
 import br.com.edson.service.NegocioException;

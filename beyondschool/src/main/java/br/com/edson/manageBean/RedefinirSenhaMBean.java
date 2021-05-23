@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
@@ -46,15 +47,24 @@ public class RedefinirSenhaMBean implements Serializable {
 		
 		if(!confirmeSenha.equals(user.getSenha()))
 			throw new NegocioException("Os valores não conferem.");
-		
+
 		user.setSenha(GeradorHashSenha.geradorHashPassWord(user.getSenha()));
+		
+		String achouSenha =	usersBD.existeSenha(user.getSenha());
+		
+		if ( achouSenha != ""){
+			FacesMessage msg = new FacesMessage("Senha já existe, escolha outra.");
+			msg.setSeverity(FacesMessage.SEVERITY_WARN);
+			context.addMessage(null, msg);
+			return;
+		}
 		
 		try {
 			et.begin();
 				usersBD.salvarUser(user);
 			et.commit();
 			context.addMessage(null, new FacesMessage("Senha alterada com sucesso!!"));
-		} catch (Exception e) {
+		} catch (Exception e ) {
 			et.rollback();
 			e.printStackTrace();
 			FacesMessage msg = new FacesMessage(e.getMessage());

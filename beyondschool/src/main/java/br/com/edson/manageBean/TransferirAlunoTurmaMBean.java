@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.primefaces.event.DragDropEvent;
 
@@ -60,17 +59,25 @@ public class TransferirAlunoTurmaMBean implements Serializable {
 
 	public void buscarAlunos() {
 		user = (Usuario) session.getAttribute("usuario");
-		if( aluno.getNomeCompleto() == null) {
-			alunos = alunosBD.buscaAlunos();
-		}
-		else {
-			alunos.add(aluno);
+		try {
+			if( aluno.getNomeCompleto() == null) {
+				alunos = alunosBD.buscaAlunos();
+			}
+			else {
+				alunos.add(aluno);
+			}
+		} catch (PersistenceException e) {
+			alunos = new ArrayList<Aluno>();
 		}
 	}
 	
 	
 	public void buscarTurmas() {
-		turmas = turmasBD.todasTurmas();
+		try {
+			turmas = turmasBD.todasTurmas();
+		}catch (PersistenceException e) {
+			turmas = new ArrayList<Turma>();
+		}
 	}
 	
 	public void onAlunosDrop( DragDropEvent ddEvento) {

@@ -7,11 +7,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-import javax.swing.JOptionPane;
 
-import br.com.edson.Model.Pessoa;
 import br.com.edson.Model.Usuario;
 import br.com.edson.service.NegocioException;
 
@@ -92,6 +91,16 @@ public class UsuariosBD implements Serializable {
 	
 	}
 	
+	public String existeSenha( String senha) throws NegocioException {
+		String sql = "select u.senha FROM Usuario u WHERE u.senha= :senha";
+		try {			
+			return this.em.createQuery(sql, String.class)
+					.setParameter("senha", senha).getSingleResult();
+		}catch (NoResultException e) {
+			return "";
+		}
+		
+	}
 	public Usuario porID( Long idPessoa) {
 		return this.em.find(Usuario.class, idPessoa);
 	}

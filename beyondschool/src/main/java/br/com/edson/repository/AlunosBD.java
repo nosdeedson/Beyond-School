@@ -1,18 +1,22 @@
 package br.com.edson.repository;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-import javax.swing.JOptionPane;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import br.com.edson.Model.Aluno;
 import br.com.edson.Model.Avaliacao;
-import br.com.edson.Model.Usuario;
 import br.com.edson.service.NegocioException;
 
 public class AlunosBD implements Serializable {
@@ -39,17 +43,18 @@ public class AlunosBD implements Serializable {
 	 */
 	public List<Aluno> buscaAlunosTurma(String codigoTurma){
 		
-		try { 
-								  
-			String sql = " select distinct a from Aluno a, Turma t where a.turma.codigoTurma= :codigoTurma "
-					+ " and a.deletado = false order by a.idPessoa";  	
+		try { 					  
 			
+			String sql = " SELECT a FROM Aluno a WHERE a.turma.codigoTurma= :codigoTurma and  a NOT IN "
+					+ " (SELECT ava.aluno FROM Avaliacao ava JOIN ava.aluno a1 "
+					+ " where a1.turma.codigoTurma= :codigoTurma )";
 			TypedQuery<Aluno> alunos = this.em.createQuery(sql, Aluno.class)
 					.setParameter("codigoTurma", codigoTurma);
+			
 			return alunos.getResultList();
+			
 		} catch (PersistenceException | IllegalArgumentException e) {
-			e.printStackTrace();
-			return null;
+			return new ArrayList<Aluno>();
 		}		
 	}
 		
@@ -63,7 +68,7 @@ public class AlunosBD implements Serializable {
 			TypedQuery<Aluno> alunos = this.em.createQuery("from Aluno a where a.deletado= 0 order by a.nomeCompleto", Aluno.class);
 			return alunos.getResultList();
 		} catch (PersistenceException e) {
-			return null;
+			return new ArrayList<Aluno>();
 		}
 
 	}
@@ -108,7 +113,7 @@ public class AlunosBD implements Serializable {
 	public Integer buscaMatricula() {
 		
 		String sql = " select max(a.matricula) from Aluno a";
-		Integer mat = new Integer(1);
+		Integer mat = 1;
 		
 		try {
 			mat = this.em.createQuery(sql, Integer.class).getSingleResult();

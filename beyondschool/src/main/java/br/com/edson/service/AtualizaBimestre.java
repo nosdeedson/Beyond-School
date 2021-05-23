@@ -40,7 +40,7 @@ public class AtualizaBimestre implements Serializable {
 	    	next = bimestresBD.nextBimestre(bimestre.getDataInicio());
 		    
 		    if( bimestre == null || next == null)
-		    	throw new NegocioException("\n Você não criou o semestre corrente.");
+		    	throw new NegocioException("\n Você não criou o semestre corrente. Atualize para visualizar a turma.");
 		    
 		    if( date.after(bimestre.getDataFim())){
 		    	bimestre.setAtual(false);

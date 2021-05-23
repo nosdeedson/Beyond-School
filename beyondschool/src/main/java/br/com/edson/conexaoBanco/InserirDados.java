@@ -2,10 +2,7 @@ package br.com.edson.conexaoBanco;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -49,9 +46,9 @@ public class InserirDados {
 		Usuario uteacher = new Usuario();
 		uteacher.setNomeUsuario("maria.silva");
 		uteacher.setPessoa(professor);
-		uteacher.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
+		uteacher.setSenha(GeradorHashSenha.geradorHashPassWord("111111111"));
 		uteacher.setTipoAcesso("professor");
-		uteacher.setEmail("mariasilva@email.com");
+		uteacher.setEmail("josemariazumira@gmail.com");
 		
 		
 		Aluno aluno = new Aluno();
@@ -63,9 +60,9 @@ public class InserirDados {
 		Usuario ualuno = new Usuario();
 		ualuno.setNomeUsuario("edson.souza");
 		ualuno.setPessoa(aluno);
-		ualuno.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
+		ualuno.setSenha(GeradorHashSenha.geradorHashPassWord("111111112"));
 		ualuno.setTipoAcesso("aluno");
-		ualuno.setEmail("edsonsouza@email.com");
+		ualuno.setEmail("josemariazumira@gmail.com");
 		
 		em.persist(professor);
 		em.persist(uteacher);
@@ -87,9 +84,9 @@ public class InserirDados {
 		Usuario uadmin = new Usuario();
 		uadmin.setNomeUsuario("jose.souza");
 		uadmin.setPessoa(f);
-		uadmin.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
+		uadmin.setSenha(GeradorHashSenha.geradorHashPassWord("111111113"));
 		uadmin.setTipoAcesso("admin");
-		uadmin.setEmail("josesouza@email.com");
+		uadmin.setEmail("josemariazumira@gmail.com");
 		
 		em.persist(f);
 		em.persist(uadmin);
@@ -102,9 +99,9 @@ public class InserirDados {
 		Usuario uresp = new Usuario();
 		uresp.setNomeUsuario("joao.silva");
 		uresp.setPessoa(r);
-		uresp.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
+		uresp.setSenha(GeradorHashSenha.geradorHashPassWord("111111114"));
 		uresp.setTipoAcesso("responsavel");
-		uresp.setEmail("joaosilva@email.com");
+		uresp.setEmail("josemariazumira@gmail.com");
 		
 		em.persist(uresp);
 	
@@ -116,13 +113,13 @@ public class InserirDados {
 		em.persist(ar);
 		
 		Bimestre b = new Bimestre();
-		b.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("15/04/2020"));
-		b.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2020"));
+		b.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2021"));
+		b.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("15/04/2021"));
 		b.setAtual(false);
 		
 		Bimestre b2 = new Bimestre();
-		b2.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("15/07/2020"));
-		b2.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("16/04/2020"));
+		b2.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse("16/04/2021"));
+		b2.setDataFim( new SimpleDateFormat("dd/MM/yyyy").parse("15/07/2021"));
 		b2.setAtual(true);		
 		
 		
@@ -170,10 +167,10 @@ public class InserirDados {
 		Usuario ualuno1 = new Usuario();
 		ualuno1.setNomeUsuario("joao.souza");
 		ualuno1.setPessoa(aluno1);
-		ualuno1.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
+		ualuno1.setSenha(GeradorHashSenha.geradorHashPassWord("111111115"));
 		ualuno1.setTipoAcesso("aluno");
 		em.persist(ualuno1);
-		ualuno1.setEmail("joaosouza@email.com");
+		ualuno1.setEmail("josemariazumira@gmail.com");
 		
 		Responsavel r1 = new Responsavel();
 		r1.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("18/09/1982"));
@@ -183,9 +180,9 @@ public class InserirDados {
 		Usuario uresp1 = new Usuario();
 		uresp1.setNomeUsuario("silvana.souza");
 		uresp1.setPessoa(r1);
-		uresp1.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
+		uresp1.setSenha(GeradorHashSenha.geradorHashPassWord("111111116"));
 		uresp1.setTipoAcesso("responsavel");
-		uresp1.setEmail("silvana.souza@email.com");
+		uresp1.setEmail("josemariazumira@gmail.com");
 		
 		AlunoResponsavel ar1 = new AlunoResponsavel();
 		ar1.setAluno(aluno1);
@@ -206,10 +203,10 @@ public class InserirDados {
 		Usuario ualuno2 = new Usuario();
 		ualuno2.setNomeUsuario("isabela.souza");
 		ualuno2.setPessoa(aluno2);
-		ualuno2.setSenha(GeradorHashSenha.geradorHashPassWord("123123123"));
+		ualuno2.setSenha(GeradorHashSenha.geradorHashPassWord("111111117"));
 		ualuno2.setTipoAcesso("aluno");
 		em.persist(ualuno2);
-		ualuno2.setEmail("isabelasouza@email.com");
+		ualuno2.setEmail("josemariazumira@gmail.com");
 		
 		AlunoResponsavel ar2 = new AlunoResponsavel();
 		ar2.setAluno(aluno2);
